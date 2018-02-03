@@ -34,7 +34,7 @@ namespace OSQPWrapper
 
         std::vector<c_int> m_innerIndex; /**< Row indices, size nzmax starting from 0. */
         std::vector<c_int> m_outerIndex; /**< Column pointers (size n+1). */
-        std::vector<c_float> m_values; /** Numerical values (size m_innerIndex.size()) */
+        std::vector<c_float> m_values; /**< Numerical values (size m_innerIndex.size()) */
 
         /**
          * Get the sparse matrix using the triplet form ( i.e. a small structure to hold
