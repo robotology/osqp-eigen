@@ -1,0 +1,25 @@
+var classOsqpEigen_1_1Solver =
+[
+    [ "Solver", "classOsqpEigen_1_1Solver.html#a4de5403060c8798d0e138aaff0158cf9", null ],
+    [ "clearSolver", "classOsqpEigen_1_1Solver.html#a34214395818d23bc1552fc9bbcf0f47b", null ],
+    [ "clearSolverVariables", "classOsqpEigen_1_1Solver.html#a11605685ef645c991b1f7935d1b854f4", null ],
+    [ "data", "classOsqpEigen_1_1Solver.html#a2d93b3aae416bc29abe5fb1db16333e0", null ],
+    [ "getDualSolution", "classOsqpEigen_1_1Solver.html#aff2573e76734e3bddb7c66ca56b59e9f", null ],
+    [ "getDualVariable", "classOsqpEigen_1_1Solver.html#a0a7310947551c696e433819a9a11e503", null ],
+    [ "getPrimalVariable", "classOsqpEigen_1_1Solver.html#a46445009598183b2887f81b4e9bb861f", null ],
+    [ "getSolution", "classOsqpEigen_1_1Solver.html#a192a5f94034d4e467c6b557c2e06dd66", null ],
+    [ "initSolver", "classOsqpEigen_1_1Solver.html#a8487090a685d7653ea4011971c2f21f7", null ],
+    [ "isInitialized", "classOsqpEigen_1_1Solver.html#a05c8a18a9d9ed9a74fc0dc26af711348", null ],
+    [ "setDualVariable", "classOsqpEigen_1_1Solver.html#a18059c9138e3ce633ea71ea7a7b3d1e2", null ],
+    [ "setPrimalVariable", "classOsqpEigen_1_1Solver.html#a6665f91ac8c073b753cba4af1aad606e", null ],
+    [ "settings", "classOsqpEigen_1_1Solver.html#ad355be214417b0ccb1ec54913fe378c4", null ],
+    [ "setWarmStart", "classOsqpEigen_1_1Solver.html#a13f8e53aae03e483fa46066c7b93e066", null ],
+    [ "solve", "classOsqpEigen_1_1Solver.html#aade83b0e68b85d47d41a054f04d413aa", null ],
+    [ "updateBounds", "classOsqpEigen_1_1Solver.html#a3b1b976e9c432624abc614c8d7d0e20c", null ],
+    [ "updateGradient", "classOsqpEigen_1_1Solver.html#a41efbcc32ccdcf2219b9fe9330faf8ea", null ],
+    [ "updateHessianMatrix", "classOsqpEigen_1_1Solver.html#a5ddf094f1eeff686fa8cec802a50f436", null ],
+    [ "updateLinearConstraintsMatrix", "classOsqpEigen_1_1Solver.html#ae9adb54d29b947222aa7ec788a7d2e30", null ],
+    [ "updateLowerBound", "classOsqpEigen_1_1Solver.html#a443938e6942b79cbcbac7a5fe69a062e", null ],
+    [ "updateUpperBound", "classOsqpEigen_1_1Solver.html#aa944cadb9be917eb74c1d25bac65bc29", null ],
+    [ "workspace", "classOsqpEigen_1_1Solver.html#a1035dfd9b6eb5d208397515670c39a7f", null ]
+];
