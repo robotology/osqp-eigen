@@ -1,0 +1,7 @@
+find_package(Eigen3 REQUIRED)
+
+
+if(NOT TARGET OSQPWrapper)
+  include("${CMAKE_CURRENT_LIST_DIR}/osqp_wrapper
+.cmake")
+endif()
