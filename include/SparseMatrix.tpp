@@ -8,6 +8,21 @@
 template <typename T>
 OSQPWrapper::SparseMatrix::SparseMatrix(const Eigen::SparseMatrix<T> &matrix)
 {
+    m_matrix = nullptr;
+    this->operator<<(matrix);
+}
+
+template<typename T>
+void OSQPWrapper::SparseMatrix::operator<<(const Eigen::SparseMatrix<T> &matrix)
+{
+    // clear all data if m_matrix was already set
+    if(m_matrix != nullptr){
+        c_free(m_matrix);
+        m_innerIndex.clear();
+        m_values.clear();
+        m_outerIndex.clear();
+    }
+
     // get number of row, columns and nonZeros from Eigen SparseMatrix
     c_int rows = matrix.rows();
     c_int cols = matrix.cols();
@@ -38,6 +53,7 @@ OSQPWrapper::SparseMatrix::SparseMatrix(const Eigen::SparseMatrix<T> &matrix)
     m_matrix = csc_matrix(rows, cols, numberOfNonZeroCoeff, m_values.data(),
                           m_innerIndex.data(), m_outerIndex.data());
 }
+
 
 template <typename T>
 std::vector<Eigen::Triplet<T>> OSQPWrapper::SparseMatrix::toTriplets()
