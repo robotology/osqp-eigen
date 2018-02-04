@@ -46,11 +46,14 @@ set(LIBRARY_TARGET_NAME OSQPWrapper)
 
 # List of CPP (source) library files.
 set(${LIBRARY_TARGET_NAME}_SRC
-  src/SparseMatrix.cpp)
+  src/SparseMatrix.cpp
+  src/OptimizatorData.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
   include/SparseMatrix.hpp
-  include/SparseMatrix.tpp)
+  include/SparseMatrix.tpp
+  include/OptimizatorData.hpp
+  include/OptimizatorData.tpp)
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
