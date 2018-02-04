@@ -8,12 +8,15 @@
 #ifndef SPARSE_MATRIX_HPP
 #define SPARSE_MATRIX_HPP
 
+// std
+#include <utility>
+
 // eigen
 #include <Eigen/Sparse>
 
+
 // OSQP
 #include "osqp.h"
-
 
 /**
  * OSQPWrapper namespace.
@@ -45,6 +48,7 @@ namespace OSQPWrapper
         std::vector<Eigen::Triplet<T>> toTriplets();
 
     public:
+
         /**
          * Constructor.
          */
@@ -52,7 +56,7 @@ namespace OSQPWrapper
 
         /**
          * Constructor.
-         * @param Eigen::SparseMatrix is a standard Eigen sparse matrix object
+         * @param Eigen::SparseMatrix is a standard Eigen sparse matrix object.
          */
         template<typename T>
         SparseMatrix(const Eigen::SparseMatrix<T> &matrix);
@@ -63,11 +67,29 @@ namespace OSQPWrapper
         ~SparseMatrix();
 
         /**
-         * Get the sparse matrix in Eigen form
-         * @return a Eigen::SparseMatrix
+         * Convenient operator to set the a sparse matrix from an Eigen::SparseMatrix object.
+         */
+        template<typename T>
+        void operator<<(const Eigen::SparseMatrix<T> &matrix);
+
+        /**
+         * Get the sparse matrix in Eigen form.
+         * @return a Eigen::SparseMatrix.
          */
         template<typename T>
         Eigen::SparseMatrix<T> toEigen();
+
+        /**
+         * Get the sparse matrix in csc form.
+         * @return a const point to the csc struct.
+         */
+        csc* const & getSparseMatrix() const;
+
+        /**
+         * Get the size of the matrix.
+         * @return an std::pair containing the size of the matrix.
+         */
+        std::pair<c_int, c_int> size() const;
     };
 }
 

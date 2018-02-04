@@ -16,7 +16,9 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     Eigen::SparseMatrix<T> matrix;
     matrix = mEigen.sparseView();
 
-    OSQPWrapper::SparseMatrix matrixOSQP(matrix);
+    OSQPWrapper::SparseMatrix matrixOSQP;
+
+    matrixOSQP << matrix;
 
     return matrix.isApprox(matrixOSQP.toEigen<T>());
 }
