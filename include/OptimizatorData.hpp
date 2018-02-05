@@ -8,12 +8,14 @@
 #ifndef OPTIMIZATOR_DATA_HPP
 #define OPTIMIZATOR_DATA_HPP
 
+// Eigen
+#include <Eigen/Dense>
+
 // OSQP
 #include "osqp.h"
 
+// OSQPWrapper
 #include "SparseMatrix.hpp"
-
-#include <Eigen/Dense>
 
 /**
  * OSQPWrapper namespace.
@@ -21,11 +23,15 @@
 namespace OSQPWrapper
 {
     /**
-     * OptimizatorData class.
+     * OptimizatorData class is a wrapper of the OSQP OSQPData struct.
      */
     class OptimizatorData
     {
-        OSQPData *m_data;
+        OSQPData *m_data; /**< OSQPData struct. */
+
+        std::vector<c_float> m_gradient; /**< Vector containing the gradient of the QP problem. */
+        std::vector<c_float> m_lowerBound; /**< Vector containing the lower bound of the QP problem. */
+        std::vector<c_float> m_upperBound; /**< Vector containing the upper bound of the QP problem. */
 
     public:
         /**
@@ -102,7 +108,6 @@ namespace OSQPWrapper
          */
         OSQPData *const & getOptimizatorData() const;
     };
-
 }
 
 #include "OptimizatorData.tpp"
