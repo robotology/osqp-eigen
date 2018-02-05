@@ -15,3 +15,9 @@ add_executable(SparseMatrixTest SparseMatrixTest.cpp)
 target_link_libraries(SparseMatrixTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
 add_test(NAME SparseMatrixTest
   COMMAND SparseMatrixTest)
+
+# QPTest
+add_executable(QPTest QPTest.cpp)
+target_link_libraries(QPTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
+add_test(NAME QPTest
+  COMMAND QPTest)
