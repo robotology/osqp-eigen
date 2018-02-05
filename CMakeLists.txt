@@ -12,10 +12,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 project(OSPQP-Wrapper
-  LANGUAGES CXX)
-#  VERSION 0.0.0.0)
+  LANGUAGES CXX
+  VERSION 0.01)
 
-#include(GNUInstallDirs)
+# add GNU dirs
+include(GNUInstallDirs)
 
 # include macros for warnings
 include(AddWarningsConfigurationToTargets)
@@ -43,7 +44,6 @@ set_target_properties(OSQP_LIB PROPERTIES
 
 set(LIBRARY_TARGET_NAME OSQPWrapper)
 
-
 # List of CPP (source) library files.
 set(${LIBRARY_TARGET_NAME}_SRC
   src/SparseMatrix.cpp
@@ -61,9 +61,8 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
 
 target_link_libraries(${LIBRARY_TARGET_NAME} OSQP_LIB)
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
-  VERSION 1
-  PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}"
-  LINKER_LANGUAGE CXX)
+  VERSION ${PROJECT_VERSION}
+  PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
   EXPORT  ${PROJECT_NAME}
@@ -82,7 +81,7 @@ configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OSQPWrapperConfig.cmake.
 
 install(FILES ${CMAKE_BINARY_DIR}/OSQPWrapperConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
-option(BUILD_TESTING "Create tests using CMake" OFF)
+option(BUILD_TESTING "Create tests using CMake" ON)
 
 include(AddUninstallTarget)
 
