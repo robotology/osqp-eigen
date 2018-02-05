@@ -1,0 +1,174 @@
+/**
+ * @file OptimizatorSettings.hpp
+ * @author Giulio Romualdi
+ * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+ * @date 2018
+ */
+
+#ifndef OPTIMIZATOR_SETTINGS_HPP
+#define OPTIMIZATOR_SETTINGS_HPP
+
+// OSQP
+#include "osqp.h"
+
+/**
+ * OSQPWrapper namespace.
+ */
+namespace OSQPWrapper
+{
+    /**
+     * OptimizatorSettings class is a wrapper of the OSQP OSQPSettings struct.
+     * All the setter methods refer to this particular kind of optimizator.
+     * <a href="http://web.stanford.edu/~boyd/admm.html">Here</a>
+     * you can find further information.
+     */
+    class OptimizatorSettings
+    {
+        OSQPSettings *m_settings; /**< OSQPSettings struct. */
+    public:
+
+        /**
+         * Constructor.
+         */
+        OptimizatorSettings();
+
+        /**
+         * Deconstructor.
+         */
+        ~OptimizatorSettings();
+
+        /**
+         * Set the default settings for the optimization problem.
+         */
+        void setDefaultSettings();
+
+        /**
+         * Set the ADMM step rho.
+         * @param rho a ADMM step constant.
+         */
+        void setRho(const double rho);
+
+        /**
+         * Set the ADMM step sigma.
+         * @param sigma a ADMM step constant.
+         */
+        void setSigma(const double sigma);
+
+        /**
+         * Set the heuristic data scaling iterations. If 0, scaling disabled.
+         * @param scaling is the heuristic data scaling iteration.
+         */
+        void setScaling(const int scaling);
+
+        /**
+         * Set if the rho step size adaptive feature is active.
+         * @param isRhoStepSizeAdactive if True the feature is active.
+         */
+        void setAdaptiveRho(const bool isRhoStepSizeAdactive);
+
+        /**
+         * Set the number of iterations between rho adaptations rho. If 0, it is automatic.
+         * @param rhoInterval number of iterations.
+         */
+        void setAdaptiveRhoInterval(const int rhoInterval);
+
+        /**
+         * Set the tolerance for adapting rho. The new rho has to be X times larger or 1/X times
+         * smaller than the current one to trigger a new factorization.
+         * @param adaptiveRhoTolerance is the tolerance.
+         */
+        void setAdaptiveRhoTolerance(const double adaptiveRhoTolerance);
+
+        /**
+         * Set the interval for adapting rho (fraction of the setup time).
+         * @param adaptiveRhoFraction.
+         */
+        void setAdaptiveRhoFraction(const double adaptiveRhoFraction);
+
+        /**
+         * Set the max number of iterations.
+         * @param maxIteration max number of iteration
+         */
+        void setMaxIteraction(const int maxIteration);
+
+        /**
+         * Set the absolute convergence tolerance.
+         * @param absoluteTolerance.
+         */
+        void setAbsoluteTolerance(const double absoluteTolerance);
+
+        /**
+         * Set the relative convergence tolerance.
+         * @param relativeTolerance.
+         */
+        void setRelativeTolerance(const double relativeTolerance);
+
+        /**
+         * Set the primal infeasibility tolerance.
+         * @param primalInfeasibilityTollerance.
+         */
+        void setPrimalInfeasibilityTollerance(const double primalInfeasibilityTollerance);
+
+        /**
+         * Set the dual infeasibility tolerance.
+         * @param dualInfeasibilityTollerance.
+         */
+        void setDualInfeasibilityTollerance(const double dualInfeasibilityTollerance);
+
+        /**
+         * Set the relaxation parameter.
+         * @param alpha is the relaxation parameter.
+         */
+        void setAlpha(const double alpha);
+
+        /**
+         * Set the relaxation parameter for polish.
+         * @param polish is the relaxation parameter.
+         */
+        void setDelta(const double delta);
+
+        /**
+         * Set if the polish feature is active.
+         * @param polish if True the feature is active.
+         */
+        void setPolish(const bool polish);
+
+        /**
+         * Set the iterative refinement steps in polish.
+         * @param polishRefineIter.
+         */
+        void setPolishRefineIter(const int polishRefineIter);
+
+        /**
+         * Set the Verbose mode.
+         * @param isVerbose if true the verbose mode is activate.
+         */
+        void setVerbosity(const bool isVerbose);
+
+        /**
+         * Set the scaled termination criteria.
+         * @param scaledTermination if true the scaled termination criteria is used.
+         */
+        void setScaledTerimination(const bool scaledTermination);
+
+        /**
+         * Set check termination interval. If 0, termination checking is disabled.
+         * @param checkTermination if 0 the termination checking is disabled.
+         */
+        void setCheckTermination(const int checkTermination);
+
+        /**
+         * Set warm start.
+         * @param warmStart if true the warm start is set.
+         */
+        void setWarmStart(const bool warmStart);
+
+        /**
+         * Get a pointer to OptimizatorSettings struct.
+         * @return a const pointer to OSQPSettings struct.
+         */
+        OSQPSettings* const & getOptimizatorSettings() const;
+    };
+}
+
+#endif
