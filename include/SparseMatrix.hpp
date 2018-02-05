@@ -31,7 +31,7 @@ namespace OSQPWrapper
         /**
          * Matrix in compressed-column or triplet form.
          * <a href="https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html">Here</a>
-         * you can find furthere information.
+         * you can find further information.
          */
         csc *m_matrix;
 
