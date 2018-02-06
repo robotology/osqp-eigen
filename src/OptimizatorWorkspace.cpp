@@ -11,7 +11,7 @@
 #include "OptimizatorWorkspace.hpp"
 
 OSQPWrapper::OptimizatorWorkspace::OptimizatorWorkspace(const OSQPWrapper::OptimizatorData& data,
-                                                        const OSQPWrapper::OptimizatorSettings& settings)
+                                                        OSQPWrapper::OptimizatorSettings& settings)
 {
     m_workspace = osqp_setup(data.getOptimizatorData(), settings.getOptimizatorSettings());
 }
@@ -35,4 +35,14 @@ Eigen::VectorXd OSQPWrapper::OptimizatorWorkspace::getSolution()
     vector = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->n, 1);
 
     return vector;
+}
+
+bool OSQPWrapper::OptimizatorWorkspace::updateHessianMatrix(const OSQPWrapper::SparseMatrix& hessian)
+{
+    m_workspace->data->P = hessian.getSparseMatrix();
+}
+
+bool OSQPWrapper::OptimizatorWorkspace::updateLinearConstraintsMatrix(const OSQPWrapper::SparseMatrix& A)
+{
+    m_workspace->data->A = A.getSparseMatrix();
 }
