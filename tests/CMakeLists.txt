@@ -21,3 +21,9 @@ add_executable(QPTest QPTest.cpp)
 target_link_libraries(QPTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
 add_test(NAME QPTest
   COMMAND QPTest)
+
+# MPCTest
+add_executable(MPCTest MPCTest.cpp)
+target_link_libraries(MPCTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
+add_test(NAME MPCTest
+  COMMAND MPCTest)
