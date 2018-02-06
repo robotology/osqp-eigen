@@ -29,10 +29,6 @@ namespace OSQPWrapper
     {
         OSQPData *m_data; /**< OSQPData struct. */
 
-        std::vector<c_float> m_gradient; /**< Vector containing the gradient of the QP problem. */
-        std::vector<c_float> m_lowerBound; /**< Vector containing the lower bound of the QP problem. */
-        std::vector<c_float> m_upperBound; /**< Vector containing the upper bound of the QP problem. */
-
     public:
         /**
          * Constructor.
@@ -77,7 +73,7 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int n>
-        bool setGradient(const Eigen::Matrix<c_float, n, 1>& gradien);
+        bool setGradient(Eigen::Matrix<c_float, n, 1>& gradien);
 
         /**
          * Set the linear constraints matrix A (size m x n)
@@ -92,7 +88,7 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int m>
-        bool setLowerBound(const Eigen::Matrix<c_float, m, 1>& lowerBound);
+        bool setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
 
         /**
          * Set the array for upper bound (size m).
@@ -100,7 +96,7 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int m>
-        bool setUpperBound(const Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound);
 
         /**
          * Get the OSQPData struct.
