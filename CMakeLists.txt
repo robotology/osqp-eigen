@@ -11,7 +11,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
-project(OSPQP-Wrapper
+project(OSQPWrapper
   LANGUAGES CXX
   VERSION 0.01)
 
@@ -36,11 +36,7 @@ find_package(Eigen3 REQUIRED)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 
 # add OSQP library
-set(OSQP_FOLDER "/usr/lib" CACHE STRING "folder where the OSQP library is installed")
-add_library(OSQP_LIB SHARED IMPORTED)
-set_target_properties(OSQP_LIB PROPERTIES
-  IMPORTED_LOCATION "${OSQP_FOLDER}/build/out/libosqp.so"
-  INTERFACE_INCLUDE_DIRECTORIES "${OSQP_FOLDER}/include")
+include(OSQPFindPackage)
 
 set(LIBRARY_TARGET_NAME OSQPWrapper)
 
@@ -57,7 +53,8 @@ set(${LIBRARY_TARGET_NAME}_HDR
   include/OptimizatorData.hpp
   include/OptimizatorData.tpp
   include/OptimizatorSettings.hpp
-  include/OptimizatorWorkspace.hpp)
+  include/OptimizatorWorkspace.hpp
+  include/OptimizatorWorkspace.tpp)
 
 add_library(${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -81,9 +78,11 @@ install(EXPORT ${PROJECT_NAME}
 
 configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OSQPWrapperConfig.cmake.in
   ${CMAKE_BINARY_DIR}/OSQPWrapperConfig.cmake
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapperConfig)
+  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
 install(FILES ${CMAKE_BINARY_DIR}/OSQPWrapperConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
+
+install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/OSQPFindPackage.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
 option(BUILD_TESTING "Create tests using CMake" ON)
 

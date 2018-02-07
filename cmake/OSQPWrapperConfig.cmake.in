@@ -1,7 +1,12 @@
-find_package(Eigen3 REQUIRED)
-
+# Authors: Giulio Romualdi
+# CopyPolicy: Released under the terms of the LGPLv2.1 or later
 
 if(NOT TARGET OSQPWrapper)
-  include("${CMAKE_CURRENT_LIST_DIR}/osqp_wrapper
-.cmake")
+  # Eigen
+  find_package(Eigen3 REQUIRED)
+
+  # add OSQP library
+  include("${CMAKE_CURRENT_LIST_DIR}/OSQPFindPackage.cmake")
+
+  include("${CMAKE_CURRENT_LIST_DIR}/OSQPWrapper.cmake")
 endif()
