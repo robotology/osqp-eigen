@@ -288,8 +288,9 @@ TEST(MPCTest,)
     ASSERT_TRUE(data.setLowerBound(lowerBound));
     ASSERT_TRUE(data.setUpperBound(upperBound));
 
-    // instantiate the workspace
-    OSQPWrapper::OptimizatorWorkspace workspace(data, settings);
+    // instantiate the solver
+    OSQPWrapper::OptimizatorWorkspace solver;
+    ASSERT_TRUE(solver.setWorkspace(data, settings));
 
     // controller input and QPSolution vector
     Eigen::Vector4d ctr;
@@ -306,10 +307,10 @@ TEST(MPCTest,)
         startTime = clock();
 
         // solve the QP problem
-        ASSERT_TRUE(workspace.solve());
+        ASSERT_TRUE(solver.solve());
 
         // get the controller input
-        QPSolution = workspace.getSolution();
+        QPSolution = solver.getSolution();
         ctr = QPSolution.block(12 * (mpcWindow + 1), 0, 4, 1);
 
         // save data into file
@@ -323,7 +324,7 @@ TEST(MPCTest,)
 
         // update the constraint bound
         updateConstraintVectors(x0, lowerBound, upperBound);
-        ASSERT_TRUE(workspace.updateBounds(lowerBound, upperBound));
+        ASSERT_TRUE(solver.updateBounds(lowerBound, upperBound));
 
         endTime = clock();
 
