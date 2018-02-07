@@ -75,6 +75,7 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
 install(EXPORT ${PROJECT_NAME}
+  NAMESPACE OSQPWrapper::
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
 configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OSQPWrapperConfig.cmake.in
@@ -82,8 +83,6 @@ configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OSQPWrapperConfig.cmake.
   INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
 install(FILES ${CMAKE_BINARY_DIR}/OSQPWrapperConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
-
-install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/cmake/OSQPFindPackage.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OSQPWrapper)
 
 option(BUILD_TESTING "Create tests using CMake" ON)
 

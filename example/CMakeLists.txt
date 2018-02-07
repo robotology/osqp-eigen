@@ -9,9 +9,8 @@ project(OSQPWrapper-Example)
 
 find_package(OSQPWrapper)
 
-find_package(Eigen3 REQUIRED)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 
 #MPCExample
 add_executable(MPCExample src/MPCExample.cpp)
-target_link_libraries(MPCExample OSQPWrapper osqp::osqp)
+target_link_libraries(MPCExample OSQPWrapper::OSQPWrapper osqp::osqp)
