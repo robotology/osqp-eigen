@@ -5,8 +5,8 @@ if(NOT TARGET OSQPWrapper)
   # Eigen
   find_package(Eigen3 REQUIRED)
 
-  # add OSQP library
-  include("${CMAKE_CURRENT_LIST_DIR}/OSQPFindPackage.cmake")
+  # osqp
+  find_package(osqp REQUIRED)
 
   include("${CMAKE_CURRENT_LIST_DIR}/OSQPWrapper.cmake")
 endif()

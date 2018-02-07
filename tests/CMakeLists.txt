@@ -12,18 +12,18 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # SparseMatrixTest
 add_executable(SparseMatrixTest SparseMatrixTest.cpp)
-target_link_libraries(SparseMatrixTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
+target_link_libraries(SparseMatrixTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME SparseMatrixTest
   COMMAND SparseMatrixTest)
 
 # QPTest
 add_executable(QPTest QPTest.cpp)
-target_link_libraries(QPTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
+target_link_libraries(QPTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME QPTest
   COMMAND QPTest)
 
 # MPCTest
 add_executable(MPCTest MPCTest.cpp)
-target_link_libraries(MPCTest OSQPWrapper ${GTEST_LIBRARIES} pthread)
+target_link_libraries(MPCTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME MPCTest
   COMMAND MPCTest)
