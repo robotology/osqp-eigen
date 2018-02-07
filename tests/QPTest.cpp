@@ -41,7 +41,6 @@ TEST(QPProblem, )
     upperBound << 1, 0.7, 0.7;
 
     OSQPWrapper::OptimizatorSettings settings;
-    settings.setDefaultSettings();
     settings.setVerbosity(false);
 
     OSQPWrapper::OptimizatorData data;
