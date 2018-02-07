@@ -36,7 +36,7 @@ find_package(Eigen3 REQUIRED)
 include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
 
 # add OSQP library
-include(OSQPFindPackage)
+find_package(osqp REQUIRED)
 
 set(LIBRARY_TARGET_NAME OSQPWrapper)
 
@@ -60,7 +60,8 @@ add_library(${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBR
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${LIBRARY_TARGET_NAME} OSQP_LIB)
+target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE osqp::osqp)
+
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
   PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
