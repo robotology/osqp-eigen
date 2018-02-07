@@ -10,15 +10,28 @@
 #include "OptimizatorSettings.hpp"
 #include "OptimizatorWorkspace.hpp"
 
-OSQPWrapper::OptimizatorWorkspace::OptimizatorWorkspace(const OSQPWrapper::OptimizatorData& data,
-                                                        OSQPWrapper::OptimizatorSettings& settings)
+OSQPWrapper::OptimizatorWorkspace::OptimizatorWorkspace()
 {
-    m_workspace = osqp_setup(data.getOptimizatorData(), settings.getOptimizatorSettings());
+    m_workspace = nullptr;
 }
+
+bool OSQPWrapper::OptimizatorWorkspace::setWorkspace(const OSQPWrapper::OptimizatorData& data,
+                                                     const OSQPWrapper::OptimizatorSettings& settings)
+{
+    if(!data.isSet()){
+        std::cout << "[Optimizator Workspace] Some data are not set." << std::endl;
+        return false;
+    }
+
+    m_workspace = osqp_setup(data.getOptimizatorData(), settings.getOptimizatorSettings());
+    return true;
+}
+
 
 OSQPWrapper::OptimizatorWorkspace::~OptimizatorWorkspace()
 {
-    osqp_cleanup(m_workspace);
+    if(m_workspace != nullptr)
+        osqp_cleanup(m_workspace);
 }
 
 bool OSQPWrapper::OptimizatorWorkspace::solve()

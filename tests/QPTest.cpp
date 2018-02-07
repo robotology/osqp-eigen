@@ -53,12 +53,13 @@ TEST(QPProblem, )
     ASSERT_TRUE(data.setLowerBound(lowerBound));
     ASSERT_TRUE(data.setUpperBound(upperBound));
 
-    OSQPWrapper::OptimizatorWorkspace workspace(data, settings);
+    OSQPWrapper::OptimizatorWorkspace solver;
+    ASSERT_TRUE(solver.setWorkspace(data, settings));
 
-    ASSERT_TRUE(workspace.solve());
+    ASSERT_TRUE(solver.solve());
 
     std::cerr << "The solution of the QP problem is" << std::endl;
-    std::cerr << "[ " << workspace.getSolution() << " ]"
+    std::cerr << "[ " << solver.getSolution() << " ]"
               << std::endl;
 };
 

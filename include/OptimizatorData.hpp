@@ -28,6 +28,13 @@ namespace OSQPWrapper
     class OptimizatorData
     {
         OSQPData *m_data; /**< OSQPData struct. */
+        bool m_isNumberOfVariablesSet; /**< Boolean true if the number of variables is set. */
+        bool m_isNumberOfConstraintsSet; /**< Boolean true if the number of constraints is set. */
+        bool m_isHessianMatrixSet;  /**< Boolean true if the hessian matrix is set. */
+        bool m_isGradientSet; /**< Boolean true if the gradient vector is set. */
+        bool m_isLinearConstraintsMatrixSet; /**< Boolean true if the linear constrain matrix is set. */
+        bool m_isLowerBoundSet; /**< Boolean true if the lower bound vector is set. */
+        bool m_isUpperBoundSet; /**< Boolean true if the upper bound vector is set. */
 
     public:
         /**
@@ -103,6 +110,12 @@ namespace OSQPWrapper
          * @return a const point to the OSQPData struct.
          */
         OSQPData *const & getOptimizatorData() const;
+
+        /**
+         * Verify if all the matrix and vectors are already set.
+         * @return true if all the OSQPData struct are set.
+         */
+        bool isSet() const;
     };
 }
 

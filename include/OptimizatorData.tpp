@@ -15,6 +15,7 @@ bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gra
                   << std::endl;
         return false;
     }
+    m_isGradientSet = true;
     m_data->q = gradient.data();
     return true;
 }
@@ -27,6 +28,7 @@ bool OSQPWrapper::OptimizatorData::setLowerBound(Eigen::Matrix<c_float, m, 1>& l
                   << std::endl;
         return false;
     }
+    m_isLowerBoundSet = true;
     m_data->l = lowerBound.data();
     return true;
 }
@@ -39,6 +41,7 @@ bool OSQPWrapper::OptimizatorData::setUpperBound(Eigen::Matrix<c_float, m, 1>& u
                   << std::endl;
         return false;
     }
+    m_isUpperBoundSet = true;
     m_data->u = upperBound.data();
     return true;
 }

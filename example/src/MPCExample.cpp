@@ -282,8 +282,14 @@ int main()
         return 1;
     }
 
-    // instantiate the workspace
-    OSQPWrapper::OptimizatorWorkspace workspace(data, settings);
+    // instantiate the solver
+    OSQPWrapper::OptimizatorWorkspace solver;
+
+    if(!solver.setWorkspace(data, settings)){
+        std::cerr << "Error in the solver initialization."
+                  << std::endl;
+        return 1;
+    }
 
     // controller input and QPSolution vector
     Eigen::Vector4d ctr;
@@ -295,14 +301,14 @@ int main()
     for (int i = 0; i < numberOfSteps; i++){
 
         // solve the QP problem
-        if(!workspace.solve()){
+        if(!solver.solve()){
             std::cerr << "Error when the solution optimization problem is evaluated."
                       << std::endl;
             return 1;
         }
 
         // get the controller input
-        QPSolution = workspace.getSolution();
+        QPSolution = solver.getSolution();
         ctr = QPSolution.block(12 * (mpcWindow + 1), 0, 4, 1);
 
         // save data into file
@@ -313,7 +319,7 @@ int main()
 
         // update the constraint bound
         updateConstraintVectors(x0, lowerBound, upperBound);
-        if(!workspace.updateBounds(lowerBound, upperBound)){
+        if(!solver.updateBounds(lowerBound, upperBound)){
             std::cerr << "Error when the lower and upper bounds are updated."
                       << std::endl;
             return 1;

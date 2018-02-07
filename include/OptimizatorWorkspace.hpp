@@ -30,18 +30,24 @@ namespace OSQPWrapper
         OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
 
     public:
+
         /**
          * Constructor.
-         * @param data is an OSQPWrapper::OptimizatorData object;
-         * @param settings is an OSQPWrapper::OptimizatorSettings object;
          */
-        OptimizatorWorkspace(const OSQPWrapper::OptimizatorData& data,
-                             OSQPWrapper::OptimizatorSettings& settings);
+        OptimizatorWorkspace();
 
         /**
          * Deconstructor.
          */
         ~OptimizatorWorkspace();
+
+        /**
+         * Set the workspace.
+         * @param data is an OSQPWrapper::OptimizatorData object;
+         * @param settings is an OSQPWrapper::OptimizatorSettings object;
+         */
+        bool setWorkspace(const OSQPWrapper::OptimizatorData& data,
+                          const OSQPWrapper::OptimizatorSettings& settings);
 
         /**
          * Solve the QP optimization problem.
