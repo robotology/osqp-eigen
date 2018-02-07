@@ -275,7 +275,6 @@ TEST(MPCTest,)
 
     // instantiate the OSQP solver
     OSQPWrapper::OptimizatorSettings settings;
-    settings.setDefaultSettings();
     settings.setVerbosity(false);
     settings.setWarmStart(true);
 

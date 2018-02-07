@@ -38,9 +38,9 @@ namespace OSQPWrapper
         ~OptimizatorSettings();
 
         /**
-         * Set the default settings for the optimization problem.
+         * Reset the default settings for the optimization problem.
          */
-        void setDefaultSettings();
+        void resetDefaultSettings();
 
         /**
          * Set the ADMM step rho.

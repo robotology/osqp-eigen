@@ -244,7 +244,6 @@ int main()
 
     // instantiate the OSQP solver
     OSQPWrapper::OptimizatorSettings settings;
-    settings.setDefaultSettings();
     settings.setWarmStart(true);
     //settings.setVerbosity(false);
 
