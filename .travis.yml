@@ -1,0 +1,43 @@
+os: linux
+sudo: required
+dist: trusty
+language: cpp
+
+before_script:
+- sudo apt-get install --assume-yes --force-yes  libeigen3-dev build-essential cmake cmake-curses-gui libboost-system-dev libboost-filesystem-dev libboost-thread-dev libtinyxml-dev libace-dev libgsl0-dev libcv-dev libhighgui-dev libcvaux-dev libode-dev liblua5.1-dev lua5.1 git swig libgtest-dev
+
+- mkdir ~/robot-code
+- mkdir ~/robot-install
+
+- export ROBOT_CODE=~/robot-code
+- export ROBOT_INSTALL=~/robot-install
+
+- cd /usr/src/gtest
+- sudo cmake CMakeLists.txt
+- sudo make
+- sudo cp *.a /usr/lib
+
+- cd $ROBOT_CODE
+- git clone https://github.com/eigenteam/eigen-git-mirror.git
+- cd eigen-git-mirror
+- mkdir build
+- cd build
+- cmake ../
+- sudo make install
+
+- cd $ROBOT_CODE
+- git clone https://github.com/oxfordcontrol/osqp.git
+- cd osqp
+- mkdir build
+- cd build
+- cmake -DCMAKE_INSTALL_PREFIX=$ROBOT_INSTALL -DUNITTESTS=OFF ../
+- make install
+- export osqp_DIR=$ROBOT_INSTALL
+
+script:
+- cd $TRAVIS_BUILD_DIR
+- mkdir build
+- cd build
+- cmake ../
+- make
+- make test
