@@ -1,5 +1,5 @@
 /**
- * @file OptimizatorWorkspace.tpp
+ * @file OptimizatorSolver.tpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
@@ -8,7 +8,7 @@
 #include <iostream>
 
 template<int n>
-bool OSQPWrapper::OptimizatorWorkspace::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
+bool OSQPWrapper::OptimizatorSolver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
     // check if the dimension of the gradient is correct
     if(gradient.rows() != m_workspace->data->n){
@@ -27,7 +27,7 @@ bool OSQPWrapper::OptimizatorWorkspace::updateGradient(Eigen::Matrix<c_float, n,
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorWorkspace::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
+bool OSQPWrapper::OptimizatorSolver::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
 {
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
@@ -47,7 +47,7 @@ bool OSQPWrapper::OptimizatorWorkspace::updateLowerBound(Eigen::Matrix<c_float, 
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorWorkspace::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
+bool OSQPWrapper::OptimizatorSolver::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
@@ -67,8 +67,8 @@ bool OSQPWrapper::OptimizatorWorkspace::updateUpperBound(Eigen::Matrix<c_float, 
 
 
 template<int m>
-bool OSQPWrapper::OptimizatorWorkspace::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
-                                                     Eigen::Matrix<c_float, m, 1>& upperBound)
+bool OSQPWrapper::OptimizatorSolver::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
+                                                  Eigen::Matrix<c_float, m, 1>& upperBound)
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){

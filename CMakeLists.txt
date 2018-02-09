@@ -6,14 +6,14 @@ cmake_minimum_required(VERSION 3.1)
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
-# Enable C++11
+# Enable C++14
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 project(OSQPWrapper
   LANGUAGES CXX
-  VERSION 0.01)
+  VERSION 0.02)
 
 # add GNU dirs
 include(GNUInstallDirs)
@@ -42,21 +42,20 @@ set(LIBRARY_TARGET_NAME OSQPWrapper)
 
 # List of CPP (source) library files.
 set(${LIBRARY_TARGET_NAME}_SRC
-  src/SparseMatrix.cpp
   src/OptimizatorData.cpp
   src/OptimizatorSettings.cpp
-  src/OptimizatorWorkspace.cpp)
+  src/OptimizatorSolver.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
-  include/SparseMatrix.hpp
-  include/SparseMatrix.tpp
+  include/SparseMatrixHelper.hpp
+  include/SparseMatrixHelper.tpp
   include/OptimizatorData.hpp
   include/OptimizatorData.tpp
   include/OptimizatorSettings.hpp
-  include/OptimizatorWorkspace.hpp
-  include/OptimizatorWorkspace.tpp)
+  include/OptimizatorSolver.hpp
+  include/OptimizatorSolver.tpp)
 
-add_library(${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
+add_library(${LIBRARY_TARGET_NAME} SHARED ${${LIBRARY_TARGET_NAME}_SRC})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 

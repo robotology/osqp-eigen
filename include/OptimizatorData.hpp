@@ -15,7 +15,7 @@
 #include "osqp.h"
 
 // OSQPWrapper
-#include "SparseMatrix.hpp"
+#include "SparseMatrixHelper.hpp"
 
 /**
  * OSQPWrapper namespace.
@@ -72,7 +72,8 @@ namespace OSQPWrapper
          * @param hessian is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
-        bool setHessianMatrix(const OSQPWrapper::SparseMatrix& hessian);
+        template<typename T>
+        bool setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
 
         /**
          * Set the linear part of the cost function (Gradient).
@@ -80,14 +81,15 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int n>
-        bool setGradient(Eigen::Matrix<c_float, n, 1>& gradien);
+        bool setGradient(Eigen::Matrix<c_float, n, 1> &gradientVector);
 
         /**
-         * Set the linear constraints matrix A (size m x n)
+         * Set the linear constraint matrix A (size m x n)
          * @param A is the linear constraint matrix.
          * @return true/false in case of success/failure.
          */
-        bool setLinearConstraintsMatrix(const OSQPWrapper::SparseMatrix& A);
+        template<typename T>
+        bool setLinearConstraintMatrix(const Eigen::SparseMatrix<T> &linearConstraintMatrix);
 
         /**
          * Set the array for lower bound (size m).
@@ -95,7 +97,7 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int m>
-        bool setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
+        bool setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBoundVector);
 
         /**
          * Set the array for upper bound (size m).
@@ -103,7 +105,7 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int m>
-        bool setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBoundVector);
 
         /**
          * Get the OSQPData struct.
