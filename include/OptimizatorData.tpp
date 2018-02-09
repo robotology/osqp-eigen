@@ -7,6 +7,36 @@
 
 #include <iostream>
 
+template<typename T>
+bool OSQPWrapper::OptimizatorData::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+{
+    if(!m_isNumberOfVariablesSet){
+        std::cerr << "[setLinearConstraintMatrix] Please set the number of variables before add the hessian matrix."
+                  << std::endl;
+        return false;
+    }
+
+    // check if the number of row and columns are equal to the number of the optimization variables
+    if ((hessianMatrix.rows() != m_data->n) || (hessianMatrix.cols()!= m_data->n)){
+        std::cerr << "[Optimizator Data] The Hessian matrix has to be a n x n size matrix."
+                  << std::endl;
+        return false;
+    }
+
+    // compress the hessian matrix
+    Eigen::SparseMatrix<T> compressedHessianMatrix = hessianMatrix;
+    compressedHessianMatrix.makeCompressed();
+
+    //set the hessian matrix
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedHessianMatrix, m_data->P)){
+        std::cerr << "[Optimizator Data] osqp sparse matrix not created."
+                  << std::endl;
+        return false;
+    }
+    m_isHessianMatrixSet = true;
+    return true;
+}
+
 template<int n>
 bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
@@ -17,6 +47,43 @@ bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gra
     }
     m_isGradientSet = true;
     m_data->q = gradient.data();
+    return true;
+}
+
+template<typename T>
+bool OSQPWrapper::OptimizatorData::setLinearConstraintMatrix(const Eigen::SparseMatrix<T> &linearConstraintMatrix)
+{
+    if(!m_isNumberOfConstraintsSet){
+        std::cerr << "[setLinearConstraintMatrix] Please set the number of constraints before add the constraint matrix."
+                  << std::endl;
+        return false;
+    }
+
+    if(!m_isNumberOfVariablesSet){
+        std::cerr << "[setLinearConstraintMatrix] Please set the number of variables before add the constraint matrix."
+                  << std::endl;
+        return false;
+    }
+
+    if ((linearConstraintMatrix.rows() != m_data->m) || (linearConstraintMatrix.cols()!= m_data->n)){
+        std::cerr << "[Optimizator Data] The Linear constraints matrix has to be a m x n size matrix."
+                  << std::endl;
+        return false;
+    }
+
+    // compress the constraint matrix
+    Eigen::SparseMatrix<T> compressedLinearConstraintMatrix = linearConstraintMatrix;
+    compressedLinearConstraintMatrix.makeCompressed();
+
+    // set the hessian matrix
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintMatrix,
+                                                                m_data->A)){
+        std::cerr << "[Optimizator Data] osqp sparse matrix not created."
+                  << std::endl;
+        return false;
+    }
+    m_isLinearConstraintsMatrixSet = true;
+
     return true;
 }
 

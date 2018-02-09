@@ -1,11 +1,14 @@
 /**
- * @file OptimizatorWorkspace.hpp
+ * @file OptimizatorSolver.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 #ifndef OPTIMIZATOR_WORKSPACE_HPP
 #define OPTIMIZATOR_WORKSPACE_HPP
+
+// Std
+#include <memory>
 
 // Eigen
 #include <Eigen/Dense>
@@ -25,29 +28,29 @@ namespace OSQPWrapper
     /**
      * OptimizatorWorkspace class is a wrapper of the OSQP OSQPWorkspace struct.
      */
-    class OptimizatorWorkspace
+    class OptimizatorSolver
     {
         OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
+        std::unique_ptr<OSQPWrapper::OptimizatorSettings> m_settings; /**< Pointer to OptimizatorSettings class. */
+        std::unique_ptr<OSQPWrapper::OptimizatorData> m_initData; /**< Pointer to OptimizatorData class. */
 
     public:
 
         /**
          * Constructor.
          */
-        OptimizatorWorkspace();
+        OptimizatorSolver();
 
         /**
          * Deconstructor.
          */
-        ~OptimizatorWorkspace();
+        ~OptimizatorSolver();
 
         /**
-         * Set the workspace.
-         * @param data is an OSQPWrapper::OptimizatorData object;
-         * @param settings is an OSQPWrapper::OptimizatorSettings object;
+         * Initialize the solver with the actual initial data and settings.
+         * @return true/false in case of success/failure.
          */
-        bool setWorkspace(const OSQPWrapper::OptimizatorData& data,
-                          const OSQPWrapper::OptimizatorSettings& settings);
+        bool initSolver();
 
         /**
          * Solve the QP optimization problem.
@@ -67,10 +70,10 @@ namespace OSQPWrapper
          * @return true/false in case of success/failure.
          */
         template<int n>
-        bool updateGradient(Eigen::Matrix<c_float, n, 1>& gradien);
+        bool updateGradient(Eigen::Matrix<c_float, n, 1>& gradient);
 
         /**
-         * Update the lower bound constraints (size m).
+         * Update the lower bounds limit (size m).
          * @param lowerBound is the lower bound constraint vector.
          * @return true/false in case of success/failure.
          */
@@ -78,7 +81,7 @@ namespace OSQPWrapper
         bool updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
 
         /**
-         * Update the upper bound constraints (size m).
+         * Update the upper bounds limit (size m).
          * @param upperBound is the upper bound constraint vector.
          * @return true/false in case of success/failure.
          */
@@ -96,22 +99,20 @@ namespace OSQPWrapper
                           Eigen::Matrix<c_float, m, 1>& upperBound);
 
         /**
-         * Update the quadratic part of the cost function (Hessian).
-         * It is assumed to be a simmetric matrix.
-         * @param hessian is the Hessian matrix.
-         * @return true/false in case of success/failure.
+         * Get the solver settings pointer.
+         * @return the pointer to OptimizatorSettings object.
          */
-        bool updateHessianMatrix(const OSQPWrapper::SparseMatrix& hessian);
+        const std::unique_ptr<OSQPWrapper::OptimizatorSettings>& settings() const;
 
         /**
-         * Update the linear constraints matrix A (size m x n)
-         * @param A is the linear constraint matrix.
-         * @return true/false in case of success/failure.
+         * Get the pointer to the solver initial data.
+         * @return the pointer to OptimizatorData object.
          */
-        bool updateLinearConstraintsMatrix(const OSQPWrapper::SparseMatrix& A);
+        const std::unique_ptr<OSQPWrapper::OptimizatorData>& initData() const;
+
     };
 
-    #include "OptimizatorWorkspace.tpp"
+    #include "OptimizatorSolver.tpp"
 }
 
 #endif

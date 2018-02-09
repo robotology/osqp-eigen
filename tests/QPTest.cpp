@@ -8,10 +8,7 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include "SparseMatrix.hpp"
-#include "OptimizatorData.hpp"
-#include "OptimizatorSettings.hpp"
-#include "OptimizatorWorkspace.hpp"
+#include "OptimizatorSolver.hpp"
 
 
 TEST(QPProblem, )
@@ -21,7 +18,6 @@ TEST(QPProblem, )
         1, 2;
     Eigen::SparseMatrix<double> H_s;
     H_s = H.sparseView();
-    OSQPWrapper::SparseMatrix hessian(H_s);
 
     Eigen::Matrix<double,3,2> A;
     A << 1, 1,
@@ -29,7 +25,6 @@ TEST(QPProblem, )
         0, 1;
     Eigen::SparseMatrix<double> A_s;
     A_s = A.sparseView();
-    OSQPWrapper::SparseMatrix linear(A_s);
 
     Eigen::Vector2d gradient;
     gradient << 1, 1;
@@ -40,21 +35,21 @@ TEST(QPProblem, )
     Eigen::Vector3d upperBound;
     upperBound << 1, 0.7, 0.7;
 
-    OSQPWrapper::OptimizatorSettings settings;
-    settings.setVerbosity(false);
+    OSQPWrapper::OptimizatorSolver solver;
+    solver.settings()->setVerbosity(false);
 
-    OSQPWrapper::OptimizatorData data;
-    data.setNumberOfVariables(2);
-    data.setNumberOfConstraints(3);
+    ASSERT_FALSE(solver.initData()->setHessianMatrix(H_s));
+    solver.initData()->setNumberOfVariables(2);
 
-    ASSERT_TRUE(data.setHessianMatrix(hessian));
-    ASSERT_TRUE(data.setGradient(gradient));
-    ASSERT_TRUE(data.setLinearConstraintsMatrix(linear));
-    ASSERT_TRUE(data.setLowerBound(lowerBound));
-    ASSERT_TRUE(data.setUpperBound(upperBound));
+    solver.initData()->setNumberOfConstraints(3);
+    ASSERT_TRUE(solver.initData()->setHessianMatrix(H_s));
+    ASSERT_TRUE(solver.initData()->setGradient(gradient));
+    ASSERT_TRUE(solver.initData()->setLinearConstraintMatrix(A_s));
+    ASSERT_TRUE(solver.initData()->setLowerBound(lowerBound));
+    ASSERT_TRUE(solver.initData()->setUpperBound(upperBound));
 
-    OSQPWrapper::OptimizatorWorkspace solver;
-    ASSERT_TRUE(solver.setWorkspace(data, settings));
+
+    ASSERT_TRUE(solver.initSolver());
 
     ASSERT_TRUE(solver.solve());
 

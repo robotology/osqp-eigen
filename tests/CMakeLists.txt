@@ -10,7 +10,7 @@ project(OSQP-Wrapper-Test)
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-# SparseMatrixTest
+# QPTest
 add_executable(SparseMatrixTest SparseMatrixTest.cpp)
 target_link_libraries(SparseMatrixTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME SparseMatrixTest
