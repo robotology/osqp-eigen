@@ -1,11 +1,22 @@
 os: linux
 sudo: required
 dist: trusty
-language: cpp
+language:
+  - cpp
+
+compiler:
+  - gcc
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gcc-6
+      - g++-6
+      - cmake
+      - libgtest-dev
 
 before_script:
-- sudo apt-get install --assume-yes --force-yes  libeigen3-dev build-essential cmake cmake-curses-gui libboost-system-dev libboost-filesystem-dev libboost-thread-dev libtinyxml-dev libace-dev libgsl0-dev libcv-dev libhighgui-dev libcvaux-dev libode-dev liblua5.1-dev lua5.1 git swig libgtest-dev
-
 - mkdir ~/robot-code
 - mkdir ~/robot-install
 
@@ -35,6 +46,14 @@ before_script:
 - export osqp_DIR=$ROBOT_INSTALL
 
 script:
+# Link gcc-6 and g++-6 to their standard commands
+- sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+- sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+# Export CC and CXX to tell cmake which compiler to use
+- export CC=/usr/bin/gcc-6
+- export CXX=/usr/bin/g++-6
+# Check versions of gcc, g++ and cmake
+- gcc -v && g++ -v && cmake --version
 - cd $TRAVIS_BUILD_DIR
 - mkdir build
 - cd build
