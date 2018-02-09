@@ -7,10 +7,8 @@
 
 // std
 #include <iostream>
-#include <utility>
 
 // OSQPWrapper
-#include "SparseMatrix.hpp"
 #include "OptimizatorData.hpp"
 
 OSQPWrapper::OptimizatorData::OptimizatorData()
@@ -23,6 +21,8 @@ OSQPWrapper::OptimizatorData::OptimizatorData()
       m_isUpperBoundSet(false)
 {
     m_data = (OSQPData *)c_malloc(sizeof(OSQPData));
+    m_data->P = nullptr;
+    m_data->A = nullptr;
 }
 
 OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
@@ -35,6 +35,9 @@ OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
       m_isUpperBoundSet(false)
 {
     m_data = (OSQPData *)c_malloc(sizeof(OSQPData));
+    m_data->P = nullptr;
+    m_data->A = nullptr;
+
     setNumberOfVariables(n);
     setNumberOfConstraints(m);
 }
@@ -42,6 +45,11 @@ OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
 OSQPWrapper::OptimizatorData::~OptimizatorData()
 {
     c_free(m_data);
+    if(m_data->P != nullptr)
+        csc_spfree(m_data->P);
+
+    if(m_data->A != nullptr)
+        csc_spfree(m_data->A);
 }
 
 void OSQPWrapper::OptimizatorData::setNumberOfVariables(int n)
@@ -54,32 +62,6 @@ void OSQPWrapper::OptimizatorData::setNumberOfConstraints(int m)
 {
     m_isNumberOfConstraintsSet = true;
     m_data->m = m;
-}
-
-bool OSQPWrapper::OptimizatorData::setHessianMatrix(const OSQPWrapper::SparseMatrix& hessian)
-{
-    std::pair<c_int, c_int> matrixSize = hessian.size();
-    if ((std::get<0>(matrixSize) != m_data->n) || (std::get<1>(matrixSize) != m_data->n)){
-        std::cerr << "[Optimizator Data] The Hessian matrix must have n x n size."
-                  << std::endl;
-        return false;
-    }
-    m_isHessianMatrixSet = true;
-    m_data->P = hessian.getSparseMatrix();
-    return true;
-}
-
-bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const OSQPWrapper::SparseMatrix& A)
-{
-    std::pair<c_int, c_int> matrixSize = A.size();
-    if ((std::get<0>(matrixSize) != m_data->m) || (std::get<1>(matrixSize) != m_data->n)){
-        std::cerr << "[Optimizator Data] The Linear constraints matrix matrix must have m x n size."
-                  << std::endl;
-        return false;
-    }
-    m_isLinearConstraintsMatrixSet = true;
-    m_data->A = A.getSparseMatrix();
-    return true;
 }
 
 OSQPData* const & OSQPWrapper::OptimizatorData::getOptimizatorData() const

@@ -9,10 +9,7 @@
 #include <gtest/gtest.h>
 
 // OSQPWrapper
-#include "SparseMatrix.hpp"
-#include "OptimizatorData.hpp"
-#include "OptimizatorSettings.hpp"
-#include "OptimizatorWorkspace.hpp"
+#include "OptimizatorSolver.hpp"
 
 // eigen
 #include <Eigen/Dense>
@@ -89,10 +86,10 @@ void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatr
 }
 
 void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::DiagonalMatrix<double, 4> &R, int mpcWindow,
-                        OSQPWrapper::SparseMatrix &hessian_s)
+                        Eigen::SparseMatrix<double> &hessianMatrix)
 {
 
-    Eigen::SparseMatrix<double> h(12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
+    hessianMatrix.resize(12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
 
     //populate hessian matrix
     for(int i = 0; i<12*(mpcWindow+1) + 4 * mpcWindow; i++){
@@ -100,20 +97,15 @@ void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen:
             int posQ=i%12;
             float value = Q.diagonal()[posQ];
             if(value != 0)
-                h.insert(i,i) = value;
+                hessianMatrix.insert(i,i) = value;
         }
         else{
             int posR=i%4;
             float value = R.diagonal()[posR];
             if(value != 0)
-                h.insert(i,i) = value;
+                hessianMatrix.insert(i,i) = value;
         }
     }
-
-    // turn the matrix into the standard compressed format
-    h.makeCompressed();
-
-    hessian_s << h;
 }
 
 void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::Matrix<double, 12, 1> &xRef, int mpcWindow,
@@ -133,13 +125,13 @@ void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen
 }
 
 void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMatrix, const Eigen::Matrix<double, 12, 4> &controlMatrix,
-                                 int mpcWindow, OSQPWrapper::SparseMatrix &linearMatrix)
+                                 int mpcWindow, Eigen::SparseMatrix<double> &constraintMatrix)
 {
-    Eigen::SparseMatrix<double> linear(12*(mpcWindow+1)  + 12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
+    constraintMatrix.resize(12*(mpcWindow+1)  + 12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
 
     // populate linear constraint matrix
     for(int i = 0; i<12*(mpcWindow+1); i++){
-        linear.insert(i,i) = -1;
+        constraintMatrix.insert(i,i) = -1;
     }
 
     for(int i = 0; i < mpcWindow; i++)
@@ -147,7 +139,7 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
             for(int k = 0; k<12; k++){
                 float value = dynamicMatrix(j,k);
                 if(value != 0){
-                    linear.insert(12 * (i+1) + j, 12 * i + k) = value;
+                    constraintMatrix.insert(12 * (i+1) + j, 12 * i + k) = value;
                 }
             }
 
@@ -156,18 +148,13 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
             for(int k = 0; k < 4; k++){
                 float value = controlMatrix(j,k);
                 if(value != 0){
-                    linear.insert(12*(i+1)+j, 4*i+k+12*(mpcWindow + 1)) = value;
+                    constraintMatrix.insert(12*(i+1)+j, 4*i+k+12*(mpcWindow + 1)) = value;
                 }
             }
 
     for(int i = 0; i<12*(mpcWindow+1) + 4*mpcWindow; i++){
-        linear.insert(i+(mpcWindow+1)*12,i) = 1;
+        constraintMatrix.insert(i+(mpcWindow+1)*12,i) = 1;
     }
-
-    // turn the matrix into the standard compressed format
-    linear.makeCompressed();
-
-    linearMatrix << linear;
 }
 
 void castMPCToQPConstraintVectores(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
@@ -252,9 +239,9 @@ TEST(MPCTest,)
     Eigen::Matrix<double, 12, 1> xRef;
 
     // allocate QP problem matrices and vectores
-    OSQPWrapper::SparseMatrix hessian;
+    Eigen::SparseMatrix<double> hessian;
     Eigen::VectorXd gradient;
-    OSQPWrapper::SparseMatrix linearMatrix;
+    Eigen::SparseMatrix<double> linearMatrix;
     Eigen::VectorXd lowerBound;
     Eigen::VectorXd upperBound;
 
@@ -273,24 +260,24 @@ TEST(MPCTest,)
     castMPCToQPConstraintMatrix(a, b, mpcWindow, linearMatrix);
     castMPCToQPConstraintVectores(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
-    // instantiate the OSQP solver
-    OSQPWrapper::OptimizatorSettings settings;
-    settings.setVerbosity(false);
-    settings.setWarmStart(true);
+    // instantiate the solver
+    OSQPWrapper::OptimizatorSolver solver;
 
-    OSQPWrapper::OptimizatorData data;
-    // set the QP data in to OSQP optimization solver
-    data.setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
-    data.setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
-    ASSERT_TRUE(data.setHessianMatrix(hessian));
-    ASSERT_TRUE(data.setGradient(gradient));
-    ASSERT_TRUE(data.setLinearConstraintsMatrix(linearMatrix));
-    ASSERT_TRUE(data.setLowerBound(lowerBound));
-    ASSERT_TRUE(data.setUpperBound(upperBound));
+    // settings
+    solver.settings()->setVerbosity(false);
+    solver.settings()->setWarmStart(true);
+
+    // set the initial data of the QP solver
+    solver.initData()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
+    solver.initData()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    ASSERT_TRUE(solver.initData()->setHessianMatrix(hessian));
+    ASSERT_TRUE(solver.initData()->setGradient(gradient));
+    ASSERT_TRUE(solver.initData()->setLinearConstraintMatrix(linearMatrix));
+    ASSERT_TRUE(solver.initData()->setLowerBound(lowerBound));
+    ASSERT_TRUE(solver.initData()->setUpperBound(upperBound));
 
     // instantiate the solver
-    OSQPWrapper::OptimizatorWorkspace solver;
-    ASSERT_TRUE(solver.setWorkspace(data, settings));
+    ASSERT_TRUE(solver.initSolver());
 
     // controller input and QPSolution vector
     Eigen::Vector4d ctr;

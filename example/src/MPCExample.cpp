@@ -5,14 +5,14 @@
  * @date 2018
  */
 
+
 // OSQPWrapper
-#include "SparseMatrix.hpp"
-#include "OptimizatorData.hpp"
-#include "OptimizatorSettings.hpp"
-#include "OptimizatorWorkspace.hpp"
+#include "OptimizatorSolver.hpp"
 
 // eigen
 #include <Eigen/Dense>
+
+#include <iostream>
 
 void setDynamicsMatrices(Eigen::Matrix<double, 12, 12> &a, Eigen::Matrix<double, 12, 4> &b)
 {
@@ -42,6 +42,7 @@ void setDynamicsMatrices(Eigen::Matrix<double, 12, 12> &a, Eigen::Matrix<double,
         0.0236,   0.,     -0.0236, 0.    ,
         0.2107,   0.2107,  0.2107, 0.2107;
 }
+
 
 void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<double, 12, 1> &xMin,
                               Eigen::Matrix<double, 4, 1> &uMax, Eigen::Matrix<double, 4, 1> &uMin)
@@ -74,10 +75,10 @@ void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatr
 }
 
 void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::DiagonalMatrix<double, 4> &R, int mpcWindow,
-                        OSQPWrapper::SparseMatrix &hessian_s)
+                        Eigen::SparseMatrix<double> &hessianMatrix)
 {
 
-    Eigen::SparseMatrix<double> h(12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
+    hessianMatrix.resize(12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
 
     //populate hessian matrix
     for(int i = 0; i<12*(mpcWindow+1) + 4 * mpcWindow; i++){
@@ -85,20 +86,15 @@ void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen:
             int posQ=i%12;
             float value = Q.diagonal()[posQ];
             if(value != 0)
-                h.insert(i,i) = value;
+                hessianMatrix.insert(i,i) = value;
         }
         else{
             int posR=i%4;
             float value = R.diagonal()[posR];
             if(value != 0)
-                h.insert(i,i) = value;
+                hessianMatrix.insert(i,i) = value;
         }
     }
-
-    // turn the matrix into the standard compressed format
-    h.makeCompressed();
-
-    hessian_s << h;
 }
 
 void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::Matrix<double, 12, 1> &xRef, int mpcWindow,
@@ -111,20 +107,20 @@ void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen
     // populate the gradient vector
     gradient = Eigen::VectorXd::Zero(12*(mpcWindow+1) +  4*mpcWindow, 1);
     for(int i = 0; i<12*(mpcWindow+1); i++){
-        int posQ = i % 12;
+        int posQ=i%12;
         float value = Qx_ref(posQ,0);
         gradient(i,0) = value;
     }
 }
 
 void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMatrix, const Eigen::Matrix<double, 12, 4> &controlMatrix,
-                                 int mpcWindow, OSQPWrapper::SparseMatrix &linearMatrix)
+                                 int mpcWindow, Eigen::SparseMatrix<double> &constraintMatrix)
 {
-    Eigen::SparseMatrix<double> linear(12*(mpcWindow+1)  + 12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
+    constraintMatrix.resize(12*(mpcWindow+1)  + 12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
 
     // populate linear constraint matrix
     for(int i = 0; i<12*(mpcWindow+1); i++){
-        linear.insert(i,i) = -1;
+        constraintMatrix.insert(i,i) = -1;
     }
 
     for(int i = 0; i < mpcWindow; i++)
@@ -132,7 +128,7 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
             for(int k = 0; k<12; k++){
                 float value = dynamicMatrix(j,k);
                 if(value != 0){
-                    linear.insert(12 * (i+1) + j, 12 * i + k) = value;
+                    constraintMatrix.insert(12 * (i+1) + j, 12 * i + k) = value;
                 }
             }
 
@@ -141,18 +137,13 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
             for(int k = 0; k < 4; k++){
                 float value = controlMatrix(j,k);
                 if(value != 0){
-                    linear.insert(12*(i+1)+j, 4*i+k+12*(mpcWindow + 1)) = value;
+                    constraintMatrix.insert(12*(i+1)+j, 4*i+k+12*(mpcWindow + 1)) = value;
                 }
             }
 
     for(int i = 0; i<12*(mpcWindow+1) + 4*mpcWindow; i++){
-        linear.insert(i+(mpcWindow+1)*12,i) = 1;
+        constraintMatrix.insert(i+(mpcWindow+1)*12,i) = 1;
     }
-
-    // turn the matrix into the standard compressed format
-    linear.makeCompressed();
-
-    linearMatrix << linear;
 }
 
 void castMPCToQPConstraintVectores(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
@@ -197,6 +188,18 @@ void updateConstraintVectors(const Eigen::Matrix<double, 12, 1> &x0,
     upperBound.block(0,0,12,1) = -x0;
 }
 
+
+double getErrorNorm(const Eigen::Matrix<double, 12, 1> &x,
+                    const Eigen::Matrix<double, 12, 1> &xRef)
+{
+    // evaluate the error
+    Eigen::Matrix<double, 12, 1> error = x - xRef;
+
+    // return the norm
+    return error.norm();
+}
+
+
 int main()
 {
     // set the preview window
@@ -221,9 +224,9 @@ int main()
     Eigen::Matrix<double, 12, 1> xRef;
 
     // allocate QP problem matrices and vectores
-    OSQPWrapper::SparseMatrix hessian;
+    Eigen::SparseMatrix<double> hessian;
     Eigen::VectorXd gradient;
-    OSQPWrapper::SparseMatrix linearMatrix;
+    Eigen::SparseMatrix<double> linearMatrix;
     Eigen::VectorXd lowerBound;
     Eigen::VectorXd upperBound;
 
@@ -242,54 +245,24 @@ int main()
     castMPCToQPConstraintMatrix(a, b, mpcWindow, linearMatrix);
     castMPCToQPConstraintVectores(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
-    // instantiate the OSQP solver
-    OSQPWrapper::OptimizatorSettings settings;
-    settings.setWarmStart(true);
-    //settings.setVerbosity(false);
+    // instantiate the solver
+    OSQPWrapper::OptimizatorSolver solver;
 
-    OSQPWrapper::OptimizatorData data;
-    // set the QP data in to OSQP optimization solver
-    data.setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
-    data.setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    // settings
+    //solver.settings()->setVerbosity(false);
+    solver.settings()->setWarmStart(true);
 
-    if(!data.setHessianMatrix(hessian)){
-        std::cerr << "Error when the hessian matrix is added to the optimization problem."
-                  << std::endl;
-        return 1;
-    }
-
-    if(!data.setGradient(gradient)){
-        std::cerr << "Error when the gradient vector is added to the optimization problem."
-                  << std::endl;
-        return 1;
-    }
-
-    if(!data.setLinearConstraintsMatrix(linearMatrix)){
-        std::cerr << "Error when the linear constraint matrix is added to the optimization problem."
-                  << std::endl;
-        return 1;
-    }
-
-    if(!data.setLowerBound(lowerBound)){
-        std::cerr << "Error when the lower constraint vector is added to the optimization problem."
-                  << std::endl;
-        return 1;
-    }
-
-    if(!data.setUpperBound(upperBound)){
-        std::cerr << "Error when the upper constraint vector is added to the optimization problem."
-                  << std::endl;
-        return 1;
-    }
+    // set the initial data of the QP solver
+    solver.initData()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
+    solver.initData()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    if(!solver.initData()->setHessianMatrix(hessian)) return 1;
+    if(!solver.initData()->setGradient(gradient)) return 1;
+    if(!solver.initData()->setLinearConstraintMatrix(linearMatrix)) return 1;
+    if(!solver.initData()->setLowerBound(lowerBound)) return 1;
+    if(!solver.initData()->setUpperBound(upperBound)) return 1;
 
     // instantiate the solver
-    OSQPWrapper::OptimizatorWorkspace solver;
-
-    if(!solver.setWorkspace(data, settings)){
-        std::cerr << "Error in the solver initialization."
-                  << std::endl;
-        return 1;
-    }
+    if(!solver.initSolver()) return 1;
 
     // controller input and QPSolution vector
     Eigen::Vector4d ctr;
@@ -301,11 +274,7 @@ int main()
     for (int i = 0; i < numberOfSteps; i++){
 
         // solve the QP problem
-        if(!solver.solve()){
-            std::cerr << "Error when the solution optimization problem is evaluated."
-                      << std::endl;
-            return 1;
-        }
+        if(!solver.solve()) return 1;
 
         // get the controller input
         QPSolution = solver.getSolution();
@@ -319,12 +288,7 @@ int main()
 
         // update the constraint bound
         updateConstraintVectors(x0, lowerBound, upperBound);
-        if(!solver.updateBounds(lowerBound, upperBound)){
-            std::cerr << "Error when the lower and upper bounds are updated."
-                      << std::endl;
-            return 1;
-        }
+        if(!solver.updateBounds(lowerBound, upperBound)) return 1;
       }
-
     return 0;
 }

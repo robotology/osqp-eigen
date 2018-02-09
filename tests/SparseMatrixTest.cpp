@@ -8,19 +8,28 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include "SparseMatrix.hpp"
+#include "SparseMatrixHelper.hpp"
+#include "osqp.h"
 
 template<typename T, int n, int m>
 bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 {
-    Eigen::SparseMatrix<T> matrix;
+    Eigen::SparseMatrix<T> matrix, newMatrix;
     matrix = mEigen.sparseView();
 
-    OSQPWrapper::SparseMatrix matrixOSQP;
+    csc* osqpSparseMatrix = nullptr;
+    //NOTE: Dynamic memory allocation
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(matrix, osqpSparseMatrix))
+        return false;
 
-    matrixOSQP << matrix;
+    if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(osqpSparseMatrix, newMatrix))
+        return false;
 
-    return matrix.isApprox(matrixOSQP.toEigen<T>());
+    bool outcome = matrix.isApprox(newMatrix);
+
+    c_free(osqpSparseMatrix);
+
+    return true;
 }
 
 TEST(SparseMatrix, Double)
