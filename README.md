@@ -1,5 +1,10 @@
 # OSQP-Wrapper
-Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) library.
+Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) library. 
+
+| System        | Status        |
+| ------------- |:-------------:|
+|Linux         | [![Build Status](https://travis-ci.org/GiulioRomualdi/OSQP-Wrapper.svg?branch=master)](https://travis-ci.org/GiulioRomualdi/OSQP-Wrapper)  | 
+
 
 ## Dependeces
 - [OSQP](http://osqp.readthedocs.io/en/latest/index.html) of course :smile:;
