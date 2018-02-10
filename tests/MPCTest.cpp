@@ -72,11 +72,13 @@ void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<
         13 - u0;
 
     // state inequality constraints
-    xMin << -M_PI/6,-M_PI/6,-INFINITY,-INFINITY,-INFINITY,-1.,
-        -INFINITY,-INFINITY,-INFINITY,-INFINITY,-INFINITY,-INFINITY;
+    xMin << -M_PI/6,-M_PI/6,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-1.,
+        -OSQPWrapper::INFINTY, -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,
+        -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY;
 
-    xMax << M_PI/6,M_PI/6, INFINITY,INFINITY,INFINITY,INFINITY,
-        INFINITY,INFINITY,INFINITY,INFINITY,INFINITY,INFINITY;
+    xMax << M_PI/6,M_PI/6, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
+        OSQPWrapper::INFINTY, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
+        OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY;
 }
 
 void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatrix<double, 4> &R)
