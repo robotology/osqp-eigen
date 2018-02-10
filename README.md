@@ -12,7 +12,7 @@ Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) l
 - [cmake](https://cmake.org/) for generate `makefile`;
 - [googletest](https://github.com/google/googletest) for testing.  
 
-**Notice**: if you want to use this Wrapper please use [this](https://github.com/traversaro/osqp/tree/add_cmake_install) version of the OSQP library.
+**Notice**: if you want to use this Wrapper please install the osqp library from [sources](http://osqp.readthedocs.io/en/latest/installation/sources.html).
 
 ## Build the library and the application
 ### Linux/macOs
@@ -31,13 +31,11 @@ If you want to enable tests set the `BUILD_TESTING` option to `ON`.
 ### Linux
 ```
 export OSQPWrapper_DIR=/path/where/you/installed/
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OSQPWrapper_DIR/lib
 ```
 
 ### macOs
 ```
 export OSQPWrapper_DIR=/path/where/you/installed/
-export DYLD_LIBRARY_PATH=$LD_LIBRARY_PATH:$OSQPWrapper_DIR/lib
 ```
 
 **Notice**:  The choice of `OSQPWrapper_DIR` name for the evoirment variable is not random. Indeed `<package>_DIR` is one of the search paths of [`find_package()`](https://cmake.org/cmake/help/v3.0/command/find_package.html).
