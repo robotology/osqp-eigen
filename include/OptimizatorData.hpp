@@ -69,7 +69,7 @@ namespace OSQPWrapper
         /**
          * Set the quadratic part of the cost function (Hessian).
          * It is assumed to be a simmetric matrix.
-         * @param hessian is the Hessian matrix.
+         * @param hessianMatrix is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
         template<typename T>
@@ -77,7 +77,7 @@ namespace OSQPWrapper
 
         /**
          * Set the linear part of the cost function (Gradient).
-         * @param gradient is the Gradient vector.
+         * @param gradientVector is the Gradient vector.
          * @return true/false in case of success/failure.
          */
         template<int n>
@@ -85,7 +85,7 @@ namespace OSQPWrapper
 
         /**
          * Set the linear constraint matrix A (size m x n)
-         * @param A is the linear constraint matrix.
+         * @param linearConstraintMatrix is the linear constraint matrix.
          * @return true/false in case of success/failure.
          */
         template<typename T>
@@ -93,7 +93,7 @@ namespace OSQPWrapper
 
         /**
          * Set the array for lower bound (size m).
-         * @param lowerBound is the lower bound constraint.
+         * @param lowerBoundVector is the lower bound constraint.
          * @return true/false in case of success/failure.
          */
         template<int m>
@@ -101,7 +101,7 @@ namespace OSQPWrapper
 
         /**
          * Set the array for upper bound (size m).
-         * @param upperBound is the upper bound constraint.
+         * @param upperBoundVector is the upper bound constraint.
          * @return true/false in case of success/failure.
          */
         template<int m>

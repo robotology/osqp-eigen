@@ -26,7 +26,7 @@
 namespace OSQPWrapper
 {
     /**
-     * OptimizatorWorkspace class is a wrapper of the OSQP OSQPWorkspace struct.
+     * OptimizatorSolver class is a wrapper of the OSQP OSQPWorkspace struct.
      */
     class OptimizatorSolver
     {
