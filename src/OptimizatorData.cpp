@@ -42,14 +42,29 @@ OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
     setNumberOfConstraints(m);
 }
 
+void OSQPWrapper::OptimizatorData::clearHessianMatrix()
+{
+    if(m_isHessianMatrixSet){
+        m_isHessianMatrixSet = false;
+        csc_spfree(m_data->P);
+        m_data->P = nullptr;
+    }
+}
+
+void OSQPWrapper::OptimizatorData::clearLinearConstraintsMatrix()
+{
+    if(m_isLinearConstraintsMatrixSet){
+        m_isLinearConstraintsMatrixSet = false;
+        csc_spfree(m_data->A);
+        m_data->A = nullptr;
+    }
+}
+
 OSQPWrapper::OptimizatorData::~OptimizatorData()
 {
     c_free(m_data);
-    if(m_data->P != nullptr)
-        csc_spfree(m_data->P);
-
-    if(m_data->A != nullptr)
-        csc_spfree(m_data->A);
+    clearHessianMatrix();
+    clearLinearConstraintsMatrix();
 }
 
 void OSQPWrapper::OptimizatorData::setNumberOfVariables(int n)

@@ -69,8 +69,8 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
 }
 
 template<typename T>
-bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenTriplets(const csc* const & osqpSparseMatrix,
-                                                                      std::vector<Eigen::Triplet<T>> &tripletList)
+bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
+                                                                 std::vector<Eigen::Triplet<T>> &tripletList)
 {
     // if the matrix is not instantiate the triplets vector is empty
     if(osqpSparseMatrix == nullptr){
@@ -84,13 +84,16 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenTriplets(const csc*
     c_int* outerIndexPtr = osqpSparseMatrix->p;
 
     // get values data
-    double* valuePtr = osqpSparseMatrix->x;
-    c_int numberOfNonZeroCoeff =  osqpSparseMatrix->nzmax;
+    c_float* valuePtr = osqpSparseMatrix->x;
+    c_int numberOfNonZeroCoeff =  osqpSparseMatrix->p[osqpSparseMatrix->n];
 
     // populate the tripletes vector
     int column=0;
     int row;
-    double value;
+    c_float value;
+
+    // clear the std::vector
+    tripletList.clear();
     for(int i = 0; i<numberOfNonZeroCoeff; i++) {
         row = innerIndexPtr[i];
         value = valuePtr[i];
@@ -121,7 +124,7 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
     // get the triplets from the csc matrix
     std::vector<Eigen::Triplet<T>> tripletList;
 
-    OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenTriplets(osqpSparseMatrix, tripletList);
+    OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletList);
 
     // resize the eigen matrix
     eigenSparseMatrix.resize(rows, cols);
@@ -129,6 +132,27 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
 
     // set the eigen matrix from triplets
     eigenSparseMatrix.setFromTriplets(tripletList.begin(), tripletList.end());
+    return true;
+}
+
+template<typename T>
+bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
+                                                                  std::vector<Eigen::Triplet<T>> &tripletList)
+{
+    if(eigenSparseMatrix.nonZeros() == 0){
+        std::cerr << "[eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
+                  << std::endl;
+        return false;
+    }
+
+    // clear the std::vector
+    tripletList.clear();
+    // populate the triplet list
+    for (int k=0; k < eigenSparseMatrix.outerSize(); ++k){
+        for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
+            tripletList.push_back(Eigen::Triplet<T>(it.row(), it.col(), it.value()));
+        }
+    }
 
     return true;
 }

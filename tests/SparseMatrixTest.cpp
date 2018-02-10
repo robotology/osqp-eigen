@@ -24,6 +24,20 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 
     if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(osqpSparseMatrix, newMatrix))
         return false;
+    std::vector<Eigen::Triplet<T>> tripletListCsc;
+    if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletListCsc))
+        return false;
+
+    for(auto a: tripletListCsc)
+        std::cout<<a.row() << " " <<a.col() << " " <<a.value()<<"\n ";
+
+    std::vector<Eigen::Triplet<T>> tripletListEigen;
+    OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(matrix, tripletListEigen);
+
+    std::cout<<"***********************************************\n";
+    for(auto a: tripletListEigen)
+        std::cout<<a.row() << " " <<a.col() << " " <<a.value()<<"\n ";
+
 
     bool outcome = matrix.isApprox(newMatrix);
 
@@ -35,9 +49,9 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 TEST(SparseMatrix, Double)
 {
     Eigen::Matrix3d m;
-    m << 0, 1, 0,
+    m << 0, 1.002311, 0,
         0, 0, 0,
-        0, 1,0;
+        0, 0.90835435,0;
 
     ASSERT_TRUE(computeTest(m));
 }

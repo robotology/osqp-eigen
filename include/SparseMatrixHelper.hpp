@@ -54,12 +54,22 @@ namespace OSQPWrapper
         /**
          * Convert an osqp sparse matrix into a eigen triplet list.
          * @param osqpSparseMatrix is reference to a constant pointer to a constant csc struct;
-         * @param tripletList is a std::vector containing the triplet .
+         * @param tripletList is a std::vector containing the triplet.
          * @return a const point to the csc struct.
          */
         template <typename T>
-        bool osqpSparseMatrixToEigenTriplets(const csc* const & osqpSparseMatrix,
-                                             std::vector<Eigen::Triplet<T>> &tripletList);
+        bool osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
+                                        std::vector<Eigen::Triplet<T>> &tripletList);
+
+        /**
+         * Convert an eigen sparse matrix into a eigen triplet list.
+         * @param eigenSparseMatrix is the eigen sparse matrix object;
+         * @param tripletList is a std::vector containing the triplet.
+         * @return a const point to the csc struct.
+         */
+        template<typename T>
+        bool eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
+                                         std::vector<Eigen::Triplet<T>> &tripletList);
     };
 }
 

@@ -16,7 +16,7 @@
  */
 namespace OSQPWrapper
 {
-    const c_float INFINTY = OSQP_INFTY; /**< Infinity constant. */
+    const c_float INFTY = OSQP_INFTY; /**< Infinity constant. */
 }
 
 #endif
