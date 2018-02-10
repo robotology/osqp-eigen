@@ -81,7 +81,7 @@ namespace OSQPWrapper
 
         /**
          * Set the interval for adapting rho (fraction of the setup time).
-         * @param adaptiveRhoFraction.
+         * @param adaptiveRhoFraction interval of the adapting rho.
          */
         void setAdaptiveRhoFraction(const double adaptiveRhoFraction);
 
@@ -93,25 +93,25 @@ namespace OSQPWrapper
 
         /**
          * Set the absolute convergence tolerance.
-         * @param absoluteTolerance.
+         * @param absoluteTolerance absoulte tolerance of the solver.
          */
         void setAbsoluteTolerance(const double absoluteTolerance);
 
         /**
          * Set the relative convergence tolerance.
-         * @param relativeTolerance.
+         * @param relativeTolerance relative tolerance of the solver.
          */
         void setRelativeTolerance(const double relativeTolerance);
 
         /**
          * Set the primal infeasibility tolerance.
-         * @param primalInfeasibilityTollerance.
+         * @param primalInfeasibilityTollerance tolerace of the primal variables.
          */
         void setPrimalInfeasibilityTollerance(const double primalInfeasibilityTollerance);
 
         /**
          * Set the dual infeasibility tolerance.
-         * @param dualInfeasibilityTollerance.
+         * @param dualInfeasibilityTollerance tolerace of the dual variables.
          */
         void setDualInfeasibilityTollerance(const double dualInfeasibilityTollerance);
 
@@ -123,7 +123,7 @@ namespace OSQPWrapper
 
         /**
          * Set the relaxation parameter for polish.
-         * @param polish is the relaxation parameter.
+         * @param delta is the relaxation parameter.
          */
         void setDelta(const double delta);
 
@@ -135,7 +135,7 @@ namespace OSQPWrapper
 
         /**
          * Set the iterative refinement steps in polish.
-         * @param polishRefineIter.
+         * @param polishRefineIter iterative refinement step.
          */
         void setPolishRefineIter(const int polishRefineIter);
 
