@@ -1,62 +1,126 @@
-os: linux
 sudo: required
-dist: trusty
-language:
-  - cpp
+language: cpp
 
-compiler:
-  - gcc
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-6
-      - g++-6
-      - cmake
-      - libgtest-dev
+matrix:
+  include:
+
+    # Linux C++14 GCC builds
+    - os: linux
+      compiler: gcc
+      addons: &gcc6
+        apt:
+          sources: ['ubuntu-toolchain-r-test']
+          packages: ['g++-6']
+      env: COMPILER='g++-6' BUILD_TYPE='Release'
+
+    - os: linux
+      compiler: gcc
+      addons: *gcc6
+      env: COMPILER='g++-6' BUILD_TYPE='Debug'
+
+      # Linux C++14 Clang builds
+    - os: linux
+      compiler: clang
+      addons: &clang39
+        apt:
+          sources: ['llvm-toolchain-precise-3.9', 'ubuntu-toolchain-r-test']
+          packages: ['clang-3.9', 'g++-6']
+      env: COMPILER='clang++-3.9' BUILD_TYPE='Release'
+
+    - os: linux
+      compiler: clang
+      addons: *clang39
+      env: COMPILER='clang++-3.9' BUILD_TYPE='Debug'
+
+      # OSX C++14 Clang Build
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: COMPILER='clang++' BUILD_TYPE='Debug'
+
+    - os: osx
+      osx_image: xcode8.3
+      compiler: clang
+      env: COMPILER='clang++' BUILD_TYPE='Release'
+
+install:
+  - export CXX=${COMPILER}
+
+  - ${CXX} --version
+
+  # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir -p "${DEPS_DIR}"
+  - cd "${DEPS_DIR}"
+
+  # Travis machines have 2 cores
+  - JOBS=2
+
+  - |
+    LLVM_INSTALL=${DEPS_DIR}/llvm/install
+    # if in linux and compiler clang and llvm not installed
+    if [[ "${TRAVIS_OS_NAME}" == "linux" && "${CXX%%+*}" == "clang" && -n "$(ls -A ${LLVM_INSTALL})" ]]; then
+    if   [[ "${CXX}" == "clang++-3.6" ]]; then LLVM_VERSION="3.6.2";
+    elif [[ "${CXX}" == "clang++-3.7" ]]; then LLVM_VERSION="3.7.1";
+    elif [[ "${CXX}" == "clang++-3.8" ]]; then LLVM_VERSION="3.8.1";
+    elif [[ "${CXX}" == "clang++-3.9" ]]; then LLVM_VERSION="3.9.1";
+    fi
+    LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
+    LIBCXX_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxx-${LLVM_VERSION}.src.tar.xz"
+    LIBCXXABI_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxxabi-${LLVM_VERSION}.src.tar.xz"
+    mkdir -p llvm llvm/build llvm/projects/libcxx llvm/projects/libcxxabi
+    travis_retry wget -O - ${LLVM_URL} | tar --strip-components=1 -xJ -C llvm
+    travis_retry wget -O - ${LIBCXX_URL} | tar --strip-components=1 -xJ -C llvm/projects/libcxx
+    travis_retry wget -O - ${LIBCXXABI_URL} | tar --strip-components=1 -xJ -C llvm/projects/libcxxabi
+    (cd llvm/build && cmake .. -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL})
+    (cd llvm/build/projects/libcxx && make install -j2)
+    (cd llvm/build/projects/libcxxabi && make install -j2)
+    export CXXFLAGS="-isystem ${LLVM_INSTALL}/include/c++/v1"
+    export LDFLAGS="-L ${LLVM_INSTALL}/lib -l c++ -l c++abi"
+    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LLVM_INSTALL}/lib"
+    fi
 
 before_script:
-- mkdir ~/robot-code
-- mkdir ~/robot-install
 
-- export ROBOT_CODE=~/robot-code
-- export ROBOT_INSTALL=~/robot-install
+  - mkdir ~/robot-code
+  - mkdir ~/robot-install
 
-- cd /usr/src/gtest
-- sudo cmake CMakeLists.txt
-- sudo make
-- sudo cp *.a /usr/lib
+  - export ROBOT_CODE=~/robot-code
+  - export ROBOT_INSTALL=~/robot-install
 
-- cd $ROBOT_CODE
-- git clone https://github.com/eigenteam/eigen-git-mirror.git
-- cd eigen-git-mirror
-- mkdir build
-- cd build
-- cmake ../
-- sudo make install
+  - cd $ROBOT_CODE
+  - wget https://github.com/google/googletest/archive/release-1.8.0.zip
+  - unzip release-1.8.0.zip
+  - cd googletest-release-1.8.0
+  - mkdir build
+  - cd build
+  - cmake ../ -DBUILD_GTEST=ON -DBUILD_SHARED_LIBS=ON
+  - sudo make install
 
-- cd $ROBOT_CODE
-- git clone https://github.com/oxfordcontrol/osqp.git
-- cd osqp
-- mkdir build
-- cd build
-- cmake -DCMAKE_INSTALL_PREFIX=$ROBOT_INSTALL -DUNITTESTS=OFF ../
-- make install
-- export osqp_DIR=$ROBOT_INSTALL
+  - cd $ROBOT_CODE
+  - git clone https://github.com/eigenteam/eigen-git-mirror.git
+  - cd eigen-git-mirror
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ../
+  - sudo make install
+
+  - cd $ROBOT_CODE
+  - git clone https://github.com/oxfordcontrol/osqp.git
+  - cd osqp
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$ROBOT_INSTALL -DUNITTESTS=OFF ../
+  - make install
+  - export osqp_DIR=$ROBOT_INSTALL
 
 script:
-# Link gcc-6 and g++-6 to their standard commands
-- sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
-- sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
-# Export CC and CXX to tell cmake which compiler to use
-- export CC=/usr/bin/gcc-6
-- export CXX=/usr/bin/g++-6
-# Check versions of gcc, g++ and cmake
-- gcc -v && g++ -v && cmake --version
-- cd $TRAVIS_BUILD_DIR
-- mkdir build
-- cd build
-- cmake ../
-- make
-- make test
+  - cd $TRAVIS_BUILD_DIR
+  - mkdir build
+  - cd build
+  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ../
+  - make
+  - make test
+
+notifications:
+  email: false
