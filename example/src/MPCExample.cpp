@@ -148,7 +148,7 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
     }
 }
 
-void castMPCToQPConstraintVectores(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
+void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
                                    const Eigen::Matrix<double, 4, 1> &uMax, const Eigen::Matrix<double, 4, 1> &uMin,
                                    const Eigen::Matrix<double, 12, 1> &x0,
                                    int mpcWindow, Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
@@ -245,7 +245,7 @@ int main()
     castMPCToQPHessian(Q, R, mpcWindow, hessian);
     castMPCToQPGradient(Q, xRef, mpcWindow, gradient);
     castMPCToQPConstraintMatrix(a, b, mpcWindow, linearMatrix);
-    castMPCToQPConstraintVectores(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
+    castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
     OSQPWrapper::OptimizatorSolver solver;
@@ -259,7 +259,7 @@ int main()
     solver.initData()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
     if(!solver.initData()->setHessianMatrix(hessian)) return 1;
     if(!solver.initData()->setGradient(gradient)) return 1;
-    if(!solver.initData()->setLinearConstraintMatrix(linearMatrix)) return 1;
+    if(!solver.initData()->setLinearConstraintsMatrix(linearMatrix)) return 1;
     if(!solver.initData()->setLowerBound(lowerBound)) return 1;
     if(!solver.initData()->setUpperBound(upperBound)) return 1;
 

@@ -38,15 +38,15 @@ TEST(QPProblem, )
     OSQPWrapper::OptimizatorSolver solver;
     solver.settings()->setVerbosity(false);
 
-    ASSERT_FALSE(solver.initData()->setHessianMatrix(H_s));
-    solver.initData()->setNumberOfVariables(2);
+    ASSERT_FALSE(solver.data()->setHessianMatrix(H_s));
+    solver.data()->setNumberOfVariables(2);
 
-    solver.initData()->setNumberOfConstraints(3);
-    ASSERT_TRUE(solver.initData()->setHessianMatrix(H_s));
-    ASSERT_TRUE(solver.initData()->setGradient(gradient));
-    ASSERT_TRUE(solver.initData()->setLinearConstraintMatrix(A_s));
-    ASSERT_TRUE(solver.initData()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.initData()->setUpperBound(upperBound));
+    solver.data()->setNumberOfConstraints(3);
+    ASSERT_TRUE(solver.data()->setHessianMatrix(H_s));
+    ASSERT_TRUE(solver.data()->setGradient(gradient));
+    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(A_s));
+    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
+    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
 
 
     ASSERT_TRUE(solver.initSolver());
