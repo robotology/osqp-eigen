@@ -19,6 +19,7 @@
 // OSQPWrapper
 #include "OptimizatorData.hpp"
 #include "OptimizatorSettings.hpp"
+#include "OptimizatorConstants.hpp"
 
 /**
  * OSQPWrapper namespace.

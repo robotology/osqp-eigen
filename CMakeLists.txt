@@ -47,6 +47,7 @@ set(${LIBRARY_TARGET_NAME}_SRC
   src/OptimizatorSolver.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
+  include/OptimizatorConstants.hpp
   include/SparseMatrixHelper.hpp
   include/SparseMatrixHelper.tpp
   include/OptimizatorData.hpp
