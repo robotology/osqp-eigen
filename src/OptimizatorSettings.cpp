@@ -10,7 +10,7 @@
 OSQPWrapper::OptimizatorSettings::OptimizatorSettings()
 {
     m_settings = (OSQPSettings *)c_malloc(sizeof(OSQPSettings));
-    set_default_settings(m_settings);
+    osqp_set_default_settings(m_settings);
 }
 
 OSQPWrapper::OptimizatorSettings::~OptimizatorSettings()
@@ -20,7 +20,7 @@ OSQPWrapper::OptimizatorSettings::~OptimizatorSettings()
 
 void OSQPWrapper::OptimizatorSettings::resetDefaultSettings()
 {
-    set_default_settings(m_settings);
+    osqp_set_default_settings(m_settings);
 }
 
 void OSQPWrapper::OptimizatorSettings::setRho(const double rho)
