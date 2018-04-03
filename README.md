@@ -1,4 +1,4 @@
-# OSQP-Wrapper
+# osqp-eigen
 Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) library. 
 
 | System        | Status        |
