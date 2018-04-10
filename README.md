@@ -7,18 +7,16 @@ Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) l
 
 
 ## Dependeces
-- [OSQP](http://osqp.readthedocs.io/en/latest/index.html) of course :smile:;
+- [osqp](http://osqp.readthedocs.io/en/latest/index.html) of course :smile:;
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page);
 - [cmake](https://cmake.org/) for generate `makefile`;
 - [googletest](https://github.com/google/googletest) for testing.  
 
-**Notice**: if you want to use this Wrapper please install the osqp library from [sources](http://osqp.readthedocs.io/en/latest/installation/sources.html).
-
 ## Build the library and the application
 ### Linux/macOs
 ```sh
-git clone https://github.com/GiulioRomualdi/OSQP-Wrapper.git
-cd OSQP-Wrapper
+git clone https://github.com/GiulioRomualdi/osqp-eigen.git
+cd osqp-eigen
 mkdir build && cd build
 cmake ../
 make
@@ -44,7 +42,7 @@ export OSQPWrapper_DIR=/path/where/you/installed/
 [Here](./example/) you can find a simple example that shows how to use this library.  
 
 ## API
-[Here](https://giulioromualdi.github.io/OSQP-Wrapper/) you can find the documentation.
+[Here](https://giulioromualdi.github.io/osqp-eigen/) you can find the documentation.
 
 ## Bug reports and support
-All types of [issues](https://github.com/GiulioRomualdi/OSQP-Wrapper/issues/new) are welcome :smile:. 
+All types of [issues](https://github.com/GiulioRomualdi/osqp-eigen/issues/new) are welcome :smile:. 
