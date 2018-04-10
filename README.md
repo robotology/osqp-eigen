@@ -1,9 +1,9 @@
 # osqp-eigen
-Simple C++ wrapper for [OSQP](http://osqp.readthedocs.io/en/latest/index.html) library. 
+Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) library. 
 
 | System        | Status        |
 | ------------- |:-------------:|
-|Linux / OSX      | [![Build Status](https://travis-ci.org/GiulioRomualdi/OSQP-Wrapper.svg?branch=master)](https://travis-ci.org/GiulioRomualdi/OSQP-Wrapper)  | 
+|Linux / OSX      | [![Build Status](https://travis-ci.org/GiulioRomualdi/osqp-eigen.svg?branch=master)](https://travis-ci.org/GiulioRomualdi/osqp-eigen)  | 
 
 
 ## Dependeces
