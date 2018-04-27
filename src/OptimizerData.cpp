@@ -1,5 +1,5 @@
 /**
- * @file OptimizatorData.cpp
+ * @file OptimizerData.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
@@ -9,9 +9,9 @@
 #include <iostream>
 
 // OSQPWrapper
-#include "OptimizatorData.hpp"
+#include "OptimizerData.hpp"
 
-OSQPWrapper::OptimizatorData::OptimizatorData()
+OSQPWrapper::OptimizerData::OptimizerData()
     : m_isNumberOfVariablesSet(false),
       m_isNumberOfConstraintsSet(false),
       m_isHessianMatrixSet(false),
@@ -25,7 +25,7 @@ OSQPWrapper::OptimizatorData::OptimizatorData()
     m_data->A = nullptr;
 }
 
-OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
+OSQPWrapper::OptimizerData::OptimizerData(int n, int m)
     : m_isNumberOfVariablesSet(true),
       m_isNumberOfConstraintsSet(true),
       m_isHessianMatrixSet(false),
@@ -42,7 +42,7 @@ OSQPWrapper::OptimizatorData::OptimizatorData(int n, int m)
     setNumberOfConstraints(m);
 }
 
-void OSQPWrapper::OptimizatorData::clearHessianMatrix()
+void OSQPWrapper::OptimizerData::clearHessianMatrix()
 {
     if(m_isHessianMatrixSet){
         m_isHessianMatrixSet = false;
@@ -51,7 +51,7 @@ void OSQPWrapper::OptimizatorData::clearHessianMatrix()
     }
 }
 
-void OSQPWrapper::OptimizatorData::clearLinearConstraintsMatrix()
+void OSQPWrapper::OptimizerData::clearLinearConstraintsMatrix()
 {
     if(m_isLinearConstraintsMatrixSet){
         m_isLinearConstraintsMatrixSet = false;
@@ -60,31 +60,31 @@ void OSQPWrapper::OptimizatorData::clearLinearConstraintsMatrix()
     }
 }
 
-OSQPWrapper::OptimizatorData::~OptimizatorData()
+OSQPWrapper::OptimizerData::~OptimizerData()
 {
     c_free(m_data);
     clearHessianMatrix();
     clearLinearConstraintsMatrix();
 }
 
-void OSQPWrapper::OptimizatorData::setNumberOfVariables(int n)
+void OSQPWrapper::OptimizerData::setNumberOfVariables(int n)
 {
     m_isNumberOfVariablesSet = true;
     m_data->n = n;
 }
 
-void OSQPWrapper::OptimizatorData::setNumberOfConstraints(int m)
+void OSQPWrapper::OptimizerData::setNumberOfConstraints(int m)
 {
     m_isNumberOfConstraintsSet = true;
     m_data->m = m;
 }
 
-OSQPData* const & OSQPWrapper::OptimizatorData::getOptimizatorData() const
+OSQPData* const & OSQPWrapper::OptimizerData::getOptimizerData() const
 {
     return m_data;
 }
 
-bool OSQPWrapper::OptimizatorData::isSet() const
+bool OSQPWrapper::OptimizerData::isSet() const
 {
     return m_isNumberOfVariablesSet &&
         m_isNumberOfConstraintsSet &&

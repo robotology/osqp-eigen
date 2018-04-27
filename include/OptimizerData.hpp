@@ -1,12 +1,12 @@
 /**
- * @file OptimizatorData.hpp
+ * @file OptimizerData.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 
-#ifndef OPTIMIZATOR_DATA_HPP
-#define OPTIMIZATOR_DATA_HPP
+#ifndef OPTIMIZER_DATA_HPP
+#define OPTIMIZER_DATA_HPP
 
 // Eigen
 #include <Eigen/Dense>
@@ -23,9 +23,9 @@
 namespace OSQPWrapper
 {
     /**
-     * OptimizatorData class is a wrapper of the OSQP OSQPData struct.
+     * OptimizerData class is a wrapper of the OSQP OSQPData struct.
      */
-    class OptimizatorData
+    class OptimizerData
     {
         OSQPData *m_data; /**< OSQPData struct. */
         bool m_isNumberOfVariablesSet; /**< Boolean true if the number of variables is set. */
@@ -40,19 +40,19 @@ namespace OSQPWrapper
         /**
          * Constructor.
          */
-        OptimizatorData();
+        OptimizerData();
 
         /**
          * Constructor.
          * @param n is the number of variables;
          * @param m is the number of constraints.
          */
-        OptimizatorData(int n, int m);
+        OptimizerData(int n, int m);
 
         /**
          * Deconstructor.
          */
-        ~OptimizatorData();
+        ~OptimizerData();
 
         /**
          * Clear the hessian matrix.
@@ -121,7 +121,7 @@ namespace OSQPWrapper
          * Get the OSQPData struct.
          * @return a const point to the OSQPData struct.
          */
-        OSQPData *const & getOptimizatorData() const;
+        OSQPData *const & getOptimizerData() const;
 
         /**
          * Verify if all the matrix and vectors are already set.
@@ -131,6 +131,6 @@ namespace OSQPWrapper
     };
 }
 
-#include "OptimizatorData.tpp"
+#include "OptimizerData.tpp"
 
 #endif

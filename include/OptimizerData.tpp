@@ -1,5 +1,5 @@
 /**
- * @file OptimizatorData.tpp
+ * @file OptimizerData.tpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
@@ -8,7 +8,7 @@
 #include <iostream>
 
 template<typename T>
-bool OSQPWrapper::OptimizatorData::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+bool OSQPWrapper::OptimizerData::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
 {
     if(m_isHessianMatrixSet){
         std::cerr << "[setHessianMatrix] The hessian matrix was already set. "
@@ -47,10 +47,10 @@ bool OSQPWrapper::OptimizatorData::setHessianMatrix(const Eigen::SparseMatrix<T>
 }
 
 template<int n>
-bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gradient)
+bool OSQPWrapper::OptimizerData::setGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
     if(gradient.rows() != m_data->n){
-        std::cerr << "[Optimizator Data] The size of the gradient must be equal to the number of the variables."
+        std::cerr << "[Optimizer Data] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -60,7 +60,7 @@ bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gra
 }
 
 template<typename T>
-bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
+bool OSQPWrapper::OptimizerData::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
 {
     if(m_isLinearConstraintsMatrixSet){
         std::cerr << "[setLinearConstraintsMatrix] The linear constraint matrix was already set. "
@@ -82,7 +82,7 @@ bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const Eigen::Spars
     }
 
     if ((linearConstraintsMatrix.rows() != m_data->m) || (linearConstraintsMatrix.cols()!= m_data->n)){
-        std::cerr << "[Optimizator Data] The Linear constraints matrix has to be a m x n size matrix."
+        std::cerr << "[setLinearConstraintMatrix] The Linear constraints matrix has to be a m x n size matrix."
                   << std::endl;
         return false;
     }
@@ -95,7 +95,7 @@ bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const Eigen::Spars
     // set the hessian matrix
     if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintsMatrix,
                                                                 m_data->A)){
-        std::cerr << "[Optimizator Data] osqp sparse matrix not created."
+        std::cerr << "[setLinearConstraintMatrix] osqp sparse matrix not created."
                   << std::endl;
         return false;
     }
@@ -106,10 +106,10 @@ bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const Eigen::Spars
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorData::setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
+bool OSQPWrapper::OptimizerData::setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
 {
     if(lowerBound.rows() != m_data->m){
-        std::cerr << "[Optimizator Data] The size of the lower bound must be equal to the number of the variables."
+        std::cerr << "[setLowerBound] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -119,10 +119,10 @@ bool OSQPWrapper::OptimizatorData::setLowerBound(Eigen::Matrix<c_float, m, 1>& l
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorData::setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
+bool OSQPWrapper::OptimizerData::setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
 {
     if(upperBound.rows() != m_data->m){
-        std::cerr << "[Optimizator Data] The size of the upper bound must be equal to the number of the variables."
+        std::cerr << "[setUpperBound] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
