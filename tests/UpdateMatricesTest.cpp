@@ -8,7 +8,7 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include "OptimizatorSolver.hpp"
+#include "OptimizerSolver.hpp"
 
 // colors
 #define ANSI_TXT_GRN "\033[0;32m"
@@ -26,7 +26,7 @@ Eigen::Vector2d gradient;
 Eigen::Vector3d lowerBound;
 Eigen::Vector3d upperBound;
 
-OSQPWrapper::OptimizatorSolver solver;
+OSQPWrapper::OptimizerSolver solver;
 
 TEST(QPProblem, FirstRun)
 {

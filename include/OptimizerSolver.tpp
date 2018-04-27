@@ -1,5 +1,5 @@
 /**
- * @file OptimizatorSolver.tpp
+ * @file OptimizerSolver.tpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
@@ -9,18 +9,18 @@
 #include "auxil.h"
 #include "scaling.h"
 template<int n>
-bool OSQPWrapper::OptimizatorSolver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
+bool OSQPWrapper::OptimizerSolver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
     // check if the dimension of the gradient is correct
     if(gradient.rows() != m_workspace->data->n){
-        std::cerr << "[Optimizator Workspace] The size of the gradient must be equal to the number of the variables."
+        std::cerr << "[Optimizer Workspace] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the gradient vector
     if(osqp_update_lin_cost(m_workspace, gradient.data())){
-        std::cerr << "[Optimizator Workspace] Error when the update gradient is called."
+        std::cerr << "[Optimizer Workspace] Error when the update gradient is called."
                   << std::endl;
         return false;
     }
@@ -28,18 +28,18 @@ bool OSQPWrapper::OptimizatorSolver::updateGradient(Eigen::Matrix<c_float, n, 1>
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorSolver::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
+bool OSQPWrapper::OptimizerSolver::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
 {
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizator Workspace] The size of the lower bound must be equal to the number of the variables."
+        std::cerr << "[Optimizer Workspace] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the lower bound vector
     if(osqp_update_lower_bound(m_workspace, lowerBound.data())){
-        std::cerr << "[Optimizator Workspace] Error when the update lower bound is called."
+        std::cerr << "[Optimizer Workspace] Error when the update lower bound is called."
                   << std::endl;
         return false;
     }
@@ -48,18 +48,18 @@ bool OSQPWrapper::OptimizatorSolver::updateLowerBound(Eigen::Matrix<c_float, m, 
 }
 
 template<int m>
-bool OSQPWrapper::OptimizatorSolver::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
+bool OSQPWrapper::OptimizerSolver::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizator Workspace] The size of the upper bound must be equal to the number of the variables."
+        std::cerr << "[Optimizer Workspace] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the upper bound vector
     if(osqp_update_upper_bound(m_workspace, upperBound.data())){
-        std::cerr << "[Optimizator Workspace] Error when the update upper bound is called."
+        std::cerr << "[Optimizer Workspace] Error when the update upper bound is called."
                   << std::endl;
         return false;
     }
@@ -68,26 +68,26 @@ bool OSQPWrapper::OptimizatorSolver::updateUpperBound(Eigen::Matrix<c_float, m, 
 
 
 template<int m>
-bool OSQPWrapper::OptimizatorSolver::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
+bool OSQPWrapper::OptimizerSolver::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
                                                   Eigen::Matrix<c_float, m, 1>& upperBound)
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizator Workspace] The size of the upper bound must be equal to the number of the variables."
+        std::cerr << "[Optimizer Workspace] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizator Workspace] The size of the lower bound must be equal to the number of the variables."
+        std::cerr << "[Optimizer Workspace] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update lower and upper constraints
     if(osqp_update_bounds(m_workspace, lowerBound.data(), upperBound.data())){
-        std::cerr << "[Optimizator Workspace] Error when the update bounds is called."
+        std::cerr << "[Optimizer Workspace] Error when the update bounds is called."
                   << std::endl;
         return false;
     }
@@ -95,7 +95,7 @@ bool OSQPWrapper::OptimizatorSolver::updateBounds(Eigen::Matrix<c_float, m, 1>& 
 }
 
 template<typename T>
-bool OSQPWrapper::OptimizatorSolver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
 {
     if(!m_isSolverInitialized){
         std::cerr << "[updateHessianMatrix] The solver has not been initialized."
@@ -148,7 +148,7 @@ bool OSQPWrapper::OptimizatorSolver::updateHessianMatrix(const Eigen::SparseMatr
     }
     else{
         // the sparsity pattern has changed
-        // the optimizator solver has to be setup again
+        // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
@@ -200,7 +200,7 @@ bool OSQPWrapper::OptimizatorSolver::updateHessianMatrix(const Eigen::SparseMatr
 }
 
 template<typename T>
-bool OSQPWrapper::OptimizatorSolver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
+bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
 {
     if(!m_isSolverInitialized){
         std::cerr << "[updateLinearConstraintMatrix] The solver has not been initialized."
@@ -253,7 +253,7 @@ bool OSQPWrapper::OptimizatorSolver::updateLinearConstraintsMatrix(const Eigen::
     }
     else{
         // the sparsity pattern has changed
-        // the optimizator solver has to be setup again
+        // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
@@ -305,7 +305,7 @@ bool OSQPWrapper::OptimizatorSolver::updateLinearConstraintsMatrix(const Eigen::
 }
 
 template<typename T, int n, int m>
-bool OSQPWrapper::OptimizatorSolver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariable,
+bool OSQPWrapper::OptimizerSolver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariable,
                                                   const Eigen::Matrix<T, m, 1> &dualVariable)
 {
     if(primalVariable.rows() != m_workspace->data->n){
@@ -330,7 +330,7 @@ bool OSQPWrapper::OptimizatorSolver::setWarmStart(const Eigen::Matrix<T, n, 1> &
 }
 
 template<typename T, int n>
-bool OSQPWrapper::OptimizatorSolver::setPrimalVariable(const Eigen::Matrix<T, n, 1> &primalVariable)
+bool OSQPWrapper::OptimizerSolver::setPrimalVariable(const Eigen::Matrix<T, n, 1> &primalVariable)
 {
     if(primalVariable.rows() != m_workspace->data->n){
         std::cerr << "[setPrimalVariable] The size of the primal variable vector has to be equal to "
@@ -346,7 +346,7 @@ bool OSQPWrapper::OptimizatorSolver::setPrimalVariable(const Eigen::Matrix<T, n,
 
 
 template<typename T, int m>
-bool OSQPWrapper::OptimizatorSolver::setDualVariable(const Eigen::Matrix<T, m, 1> &dualVariable)
+bool OSQPWrapper::OptimizerSolver::setDualVariable(const Eigen::Matrix<T, m, 1> &dualVariable)
 {
     if(dualVariable.rows() != m_workspace->data->m){
         std::cerr << "[setDualVariable] The size of the dual variable vector has to be equal to "
@@ -363,7 +363,7 @@ bool OSQPWrapper::OptimizatorSolver::setDualVariable(const Eigen::Matrix<T, m, 1
 }
 
 template<typename T, int n>
-bool OSQPWrapper::OptimizatorSolver::getPrimalVariable(Eigen::Matrix<T, n, 1> &primalVariable)
+bool OSQPWrapper::OptimizerSolver::getPrimalVariable(Eigen::Matrix<T, n, 1> &primalVariable)
 {
     if(n == Eigen::Dynamic){
         primalVariable.resize(m_workspace->data->n, 1);
@@ -383,7 +383,7 @@ bool OSQPWrapper::OptimizatorSolver::getPrimalVariable(Eigen::Matrix<T, n, 1> &p
 }
 
 template<typename T, int m>
-bool OSQPWrapper::OptimizatorSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dualVariable)
+bool OSQPWrapper::OptimizerSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dualVariable)
 {
     if(m == Eigen::Dynamic){
         dualVariable.resize(m_workspace->data->m, 1);
@@ -404,7 +404,7 @@ bool OSQPWrapper::OptimizatorSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dua
 }
 
 template<typename T>
-bool OSQPWrapper::OptimizatorSolver::evaluateNewValues(const std::vector<Eigen::Triplet<T>> &oldMatrixTriplet,
+bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Triplet<T>> &oldMatrixTriplet,
                                                        const std::vector<Eigen::Triplet<T>> &newMatrixTriplet,
                                                        std::vector<c_int> &newIndices,
                                                        std::vector<c_float> &newValues) const

@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 // OSQPWrapper
-#include "OptimizatorSolver.hpp"
+#include "OptimizerSolver.hpp"
 
 // eigen
 #include <Eigen/Dense>
@@ -263,7 +263,7 @@ TEST(MPCTest,)
     castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
-    OSQPWrapper::OptimizatorSolver solver;
+    OSQPWrapper::OptimizerSolver solver;
 
     // settings
     solver.settings()->setVerbosity(false);

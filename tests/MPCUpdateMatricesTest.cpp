@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 // OSQPWrapper
-#include "OptimizatorSolver.hpp"
+#include "OptimizerSolver.hpp"
 
 // eigen
 #include <Eigen/Dense>
@@ -150,7 +150,7 @@ void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 2, 1> &x0,
     upperBound = lowerBound;
 }
 
-bool updateHessianMatrix(OSQPWrapper::OptimizatorSolver &solver,
+bool updateHessianMatrix(OSQPWrapper::OptimizerSolver &solver,
                          const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen::DiagonalMatrix<double, 1> &R,
                          int mpcWindow, int k)
 {
@@ -163,7 +163,7 @@ bool updateHessianMatrix(OSQPWrapper::OptimizatorSolver &solver,
     return true;
 }
 
-bool updateLinearConstraintsMatrix(OSQPWrapper::OptimizatorSolver &solver,
+bool updateLinearConstraintsMatrix(OSQPWrapper::OptimizerSolver &solver,
                                    int mpcWindow, int k)
 {
     Eigen::SparseMatrix<double> constraintMatrix;
@@ -227,7 +227,7 @@ TEST(MPCTest,)
     castMPCToQPConstraintVectors(x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
-    OSQPWrapper::OptimizatorSolver solver;
+    OSQPWrapper::OptimizerSolver solver;
 
     // settings
     solver.settings()->setVerbosity(false);

@@ -1,12 +1,12 @@
 /**
- * @file OptimizatorSettings.hpp
+ * @file OptimizerSettings.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 
-#ifndef OPTIMIZATOR_SETTINGS_HPP
-#define OPTIMIZATOR_SETTINGS_HPP
+#ifndef OPTIMIZER_SETTINGS_HPP
+#define OPTIMIZER_SETTINGS_HPP
 
 // OSQP
 #include "osqp.h"
@@ -17,12 +17,12 @@
 namespace OSQPWrapper
 {
     /**
-     * OptimizatorSettings class is a wrapper of the OSQP OSQPSettings struct.
-     * All the setter methods refer to this particular kind of optimizator.
+     * OptimizerSettings class is a wrapper of the OSQP OSQPSettings struct.
+     * All the setter methods refer to this particular kind of optimizer.
      * <a href="http://web.stanford.edu/~boyd/admm.html">Here</a>
      * you can find further information.
      */
-    class OptimizatorSettings
+    class OptimizerSettings
     {
         OSQPSettings *m_settings; /**< OSQPSettings struct. */
     public:
@@ -30,12 +30,12 @@ namespace OSQPWrapper
         /**
          * Constructor.
          */
-        OptimizatorSettings();
+        OptimizerSettings();
 
         /**
          * Deconstructor.
          */
-        ~OptimizatorSettings();
+        ~OptimizerSettings();
 
         /**
          * Reset the default settings for the optimization problem.
@@ -164,10 +164,10 @@ namespace OSQPWrapper
         void setWarmStart(const bool warmStart);
 
         /**
-         * Get a pointer to OptimizatorSettings struct.
+         * Get a pointer to OptimizerSettings struct.
          * @return a const pointer to OSQPSettings struct.
          */
-        OSQPSettings* const & getOptimizatorSettings() const;
+        OSQPSettings* const & getOptimizerSettings() const;
     };
 }
 
