@@ -12,30 +12,30 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # QPTest
 add_executable(SparseMatrixTest SparseMatrixTest.cpp)
-target_link_libraries(SparseMatrixTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
+target_link_libraries(SparseMatrixTest osqp-eigen osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME SparseMatrixTest
   COMMAND SparseMatrixTest)
 
 # QPTest
 add_executable(QPTest QPTest.cpp)
-target_link_libraries(QPTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
+target_link_libraries(QPTest osqp-eigen osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME QPTest
   COMMAND QPTest)
 
 # Update matrix
 add_executable(UpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(UpdateMatricesTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
+target_link_libraries(UpdateMatricesTest osqp-eigen osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME UpdateMatricesTest
   COMMAND UpdateMatricesTest)
 
 # MPCTest
 add_executable(MPCTest MPCTest.cpp)
-target_link_libraries(MPCTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
+target_link_libraries(MPCTest osqp-eigen osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME MPCTest
   COMMAND MPCTest)
 
 # MPCTest update matrix
 add_executable(MPCUpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(MPCUpdateMatricesTest OSQPWrapper osqp::osqp ${GTEST_LIBRARIES} pthread)
+target_link_libraries(MPCUpdateMatricesTest osqp-eigen osqp::osqp ${GTEST_LIBRARIES} pthread)
 add_test(NAME MPCUpdateMatricesTest
   COMMAND MPCUpdateMatricesTest)

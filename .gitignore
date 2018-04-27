@@ -9,4 +9,4 @@ tramp
 .\#*
 
 #build
-./build
+/build/
