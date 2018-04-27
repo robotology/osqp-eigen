@@ -55,6 +55,16 @@ namespace OSQPWrapper
         ~OptimizatorData();
 
         /**
+         * Clear the hessian matrix.
+         */
+        void clearHessianMatrix();
+
+        /**
+         * Clear the linear constraints matrix.
+         */
+        void clearLinearConstraintsMatrix();
+
+        /**
          * Set the number of variables.
          * @param n is the number of variables.
          */
@@ -85,11 +95,11 @@ namespace OSQPWrapper
 
         /**
          * Set the linear constraint matrix A (size m x n)
-         * @param linearConstraintMatrix is the linear constraint matrix.
+         * @param linearConstraintsMatrix is the linear constraints matrix A.
          * @return true/false in case of success/failure.
          */
         template<typename T>
-        bool setLinearConstraintMatrix(const Eigen::SparseMatrix<T> &linearConstraintMatrix);
+        bool setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
 
         /**
          * Set the array for lower bound (size m).
