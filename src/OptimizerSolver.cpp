@@ -1,29 +1,29 @@
 /**
- * @file OptimizatorSolver.cpp
+ * @file OptimizerSolver.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 
 // OSQPWrapper
-#include "OptimizatorData.hpp"
-#include "OptimizatorSettings.hpp"
-#include "OptimizatorSolver.hpp"
+#include "OptimizerData.hpp"
+#include "OptimizerSettings.hpp"
+#include "OptimizerSolver.hpp"
 
-OSQPWrapper::OptimizatorSolver::OptimizatorSolver()
+OSQPWrapper::OptimizerSolver::OptimizerSolver()
     :m_isSolverInitialized(false)
 {
-    m_settings = std::make_unique<OSQPWrapper::OptimizatorSettings>();
-    m_data = std::make_unique<OSQPWrapper::OptimizatorData>();
+    m_settings = std::make_unique<OSQPWrapper::OptimizerSettings>();
+    m_data = std::make_unique<OSQPWrapper::OptimizerData>();
     m_workspace = nullptr;
 }
 
-OSQPWrapper::OptimizatorSolver::~OptimizatorSolver()
+OSQPWrapper::OptimizerSolver::~OptimizerSolver()
 {
     clearSolver();
 }
 
-bool OSQPWrapper::OptimizatorSolver::clearSolverVariables()
+bool OSQPWrapper::OptimizerSolver::clearSolverVariables()
 {
     if(!m_isSolverInitialized){
         std::cerr << "[clearSolverVariables] Unable to clear the solver variables. "
@@ -63,7 +63,7 @@ bool OSQPWrapper::OptimizatorSolver::clearSolverVariables()
     return true;
 }
 
-bool OSQPWrapper::OptimizatorSolver::initSolver()
+bool OSQPWrapper::OptimizerSolver::initSolver()
 {
     if(m_isSolverInitialized){
         std::cerr << "[initSolver] The solver has been already initialized. "
@@ -73,16 +73,16 @@ bool OSQPWrapper::OptimizatorSolver::initSolver()
     }
 
     if(!m_data->isSet()){
-        std::cout << "[Optimizator Workspace] Some data are not set."
+        std::cout << "[Optimizer Workspace] Some data are not set."
                   << std::endl;
         return false;
     }
 
-    m_workspace = osqp_setup(m_data->getOptimizatorData(),
-                             m_settings->getOptimizatorSettings());
+    m_workspace = osqp_setup(m_data->getOptimizerData(),
+                             m_settings->getOptimizerSettings());
 
     if(m_workspace == OSQP_NULL){
-        std::cout << "[Optimizator Workspace] Unable to setup the workspace."
+        std::cout << "[Optimizer Workspace] Unable to setup the workspace."
                   << std::endl;
         return false;
     }
@@ -92,12 +92,12 @@ bool OSQPWrapper::OptimizatorSolver::initSolver()
     return true;
 }
 
-bool OSQPWrapper::OptimizatorSolver::isInitialized()
+bool OSQPWrapper::OptimizerSolver::isInitialized()
 {
     return m_isSolverInitialized;
 }
 
-void OSQPWrapper::OptimizatorSolver::clearSolver()
+void OSQPWrapper::OptimizerSolver::clearSolver()
 {
     if(m_isSolverInitialized){
         osqp_cleanup(m_workspace);
@@ -105,7 +105,7 @@ void OSQPWrapper::OptimizatorSolver::clearSolver()
     }
 }
 
-bool OSQPWrapper::OptimizatorSolver::solve()
+bool OSQPWrapper::OptimizerSolver::solve()
 {
     if(!m_isSolverInitialized){
         std::cout << "[solve] The solve has hot been initialized yet. "
@@ -131,7 +131,7 @@ bool OSQPWrapper::OptimizatorSolver::solve()
     return true;
 }
 
-Eigen::VectorXd OSQPWrapper::OptimizatorSolver::getSolution()
+Eigen::VectorXd OSQPWrapper::OptimizerSolver::getSolution()
 {
     Eigen::VectorXd vector;
 
@@ -142,12 +142,12 @@ Eigen::VectorXd OSQPWrapper::OptimizatorSolver::getSolution()
     return vector;
 }
 
-const std::unique_ptr<OSQPWrapper::OptimizatorSettings>& OSQPWrapper::OptimizatorSolver::settings() const
+const std::unique_ptr<OSQPWrapper::OptimizerSettings>& OSQPWrapper::OptimizerSolver::settings() const
 {
     return m_settings;
 }
 
-const std::unique_ptr<OSQPWrapper::OptimizatorData>& OSQPWrapper::OptimizatorSolver::data() const
+const std::unique_ptr<OSQPWrapper::OptimizerData>& OSQPWrapper::OptimizerSolver::data() const
 {
     return m_data;
 }

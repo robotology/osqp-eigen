@@ -1,11 +1,11 @@
 /**
- * @file OptimizatorSolver.hpp
+ * @file OptimizerSolver.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
-#ifndef OPTIMIZATOR_WORKSPACE_HPP
-#define OPTIMIZATOR_WORKSPACE_HPP
+#ifndef OPTIMIZER_WORKSPACE_HPP
+#define OPTIMIZER_WORKSPACE_HPP
 
 // Std
 #include <memory>
@@ -17,9 +17,9 @@
 #include "osqp.h"
 
 // OSQPWrapper
-#include "OptimizatorData.hpp"
-#include "OptimizatorSettings.hpp"
-#include "OptimizatorConstants.hpp"
+#include "OptimizerData.hpp"
+#include "OptimizerSettings.hpp"
+#include "OptimizerConstants.hpp"
 
 /**
  * OSQPWrapper namespace.
@@ -27,13 +27,13 @@
 namespace OSQPWrapper
 {
     /**
-     * OptimizatorSolver class is a wrapper of the OSQP OSQPWorkspace struct.
+     * OptimizerSolver class is a wrapper of the OSQP OSQPWorkspace struct.
      */
-    class OptimizatorSolver
+    class OptimizerSolver
     {
         OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
-        std::unique_ptr<OSQPWrapper::OptimizatorSettings> m_settings; /**< Pointer to OptimizatorSettings class. */
-        std::unique_ptr<OSQPWrapper::OptimizatorData> m_data; /**< Pointer to OptimizatorData class. */
+        std::unique_ptr<OSQPWrapper::OptimizerSettings> m_settings; /**< Pointer to OptimizerSettings class. */
+        std::unique_ptr<OSQPWrapper::OptimizerData> m_data; /**< Pointer to OptimizerData class. */
 
         bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
 
@@ -57,12 +57,12 @@ namespace OSQPWrapper
         /**
          * Constructor.
          */
-        OptimizatorSolver();
+        OptimizerSolver();
 
         /**
          * Deconstructor.
          */
-        ~OptimizatorSolver();
+        ~OptimizerSolver();
 
         /**
          * Initialize the solver with the actual initial data and settings.
@@ -183,18 +183,18 @@ namespace OSQPWrapper
 
         /**
          * Get the solver settings pointer.
-         * @return the pointer to OptimizatorSettings object.
+         * @return the pointer to OptimizerSettings object.
          */
-        const std::unique_ptr<OSQPWrapper::OptimizatorSettings>& settings() const;
+        const std::unique_ptr<OSQPWrapper::OptimizerSettings>& settings() const;
 
         /**
          * Get the pointer to the solver initial data.
-         * @return the pointer to OptimizatorData object.
+         * @return the pointer to OptimizerData object.
          */
-        const std::unique_ptr<OSQPWrapper::OptimizatorData>& data() const;
+        const std::unique_ptr<OSQPWrapper::OptimizerData>& data() const;
     };
 
-    #include "OptimizatorSolver.tpp"
+    #include "OptimizerSolver.tpp"
 }
 
 #endif

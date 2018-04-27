@@ -1,14 +1,14 @@
 /**
- * @file OptimizatorConstants.hpp
+ * @file OptimizerConstants.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 
-#ifndef OPTIMIZATOR_CONSTANTS_HPP
-#define OPTIMIZATOR_CONSTANTS_HPP
+#ifndef OPTIMIZER_CONSTANTS_HPP
+#define OPTIMIZER_CONSTANTS_HPP
 
-// OSQP
+// osqp
 #include "osqp.h"
 
 /**
