@@ -72,13 +72,13 @@ void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<
         13 - u0;
 
     // state inequality constraints
-    xMin << -M_PI/6,-M_PI/6,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-1.,
-        -OSQPWrapper::INFINTY, -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,
-        -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY;
+    xMin << -M_PI/6,-M_PI/6,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-1.,
+        -OSQPWrapper::INFTY, -OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,
+        -OSQPWrapper::INFTY,-OSQPWrapper::INFTY;
 
-    xMax << M_PI/6,M_PI/6, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
-        OSQPWrapper::INFINTY, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
-        OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY;
+    xMax << M_PI/6,M_PI/6, OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY,
+        OSQPWrapper::INFTY, OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY,
+        OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY;
 }
 
 void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatrix<double, 4> &R)
@@ -159,7 +159,7 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
     }
 }
 
-void castMPCToQPConstraintVectores(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
+void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
                                    const Eigen::Matrix<double, 4, 1> &uMax, const Eigen::Matrix<double, 4, 1> &uMin,
                                    const Eigen::Matrix<double, 12, 1> &x0,
                                    int mpcWindow, Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
@@ -260,7 +260,7 @@ TEST(MPCTest,)
     castMPCToQPHessian(Q, R, mpcWindow, hessian);
     castMPCToQPGradient(Q, xRef, mpcWindow, gradient);
     castMPCToQPConstraintMatrix(a, b, mpcWindow, linearMatrix);
-    castMPCToQPConstraintVectores(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
+    castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
     OSQPWrapper::OptimizatorSolver solver;
@@ -270,13 +270,13 @@ TEST(MPCTest,)
     solver.settings()->setWarmStart(true);
 
     // set the initial data of the QP solver
-    solver.initData()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
-    solver.initData()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
-    ASSERT_TRUE(solver.initData()->setHessianMatrix(hessian));
-    ASSERT_TRUE(solver.initData()->setGradient(gradient));
-    ASSERT_TRUE(solver.initData()->setLinearConstraintMatrix(linearMatrix));
-    ASSERT_TRUE(solver.initData()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.initData()->setUpperBound(upperBound));
+    solver.data()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
+    solver.data()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    ASSERT_TRUE(solver.data()->setHessianMatrix(hessian));
+    ASSERT_TRUE(solver.data()->setGradient(gradient));
+    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(linearMatrix));
+    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
+    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
 
     // instantiate the solver
     ASSERT_TRUE(solver.initSolver());

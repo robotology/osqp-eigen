@@ -10,15 +10,23 @@
 template<typename T>
 bool OSQPWrapper::OptimizatorData::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
 {
+    if(m_isHessianMatrixSet){
+        std::cerr << "[setHessianMatrix] The hessian matrix was already set. "
+                  << "Please use clearHessianMatrix() method to deallocate memory."
+                  << std::endl;
+        return false;
+    }
+
     if(!m_isNumberOfVariablesSet){
-        std::cerr << "[setLinearConstraintMatrix] Please set the number of variables before add the hessian matrix."
+        std::cerr << "[setHessianMatrix] Please set the number of variables before "
+                  << "add the hessian matrix."
                   << std::endl;
         return false;
     }
 
     // check if the number of row and columns are equal to the number of the optimization variables
     if ((hessianMatrix.rows() != m_data->n) || (hessianMatrix.cols()!= m_data->n)){
-        std::cerr << "[Optimizator Data] The Hessian matrix has to be a n x n size matrix."
+        std::cerr << "[setHessianMatrix] The Hessian matrix has to be a n x n size matrix."
                   << std::endl;
         return false;
     }
@@ -26,10 +34,11 @@ bool OSQPWrapper::OptimizatorData::setHessianMatrix(const Eigen::SparseMatrix<T>
     // compress the hessian matrix
     Eigen::SparseMatrix<T> compressedHessianMatrix = hessianMatrix;
     compressedHessianMatrix.makeCompressed();
+    compressedHessianMatrix.pruned();
 
     //set the hessian matrix
     if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedHessianMatrix, m_data->P)){
-        std::cerr << "[Optimizator Data] osqp sparse matrix not created."
+        std::cerr << "[setHessianMatrix] Unable to instantiate the osqp sparse matrix."
                   << std::endl;
         return false;
     }
@@ -51,8 +60,15 @@ bool OSQPWrapper::OptimizatorData::setGradient(Eigen::Matrix<c_float, n, 1>& gra
 }
 
 template<typename T>
-bool OSQPWrapper::OptimizatorData::setLinearConstraintMatrix(const Eigen::SparseMatrix<T> &linearConstraintMatrix)
+bool OSQPWrapper::OptimizatorData::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
 {
+    if(m_isLinearConstraintsMatrixSet){
+        std::cerr << "[setLinearConstraintsMatrix] The linear constraint matrix was already set. "
+                  << "Please use clearLinearConstraintsMatrix() method to deallocate memory."
+                  << std::endl;
+        return false;
+    }
+
     if(!m_isNumberOfConstraintsSet){
         std::cerr << "[setLinearConstraintMatrix] Please set the number of constraints before add the constraint matrix."
                   << std::endl;
@@ -65,23 +81,25 @@ bool OSQPWrapper::OptimizatorData::setLinearConstraintMatrix(const Eigen::Sparse
         return false;
     }
 
-    if ((linearConstraintMatrix.rows() != m_data->m) || (linearConstraintMatrix.cols()!= m_data->n)){
+    if ((linearConstraintsMatrix.rows() != m_data->m) || (linearConstraintsMatrix.cols()!= m_data->n)){
         std::cerr << "[Optimizator Data] The Linear constraints matrix has to be a m x n size matrix."
                   << std::endl;
         return false;
     }
 
     // compress the constraint matrix
-    Eigen::SparseMatrix<T> compressedLinearConstraintMatrix = linearConstraintMatrix;
-    compressedLinearConstraintMatrix.makeCompressed();
+    Eigen::SparseMatrix<T> compressedLinearConstraintsMatrix = linearConstraintsMatrix;
+    compressedLinearConstraintsMatrix.makeCompressed();
+    compressedLinearConstraintsMatrix.pruned();
 
     // set the hessian matrix
-    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintMatrix,
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintsMatrix,
                                                                 m_data->A)){
         std::cerr << "[Optimizator Data] osqp sparse matrix not created."
                   << std::endl;
         return false;
     }
+
     m_isLinearConstraintsMatrixSet = true;
 
     return true;
