@@ -122,6 +122,12 @@ namespace OSQPWrapper
         void setAlpha(const double alpha);
 
         /**
+         * Set linear solver
+         * @param linsysSolver is the name of the solver
+         */
+        void setLinearSystemSolver(const int linsysSolver);
+
+        /**
          * Set the relaxation parameter for polish.
          * @param delta is the relaxation parameter.
          */

@@ -405,9 +405,9 @@ bool OSQPWrapper::OptimizerSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dualV
 
 template<typename T>
 bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Triplet<T>> &oldMatrixTriplet,
-                                                       const std::vector<Eigen::Triplet<T>> &newMatrixTriplet,
-                                                       std::vector<c_int> &newIndices,
-                                                       std::vector<c_float> &newValues) const
+                                                     const std::vector<Eigen::Triplet<T>> &newMatrixTriplet,
+                                                     std::vector<c_int> &newIndices,
+                                                     std::vector<c_float> &newValues) const
 {
     // check if the sparsity pattern is changed
     if(newMatrixTriplet.size() == oldMatrixTriplet.size()){
