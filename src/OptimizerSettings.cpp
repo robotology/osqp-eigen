@@ -87,7 +87,10 @@ void OSQPWrapper::OptimizerSettings::setAlpha(const double alpha)
     m_settings->alpha = (c_float)alpha;
 }
 
-//void OSQPWrapper::OptimizerSettings::setLinearSystemSolver(const linsys_solver_type linsys_solver)
+void OSQPWrapper::OptimizerSettings::setLinearSystemSolver(const int linsysSolver)
+{
+    m_settings->linsys_solver = (linsys_solver_type)linsysSolver;
+}
 
 void OSQPWrapper::OptimizerSettings::setDelta(const double delta)
 {
