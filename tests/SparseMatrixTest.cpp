@@ -43,7 +43,7 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 
     c_free(osqpSparseMatrix);
 
-    return true;
+    return outcome;
 }
 
 TEST(SparseMatrix, Double)

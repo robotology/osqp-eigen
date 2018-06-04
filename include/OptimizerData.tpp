@@ -34,7 +34,6 @@ bool OSQPWrapper::OptimizerData::setHessianMatrix(const Eigen::SparseMatrix<T> &
     // compress the hessian matrix
     Eigen::SparseMatrix<T> compressedHessianMatrix = hessianMatrix;
     compressedHessianMatrix.makeCompressed();
-    compressedHessianMatrix.pruned();
 
     //set the hessian matrix
     if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedHessianMatrix, m_data->P)){
@@ -90,7 +89,6 @@ bool OSQPWrapper::OptimizerData::setLinearConstraintsMatrix(const Eigen::SparseM
     // compress the constraint matrix
     Eigen::SparseMatrix<T> compressedLinearConstraintsMatrix = linearConstraintsMatrix;
     compressedLinearConstraintsMatrix.makeCompressed();
-    compressedLinearConstraintsMatrix.pruned();
 
     // set the hessian matrix
     if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintsMatrix,

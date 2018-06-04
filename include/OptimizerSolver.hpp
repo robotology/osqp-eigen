@@ -52,6 +52,15 @@ namespace OSQPWrapper
                                std::vector<c_int> &newIndices,
                                std::vector<c_float> &newValues) const;
 
+        /**
+         * Takes only the triplets which belongs to the upper triangular part of the matrix.
+         * @param fullMatrixTriplets vector containing the triplets of the sparse matrix;
+         * @param upperTriangularMatrixTriplets vector containing the triplets of the mew sparse matrix;
+         */
+        template<typename T>
+        void selectUpperTriangularTriplets(const std::vector<Eigen::Triplet<T>> &fullMatrixTriplets,
+                                           std::vector<Eigen::Triplet<T>> &upperTriangularMatrixTriplets) const;
+
     public:
 
         /**
