@@ -24,21 +24,23 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
 
     // cast the elements.
     // OSQP uses c_int and c_float while eigen uses int and double.
-    std::vector<c_int> innerIndex;
-    std::vector<c_int> outerIndex;
-    std::vector<c_float> values;
+    std::vector<c_int> innerIndex(numberOfNonZeroCoeff);
+    std::vector<c_int> outerIndex(cols + 1);
+    std::vector<c_float> values(numberOfNonZeroCoeff);
 
-    for(int i = 0; i < numberOfNonZeroCoeff; i++) {
-        double value = valuePtr[i];
-        int index = innerIndexPtr[i];
-        innerIndex.push_back((c_int)index);
-        values.push_back((c_float)value);
+    int innerOsqpPosition = 0;
+    for(int k = 0; k < cols; k++) {
+        outerIndex[k] = static_cast<c_int>(outerIndexPtr[k]);
+        for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it) {
+            innerIndex[innerOsqpPosition] = static_cast<c_int>(it.row());
+            values[innerOsqpPosition] = static_cast<c_float>(it.value());
+            innerOsqpPosition++;
+        }
     }
+    outerIndex[cols] = static_cast<c_int>(innerOsqpPosition);
 
-    for(int i = 0; i < cols + 1; i++) {
-        int index = outerIndexPtr[i];
-        outerIndex.push_back((c_int)index);
-    }
+    assert(innerOsqpPosition == numberOfNonZeroCoeff);
+
 
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
@@ -93,7 +95,7 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* cons
     c_float value;
 
     // clear the std::vector
-    tripletList.clear();
+    tripletList.resize(numberOfNonZeroCoeff);
     for(int i = 0; i<numberOfNonZeroCoeff; i++) {
         row = innerIndexPtr[i];
         value = valuePtr[i];
@@ -101,7 +103,7 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* cons
         while(i >= outerIndexPtr[column+1])
             column++;
 
-        tripletList.push_back(Eigen::Triplet<T>(row, column, value));
+        tripletList[i] = Eigen::Triplet<T>(row, column, value);
     }
     return true;
 }
@@ -128,7 +130,6 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
 
     // resize the eigen matrix
     eigenSparseMatrix.resize(rows, cols);
-    eigenSparseMatrix.data().squeeze();
 
     // set the eigen matrix from triplets
     eigenSparseMatrix.setFromTriplets(tripletList.begin(), tripletList.end());
@@ -146,11 +147,13 @@ bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::S
     }
 
     // clear the std::vector
-    tripletList.clear();
+    tripletList.resize(eigenSparseMatrix.nonZeros());
     // populate the triplet list
+    int nonZero = 0;
     for (int k=0; k < eigenSparseMatrix.outerSize(); ++k){
         for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
-            tripletList.push_back(Eigen::Triplet<T>(it.row(), it.col(), it.value()));
+            tripletList[nonZero] = Eigen::Triplet<T>(it.row(), it.col(), it.value());
+            nonZero++;
         }
     }
 
