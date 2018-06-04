@@ -18,6 +18,7 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
     // get innerr and outer index
     const int* innerIndexPtr = eigenSparseMatrix.innerIndexPtr();
     const int* outerIndexPtr = eigenSparseMatrix.outerIndexPtr();
+    const int* innerNonZerosPtr = eigenSparseMatrix.innerNonZeroPtr();
 
     // get nonzero values
     const T* valuePtr = eigenSparseMatrix.valuePtr();
@@ -30,14 +31,22 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
 
     int innerOsqpPosition = 0;
     for(int k = 0; k < cols; k++) {
-        outerIndex[k] = static_cast<c_int>(outerIndexPtr[k]);
+        if (eigenSparseMatrix.isCompressed()) {
+            outerIndex[k] = static_cast<c_int>(outerIndexPtr[k]);
+        } else {
+            if (k == 0) {
+                outerIndex[k] = 0;
+            } else {
+                outerIndex[k] = outerIndex[k-1] + innerNonZerosPtr[k-1];
+            }
+        }
         for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it) {
             innerIndex[innerOsqpPosition] = static_cast<c_int>(it.row());
             values[innerOsqpPosition] = static_cast<c_float>(it.value());
             innerOsqpPosition++;
         }
     }
-    outerIndex[cols] = static_cast<c_int>(innerOsqpPosition);
+    outerIndex[static_cast<int>(cols)] = static_cast<c_int>(innerOsqpPosition);
 
     assert(innerOsqpPosition == numberOfNonZeroCoeff);
 
