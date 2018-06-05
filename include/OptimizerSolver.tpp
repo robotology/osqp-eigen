@@ -113,28 +113,26 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
 
 
     // evaluate the triplets from old and new hessian sparse matrices
-    std::vector<Eigen::Triplet<T>> oldHessianTriplet, newHessianTriplet;
     if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->P,
-                                                                    oldHessianTriplet)){
+                                                                    m_oldHessianTriplet)){
         std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
     if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(hessianMatrix,
-                                                                     newHessianTriplet)){
+                                                                     m_newHessianTriplet)){
         std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
 
-    std::vector<Eigen::Triplet<T>> newUpperTriangularHessianTriplets;
-    selectUpperTriangularTriplets(newHessianTriplet, newUpperTriangularHessianTriplets);
+    selectUpperTriangularTriplets(m_newHessianTriplet, m_newUpperTriangularHessianTriplets);
 
     // try to update the hessian matrix without reinitialize the solver
     // according to the osqp library it can be done only if the sparsity pattern of the hessian
     // matrix does not change.
 
-    if(evaluateNewValues(oldHessianTriplet,  newUpperTriangularHessianTriplets,
+    if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
                          m_hessianNewIndices, m_hessianNewValues)){
         if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
             std::cerr << "[updateHessianMatrix] Unable to update hessian matrix."
@@ -210,16 +208,15 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
     }
 
     // evaluate the triplets from old and new hessian sparse matrices
-    std::vector<Eigen::Triplet<T>> oldLinearConstraintsTriplet, newLinearConstraintsTriplet;
 
     if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->A,
-                                                                    oldLinearConstraintsTriplet)){
+                                                                    m_oldLinearConstraintsTriplet)){
         std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
     if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(linearConstraintsMatrix,
-                                                                     newLinearConstraintsTriplet)){
+                                                                     m_newLinearConstraintsTriplet)){
         std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
@@ -229,7 +226,7 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
     // according to the osqp library it can be done only if the sparsity pattern of the
     // matrix does not change.
 
-    if(evaluateNewValues(oldLinearConstraintsTriplet, newLinearConstraintsTriplet,
+    if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
                          m_constraintsNewIndices, m_constraintsNewValues)){
         if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
             std::cerr << "[updateLinearConstraintMatrix] Unable to update linear constraints matrix."

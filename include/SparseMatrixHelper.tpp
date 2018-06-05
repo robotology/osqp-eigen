@@ -89,7 +89,7 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* cons
         while(i >= outerIndexPtr[column+1])
             column++;
 
-        tripletList[i] = Eigen::Triplet<T>(row, column, value);
+        tripletList[i] = Eigen::Triplet<T>(row, column, static_cast<T>(value));
     }
 
     tripletList.erase(tripletList.begin() + numberOfNonZeroCoeff, tripletList.end());
@@ -125,9 +125,9 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
     return true;
 }
 
-template<typename T>
-bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
-                                                                  std::vector<Eigen::Triplet<T>> &tripletList)
+template<typename Tin, typename Tout>
+bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<Tin> &eigenSparseMatrix,
+                                                                  std::vector<Eigen::Triplet<Tout>> &tripletList)
 {
     if(eigenSparseMatrix.nonZeros() == 0){
         std::cerr << "[eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
@@ -139,8 +139,8 @@ bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::S
     // populate the triplet list
     int nonZero = 0;
     for (int k=0; k < eigenSparseMatrix.outerSize(); ++k){
-        for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
-            tripletList[nonZero] = Eigen::Triplet<T>(it.row(), it.col(), it.value());
+        for (typename Eigen::SparseMatrix<Tin>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
+            tripletList[nonZero] = Eigen::Triplet<Tout>(it.row(), it.col(), static_cast<Tout>(it.value()));
             nonZero++;
         }
     }
