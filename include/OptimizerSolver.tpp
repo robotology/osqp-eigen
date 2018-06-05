@@ -387,7 +387,9 @@ bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Tr
                                                      std::vector<c_int> &newIndices,
                                                      std::vector<c_float> &newValues) const
 {
+    //When updating the matrices for osqp, we need to provide the indeces to modify of the value vector. The following can work since, when extracting triplets from osqp sparse matrices, the order of the triplets follows the same order of the value vector.
     // check if the sparsity pattern is changed
+    size_t valuesAdded = 0;
     if(newMatrixTriplet.size() == oldMatrixTriplet.size()){
         for(int i = 0; i < newMatrixTriplet.size(); i++){
             // check if the sparsity pattern is changed
@@ -397,10 +399,19 @@ bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Tr
 
             // check if an old value is changed
             if(newMatrixTriplet[i].value() != oldMatrixTriplet[i].value()){
-                newValues.push_back((c_float) newMatrixTriplet[i].value());
-                newIndices.push_back((c_int) i);
+                if (valuesAdded >= newValues.size()) {
+                    newValues.push_back((c_float) newMatrixTriplet[i].value());
+                    newIndices.push_back((c_int) i);
+                    valuesAdded++;
+                } else {
+                    newValues[valuesAdded] = static_cast<c_float>(newMatrixTriplet[i].value());
+                    newIndices[valuesAdded] = static_cast<c_int>(i);
+                    valuesAdded++;
+                }
             }
         }
+        newValues.erase(newValues.begin() + valuesAdded, newValues.end());
+        newIndices.erase(newIndices.begin() + valuesAdded, newIndices.end());
         return true;
     }
     return false;
