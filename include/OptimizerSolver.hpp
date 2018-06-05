@@ -44,6 +44,11 @@ namespace OSQPWrapper
         std::vector<c_int> m_constraintsNewIndices;
         std::vector<c_float> m_constraintsNewValues;
 
+        std::vector<Eigen::Triplet<c_float>> m_oldHessianTriplet, m_newHessianTriplet, m_newUpperTriangularHessianTriplets;
+        std::vector<Eigen::Triplet<c_float>> m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet;
+
+
+
         bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
 
         /**
