@@ -11,7 +11,7 @@
 #include "OptimizerSolver.hpp"
 
 OSQPWrapper::OptimizerSolver::OptimizerSolver()
-    :m_isSolverInitialized(false)
+    : m_isSolverInitialized(false)
 {
     m_settings = std::make_unique<OSQPWrapper::OptimizerSettings>();
     m_data = std::make_unique<OSQPWrapper::OptimizerData>();
@@ -131,15 +131,13 @@ bool OSQPWrapper::OptimizerSolver::solve()
     return true;
 }
 
-Eigen::VectorXd OSQPWrapper::OptimizerSolver::getSolution()
+const Eigen::VectorXd &OSQPWrapper::OptimizerSolver::getSolution()
 {
-    Eigen::VectorXd vector;
-
     // copy data from an array to Eigen vector
     c_float* solution = m_workspace->solution->x;
-    vector = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->n, 1);
+    m_solution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->n, 1);
 
-    return vector;
+    return m_solution;
 }
 
 const std::unique_ptr<OSQPWrapper::OptimizerSettings>& OSQPWrapper::OptimizerSolver::settings() const

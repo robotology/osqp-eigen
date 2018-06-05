@@ -34,6 +34,15 @@ namespace OSQPWrapper
         OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
         std::unique_ptr<OSQPWrapper::OptimizerSettings> m_settings; /**< Pointer to OptimizerSettings class. */
         std::unique_ptr<OSQPWrapper::OptimizerData> m_data; /**< Pointer to OptimizerData class. */
+        Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
+        Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_dualVariables;
+        Eigen::VectorXd m_solution;
+
+        std::vector<c_int> m_hessianNewIndices;
+        std::vector<c_float> m_hessianNewValues;
+
+        std::vector<c_int> m_constraintsNewIndices;
+        std::vector<c_float> m_constraintsNewValues;
 
         bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
 
@@ -106,7 +115,7 @@ namespace OSQPWrapper
          * Get the optimization problem solution.
          * @return an Eigen::Vector contating the optimization result.
          */
-        Eigen::VectorXd getSolution();
+        const Eigen::VectorXd &getSolution();
 
         /**
          * Update the linear part of the cost function (Gradient).

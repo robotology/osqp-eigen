@@ -8,6 +8,7 @@
 #include <iostream>
 #include "auxil.h"
 #include "scaling.h"
+
 template<int n>
 bool OSQPWrapper::OptimizerSolver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
@@ -132,12 +133,10 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
     // try to update the hessian matrix without reinitialize the solver
     // according to the osqp library it can be done only if the sparsity pattern of the hessian
     // matrix does not change.
-    std::vector<c_int> newIndices;
-    std::vector<c_float> newValues;
 
     if(evaluateNewValues(oldHessianTriplet,  newUpperTriangularHessianTriplets,
-                         newIndices, newValues)){
-        if(osqp_update_P(m_workspace, newValues.data(), newIndices.data(), newIndices.size()) != 0){
+                         m_hessianNewIndices, m_hessianNewValues)){
+        if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
             std::cerr << "[updateHessianMatrix] Unable to update hessian matrix."
                       << std::endl;
             return false;
@@ -148,16 +147,14 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
         // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> dualVariable;
 
-        if(!getPrimalVariable(primalVariable)){
+        if(!getPrimalVariable(m_primalVariables)){
             std::cerr << "[updateHessianMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!getDualVariable(dualVariable)){
+        if(!getDualVariable(m_dualVariables)){
             std::cerr << "[updateHessianMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
@@ -181,13 +178,13 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
         initSolver();
 
         // set the old primal and dual variables
-        if(!setPrimalVariable(primalVariable)){
+        if(!setPrimalVariable(m_primalVariables)){
             std::cerr << "[updateHessianMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!setDualVariable(dualVariable)){
+        if(!setDualVariable(m_dualVariables)){
             std::cerr << "[updateHessianMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
@@ -231,12 +228,10 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
     // try to update the linear constraints matrix without reinitialize the solver
     // according to the osqp library it can be done only if the sparsity pattern of the
     // matrix does not change.
-    std::vector<c_int> newIndices;
-    std::vector<c_float> newValues;
 
     if(evaluateNewValues(oldLinearConstraintsTriplet, newLinearConstraintsTriplet,
-                         newIndices, newValues)){
-        if(osqp_update_A(m_workspace, newValues.data(), newIndices.data(), newIndices.size()) != 0){
+                         m_constraintsNewIndices, m_constraintsNewValues)){
+        if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
             std::cerr << "[updateLinearConstraintMatrix] Unable to update linear constraints matrix."
                       << std::endl;
             return false;
@@ -247,16 +242,14 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
         // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> dualVariable;
 
-        if(!getPrimalVariable(primalVariable)){
+        if(!getPrimalVariable(m_primalVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!getDualVariable(dualVariable)){
+        if(!getDualVariable(m_dualVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
@@ -280,13 +273,13 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
         initSolver();
 
         // set the old primal and dual variables
-        if(!setPrimalVariable(primalVariable)){
+        if(!setPrimalVariable(m_primalVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!setDualVariable(dualVariable)){
+        if(!setDualVariable(m_dualVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
@@ -313,10 +306,10 @@ bool OSQPWrapper::OptimizerSolver::setWarmStart(const Eigen::Matrix<T, n, 1> &pr
         return false;
     }
 
-    Eigen::Matrix<c_float, n, 1> primalVariableCast = primalVariable.template cast <c_float>();
-    Eigen::Matrix<c_float, n, 1> dualVariableCast = dualVariable.template cast <c_float>();
+    m_primalVariables = primalVariable.template cast <c_float>();
+    m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start(m_workspace, primalVariableCast.data(), dualVariableCast.data()) == 0);
+    return (osqp_warm_start(m_workspace, m_primalVariables.data(), m_dualVariables.data()) == 0);
 
 }
 
@@ -330,9 +323,9 @@ bool OSQPWrapper::OptimizerSolver::setPrimalVariable(const Eigen::Matrix<T, n, 1
         return false;
     }
 
-    Eigen::Matrix<c_float, n, 1> primalVariableCast = primalVariable.template cast <c_float>();
+    m_primalVariables = primalVariable.template cast <c_float>();
 
-    return (osqp_warm_start_x(m_workspace, primalVariableCast.data()) == 0);
+    return (osqp_warm_start_x(m_workspace, m_primalVariables.data()) == 0);
 }
 
 
@@ -346,11 +339,9 @@ bool OSQPWrapper::OptimizerSolver::setDualVariable(const Eigen::Matrix<T, m, 1> 
         return false;
     }
 
-    Eigen::Matrix<c_float, m, 1> dualVariableCast = dualVariable.template cast <c_float>();
+    m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start_y(m_workspace, dualVariableCast.data()) == 0);
-
-
+    return (osqp_warm_start_y(m_workspace, m_dualVariables.data()) == 0);
 }
 
 template<typename T, int n>
@@ -367,9 +358,9 @@ bool OSQPWrapper::OptimizerSolver::getPrimalVariable(Eigen::Matrix<T, n, 1> &pri
             return false;
         }
     }
-    for(int i = 0; i< m_workspace->data->n; i++){
-        primalVariable(i,0) = (T)m_workspace->x[i];
-    }
+
+    primalVariable = Eigen::Map<Eigen::Matrix<c_float, n, 1>>(m_workspace->x, m_workspace->data->n).template cast <T>();
+
     return true;
 }
 
@@ -388,9 +379,8 @@ bool OSQPWrapper::OptimizerSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dualV
         }
     }
 
-    for(int i = 0; i< m_workspace->data->m; i++){
-        dualVariable(i,0) =  (T)m_workspace->y[i];
-    }
+    dualVariable = Eigen::Map<Eigen::Matrix<c_float, m, 1>>(m_workspace->y, m_workspace->data->m).template cast <T>();
+
     return true;
 }
 
