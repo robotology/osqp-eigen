@@ -6,8 +6,8 @@
  */
 
 #include <iostream>
-#include "auxil.h"
-#include "scaling.h"
+#include <auxil.h>
+#include <scaling.h>
 
 template<int n>
 bool OsqpEigen::Solver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)

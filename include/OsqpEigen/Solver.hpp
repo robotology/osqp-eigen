@@ -14,12 +14,12 @@
 #include <Eigen/Dense>
 
 // OSQP
-#include "osqp.h"
+#include <osqp.h>
 
 // OsqpEigen
-#include "Data.hpp"
-#include "Settings.hpp"
-#include "Constants.hpp"
+#include <OsqpEigen/Data.hpp>
+#include <OsqpEigen/Settings.hpp>
+#include <OsqpEigen/Constants.hpp>
 
 /**
  * OsqpEigen namespace.
@@ -217,7 +217,7 @@ namespace OsqpEigen
         const std::unique_ptr<OsqpEigen::Data>& data() const;
     };
 
-    #include "Solver.tpp"
+    #include <OsqpEigen/Solver.tpp>
 }
 
 #endif

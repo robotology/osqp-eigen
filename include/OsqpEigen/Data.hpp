@@ -12,10 +12,10 @@
 #include <Eigen/Dense>
 
 // OSQP
-#include "osqp.h"
+#include <osqp.h>
 
 // OsqpEigen
-#include "SparseMatrixHelper.hpp"
+#include <OsqpEigen/SparseMatrixHelper.hpp>
 
 /**
  * OsqpEigen namespace.
@@ -131,6 +131,6 @@ namespace OsqpEigen
     };
 }
 
-#include "Data.tpp"
+#include <OsqpEigen/Data.tpp>
 
 #endif
