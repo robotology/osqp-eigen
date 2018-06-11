@@ -8,8 +8,8 @@
 // gtest
 #include <gtest/gtest.h>
 
-// OSQPWrapper
-#include "OptimizerSolver.hpp"
+// OsqpEigen
+#include <OsqpEigen.h>
 
 // eigen
 #include <Eigen/Dense>
@@ -72,13 +72,13 @@ void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<
         13 - u0;
 
     // state inequality constraints
-    xMin << -M_PI/6,-M_PI/6,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-1.,
-        -OSQPWrapper::INFTY, -OSQPWrapper::INFTY,-OSQPWrapper::INFTY,-OSQPWrapper::INFTY,
-        -OSQPWrapper::INFTY,-OSQPWrapper::INFTY;
+    xMin << -M_PI/6,-M_PI/6,-OsqpEigen::INFTY,-OsqpEigen::INFTY,-OsqpEigen::INFTY,-1.,
+        -OsqpEigen::INFTY, -OsqpEigen::INFTY,-OsqpEigen::INFTY,-OsqpEigen::INFTY,
+        -OsqpEigen::INFTY,-OsqpEigen::INFTY;
 
-    xMax << M_PI/6,M_PI/6, OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY,
-        OSQPWrapper::INFTY, OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY,
-        OSQPWrapper::INFTY,OSQPWrapper::INFTY,OSQPWrapper::INFTY;
+    xMax << M_PI/6,M_PI/6, OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY,
+        OsqpEigen::INFTY, OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY,
+        OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY;
 }
 
 void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatrix<double, 4> &R)
@@ -263,7 +263,7 @@ TEST(MPCTest,)
     castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
-    OSQPWrapper::OptimizerSolver solver;
+    OsqpEigen::Solver solver;
 
     // settings
     solver.settings()->setVerbosity(false);

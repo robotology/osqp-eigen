@@ -1,5 +1,5 @@
 /**
- * @file OptimizerData.cpp
+ * @file Data.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
@@ -8,10 +8,10 @@
 // std
 #include <iostream>
 
-// OSQPWrapper
-#include "OptimizerData.hpp"
+// OsqpEigen
+#include <OsqpEigen/Data.hpp>
 
-OSQPWrapper::OptimizerData::OptimizerData()
+OsqpEigen::Data::Data()
     : m_isNumberOfVariablesSet(false),
       m_isNumberOfConstraintsSet(false),
       m_isHessianMatrixSet(false),
@@ -25,7 +25,7 @@ OSQPWrapper::OptimizerData::OptimizerData()
     m_data->A = nullptr;
 }
 
-OSQPWrapper::OptimizerData::OptimizerData(int n, int m)
+OsqpEigen::Data::Data(int n, int m)
     : m_isNumberOfVariablesSet(true),
       m_isNumberOfConstraintsSet(true),
       m_isHessianMatrixSet(false),
@@ -42,7 +42,7 @@ OSQPWrapper::OptimizerData::OptimizerData(int n, int m)
     setNumberOfConstraints(m);
 }
 
-void OSQPWrapper::OptimizerData::clearHessianMatrix()
+void OsqpEigen::Data::clearHessianMatrix()
 {
     if(m_isHessianMatrixSet){
         m_isHessianMatrixSet = false;
@@ -51,7 +51,7 @@ void OSQPWrapper::OptimizerData::clearHessianMatrix()
     }
 }
 
-void OSQPWrapper::OptimizerData::clearLinearConstraintsMatrix()
+void OsqpEigen::Data::clearLinearConstraintsMatrix()
 {
     if(m_isLinearConstraintsMatrixSet){
         m_isLinearConstraintsMatrixSet = false;
@@ -60,31 +60,31 @@ void OSQPWrapper::OptimizerData::clearLinearConstraintsMatrix()
     }
 }
 
-OSQPWrapper::OptimizerData::~OptimizerData()
+OsqpEigen::Data::~Data()
 {
     clearHessianMatrix();
     clearLinearConstraintsMatrix();
     c_free(m_data);
 }
 
-void OSQPWrapper::OptimizerData::setNumberOfVariables(int n)
+void OsqpEigen::Data::setNumberOfVariables(int n)
 {
     m_isNumberOfVariablesSet = true;
     m_data->n = n;
 }
 
-void OSQPWrapper::OptimizerData::setNumberOfConstraints(int m)
+void OsqpEigen::Data::setNumberOfConstraints(int m)
 {
     m_isNumberOfConstraintsSet = true;
     m_data->m = m;
 }
 
-OSQPData* const & OSQPWrapper::OptimizerData::getOptimizerData() const
+OSQPData* const & OsqpEigen::Data::getData() const
 {
     return m_data;
 }
 
-bool OSQPWrapper::OptimizerData::isSet() const
+bool OsqpEigen::Data::isSet() const
 {
     return m_isNumberOfVariablesSet &&
         m_isNumberOfConstraintsSet &&

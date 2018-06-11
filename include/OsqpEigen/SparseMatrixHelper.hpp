@@ -15,12 +15,12 @@
 #include <Eigen/Sparse>
 
 // OSQP
-#include "osqp.h"
+#include <osqp.h>
 
 /**
- * OSQPWrapper namespace.
+ * OsqpEigen namespace.
  */
-namespace OSQPWrapper
+namespace OsqpEigen
 {
     /**
      * SparseMatrixHelper namespace is a namspace that contains helper function to handle osqp matrix.
@@ -73,6 +73,6 @@ namespace OSQPWrapper
     };
 }
 
-#include "SparseMatrixHelper.tpp"
+#include <OsqpEigen/SparseMatrixHelper.tpp>
 
 #endif

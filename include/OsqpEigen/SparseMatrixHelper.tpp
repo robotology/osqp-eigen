@@ -6,7 +6,7 @@
  */
 
 template<typename T>
-bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
+bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
                                                              csc*& osqpSparseMatrix)
 
 {
@@ -26,7 +26,7 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
     if(osqpSparseMatrix != nullptr){
-        std::cerr << "[createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
                   << std::endl;
         return false;
     }
@@ -58,12 +58,12 @@ bool OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::Sparse
 }
 
 template<typename T>
-bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
+bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
                                                                  std::vector<Eigen::Triplet<T>> &tripletList)
 {
     // if the matrix is not instantiate the triplets vector is empty
     if(osqpSparseMatrix == nullptr){
-        std::cerr << "[osqpSparseMatrixToEiegenTriplets] the osqpSparseMatrix is not initialized."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -98,12 +98,12 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* cons
 }
 
 template<typename T>
-bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const csc* const & osqpSparseMatrix,
+bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const csc* const & osqpSparseMatrix,
                                                                           Eigen::SparseMatrix<T> &eigenSparseMatrix)
 {
     // if the matrix is not instantiate the eigen matrix is empty
     if(osqpSparseMatrix == nullptr) {
-        std::cerr << "[osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -115,7 +115,7 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
     // get the triplets from the csc matrix
     std::vector<Eigen::Triplet<T>> tripletList;
 
-    OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletList);
+    OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletList);
 
     // resize the eigen matrix
     eigenSparseMatrix.resize(rows, cols);
@@ -126,11 +126,11 @@ bool OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const 
 }
 
 template<typename Tin, typename Tout>
-bool OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<Tin> &eigenSparseMatrix,
+bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<Tin> &eigenSparseMatrix,
                                                                   std::vector<Eigen::Triplet<Tout>> &tripletList)
 {
     if(eigenSparseMatrix.nonZeros() == 0){
-        std::cerr << "[eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
                   << std::endl;
         return false;
     }

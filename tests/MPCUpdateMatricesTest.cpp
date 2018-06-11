@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 // OSQPWrapper
-#include "OptimizerSolver.hpp"
+#include <OsqpEigen.h>
 
 // eigen
 #include <Eigen/Dense>

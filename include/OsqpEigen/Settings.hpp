@@ -1,28 +1,28 @@
 /**
- * @file OptimizerSettings.hpp
+ * @file Settings.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
 
-#ifndef OPTIMIZER_SETTINGS_HPP
-#define OPTIMIZER_SETTINGS_HPP
+#ifndef OSQPEIGEN_SETTINGS_HPP
+#define OSQPEIGEN_SETTINGS_HPP
 
 // OSQP
-#include "osqp.h"
+#include <osqp.h>
 
 /**
- * OSQPWrapper namespace.
+ * OsqpEigen namespace.
  */
-namespace OSQPWrapper
+namespace OsqpEigen
 {
     /**
-     * OptimizerSettings class is a wrapper of the OSQP OSQPSettings struct.
+     * settings class is a wrapper of the OSQP OSQPSettings struct.
      * All the setter methods refer to this particular kind of optimizer.
      * <a href="http://web.stanford.edu/~boyd/admm.html">Here</a>
      * you can find further information.
      */
-    class OptimizerSettings
+    class Settings
     {
         OSQPSettings *m_settings; /**< OSQPSettings struct. */
     public:
@@ -30,12 +30,12 @@ namespace OSQPWrapper
         /**
          * Constructor.
          */
-        OptimizerSettings();
+        Settings();
 
         /**
          * Deconstructor.
          */
-        ~OptimizerSettings();
+        ~Settings();
 
         /**
          * Reset the default settings for the optimization problem.
@@ -170,10 +170,10 @@ namespace OSQPWrapper
         void setWarmStart(const bool warmStart);
 
         /**
-         * Get a pointer to OptimizerSettings struct.
+         * Get a pointer to Settings struct.
          * @return a const pointer to OSQPSettings struct.
          */
-        OSQPSettings* const & getOptimizerSettings() const;
+        OSQPSettings* const & getSettings() const;
     };
 }
 
