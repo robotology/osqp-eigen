@@ -8,8 +8,7 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include "OptimizerSolver.hpp"
-
+#include <OsqpEigen.h>
 
 TEST(QPProblem, )
 {
@@ -35,7 +34,7 @@ TEST(QPProblem, )
     Eigen::Vector3d upperBound;
     upperBound << 1, 0.7, 0.7;
 
-    OSQPWrapper::OptimizerSolver solver;
+    OsqpEigen::Solver solver;
     solver.settings()->setVerbosity(false);
 
     ASSERT_FALSE(solver.data()->setHessianMatrix(H_s));
