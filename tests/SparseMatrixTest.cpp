@@ -41,9 +41,9 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 
     bool outcome = matrix.isApprox(newMatrix);
 
-    c_free(osqpSparseMatrix);
+    csc_spfree(osqpSparseMatrix);
 
-    return true;
+    return outcome;
 }
 
 TEST(SparseMatrix, Double)

@@ -8,6 +8,7 @@
 #include <iostream>
 #include "auxil.h"
 #include "scaling.h"
+
 template<int n>
 bool OSQPWrapper::OptimizerSolver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
@@ -110,37 +111,30 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
         return false;
     }
 
-    // get the upper triangular part of the hessian matrix
-    Eigen::SparseMatrix<T> hessianMatrixUpperTriangular;
-    hessianMatrixUpperTriangular = hessianMatrix.template triangularView<Eigen::Upper>();
-
-    // compress the hessian matrix
-    hessianMatrixUpperTriangular.makeCompressed();
 
     // evaluate the triplets from old and new hessian sparse matrices
-    std::vector<Eigen::Triplet<T>> oldHessianTriplet, newHessianTriplet;
     if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->P,
-                                                                    oldHessianTriplet)){
+                                                                    m_oldHessianTriplet)){
         std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
-    if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(hessianMatrixUpperTriangular,
-                                                                     newHessianTriplet)){
+    if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(hessianMatrix,
+                                                                     m_newHessianTriplet)){
         std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
+
+    selectUpperTriangularTriplets(m_newHessianTriplet, m_newUpperTriangularHessianTriplets);
 
     // try to update the hessian matrix without reinitialize the solver
     // according to the osqp library it can be done only if the sparsity pattern of the hessian
     // matrix does not change.
-    std::vector<c_int> newIndices;
-    std::vector<c_float> newValues;
 
-    if(evaluateNewValues(oldHessianTriplet,  newHessianTriplet,
-                         newIndices, newValues)){
-        if(osqp_update_P(m_workspace, newValues.data(), newIndices.data(), newIndices.size() != 0)){
+    if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
+                         m_hessianNewIndices, m_hessianNewValues)){
+        if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
             std::cerr << "[updateHessianMatrix] Unable to update hessian matrix."
                       << std::endl;
             return false;
@@ -151,16 +145,14 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
         // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> dualVariable;
 
-        if(!getPrimalVariable(primalVariable)){
+        if(!getPrimalVariable(m_primalVariables)){
             std::cerr << "[updateHessianMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!getDualVariable(dualVariable)){
+        if(!getDualVariable(m_dualVariables)){
             std::cerr << "[updateHessianMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
@@ -184,13 +176,13 @@ bool OSQPWrapper::OptimizerSolver::updateHessianMatrix(const Eigen::SparseMatrix
         initSolver();
 
         // set the old primal and dual variables
-        if(!setPrimalVariable(primalVariable)){
+        if(!setPrimalVariable(m_primalVariables)){
             std::cerr << "[updateHessianMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!setDualVariable(dualVariable)){
+        if(!setDualVariable(m_dualVariables)){
             std::cerr << "[updateHessianMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
@@ -215,23 +207,16 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
         return false;
     }
 
-    // get the upper triangular part of the hessian matrix
-    Eigen::SparseMatrix<T> linearConstraintsMatrixCompressed = linearConstraintsMatrix;
-
-    // compress the hessian matrix
-    linearConstraintsMatrixCompressed.makeCompressed();
-
     // evaluate the triplets from old and new hessian sparse matrices
-    std::vector<Eigen::Triplet<T>> oldLinearConstraintsTriplet, newLinearConstraintsTriplet;
 
     if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->A,
-                                                                    oldLinearConstraintsTriplet)){
+                                                                    m_oldLinearConstraintsTriplet)){
         std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
-    if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(linearConstraintsMatrixCompressed,
-                                                                     newLinearConstraintsTriplet)){
+    if(!OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(linearConstraintsMatrix,
+                                                                     m_newLinearConstraintsTriplet)){
         std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
@@ -240,12 +225,10 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
     // try to update the linear constraints matrix without reinitialize the solver
     // according to the osqp library it can be done only if the sparsity pattern of the
     // matrix does not change.
-    std::vector<c_int> newIndices;
-    std::vector<c_float> newValues;
 
-    if(evaluateNewValues(oldLinearConstraintsTriplet, newLinearConstraintsTriplet,
-                         newIndices, newValues)){
-        if(osqp_update_A(m_workspace, newValues.data(), newIndices.data(), newIndices.size() != 0)){
+    if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
+                         m_constraintsNewIndices, m_constraintsNewValues)){
+        if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
             std::cerr << "[updateLinearConstraintMatrix] Unable to update linear constraints matrix."
                       << std::endl;
             return false;
@@ -256,16 +239,14 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
         // the optimizer solver has to be setup again
 
         // get the primal and the dual variables
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> primalVariable;
-        Eigen::Matrix<c_float, Eigen::Dynamic ,1> dualVariable;
 
-        if(!getPrimalVariable(primalVariable)){
+        if(!getPrimalVariable(m_primalVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!getDualVariable(dualVariable)){
+        if(!getDualVariable(m_dualVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
@@ -289,13 +270,13 @@ bool OSQPWrapper::OptimizerSolver::updateLinearConstraintsMatrix(const Eigen::Sp
         initSolver();
 
         // set the old primal and dual variables
-        if(!setPrimalVariable(primalVariable)){
+        if(!setPrimalVariable(m_primalVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
-        if(!setDualVariable(dualVariable)){
+        if(!setDualVariable(m_dualVariables)){
             std::cerr << "[updateLinearConstraintMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
@@ -322,10 +303,10 @@ bool OSQPWrapper::OptimizerSolver::setWarmStart(const Eigen::Matrix<T, n, 1> &pr
         return false;
     }
 
-    Eigen::Matrix<c_float, n, 1> primalVariableCast = primalVariable.template cast <c_float>();
-    Eigen::Matrix<c_float, n, 1> dualVariableCast = dualVariable.template cast <c_float>();
+    m_primalVariables = primalVariable.template cast <c_float>();
+    m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start(m_workspace, primalVariableCast.data(), dualVariableCast.data()) == 0);
+    return (osqp_warm_start(m_workspace, m_primalVariables.data(), m_dualVariables.data()) == 0);
 
 }
 
@@ -339,9 +320,9 @@ bool OSQPWrapper::OptimizerSolver::setPrimalVariable(const Eigen::Matrix<T, n, 1
         return false;
     }
 
-    Eigen::Matrix<c_float, n, 1> primalVariableCast = primalVariable.template cast <c_float>();
+    m_primalVariables = primalVariable.template cast <c_float>();
 
-    return (osqp_warm_start_x(m_workspace, primalVariableCast.data()) == 0);
+    return (osqp_warm_start_x(m_workspace, m_primalVariables.data()) == 0);
 }
 
 
@@ -355,11 +336,9 @@ bool OSQPWrapper::OptimizerSolver::setDualVariable(const Eigen::Matrix<T, m, 1> 
         return false;
     }
 
-    Eigen::Matrix<c_float, m, 1> dualVariableCast = dualVariable.template cast <c_float>();
+    m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start_y(m_workspace, dualVariableCast.data()) == 0);
-
-
+    return (osqp_warm_start_y(m_workspace, m_dualVariables.data()) == 0);
 }
 
 template<typename T, int n>
@@ -376,9 +355,9 @@ bool OSQPWrapper::OptimizerSolver::getPrimalVariable(Eigen::Matrix<T, n, 1> &pri
             return false;
         }
     }
-    for(int i = 0; i< m_workspace->data->n; i++){
-        primalVariable(i,0) = (T)m_workspace->x[i];
-    }
+
+    primalVariable = Eigen::Map<Eigen::Matrix<c_float, n, 1>>(m_workspace->x, m_workspace->data->n).template cast <T>();
+
     return true;
 }
 
@@ -397,9 +376,8 @@ bool OSQPWrapper::OptimizerSolver::getDualVariable(Eigen::Matrix<T, m, 1> &dualV
         }
     }
 
-    for(int i = 0; i< m_workspace->data->m; i++){
-        dualVariable(i,0) =  (T)m_workspace->y[i];
-    }
+    dualVariable = Eigen::Map<Eigen::Matrix<c_float, m, 1>>(m_workspace->y, m_workspace->data->m).template cast <T>();
+
     return true;
 }
 
@@ -409,7 +387,9 @@ bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Tr
                                                      std::vector<c_int> &newIndices,
                                                      std::vector<c_float> &newValues) const
 {
+    //When updating the matrices for osqp, we need to provide the indeces to modify of the value vector. The following can work since, when extracting triplets from osqp sparse matrices, the order of the triplets follows the same order of the value vector.
     // check if the sparsity pattern is changed
+    size_t valuesAdded = 0;
     if(newMatrixTriplet.size() == oldMatrixTriplet.size()){
         for(int i = 0; i < newMatrixTriplet.size(); i++){
             // check if the sparsity pattern is changed
@@ -419,11 +399,39 @@ bool OSQPWrapper::OptimizerSolver::evaluateNewValues(const std::vector<Eigen::Tr
 
             // check if an old value is changed
             if(newMatrixTriplet[i].value() != oldMatrixTriplet[i].value()){
-                newValues.push_back((c_float) newMatrixTriplet[i].value());
-                newIndices.push_back((c_int) i);
+                if (valuesAdded >= newValues.size()) {
+                    newValues.push_back((c_float) newMatrixTriplet[i].value());
+                    newIndices.push_back((c_int) i);
+                    valuesAdded++;
+                } else {
+                    newValues[valuesAdded] = static_cast<c_float>(newMatrixTriplet[i].value());
+                    newIndices[valuesAdded] = static_cast<c_int>(i);
+                    valuesAdded++;
+                }
             }
         }
+        newValues.erase(newValues.begin() + valuesAdded, newValues.end());
+        newIndices.erase(newIndices.begin() + valuesAdded, newIndices.end());
         return true;
     }
     return false;
+}
+
+template<typename T>
+void OSQPWrapper::OptimizerSolver::selectUpperTriangularTriplets(const std::vector<Eigen::Triplet<T>> &fullMatrixTriplets,
+                                                                 std::vector<Eigen::Triplet<T>> &upperTriangularMatrixTriplets) const {
+
+    int upperTriangularTriplets = 0;
+    for (int i = 0; i < fullMatrixTriplets.size(); ++i) {
+        if (fullMatrixTriplets[i].row() >= fullMatrixTriplets[i].col()) {
+            if (upperTriangularTriplets < upperTriangularMatrixTriplets.size()) {
+                upperTriangularMatrixTriplets[upperTriangularTriplets] = fullMatrixTriplets[i];
+            } else {
+                upperTriangularMatrixTriplets.push_back(fullMatrixTriplets[i]);
+            }
+            upperTriangularTriplets++;
+        }
+    }
+
+    upperTriangularMatrixTriplets.erase(upperTriangularMatrixTriplets.begin() + upperTriangularTriplets, upperTriangularMatrixTriplets.end());
 }

@@ -62,9 +62,9 @@ void OSQPWrapper::OptimizerData::clearLinearConstraintsMatrix()
 
 OSQPWrapper::OptimizerData::~OptimizerData()
 {
-    c_free(m_data);
     clearHessianMatrix();
     clearLinearConstraintsMatrix();
+    c_free(m_data);
 }
 
 void OSQPWrapper::OptimizerData::setNumberOfVariables(int n)
