@@ -1,11 +1,11 @@
 /**
- * @file OptimizerSolver.hpp
+ * @file Solver.hpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
  */
-#ifndef OPTIMIZER_WORKSPACE_HPP
-#define OPTIMIZER_WORKSPACE_HPP
+#ifndef OSQPEIGEN_SOLVER_HPP
+#define OSQPEIGEN_SOLVER_HPP
 
 // Std
 #include <memory>
@@ -16,24 +16,24 @@
 // OSQP
 #include "osqp.h"
 
-// OSQPWrapper
-#include "OptimizerData.hpp"
-#include "OptimizerSettings.hpp"
-#include "OptimizerConstants.hpp"
+// OsqpEigen
+#include "Data.hpp"
+#include "Settings.hpp"
+#include "Constants.hpp"
 
 /**
- * OSQPWrapper namespace.
+ * OsqpEigen namespace.
  */
-namespace OSQPWrapper
+namespace OsqpEigen
 {
     /**
-     * OptimizerSolver class is a wrapper of the OSQP OSQPWorkspace struct.
+     * Solver class is a wrapper of the OSQP OSQPWorkspace struct.
      */
-    class OptimizerSolver
+    class Solver
     {
         OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
-        std::unique_ptr<OSQPWrapper::OptimizerSettings> m_settings; /**< Pointer to OptimizerSettings class. */
-        std::unique_ptr<OSQPWrapper::OptimizerData> m_data; /**< Pointer to OptimizerData class. */
+        std::unique_ptr<OsqpEigen::Settings> m_settings; /**< Pointer to Settings class. */
+        std::unique_ptr<OsqpEigen::Data> m_data; /**< Pointer to Data class. */
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_dualVariables;
         Eigen::VectorXd m_solution;
@@ -80,12 +80,12 @@ namespace OSQPWrapper
         /**
          * Constructor.
          */
-        OptimizerSolver();
+        Solver();
 
         /**
          * Deconstructor.
          */
-        ~OptimizerSolver();
+        ~Solver();
 
         /**
          * Initialize the solver with the actual initial data and settings.
@@ -206,18 +206,18 @@ namespace OSQPWrapper
 
         /**
          * Get the solver settings pointer.
-         * @return the pointer to OptimizerSettings object.
+         * @return the pointer to Settings object.
          */
-        const std::unique_ptr<OSQPWrapper::OptimizerSettings>& settings() const;
+        const std::unique_ptr<OsqpEigen::Settings>& settings() const;
 
         /**
          * Get the pointer to the solver initial data.
-         * @return the pointer to OptimizerData object.
+         * @return the pointer to Data object.
          */
-        const std::unique_ptr<OSQPWrapper::OptimizerData>& data() const;
+        const std::unique_ptr<OsqpEigen::Data>& data() const;
     };
 
-    #include "OptimizerSolver.tpp"
+    #include "Solver.tpp"
 }
 
 #endif

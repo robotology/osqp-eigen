@@ -8,7 +8,7 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include "SparseMatrixHelper.hpp"
+#include <OsqpEigen.h>
 #include "osqp.h"
 
 template<typename T, int n, int m>
@@ -19,20 +19,20 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 
     csc* osqpSparseMatrix = nullptr;
     //NOTE: Dynamic memory allocation
-    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(matrix, osqpSparseMatrix))
+    if(!OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(matrix, osqpSparseMatrix))
         return false;
 
-    if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(osqpSparseMatrix, newMatrix))
+    if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(osqpSparseMatrix, newMatrix))
         return false;
     std::vector<Eigen::Triplet<T>> tripletListCsc;
-    if(!OSQPWrapper::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletListCsc))
+    if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletListCsc))
         return false;
 
     for(auto a: tripletListCsc)
         std::cout<<a.row() << " " <<a.col() << " " <<a.value()<<"\n ";
 
     std::vector<Eigen::Triplet<T>> tripletListEigen;
-    OSQPWrapper::SparseMatrixHelper::eigenSparseMatrixToTriplets(matrix, tripletListEigen);
+    OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(matrix, tripletListEigen);
 
     std::cout<<"***********************************************\n";
     for(auto a: tripletListEigen)
