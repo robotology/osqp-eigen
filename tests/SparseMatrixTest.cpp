@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 #include <OsqpEigen.h>
-#include "osqp.h"
+#include <osqp.h>
 
 template<typename T, int n, int m>
 bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)

@@ -15,7 +15,7 @@
 #include <Eigen/Sparse>
 
 // OSQP
-#include "osqp.h"
+#include <osqp.h>
 
 /**
  * OsqpEigen namespace.
@@ -73,6 +73,6 @@ namespace OsqpEigen
     };
 }
 
-#include "SparseMatrixHelper.tpp"
+#include <OsqpEigen/SparseMatrixHelper.tpp>
 
 #endif
