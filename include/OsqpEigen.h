@@ -1,5 +1,5 @@
 /**
- * @file Solver.hpp
+ * @file OsqpEigen.h
  * @author Giulio Romualdi, Stefano Dafarra
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
  * @date 2018
