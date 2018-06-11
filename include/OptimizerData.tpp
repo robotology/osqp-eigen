@@ -31,13 +31,8 @@ bool OSQPWrapper::OptimizerData::setHessianMatrix(const Eigen::SparseMatrix<T> &
         return false;
     }
 
-    // compress the hessian matrix
-    Eigen::SparseMatrix<T> compressedHessianMatrix = hessianMatrix;
-    compressedHessianMatrix.makeCompressed();
-    compressedHessianMatrix.pruned();
-
     //set the hessian matrix
-    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedHessianMatrix, m_data->P)){
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(hessianMatrix, m_data->P)){
         std::cerr << "[setHessianMatrix] Unable to instantiate the osqp sparse matrix."
                   << std::endl;
         return false;
@@ -87,13 +82,8 @@ bool OSQPWrapper::OptimizerData::setLinearConstraintsMatrix(const Eigen::SparseM
         return false;
     }
 
-    // compress the constraint matrix
-    Eigen::SparseMatrix<T> compressedLinearConstraintsMatrix = linearConstraintsMatrix;
-    compressedLinearConstraintsMatrix.makeCompressed();
-    compressedLinearConstraintsMatrix.pruned();
-
     // set the hessian matrix
-    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(compressedLinearConstraintsMatrix,
+    if(!OSQPWrapper::SparseMatrixHelper::createOsqpSparseMatrix(linearConstraintsMatrix,
                                                                 m_data->A)){
         std::cerr << "[setLinearConstraintMatrix] osqp sparse matrix not created."
                   << std::endl;

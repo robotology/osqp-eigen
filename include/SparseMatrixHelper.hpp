@@ -67,9 +67,9 @@ namespace OSQPWrapper
          * @param tripletList is a std::vector containing the triplet.
          * @return a const point to the csc struct.
          */
-        template<typename T>
-        bool eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
-                                         std::vector<Eigen::Triplet<T>> &tripletList);
+        template<typename Tin, typename Tout>
+        bool eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<Tin> &eigenSparseMatrix,
+                                         std::vector<Eigen::Triplet<Tout>> &tripletList);
     };
 }
 
