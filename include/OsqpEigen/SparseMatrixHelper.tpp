@@ -26,7 +26,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMa
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
     if(osqpSparseMatrix != nullptr){
-        std::cerr << "[createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
                   << std::endl;
         return false;
     }
@@ -63,7 +63,7 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const 
 {
     // if the matrix is not instantiate the triplets vector is empty
     if(osqpSparseMatrix == nullptr){
-        std::cerr << "[osqpSparseMatrixToEiegenTriplets] the osqpSparseMatrix is not initialized."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -103,7 +103,7 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const cs
 {
     // if the matrix is not instantiate the eigen matrix is empty
     if(osqpSparseMatrix == nullptr) {
-        std::cerr << "[osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -130,7 +130,7 @@ bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::Spa
                                                                   std::vector<Eigen::Triplet<Tout>> &tripletList)
 {
     if(eigenSparseMatrix.nonZeros() == 0){
-        std::cerr << "[eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
+        std::cerr << "[OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
                   << std::endl;
         return false;
     }

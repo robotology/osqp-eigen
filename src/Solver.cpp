@@ -26,7 +26,7 @@ OsqpEigen::Solver::~Solver()
 bool OsqpEigen::Solver::clearSolverVariables()
 {
     if(!m_isSolverInitialized){
-        std::cerr << "[clearSolverVariables] Unable to clear the solver variables. "
+        std::cerr << "[OsqpEigen::Solver::clearSolverVariables] Unable to clear the solver variables. "
                   << "Are you sure that the solver is initialized?"
                   << std::endl;
         return false;
@@ -66,14 +66,14 @@ bool OsqpEigen::Solver::clearSolverVariables()
 bool OsqpEigen::Solver::initSolver()
 {
     if(m_isSolverInitialized){
-        std::cerr << "[initSolver] The solver has been already initialized. "
+        std::cerr << "[OsqpEigen::Solver::initSolver] The solver has been already initialized. "
                   << "Please use clearSolver() method to deallocate memory."
                   << std::endl;
         return false;
     }
 
     if(!m_data->isSet()){
-        std::cout << "[Optimizer Workspace] Some data are not set."
+        std::cerr << "[OsqpEigen::Solver::initSolver] Some data are not set."
                   << std::endl;
         return false;
     }
@@ -82,7 +82,7 @@ bool OsqpEigen::Solver::initSolver()
                              m_settings->getSettings());
 
     if(m_workspace == OSQP_NULL){
-        std::cout << "[Optimizer Workspace] Unable to setup the workspace."
+        std::cerr << "[OsqpEigen::Solver::initSolver] Unable to setup the workspace."
                   << std::endl;
         return false;
     }
@@ -108,14 +108,14 @@ void OsqpEigen::Solver::clearSolver()
 bool OsqpEigen::Solver::solve()
 {
     if(!m_isSolverInitialized){
-        std::cout << "[solve] The solve has hot been initialized yet. "
+        std::cerr << "[OsqpEigen::Solver::solve] The solve has hot been initialized yet. "
                   << "Please call initSolver() method."
                   << std::endl;
         return false;
     }
 
     if(osqp_solve(m_workspace) != 0){
-        std::cout << "[solve] Unable to solve the problem."
+        std::cerr << "[OsqpEigen::Solver::solve] Unable to solve the problem."
                   << std::endl;
         return false;
     }
@@ -123,7 +123,7 @@ bool OsqpEigen::Solver::solve()
     // check if the solution is feasible
     if(m_workspace->info->status_val != OSQP_SOLVED)
     {
-        std::cout << "[solve] The solution is unfeasible."
+        std::cerr << "[OsqpEigen::Solver::solve] The solution is unfeasible."
                   << std::endl;
         return false;
     }
