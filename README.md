@@ -3,7 +3,7 @@ Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) l
 
 | System        | Status        |
 | ------------- |:-------------:|
-|Linux / OSX      | [![Build Status](https://travis-ci.org/GiulioRomualdi/osqp-eigen.svg?branch=master)](https://travis-ci.org/GiulioRomualdi/osqp-eigen)  |
+|Linux / OSX      | [![Build Status](https://travis-ci.org/robotology/osqp-eigen.svg?branch=master)](https://travis-ci.org/robotology/osqp-eigen) |
 
 
 ## Dependeces
@@ -15,7 +15,7 @@ Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) l
 ## Build the library and the application
 ### Linux / macOs
 ```sh
-git clone https://github.com/GiulioRomualdi/osqp-eigen.git
+git clone https://github.com/robotology/osqp-eigen.git
 cd osqp-eigen
 mkdir build && cd build
 cmake ../
@@ -37,7 +37,7 @@ export OsqpEigen_DIR=/path/where/you/installed/
 [Here](./example/) you can find a simple example that shows how to use this library.
 
 ## API
-[Here](https://giulioromualdi.github.io/osqp-eigen/) you can find the documentation.
+[Here](https://robotology.github.io/osqp-eigen/) you can find the documentation.
 
 ## Bug reports and support
-All types of [issues](https://github.com/GiulioRomualdi/osqp-eigen/issues/new) are welcome :smile:.
+All types of [issues](https://github.com/robotology/osqp-eigen/issues/new) are welcome :smile:.
