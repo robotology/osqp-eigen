@@ -14,14 +14,14 @@ bool OsqpEigen::Solver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
 {
     // check if the dimension of the gradient is correct
     if(gradient.rows() != m_workspace->data->n){
-        std::cerr << "[Optimizer Workspace] The size of the gradient must be equal to the number of the variables."
+        std::cerr << "[OsqpEigen::Solver::updateGradient] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the gradient vector
     if(osqp_update_lin_cost(m_workspace, gradient.data())){
-        std::cerr << "[Optimizer Workspace] Error when the update gradient is called."
+        std::cerr << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
                   << std::endl;
         return false;
     }
@@ -33,14 +33,14 @@ bool OsqpEigen::Solver::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBoun
 {
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizer Workspace] The size of the lower bound must be equal to the number of the variables."
+        std::cerr << "[OsqpEigen::Solver::updateLowerBound] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the lower bound vector
     if(osqp_update_lower_bound(m_workspace, lowerBound.data())){
-        std::cerr << "[Optimizer Workspace] Error when the update lower bound is called."
+        std::cerr << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
                   << std::endl;
         return false;
     }
@@ -53,14 +53,14 @@ bool OsqpEigen::Solver::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBoun
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizer Workspace] The size of the upper bound must be equal to the number of the variables."
+        std::cerr << "[OsqpEigen::Solver::updateUpperBound] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the upper bound vector
     if(osqp_update_upper_bound(m_workspace, upperBound.data())){
-        std::cerr << "[Optimizer Workspace] Error when the update upper bound is called."
+        std::cerr << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
                   << std::endl;
         return false;
     }
@@ -74,21 +74,21 @@ bool OsqpEigen::Solver::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizer Workspace] The size of the upper bound must be equal to the number of the variables."
+        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[Optimizer Workspace] The size of the lower bound must be equal to the number of the variables."
+        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update lower and upper constraints
     if(osqp_update_bounds(m_workspace, lowerBound.data(), upperBound.data())){
-        std::cerr << "[Optimizer Workspace] Error when the update bounds is called."
+        std::cerr << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
                   << std::endl;
         return false;
     }
@@ -99,14 +99,14 @@ template<typename T>
 bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
 {
     if(!m_isSolverInitialized){
-        std::cerr << "[updateHessianMatrix] The solver has not been initialized."
+        std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] The solver has not been initialized."
                   << std::endl;
         return false;
     }
 
     if(((c_int)hessianMatrix.rows() != m_workspace->data->n)||
        ((c_int)hessianMatrix.cols() != m_workspace->data->n)){
-        std::cerr << "[updateHessianMatrix] The hessian matrix has to be a nxn matrix"
+        std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] The hessian matrix has to be a nxn matrix"
                   << std::endl;
         return false;
     }
@@ -115,13 +115,13 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
     // evaluate the triplets from old and new hessian sparse matrices
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->P,
                                                                     m_oldHessianTriplet)){
-        std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
+        std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
     if(!OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(hessianMatrix,
                                                                      m_newHessianTriplet)){
-        std::cerr << "[updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
+        std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
@@ -135,7 +135,7 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
     if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
                          m_hessianNewIndices, m_hessianNewValues)){
         if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
-            std::cerr << "[updateHessianMatrix] Unable to update hessian matrix."
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update hessian matrix."
                       << std::endl;
             return false;
         }
@@ -147,13 +147,13 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
         // get the primal and the dual variables
 
         if(!getPrimalVariable(m_primalVariables)){
-            std::cerr << "[updateHessianMatrix] Unable to get the primal variable."
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
         if(!getDualVariable(m_dualVariables)){
-            std::cerr << "[updateHessianMatrix] Unable to get the dual variable."
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
         }
@@ -163,7 +163,7 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
 
         // set new hessian matrix
         if(!m_data->setHessianMatrix(hessianMatrix)){
-            std::cerr << "[updateHessianMatrix] Unable to update the hessian matrix in "
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update the hessian matrix in "
                       << "OptimizaroData object."
                       << std::endl;
             return false;
@@ -177,13 +177,13 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
 
         // set the old primal and dual variables
         if(!setPrimalVariable(m_primalVariables)){
-            std::cerr << "[updateHessianMatrix] Unable to set the primal variable."
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
         if(!setDualVariable(m_dualVariables)){
-            std::cerr << "[updateHessianMatrix] Unable to set the dual variable."
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
         }
@@ -195,14 +195,14 @@ template<typename T>
 bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
 {
     if(!m_isSolverInitialized){
-        std::cerr << "[updateLinearConstraintMatrix] The solver has not been initialized."
+        std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] The solver has not been initialized."
                   << std::endl;
         return false;
     }
 
     if(((c_int)linearConstraintsMatrix.rows() != m_workspace->data->m)||
        ((c_int)linearConstraintsMatrix.cols() != m_workspace->data->n)){
-        std::cerr << "[updateLinearConstraintMatrix] The constraints matrix has to be a mxn matrix"
+        std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] The constraints matrix has to be a mxn matrix"
                   << std::endl;
         return false;
     }
@@ -211,13 +211,13 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
 
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->A,
                                                                     m_oldLinearConstraintsTriplet)){
-        std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
+        std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
     if(!OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(linearConstraintsMatrix,
                                                                      m_newLinearConstraintsTriplet)){
-        std::cerr << "[updateLinearConstraintMatrix] Unable to evaluate triplets from the old hessian matrix."
+        std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to evaluate triplets from the old hessian matrix."
                   << std::endl;
         return false;
     }
@@ -229,7 +229,7 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
     if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
                          m_constraintsNewIndices, m_constraintsNewValues)){
         if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to update linear constraints matrix."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update linear constraints matrix."
                       << std::endl;
             return false;
         }
@@ -241,13 +241,13 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
         // get the primal and the dual variables
 
         if(!getPrimalVariable(m_primalVariables)){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to get the primal variable."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to get the primal variable."
                       << std::endl;
             return false;
         }
 
         if(!getDualVariable(m_dualVariables)){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to get the dual variable."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to get the dual variable."
                       << std::endl;
             return false;
         }
@@ -257,8 +257,8 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
 
         // set new linear constraints matrix
         if(!m_data->setLinearConstraintsMatrix(linearConstraintsMatrix)){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to update the hessian matrix in "
-                      << "OptimizaroData object."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update the hessian matrix in "
+                      << "Data object."
                       << std::endl;
             return false;
         }
@@ -271,13 +271,13 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
 
         // set the old primal and dual variables
         if(!setPrimalVariable(m_primalVariables)){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to set the primal variable."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to set the primal variable."
                       << std::endl;
             return false;
         }
 
         if(!setDualVariable(m_dualVariables)){
-            std::cerr << "[updateLinearConstraintMatrix] Unable to set the dual variable."
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to set the dual variable."
                       << std::endl;
             return false;
         }
@@ -290,14 +290,14 @@ bool OsqpEigen::Solver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariabl
                                                   const Eigen::Matrix<T, m, 1> &dualVariable)
 {
     if(primalVariable.rows() != m_workspace->data->n){
-        std::cerr << "[setWarmStart] The size of the primal variable vector has to be equal to "
+        std::cerr << "[OsqpEigen::Solver::setWarmStart] The size of the primal variable vector has to be equal to "
                   << " the number of variables."
                   << std::endl;
         return false;
     }
 
     if(dualVariable.rows() != m_workspace->data->m){
-        std::cerr << "[setWarmStart] The size of the dual variable vector has to be equal to "
+        std::cerr << "[OsqpEigen::Solver::setWarmStart] The size of the dual variable vector has to be equal to "
                   << " the number of constraints."
                   << std::endl;
         return false;
@@ -314,7 +314,7 @@ template<typename T, int n>
 bool OsqpEigen::Solver::setPrimalVariable(const Eigen::Matrix<T, n, 1> &primalVariable)
 {
     if(primalVariable.rows() != m_workspace->data->n){
-        std::cerr << "[setPrimalVariable] The size of the primal variable vector has to be equal to "
+        std::cerr << "[OsqpEigen::Solver::setPrimalVariable] The size of the primal variable vector has to be equal to "
                   << " the number of variables."
                   << std::endl;
         return false;
@@ -330,7 +330,7 @@ template<typename T, int m>
 bool OsqpEigen::Solver::setDualVariable(const Eigen::Matrix<T, m, 1> &dualVariable)
 {
     if(dualVariable.rows() != m_workspace->data->m){
-        std::cerr << "[setDualVariable] The size of the dual variable vector has to be equal to "
+        std::cerr << "[OsqpEigen::Solver::setDualVariable] The size of the dual variable vector has to be equal to "
                   << " the number of constraints."
                   << std::endl;
         return false;
@@ -349,7 +349,7 @@ bool OsqpEigen::Solver::getPrimalVariable(Eigen::Matrix<T, n, 1> &primalVariable
     }
     else{
         if (n != m_workspace->data->n){
-            std::cerr << "[getPrimalVariable] The size of the vector has to be equal to the number of "
+            std::cerr << "[OsqpEigen::Solver::getPrimalVariable] The size of the vector has to be equal to the number of "
                       << "variables. (You can use an eigen dynamic vector)"
                       << std::endl;
             return false;
@@ -369,7 +369,7 @@ bool OsqpEigen::Solver::getDualVariable(Eigen::Matrix<T, m, 1> &dualVariable)
     }
     else{
         if (m != m_workspace->data->m){
-            std::cerr << "[getdualVariable] The size of the vector has to be equal to the number of "
+            std::cerr << "[OsqpEigen::Solver::getDualVariable] The size of the vector has to be equal to the number of "
                       << "constraints. (You can use an eigen dynamic vector)"
                       << std::endl;
             return false;
