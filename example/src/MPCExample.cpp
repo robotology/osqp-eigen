@@ -6,8 +6,8 @@
  */
 
 
-// OSQPWrapper
-#include "OptimizatorSolver.hpp"
+// osqp-eigen
+#include "OsqpEigen/OsqpEigen.h"
 
 // eigen
 #include <Eigen/Dense>
