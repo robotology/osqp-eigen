@@ -50,6 +50,7 @@ TEST(QPProblem, FirstRun)
 
     solver.data()->setNumberOfVariables(2);
     solver.data()->setNumberOfConstraints(3);
+    solver.settings()->setScaling(0);
     ASSERT_TRUE(solver.data()->setHessianMatrix(H_s));
     ASSERT_TRUE(solver.data()->setGradient(gradient));
     ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(A_s));
