@@ -134,10 +134,12 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
 
     if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
                          m_hessianNewIndices, m_hessianNewValues)){
-        if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
-            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update hessian matrix."
-                      << std::endl;
-            return false;
+        if (m_hessianNewValues.size() > 0) {
+            if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
+                std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update hessian matrix."
+                          << std::endl;
+                return false;
+            }
         }
     }
     else{
@@ -228,10 +230,12 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
 
     if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
                          m_constraintsNewIndices, m_constraintsNewValues)){
-        if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
-            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update linear constraints matrix."
-                      << std::endl;
-            return false;
+        if (m_constraintsNewValues.size() > 0) {
+            if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
+                std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update linear constraints matrix."
+                          << std::endl;
+                return false;
+            }
         }
     }
     else{
