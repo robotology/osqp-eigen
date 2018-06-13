@@ -427,7 +427,7 @@ void OsqpEigen::Solver::selectUpperTriangularTriplets(const std::vector<Eigen::T
 
     int upperTriangularTriplets = 0;
     for (int i = 0; i < fullMatrixTriplets.size(); ++i) {
-        if (fullMatrixTriplets[i].row() >= fullMatrixTriplets[i].col()) {
+        if (fullMatrixTriplets[i].row() <= fullMatrixTriplets[i].col()) {
             if (upperTriangularTriplets < upperTriangularMatrixTriplets.size()) {
                 upperTriangularMatrixTriplets[upperTriangularTriplets] = fullMatrixTriplets[i];
             } else {
