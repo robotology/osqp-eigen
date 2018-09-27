@@ -106,7 +106,7 @@ before_script:
   - sudo make install
 
   - cd $ROBOT_CODE
-  - git clone https://github.com/oxfordcontrol/osqp.git
+  - git clone --recursive https://github.com/oxfordcontrol/osqp.git
   - cd osqp
   - mkdir build
   - cd build
