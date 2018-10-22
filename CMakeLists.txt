@@ -107,7 +107,7 @@ configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OsqpEigenConfig.cmake.in
 
 install(FILES ${CMAKE_BINARY_DIR}/OsqpEigenConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OsqpEigen)
 
-option(BUILD_TESTING "Create tests using CMake" ON)
+option(BUILD_TESTING "Create tests using CMake" OFF)
 
 include(AddUninstallTarget)
 
