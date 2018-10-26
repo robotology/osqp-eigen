@@ -22,7 +22,15 @@ cd ../..
 
 # Build, test and install osqp-eigen
 cd $TRAVIS_BUILD_DIR
-mkdir build && cd build
-cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DBUILD_TESTING:BOOL=ON ..
+mkdir build
+cd build
+cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DBUILD_TESTING=ON ..
 cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
 make test
+
+# Build osqp-eigen example
+cd ../example
+mkdir build
+cd build
+cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} ..
+cmake --build . --config ${TRAVIS_BUILD_TYPE}
