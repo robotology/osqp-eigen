@@ -16,10 +16,9 @@ git clone --recursive https://github.com/oxfordcontrol/osqp.git
 cd osqp
 mkdir build
 cd build
-cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$ROBOT_INSTALL -DUNITTESTS=OFF ..
+cmake -G"${TRAVIS_CMAKE_GENERATOR}" -DCMAKE_BUILD_TYPE=${TRAVIS_BUILD_TYPE} -DUNITTESTS=OFF ..
 cmake --build . --config ${TRAVIS_BUILD_TYPE} --target install
 cd ../..
-
 
 # Build, test and install osqp-eigen
 cd $TRAVIS_BUILD_DIR
