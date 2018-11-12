@@ -1,126 +1,95 @@
-sudo: required
+dist: trusty
 language: cpp
+services: docker
 
-matrix:
-  include:
+os: linux
 
-    # Linux C++14 GCC builds
-    - os: linux
-      compiler: gcc
-      addons: &gcc6
-        apt:
-          sources: ['ubuntu-toolchain-r-test']
-          packages: ['g++-6']
-      env: COMPILER='g++-6' BUILD_TYPE='Release'
+cache:
+  directories:
+    - $HOME/.ccache
+    - $HOME/Library/Caches/Homebrew
 
-    - os: linux
-      compiler: gcc
-      addons: *gcc6
-      env: COMPILER='g++-6' BUILD_TYPE='Debug'
+stages:
+  - test # Default stage with job matrix
+  - osx
 
-      # Linux C++14 Clang builds
-    - os: linux
-      compiler: clang
-      addons: &clang39
-        apt:
-          sources: ['llvm-toolchain-precise-3.9', 'ubuntu-toolchain-r-test']
-          packages: ['clang-3.9', 'g++-6']
-      env: COMPILER='clang++-3.9' BUILD_TYPE='Release'
+compiler:
+  - gcc
 
-    - os: linux
-      compiler: clang
-      addons: *clang39
-      env: COMPILER='clang++-3.9' BUILD_TYPE='Debug'
+env:
+  global:
+    - TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+  matrix:
+    - TRAVIS_BUILD_TYPE="Release" UBUNTU="xenial"
+    - TRAVIS_BUILD_TYPE="Debug" UBUNTU="xenial"
+    - TRAVIS_BUILD_TYPE="Release" UBUNTU="bionic"
+    - TRAVIS_BUILD_TYPE="Debug" UBUNTU="bionic"
 
-      # OSX C++14 Clang Build
-    - os: osx
-      osx_image: xcode8.3
-      compiler: clang
-      env: COMPILER='clang++' BUILD_TYPE='Debug'
-
-    - os: osx
-      osx_image: xcode8.3
-      compiler: clang
-      env: COMPILER='clang++' BUILD_TYPE='Release'
-
-install:
-  - export CXX=${COMPILER}
-
-  - ${CXX} --version
-
-  # Dependencies required by the CI are installed in ${TRAVIS_BUILD_DIR}/deps/
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir -p "${DEPS_DIR}"
-  - cd "${DEPS_DIR}"
-
-  # Travis machines have 2 cores
-  - JOBS=2
-
-  - |
-    LLVM_INSTALL=${DEPS_DIR}/llvm/install
-    # if in linux and compiler clang and llvm not installed
-    if [[ "${TRAVIS_OS_NAME}" == "linux" && "${CXX%%+*}" == "clang" && -n "$(ls -A ${LLVM_INSTALL})" ]]; then
-    if   [[ "${CXX}" == "clang++-3.6" ]]; then LLVM_VERSION="3.6.2";
-    elif [[ "${CXX}" == "clang++-3.7" ]]; then LLVM_VERSION="3.7.1";
-    elif [[ "${CXX}" == "clang++-3.8" ]]; then LLVM_VERSION="3.8.1";
-    elif [[ "${CXX}" == "clang++-3.9" ]]; then LLVM_VERSION="3.9.1";
-    fi
-    LLVM_URL="http://llvm.org/releases/${LLVM_VERSION}/llvm-${LLVM_VERSION}.src.tar.xz"
-    LIBCXX_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxx-${LLVM_VERSION}.src.tar.xz"
-    LIBCXXABI_URL="http://llvm.org/releases/${LLVM_VERSION}/libcxxabi-${LLVM_VERSION}.src.tar.xz"
-    mkdir -p llvm llvm/build llvm/projects/libcxx llvm/projects/libcxxabi
-    travis_retry wget -O - ${LLVM_URL} | tar --strip-components=1 -xJ -C llvm
-    travis_retry wget -O - ${LIBCXX_URL} | tar --strip-components=1 -xJ -C llvm/projects/libcxx
-    travis_retry wget -O - ${LIBCXXABI_URL} | tar --strip-components=1 -xJ -C llvm/projects/libcxxabi
-    (cd llvm/build && cmake .. -DCMAKE_INSTALL_PREFIX=${LLVM_INSTALL})
-    (cd llvm/build/projects/libcxx && make install -j2)
-    (cd llvm/build/projects/libcxxabi && make install -j2)
-    export CXXFLAGS="-isystem ${LLVM_INSTALL}/include/c++/v1"
-    export LDFLAGS="-L ${LLVM_INSTALL}/lib -l c++ -l c++abi"
-    export LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${LLVM_INSTALL}/lib"
-    fi
+# ===================
+# STAGE: test (linux)
+# ===================
 
 before_script:
-
-  - mkdir ~/robot-code
-  - mkdir ~/robot-install
-
-  - export ROBOT_CODE=~/robot-code
-  - export ROBOT_INSTALL=~/robot-install
-
-  - cd $ROBOT_CODE
-  - wget https://github.com/google/googletest/archive/release-1.8.0.zip
-  - unzip release-1.8.0.zip
-  - cd googletest-release-1.8.0
-  - mkdir build
-  - cd build
-  - cmake ../ -DBUILD_GTEST=ON -DBUILD_SHARED_LIBS=ON
-  - sudo make install
-
-  - cd $ROBOT_CODE
-  - git clone https://github.com/eigenteam/eigen-git-mirror.git
-  - cd eigen-git-mirror
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} ../
-  - sudo make install
-
-  - cd $ROBOT_CODE
-  - git clone --recursive https://github.com/oxfordcontrol/osqp.git
-  - cd osqp
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DCMAKE_INSTALL_PREFIX=$ROBOT_INSTALL -DUNITTESTS=OFF ../
-  - make install
-  - export osqp_DIR=$ROBOT_INSTALL
+  - docker pull ubuntu:$UBUNTU
 
 script:
-  - cd $TRAVIS_BUILD_DIR
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_BUILD_TYPE=${BUILD_TYPE} -DBUILD_TESTING=ON ../
-  - make
-  - make test
+  - >-
+    docker run -it \
+      -v $TRAVIS_BUILD_DIR:$TRAVIS_BUILD_DIR \
+      -v $HOME/.ccache:$HOME/.ccache \
+      -w $TRAVIS_BUILD_DIR \
+      --env CC \
+      --env CXX \
+      --env TRAVIS_BUILD_DIR \
+      --env TRAVIS_BUILD_TYPE \
+      --env TRAVIS_CMAKE_GENERATOR \
+      ubuntu:$UBUNTU \
+      sh .ci/install_debian_and_script.sh
+
+# ==========
+# STAGE: osx
+# ==========
+
+stage_osx:
+  install: &osx_install
+    # Setup ccache
+    - brew update
+    - brew install ccache
+    - export PATH="/usr/local/opt/ccache/libexec:$PATH"
+    # Install dependencies
+    - brew install eigen pkg-config
+  script: &osx_script
+    - cd $TRAVIS_BUILD_DIR/.ci
+    - sh ./script.sh
+
+# ======================
+# BUILD JOBS FROM STAGES
+# ======================
+
+jobs:
+  include:
+    # ---------
+    # STAGE OSX
+    # ---------
+    - &osx_template
+      stage: osx
+      os: osx
+      osx_image: xcode9.4
+      before_install: skip
+      install: *osx_install
+      before_script: skip
+      script: *osx_script
+      after_failure: skip
+      after_success: skip
+      after_script: skip
+      env:
+        TRAVIS_CMAKE_GENERATOR="Xcode"
+        TRAVIS_BUILD_TYPE="Debug"
+    - <<: *osx_template
+      compiler: clang
+      env:
+        TRAVIS_CMAKE_GENERATOR="Unix Makefiles"
+        TRAVIS_BUILD_TYPE="Debug"
 
 notifications:
   email: false

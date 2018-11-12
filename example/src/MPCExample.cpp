@@ -61,13 +61,13 @@ void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<
         13 - u0;
 
     // state inequality constraints
-    xMin << -M_PI/6,-M_PI/6,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-1.,
-        -OSQPWrapper::INFINTY, -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY,
-        -OSQPWrapper::INFINTY,-OSQPWrapper::INFINTY;
+    xMin << -M_PI/6,-M_PI/6,-OsqpEigen::INFTY,-OsqpEigen::INFTY,-OsqpEigen::INFTY,-1.,
+        -OsqpEigen::INFTY, -OsqpEigen::INFTY,-OsqpEigen::INFTY,-OsqpEigen::INFTY,
+        -OsqpEigen::INFTY,-OsqpEigen::INFTY;
 
-    xMax << M_PI/6,M_PI/6, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
-        OSQPWrapper::INFINTY, OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,
-        OSQPWrapper::INFINTY,OSQPWrapper::INFINTY,OSQPWrapper::INFINTY;
+    xMax << M_PI/6,M_PI/6, OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY,
+        OsqpEigen::INFTY, OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY,
+        OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY;
 }
 
 void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatrix<double, 4> &R)
@@ -248,20 +248,20 @@ int main()
     castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 
     // instantiate the solver
-    OSQPWrapper::OptimizatorSolver solver;
+    OsqpEigen::Solver solver;
 
     // settings
     //solver.settings()->setVerbosity(false);
     solver.settings()->setWarmStart(true);
 
     // set the initial data of the QP solver
-    solver.initData()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
-    solver.initData()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
-    if(!solver.initData()->setHessianMatrix(hessian)) return 1;
-    if(!solver.initData()->setGradient(gradient)) return 1;
-    if(!solver.initData()->setLinearConstraintsMatrix(linearMatrix)) return 1;
-    if(!solver.initData()->setLowerBound(lowerBound)) return 1;
-    if(!solver.initData()->setUpperBound(upperBound)) return 1;
+    solver.data()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
+    solver.data()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    if(!solver.data()->setHessianMatrix(hessian)) return 1;
+    if(!solver.data()->setGradient(gradient)) return 1;
+    if(!solver.data()->setLinearConstraintsMatrix(linearMatrix)) return 1;
+    if(!solver.data()->setLowerBound(lowerBound)) return 1;
+    if(!solver.data()->setUpperBound(upperBound)) return 1;
 
     // instantiate the solver
     if(!solver.initSolver()) return 1;
