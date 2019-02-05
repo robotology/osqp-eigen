@@ -1,9 +1,10 @@
 # osqp-eigen
 Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) library.
 
-| System        | Status        |
-| ------------- |:-------------:|
-|Linux / OSX      | [![Build Status](https://travis-ci.org/robotology/osqp-eigen.svg?branch=master)](https://travis-ci.org/robotology/osqp-eigen) |
+| System        | Status                                                                                                                                                                      |
+| ------------- | :-------------:                                                                                                                                                             |
+| Linux / OSX   | [![Build Status](https://travis-ci.org/robotology/osqp-eigen.svg?branch=master)](https://travis-ci.org/robotology/osqp-eigen)                                               |
+| Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/1uecfmyvxb2dujt9/branch/master?svg=true)](https://ci.appveyor.com/project/robotology/osqp-eigen/branch/master) |
 
 
 ## Dependeces
