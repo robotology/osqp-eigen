@@ -37,6 +37,7 @@ namespace OsqpEigen
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_dualVariables;
         Eigen::VectorXd m_solution;
+        Eigen::VectorXd m_dual_solution;
 
         std::vector<c_int> m_hessianNewIndices;
         std::vector<c_float> m_hessianNewValues;
@@ -122,6 +123,12 @@ namespace OsqpEigen
          * @return an Eigen::Vector contating the optimization result.
          */
         const Eigen::VectorXd &getSolution();
+
+        /**
+         * Get the dual optimization problem solution.
+         * @return an Eigen::Vector contating the optimization result.
+         */
+        const Eigen::VectorXd &getDualSolution();
 
         /**
          * Update the linear part of the cost function (Gradient).
