@@ -127,24 +127,21 @@ namespace OsqpEigen
          * @param gradient is the Gradient vector.
          * @return true/false in case of success/failure.
          */
-        template<int n>
-        bool updateGradient(Eigen::Matrix<c_float, n, 1>& gradient);
+        bool updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient);
 
         /**
          * Update the lower bounds limit (size m).
          * @param lowerBound is the lower bound constraint vector.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
+        bool updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound);
 
         /**
          * Update the upper bounds limit (size m).
          * @param upperBound is the upper bound constraint vector.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
 
         /**
          * Update both upper and lower bounds (size m).
@@ -152,9 +149,8 @@ namespace OsqpEigen
          * @param upperBound is the upper bound constraint vector.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
-                          Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound,
+                          const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
 
         /**
          * Update the quadratic part of the cost function (Hessian).

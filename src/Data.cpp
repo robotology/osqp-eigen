@@ -94,3 +94,39 @@ bool OsqpEigen::Data::isSet() const
         m_isLowerBoundSet &&
         m_isUpperBoundSet;
 }
+
+bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradient)
+{
+    if(gradient.rows() != m_data->n){
+        std::cerr << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+    m_isGradientSet = true;
+    m_data->q = gradient.data();
+    return true;
+}
+
+bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound)
+{
+    if(lowerBound.rows() != m_data->m){
+        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+    m_isLowerBoundSet = true;
+    m_data->l = lowerBound.data();
+    return true;
+}
+
+bool OsqpEigen::Data::setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
+{
+    if(upperBound.rows() != m_data->m){
+        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the upper bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+    m_isUpperBoundSet = true;
+    m_data->u = upperBound.data();
+    return true;
+}
