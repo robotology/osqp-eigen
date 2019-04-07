@@ -90,8 +90,7 @@ namespace OsqpEigen
          * @param gradientVector is the Gradient vector.
          * @return true/false in case of success/failure.
          */
-        template<int n>
-        bool setGradient(Eigen::Matrix<c_float, n, 1> &gradientVector);
+        bool setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradientVector);
 
         /**
          * Set the linear constraint matrix A (size m x n)
@@ -106,16 +105,14 @@ namespace OsqpEigen
          * @param lowerBoundVector is the lower bound constraint.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBoundVector);
+        bool setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBoundVector);
 
         /**
          * Set the array for upper bound (size m).
          * @param upperBoundVector is the upper bound constraint.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBoundVector);
+        bool setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBoundVector);
 
         /**
          * Get the OSQPData struct.
