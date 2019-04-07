@@ -5,8 +5,8 @@
  * @date 2018
  */
 
-template<typename T>
-bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMatrix<T> &eigenSparseMatrix,
+template<typename Derived>
+bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCompressedBase<Derived> &eigenSparseMatrix,
                                                              csc*& osqpSparseMatrix)
 
 {
@@ -21,7 +21,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMa
     const int* innerNonZerosPtr = eigenSparseMatrix.innerNonZeroPtr();
 
     // get nonzero values
-    const T* valuePtr = eigenSparseMatrix.valuePtr();
+    auto valuePtr = eigenSparseMatrix.valuePtr();
 
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
@@ -44,7 +44,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMa
                 osqpSparseMatrix->p[k] = osqpSparseMatrix->p[k-1] + innerNonZerosPtr[k-1];
             }
         }
-        for (typename Eigen::SparseMatrix<T>::InnerIterator it(eigenSparseMatrix,k); it; ++it) {
+        for (typename Eigen::SparseCompressedBase<Derived>::InnerIterator it(eigenSparseMatrix,k); it; ++it) {
             osqpSparseMatrix->i[innerOsqpPosition] = static_cast<c_int>(it.row());
             osqpSparseMatrix->x[innerOsqpPosition] = static_cast<c_float>(it.value());
             innerOsqpPosition++;
@@ -59,7 +59,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseMa
 
 template<typename T>
 bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
-                                                                 std::vector<Eigen::Triplet<T>> &tripletList)
+                                                               std::vector<Eigen::Triplet<T>> &tripletList)
 {
     // if the matrix is not instantiate the triplets vector is empty
     if(osqpSparseMatrix == nullptr){
@@ -99,7 +99,7 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const 
 
 template<typename T>
 bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const csc* const & osqpSparseMatrix,
-                                                                          Eigen::SparseMatrix<T> &eigenSparseMatrix)
+                                                                        Eigen::SparseMatrix<T> &eigenSparseMatrix)
 {
     // if the matrix is not instantiate the eigen matrix is empty
     if(osqpSparseMatrix == nullptr) {
@@ -125,9 +125,9 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const cs
     return true;
 }
 
-template<typename Tin, typename Tout>
-bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseMatrix<Tin> &eigenSparseMatrix,
-                                                                  std::vector<Eigen::Triplet<Tout>> &tripletList)
+template<typename Derived, typename T>
+bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::SparseCompressedBase<Derived> &eigenSparseMatrix,
+                                                                std::vector<Eigen::Triplet<T>> &tripletList)
 {
     if(eigenSparseMatrix.nonZeros() == 0){
         std::cerr << "[OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
@@ -139,8 +139,8 @@ bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::Spa
     // populate the triplet list
     int nonZero = 0;
     for (int k=0; k < eigenSparseMatrix.outerSize(); ++k){
-        for (typename Eigen::SparseMatrix<Tin>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
-            tripletList[nonZero] = Eigen::Triplet<Tout>(it.row(), it.col(), static_cast<Tout>(it.value()));
+        for (typename Eigen::SparseCompressedBase<Derived>::InnerIterator it(eigenSparseMatrix,k); it; ++it){
+            tripletList[nonZero] = Eigen::Triplet<T>(it.row(), it.col(), static_cast<T>(it.value()));
             nonZero++;
         }
     }

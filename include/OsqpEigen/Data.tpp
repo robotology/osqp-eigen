@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-template<typename T>
-bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+template<typename Derived>
+bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix)
 {
     if(m_isHessianMatrixSet){
         std::cerr << "[OsqpEigen::Data::setHessianMatrix] The hessian matrix was already set. "
@@ -41,8 +41,8 @@ bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatr
     return true;
 }
 
-template<typename T>
-bool OsqpEigen::Data::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
+template<typename Derived>
+bool OsqpEigen::Data::setLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix)
 {
     if(m_isLinearConstraintsMatrixSet){
         std::cerr << "[OsqpEigen::Data::setLinearConstraintsMatrix] The linear constraint matrix was already set. "
