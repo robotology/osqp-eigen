@@ -9,8 +9,8 @@
 #include <auxil.h>
 #include <scaling.h>
 
-template<typename T>
-bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+template<typename Derived>
+bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix)
 {
     if(!m_isSolverInitialized){
         std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] The solver has not been initialized."
@@ -107,8 +107,8 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
     return true;
 }
 
-template<typename T>
-bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
+template<typename Derived>
+bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix)
 {
     if(!m_isSolverInitialized){
         std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] The solver has not been initialized."

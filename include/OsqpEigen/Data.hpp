@@ -82,8 +82,8 @@ namespace OsqpEigen
          * @param hessianMatrix is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
+        template<typename Derived>
+        bool setHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix);
 
         /**
          * Set the linear part of the cost function (Gradient).
@@ -97,8 +97,8 @@ namespace OsqpEigen
          * @param linearConstraintsMatrix is the linear constraints matrix A.
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
+        template<typename Derived>
+        bool setLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix);
 
         /**
          * Set the array for lower bound (size m).
