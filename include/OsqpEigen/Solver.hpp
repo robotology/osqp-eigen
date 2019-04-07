@@ -163,8 +163,8 @@ namespace OsqpEigen
          * @param hessian is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
+        template<typename Derived>
+        bool updateHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix);
 
         /**
          * Update the linear constraints matrix (A)
@@ -176,8 +176,8 @@ namespace OsqpEigen
          * @param linearConstraintsMatrix is the linear constraint matrix A
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
+        template<typename Derived>
+        bool updateLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix);
 
         /**
          * Set the entire
