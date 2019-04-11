@@ -88,6 +88,9 @@ namespace OsqpEigen
         /**
          * Set the linear part of the cost function (Gradient).
          * @param gradientVector is the Gradient vector.
+         * @note the elements of the gradient are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object
          * @return true/false in case of success/failure.
          */
         bool setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradientVector);
@@ -103,6 +106,9 @@ namespace OsqpEigen
         /**
          * Set the array for lower bound (size m).
          * @param lowerBoundVector is the lower bound constraint.
+         * @note the elements of the lowerBoundVector are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object
          * @return true/false in case of success/failure.
          */
         bool setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBoundVector);
@@ -110,6 +116,9 @@ namespace OsqpEigen
         /**
          * Set the array for upper bound (size m).
          * @param upperBoundVector is the upper bound constraint.
+         * @note the elements of the upperBoundVector are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
         bool setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBoundVector);
