@@ -125,6 +125,9 @@ namespace OsqpEigen
         /**
          * Update the linear part of the cost function (Gradient).
          * @param gradient is the Gradient vector.
+         * @note the elements of the gradient are not copied inside the library.
+         * The user has to guarantee that the lifetime of the objects passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
         bool updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient);
@@ -132,6 +135,9 @@ namespace OsqpEigen
         /**
          * Update the lower bounds limit (size m).
          * @param lowerBound is the lower bound constraint vector.
+         * @note the elements of the lowerBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
         bool updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound);
@@ -139,6 +145,9 @@ namespace OsqpEigen
         /**
          * Update the upper bounds limit (size m).
          * @param upperBound is the upper bound constraint vector.
+         * @note the elements of the upperBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
         bool updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
@@ -147,6 +156,9 @@ namespace OsqpEigen
          * Update both upper and lower bounds (size m).
          * @param lowerBound is the lower bound constraint vector;
          * @param upperBound is the upper bound constraint vector.
+         * @note the elements of the lowerBound and upperBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the objects passed is the same of the
+         * OsqpEigen object
          * @return true/false in case of success/failure.
          */
         bool updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound,
