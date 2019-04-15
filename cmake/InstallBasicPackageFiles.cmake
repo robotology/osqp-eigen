@@ -14,18 +14,24 @@
 #  install_basic_package_files(<Name>
 #                              VERSION <version>
 #                              COMPATIBILITY <compatibility>
-#                              TARGETS <target1> <target2>
-#                              TARGETS_PROPERTY <property_name>
-#                              TARGETS_PROPERTIES <property1_name> <property2_name>
+#                              [EXPORT <export>] # (default = "<Name>")
+#                              [FIRST_TARGET <target1>] # (default = "<Name>")
+#                              [TARGETS <target1> <target2> ...]
+#                              [TARGETS_PROPERTY <property_name>]
+#                              [TARGETS_PROPERTIES <property1_name> <property2_name> ...]
 #                              [NO_SET_AND_CHECK_MACRO]
 #                              [NO_CHECK_REQUIRED_COMPONENTS_MACRO]
-#                              [VARS_PREFIX <prefix>] # (default = "<name>")
-#                              [DESTINATION <destination>]
-#                              [NAMESPACE <namespace>] # (default = "<name>::")
+#                              [VARS_PREFIX <prefix>] # (default = "<Name>")
+#                              [EXPORT_DESTINATION <destination>]
+#                              [INSTALL_DESTINATION <destination>]
+#                              [NAMESPACE <namespace>] # (default = "<Name>::")
 #                              [EXTRA_PATH_VARS_SUFFIX path1 [path2 ...]]
 #                              [CONFIG_TEMPLATE <file>]
 #                              [UPPERCASE_FILENAMES | LOWERCASE_FILENAMES]
-#                              [DEPENDENCIES <dependency1> <dependency2>]
+#                              [DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
+#                              [PRIVATE_DEPENDENCIES <dependency1> "<dependency2> [...]" ...]
+#                              [INCLUDE_FILE <file>]
+#                              [COMPONENT <component>] # (default = "<Name>")
 #                              [NO_COMPATIBILITY_VARS]
 #                             )
 #
@@ -42,19 +48,29 @@
 # is chosed according to the file found. If no file was found, the
 # uppercase convention is used.
 #
-# The ``DEPENDENCIES`` flag can be used to set a list of dependencies
+# The ``DEPENDENCIES`` argument can be used to set a list of dependencies
 # that will be searched using the :command:`find_dependency` command
 # from the :module:`CMakeFindDependencyMacro` module.
+# Dependencies can be followed by any of the possible :command:`find_dependency`
+# argument.
+# In this case, all the arguments must be specified within double quotes (e.g.
+# "<dependency> 1.0.0 EXACT", "<dependency> CONFIG").
+# The ``PRIVATE_DEPENDENCIES`` argument is similar to ``DEPENDENCIES``, but
+# these dependencies are included only when libraries are built ``STATIC``, i.e.
+# if ``BUILD_SHARED_LIBS`` is ``OFF`` or if the ``TYPE`` property for one or
+# more of the targets is ``STATIC_LIBRARY``.
 # When using a custom template file, the ``@PACKAGE_DEPENDENCIES@``
 # string is replaced with the code checking for the dependencies
-# specified by this argument.
+# specified by these two argument.
 #
 # Each file is generated twice, one for the build directory and one for
-# the installation directory.  The ``DESTINATION`` argument can be
+# the installation directory.  The ``INSTALL_DESTINATION`` argument can be
 # passed to install the files in a location different from the default
-# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${name}``
-# on other platforms.
-#
+# one (``CMake`` on Windows, ``${CMAKE_INSTALL_LIBDIR}/cmake/${Name}``
+# on other platforms.  The ``EXPORT_DESTINATION`` argument can be passed to
+# generate the files in the build tree in a location different from the default
+# one (``CMAKE_BINARY_DIR``).  If this is a relative path, it is considered
+# relative to the ``CMAKE_BINARY_DIR`` directory.
 #
 # The ``<Name>ConfigVersion.cmake`` is generated using
 # ``write_basic_package_version_file``.  The ``VERSION``,
@@ -167,20 +183,31 @@
 # argument.
 #
 #
-# The ``<name>Targets.cmake`` is generated using
-# :command:`export(TARGETS)` in the build tree and
-# :command:`install(EXPORT)` in the installation directory.
+# The ``<Name>Targets.cmake`` is generated using
+# :command:`export(TARGETS)` (if ``EXPORT`` or no options are used) or
+# :command:`export(TARGETS)` (if `EXPORT` is not used and one between
+# ``TARGETS``, ``TARGETS_PROPERTY``, or ``TARGETS_PROPERTIES`` is used) in the
+# build tree and :command:`install(EXPORT)` in the installation directory.
 # The targets are exported using the value for the ``NAMESPACE``
 # argument as namespace.
-# The targets can be passed using the `TARGETS` argument or using a global
-# property, that can be passed to the function using the ``TARGETS_PROPERTY``
-# argument
+# The export can be passed using the `EXPORT` argument.
+# The targets can be passed using the `TARGETS` argument or using one or more
+# global properties, that can be passed to the function using the
+# ``TARGETS_PROPERTY`` or ``TARGET_PROPERTIES`` arguments.
 #
 # If the ``NO_COMPATIBILITY_VARS`` argument is not set, the compatibility
 # variables ``<VARS_PREFIX>_LIBRARIES`` and ``<VARS_PREFIX>_INCLUDE_DIRS``
 # are set, trying to guess their correct values from the variables set or
 # from the arguments passed to this command. This argument is ignored if
 # the template file is not generated by this command.
+#
+# If the ``INCLUDE_FILE`` argument is passed, the content of the specified file
+# (which might be templated) is appended to the ``<Name>Config.cmake``.
+# This allows to inject custom code to this file, useful e.g. to set additional
+# variables which are loaded by downstream projects.
+#
+# If the ``COMPONENT`` argument is passed, it is forwarded to the
+# :command:`install` commands, otherwise <Name> is used.
 
 #=============================================================================
 # Copyright 2013 Istituto Italiano di Tecnologia (IIT)
@@ -212,21 +239,28 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
   # TODO check that _Name does not contain "-" characters
 
   set(_options NO_SET_AND_CHECK_MACRO
-    NO_CHECK_REQUIRED_COMPONENTS_MACRO
-    UPPERCASE_FILENAMES
-    LOWERCASE_FILENAMES
-    NO_COMPATIBILITY_VARS)
+               NO_CHECK_REQUIRED_COMPONENTS_MACRO
+               UPPERCASE_FILENAMES
+               LOWERCASE_FILENAMES
+               NO_COMPATIBILITY_VARS)
   set(_oneValueArgs VERSION
-    COMPATIBILITY
-    TARGETS_PROPERTY
-    VARS_PREFIX
-    DESTINATION
-    NAMESPACE
-    CONFIG_TEMPLATE)
+                    COMPATIBILITY
+                    EXPORT
+                    FIRST_TARGET
+                    TARGETS_PROPERTY
+                    VARS_PREFIX
+                    EXPORT_DESTINATION
+                    INSTALL_DESTINATION
+                    DESTINATION
+                    NAMESPACE
+                    CONFIG_TEMPLATE
+                    INCLUDE_FILE
+                    COMPONENT)
   set(_multiValueArgs EXTRA_PATH_VARS_SUFFIX
-    TARGETS
-    TARGETS_PROPERTIES
-    DEPENDENCIES)
+                      TARGETS
+                      TARGETS_PROPERTIES
+                      DEPENDENCIES
+                      PRIVATE_DEPENDENCIES)
   cmake_parse_arguments(_IBPF "${_options}" "${_oneValueArgs}" "${_multiValueArgs}" "${ARGN}")
 
   if(NOT DEFINED _IBPF_VARS_PREFIX)
@@ -241,32 +275,91 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     message(FATAL_ERROR "COMPATIBILITY argument is required")
   endif()
 
-  if(NOT DEFINED _IBPF_TARGETS AND
-      NOT DEFINED _IBPF_TARGETS_PROPERTY AND
-      NOT DEFINED _IBPF_TARGETS_PROPERTIES)
-    message(FATAL_ERROR "TARGETS_PROPERTY or TARGET_PROPERTIES argument is required")
-  endif()
-
-  if((DEFINED _IBPF_TARGETS AND (DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)) OR
-      (DEFINED _IBPF_TARGETS_PROPERTY AND DEFINED _IBPF_TARGETS_PROPERTIES))
-    message(FATAL_ERROR "Only one argument between TARGETS, TARGETS_PROPERTY, and TARGET_PROPERTIES can be used")
-  endif()
-
   if(_IBPF_UPPERCASE_FILENAMES AND _IBPF_LOWERCASE_FILENAMES)
     message(FATAL_ERROR "UPPERCASE_FILENAMES and LOWERCASE_FILENAMES arguments cannot be used together")
   endif()
 
-  # Path for installed cmake files
-  if(NOT DEFINED _IBPF_DESTINATION)
-    if(WIN32 AND NOT CYGWIN)
-      set(_IBPF_DESTINATION CMake)
-    else()
-      set(_IBPF_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
+  # Prepare install and export commands
+  set(_first_target ${_Name})
+  set(_targets ${_Name})
+  set(_install_cmd EXPORT ${_Name})
+  set(_export_cmd EXPORT ${_Name})
+
+  if(DEFINED _IBPF_FIRST_TARGET)
+    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
     endif()
+
+    set(_first_target ${_IBPF_FIRST_TARGET})
+    set(_targets ${_IBPF_FIRST_TARGET})
+  endif()
+
+  if(DEFINED _IBPF_EXPORT)
+    if(DEFINED _IBPF_TARGETS OR DEFINED _IBPF_TARGETS_PROPERTIES OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "EXPORT cannot be used with TARGETS, TARGETS_PROPERTY or TARGETS_PROPERTIES")
+    endif()
+
+    set(_export_cmd EXPORT ${_IBPF_EXPORT})
+    set(_install_cmd EXPORT ${_IBPF_EXPORT})
+
+  elseif(DEFINED _IBPF_TARGETS)
+    if(DEFINED _IBPF_TARGETS_PROPERTY OR DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "TARGETS cannot be used with TARGETS_PROPERTY or TARGETS_PROPERTIES")
+    endif()
+
+    set(_targets ${_IBPF_TARGETS})
+    set(_export_cmd TARGETS ${_IBPF_TARGETS})
+    list(GET _targets 0 _first_target)
+
+  elseif(DEFINED _IBPF_TARGETS_PROPERTY)
+    if(DEFINED _IBPF_TARGETS_PROPERTIES)
+      message(FATAL_ERROR "TARGETS_PROPERTIES cannot be used with TARGETS_PROPERTIES")
+    endif()
+
+    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
+    set(_export_cmd TARGETS ${_targets})
+    list(GET _targets 0 _first_target)
+
+  elseif(DEFINED _IBPF_TARGETS_PROPERTIES)
+
+    unset(_targets)
+    foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
+      get_property(_prop_val GLOBAL PROPERTY ${_prop})
+      list(APPEND _targets ${_prop_val})
+    endforeach()
+    set(_export_cmd TARGETS ${_targets})
+    list(GET _targets 0 _first_target)
+
+  endif()
+
+  # Path for installed cmake files
+  if(DEFINED _IBPF_DESTINATION)
+    message(DEPRECATION "DESTINATION is deprecated. Use INSTALL_DESTINATION instead")
+    if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
+      set(_IBPF_INSTALL_DESTINATION ${_IBPF_DESTINATION})
+    endif()
+  endif()
+
+  if(NOT DEFINED _IBPF_INSTALL_DESTINATION)
+    if(WIN32 AND NOT CYGWIN)
+      set(_IBPF_INSTALL_DESTINATION CMake)
+    else()
+      set(_IBPF_INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${_Name})
+    endif()
+  endif()
+
+  if(NOT DEFINED _IBPF_EXPORT_DESTINATION)
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}")
+  elseif(NOT IS_ABSOLUTE _IBPF_EXPORT_DESTINATION)
+    set(_IBPF_EXPORT_DESTINATION "${CMAKE_BINARY_DIR}/${_IBPF_EXPORT_DESTINATION}")
   endif()
 
   if(NOT DEFINED _IBPF_NAMESPACE)
     set(_IBPF_NAMESPACE "${_Name}::")
+  endif()
+
+  if(NOT DEFINED _IBPF_COMPONENT)
+    set(_IBPF_COMPONENT "${_Name}")
   endif()
 
   if(_IBPF_NO_SET_AND_CHECK_MACRO)
@@ -277,21 +370,6 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     list(APPEND configure_package_config_file_extra_args NO_CHECK_REQUIRED_COMPONENTS_MACRO)
   endif()
 
-
-  # Get targets from TARGETS argument or from GLOBAL PROPERTY/PROPERTIES set
-  # in TARGETS_PROPERTY or TARGETS_PROPERTIES arguments
-  if(DEFINED _IBPF_TARGETS)
-    set(_targets ${_IBPF_TARGETS})
-  elseif(DEFINED _IBPF_TARGETS_PROPERTY)
-    get_property(_targets GLOBAL PROPERTY ${_IBPF_TARGETS_PROPERTY})
-  else()
-    set(_targets)
-    foreach(_prop ${_IBPF_TARGETS_PROPERTIES})
-      get_property(_prop_val GLOBAL PROPERTY ${_prop})
-      list(APPEND _targets ${_prop_val})
-    endforeach()
-  endif()
-  list(GET _targets 0 _first_target)
 
 
   # Set input file for config, and ensure that _IBPF_UPPERCASE_FILENAMES
@@ -345,6 +423,25 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
     endif()
   endif()
 
+  # Set input file containing user variables
+  if(DEFINED _IBPF_INCLUDE_FILE)
+    if(NOT IS_ABSOLUTE "${_IBPF_INCLUDE_FILE}")
+      if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${_IBPF_INCLUDE_FILE}")
+        set(_IBPF_INCLUDE_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${_IBPF_INCLUDE_FILE}")
+      endif()
+    endif()
+    if(NOT EXISTS "${_IBPF_INCLUDE_FILE}")
+        message(FATAL_ERROR "File \"${_IBPF_INCLUDE_FILE}\" not found")
+    endif()
+    file(READ ${_IBPF_INCLUDE_FILE} _includedfile_user_content_in)
+    string(CONFIGURE ${_includedfile_user_content_in} _includedfile_user_content)
+    set(INCLUDED_FILE_CONTENT
+"#### Expanded from INCLUDE_FILE by install_basic_package_files() ####")
+    set(INCLUDED_FILE_CONTENT "${INCLUDED_FILE_CONTENT}\n\n${_includedfile_user_content}")
+    set(INCLUDED_FILE_CONTENT
+"${INCLUDED_FILE_CONTENT}
+#####################################################################")
+  endif()
 
   # Select output file names
   if(_IBPF_UPPERCASE_FILENAMES)
@@ -370,15 +467,15 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
         list(APPEND _target_list ${_IBPF_NAMESPACE}${_target})
       endforeach()
       if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDEDIR OR
-          DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
-          DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
-          DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
+         DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDEDIR OR
+         DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDEDIR OR
+         DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDEDIR)
         set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDEDIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDEDIR\@\")\n")
         set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDEDIR}\")")
       elseif(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_INCLUDE_DIR OR
-          DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
-          DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
-          DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
+             DEFINED BUILD_${_IBPF_VARS_PREFIX}_INCLUDE_DIR OR
+             DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_INCLUDE_DIR OR
+             DEFINED INSTALL_${_IBPF_VARS_PREFIX}_INCLUDE_DIR)
         set(_get_include_dir "set(${_IBPF_VARS_PREFIX}_INCLUDE_DIR \"\@PACKAGE_${_IBPF_VARS_PREFIX}_INCLUDE_DIR\@\")\n")
         set(_set_include_dir "set(${_Name}_INCLUDE_DIRS \"\${${_IBPF_VARS_PREFIX}_INCLUDE_DIR}\")")
       else()
@@ -396,7 +493,7 @@ function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
     # Write the file
     file(WRITE "${_config_cmake_in}"
-      "set(${_IBPF_VARS_PREFIX}_VERSION \@PACKAGE_VERSION\@)
+"set(${_IBPF_VARS_PREFIX}_VERSION \@PACKAGE_VERSION\@)
 
 \@PACKAGE_INIT\@
 
@@ -407,27 +504,29 @@ if(NOT TARGET ${_IBPF_NAMESPACE}${_first_target})
 endif()
 
 ${_compatibility_vars}
+
+\@INCLUDED_FILE_CONTENT\@
 ")
   endif()
 
   # Make relative paths absolute (needed later on) and append the
   # defined variables to _(build|install)_path_vars_suffix
   foreach(p BINDIR          BIN_DIR
-      SBINDIR         SBIN_DIR
-      LIBEXECDIR      LIBEXEC_DIR
-      SYSCONFDIR      SYSCONF_DIR
-      SHAREDSTATEDIR  SHAREDSTATE_DIR
-      LOCALSTATEDIR   LOCALSTATE_DIR
-      LIBDIR          LIB_DIR
-      INCLUDEDIR      INCLUDE_DIR
-      OLDINCLUDEDIR   OLDINCLUDE_DIR
-      DATAROOTDIR     DATAROOT_DIR
-      DATADIR         DATA_DIR
-      INFODIR         INFO_DIR
-      LOCALEDIR       LOCALE_DIR
-      MANDIR          MAN_DIR
-      DOCDIR          DOC_DIR
-      ${_IBPF_EXTRA_PATH_VARS_SUFFIX})
+            SBINDIR         SBIN_DIR
+            LIBEXECDIR      LIBEXEC_DIR
+            SYSCONFDIR      SYSCONF_DIR
+            SHAREDSTATEDIR  SHAREDSTATE_DIR
+            LOCALSTATEDIR   LOCALSTATE_DIR
+            LIBDIR          LIB_DIR
+            INCLUDEDIR      INCLUDE_DIR
+            OLDINCLUDEDIR   OLDINCLUDE_DIR
+            DATAROOTDIR     DATAROOT_DIR
+            DATADIR         DATA_DIR
+            INFODIR         INFO_DIR
+            LOCALEDIR       LOCALE_DIR
+            MANDIR          MAN_DIR
+            DOCDIR          DOC_DIR
+            ${_IBPF_EXTRA_PATH_VARS_SUFFIX})
     if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
       list(APPEND _build_path_vars_suffix ${p})
       list(APPEND _build_path_vars "${_IBPF_VARS_PREFIX}_${p}")
@@ -447,28 +546,90 @@ ${_compatibility_vars}
   endforeach()
 
 
-  # <name>ConfigVersion.cmake file (same for build tree and intall)
-  write_basic_package_version_file("${CMAKE_BINARY_DIR}/${_version_filename}"
-    VERSION ${_IBPF_VERSION}
-    COMPATIBILITY ${_IBPF_COMPATIBILITY})
-  install(FILES "${CMAKE_BINARY_DIR}/${_version_filename}"
-    DESTINATION ${_IBPF_DESTINATION})
+  # <Name>ConfigVersion.cmake file (same for build tree and intall)
+  write_basic_package_version_file("${_IBPF_EXPORT_DESTINATION}/${_version_filename}"
+                                   VERSION ${_IBPF_VERSION}
+                                   COMPATIBILITY ${_IBPF_COMPATIBILITY})
+  install(FILES "${_IBPF_EXPORT_DESTINATION}/${_version_filename}"
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
+          COMPONENT ${_IBPF_COMPONENT})
 
 
   # Prepare PACKAGE_DEPENDENCIES variable
+  set(_need_private_deps 0)
+  if(NOT BUILD_SHARED_LIBS)
+    set(_need_private_deps 1)
+  else()
+    foreach(_target ${_targets})
+      get_property(_type TARGET ${_target} PROPERTY TYPE)
+      if("${_type}" STREQUAL "STATIC_LIBRARY")
+        set(_need_private_deps 1)
+        break()
+      endif()
+    endforeach()
+  endif()
+
   unset(PACKAGE_DEPENDENCIES)
   if(DEFINED _IBPF_DEPENDENCIES)
     set(PACKAGE_DEPENDENCIES "#### Expanded from @PACKAGE_DEPENDENCIES@ by install_basic_package_files() ####\n\ninclude(CMakeFindDependencyMacro)\n")
-    foreach(_dep ${_IBPF_DEPENDENCIES})
-      set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}find_dependency(${_dep})\n")
-    endforeach()
+
+    # FIXME When CMake 3.9 or greater is required, remove this madness and just
+    #       use find_dependency
+    if (CMAKE_VERSION VERSION_LESS 3.9)
+      string(APPEND PACKAGE_DEPENDENCIES "
+set(_${_Name}_FIND_PARTS_REQUIRED)
+if (${_Name}_FIND_REQUIRED)
+  set(_${_Name}_FIND_PARTS_REQUIRED REQUIRED)
+endif()
+set(_${_Name}_FIND_PARTS_QUIET)
+if (${_Name}_FIND_QUIETLY)
+  set(_${_Name}_FIND_PARTS_QUIET QUIET)
+endif()
+")
+
+      foreach(_dep ${_IBPF_DEPENDENCIES})
+        if("${_dep}" MATCHES ".+ .+")
+            string(REPLACE " " ";" _dep_list "${_dep}")
+            list(INSERT _dep_list 1 \${_${_Name}_FIND_PARTS_QUIET} \${_${_Name}_FIND_PARTS_REQUIRED})
+            string(REPLACE ";" " " _depx "${_dep_list}")
+            string(APPEND PACKAGE_DEPENDENCIES "find_package(${_depx})\n")
+        else()
+          string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+        endif()
+      endforeach()
+      if(_need_private_deps)
+        foreach(_dep ${_IBPF_PRIVATE_DEPENDENCIES})
+          if("${_dep}" MATCHES ".+ .+")
+            string(REPLACE " " ";" _dep_list "${_dep}")
+            list(INSERT _dep_list 1 \${_${_Name}_FIND_PARTS_QUIET} \${_${_Name}_FIND_PARTS_REQUIRED})
+            string(REPLACE ";" "\n       " _depx "${_dep_list}")
+            string(APPEND PACKAGE_DEPENDENCIES "find_package(${_depx})\n")
+          else()
+            string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+          endif()
+          endforeach()
+      endif()
+
+    else()
+
+      foreach(_dep ${_IBPF_DEPENDENCIES})
+        string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+      endforeach()
+      if(_need_private_deps)
+        foreach(_dep ${_IBPF_PRIVATE_DEPENDENCIES})
+          string(APPEND PACKAGE_DEPENDENCIES "find_dependency(${_dep})\n")
+        endforeach()
+      endif()
+
+    endif()
+
     set(PACKAGE_DEPENDENCIES "${PACKAGE_DEPENDENCIES}\n###############################################################################\n")
   endif()
 
   # Prepare PACKAGE_VERSION variable
   set(PACKAGE_VERSION ${_IBPF_VERSION})
 
-  # <name>Config.cmake (build tree)
+  # <Name>Config.cmake (build tree)
   foreach(p ${_build_path_vars_suffix})
     if(DEFINED ${_IBPF_VARS_PREFIX}_BUILD_${p})
       set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_BUILD_${p}}")
@@ -477,13 +638,13 @@ ${_compatibility_vars}
     endif()
   endforeach()
   configure_package_config_file("${_config_cmake_in}"
-    "${CMAKE_BINARY_DIR}/${_config_filename}"
-    INSTALL_DESTINATION ${CMAKE_BINARY_DIR}
-    PATH_VARS ${_build_path_vars}
-    ${configure_package_config_file_extra_args}
-    INSTALL_PREFIX ${CMAKE_BINARY_DIR})
+                                "${_IBPF_EXPORT_DESTINATION}/${_config_filename}"
+                                INSTALL_DESTINATION ${_IBPF_EXPORT_DESTINATION}
+                                PATH_VARS ${_build_path_vars}
+                                ${configure_package_config_file_extra_args}
+                                INSTALL_PREFIX ${CMAKE_BINARY_DIR})
 
-  # <name>Config.cmake (installed)
+  # <Name>Config.cmake (installed)
   foreach(p ${_install_path_vars_suffix})
     if(DEFINED ${_IBPF_VARS_PREFIX}_INSTALL_${p})
       set(${_IBPF_VARS_PREFIX}_${p} "${${_IBPF_VARS_PREFIX}_INSTALL_${p}}")
@@ -492,23 +653,25 @@ ${_compatibility_vars}
     endif()
   endforeach()
   configure_package_config_file("${_config_cmake_in}"
-    "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-    INSTALL_DESTINATION ${_IBPF_DESTINATION}
-    PATH_VARS ${_install_path_vars}
-    ${configure_package_config_file_extra_args})
+                                "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
+                                INSTALL_DESTINATION ${_IBPF_INSTALL_DESTINATION}
+                                PATH_VARS ${_install_path_vars}
+                                ${configure_package_config_file_extra_args})
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${_config_filename}.install"
-    DESTINATION ${_IBPF_DESTINATION}
-    RENAME ${_config_filename})
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
+          RENAME ${_config_filename}
+          COMPONENT ${_IBPF_COMPONENT})
 
 
-  # <name>Targets.cmake (build tree)
-  export(TARGETS ${_targets}
-    NAMESPACE ${_IBPF_NAMESPACE}
-    FILE "${CMAKE_BINARY_DIR}/${_targets_filename}")
+  # <Name>Targets.cmake (build tree)
+  export(${_export_cmd}
+         NAMESPACE ${_IBPF_NAMESPACE}
+         FILE "${_IBPF_EXPORT_DESTINATION}/${_targets_filename}")
 
-  # <name>Targets.cmake (installed)
-  install(EXPORT ${_Name}
-    NAMESPACE ${_IBPF_NAMESPACE}
-    DESTINATION ${_IBPF_DESTINATION}
-    FILE "${_targets_filename}")
+  # <Name>Targets.cmake (installed)
+  install(${_install_cmd}
+          NAMESPACE ${_IBPF_NAMESPACE}
+          DESTINATION ${_IBPF_INSTALL_DESTINATION}
+          FILE "${_targets_filename}"
+          COMPONENT ${_IBPF_COMPONENT})
 endfunction()

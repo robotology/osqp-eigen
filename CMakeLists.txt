@@ -97,21 +97,19 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
   RUNTIME       DESTINATION "${CMAKE_INSTALL_BINDIR}"                            COMPONENT bin
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/OsqpEigen")
 
-install(EXPORT ${PROJECT_NAME}
-  NAMESPACE OsqpEigen::
-  DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OsqpEigen)
+include(InstallBasicPackageFiles)
+install_basic_package_files(${PROJECT_NAME}
+  VERSION ${${PROJECT_NAME}_VERSION}
+  COMPATIBILITY AnyNewerVersion
+  VARS_PREFIX ${PROJECT_NAME}
+  NO_CHECK_REQUIRED_COMPONENTS_MACRO
+  CONFIG_TEMPLATE ${CMAKE_SOURCE_DIR}/cmake/OsqpEigenConfig.cmake.in)
 
-configure_package_config_file(${CMAKE_SOURCE_DIR}/cmake/OsqpEigenConfig.cmake.in
-  ${CMAKE_BINARY_DIR}/OsqpEigenConfig.cmake
-  INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OsqpEigen)
-
-install(FILES ${CMAKE_BINARY_DIR}/OsqpEigenConfig.cmake DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/OsqpEigen)
-
+## Testing
 option(BUILD_TESTING "Create tests using CMake" OFF)
-
-include(AddUninstallTarget)
-
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
+
+include(AddUninstallTarget)
