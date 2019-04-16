@@ -149,3 +149,84 @@ const std::unique_ptr<OsqpEigen::Data>& OsqpEigen::Solver::data() const
 {
     return m_data;
 }
+
+bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient)
+{
+    // check if the dimension of the gradient is correct
+    if(gradient.rows() != m_workspace->data->n){
+        std::cerr << "[OsqpEigen::Solver::updateGradient] The size of the gradient must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+
+    // update the gradient vector
+    if(osqp_update_lin_cost(m_workspace, gradient.data())){
+        std::cerr << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
+                  << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool OsqpEigen::Solver::updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound)
+{
+    // check if the dimension of the lowerBound vector is correct
+    if(lowerBound.rows() != m_workspace->data->m){
+        std::cerr << "[OsqpEigen::Solver::updateLowerBound] The size of the lower bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+
+    // update the lower bound vector
+    if(osqp_update_lower_bound(m_workspace, lowerBound.data())){
+        std::cerr << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
+                  << std::endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool OsqpEigen::Solver::updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound)
+{
+    // check if the dimension of the upperBound vector is correct
+    if(upperBound.rows() != m_workspace->data->m){
+        std::cerr << "[OsqpEigen::Solver::updateUpperBound] The size of the upper bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+
+    // update the upper bound vector
+    if(osqp_update_upper_bound(m_workspace, upperBound.data())){
+        std::cerr << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
+                  << std::endl;
+        return false;
+    }
+    return true;
+}
+
+bool OsqpEigen::Solver::updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound,
+                                     const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound)
+{
+    // check if the dimension of the upperBound vector is correct
+    if(upperBound.rows() != m_workspace->data->m){
+        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the upper bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+
+    // check if the dimension of the lowerBound vector is correct
+    if(lowerBound.rows() != m_workspace->data->m){
+        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the lower bound must be equal to the number of the variables."
+                  << std::endl;
+        return false;
+    }
+
+    // update lower and upper constraints
+    if(osqp_update_bounds(m_workspace, lowerBound.data(), upperBound.data())){
+        std::cerr << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
+                  << std::endl;
+        return false;
+    }
+    return true;
+}

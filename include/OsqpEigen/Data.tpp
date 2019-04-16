@@ -7,8 +7,8 @@
 
 #include <iostream>
 
-template<typename T>
-bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix)
+template<typename Derived>
+bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix)
 {
     if(m_isHessianMatrixSet){
         std::cerr << "[OsqpEigen::Data::setHessianMatrix] The hessian matrix was already set. "
@@ -41,21 +41,8 @@ bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatr
     return true;
 }
 
-template<int n>
-bool OsqpEigen::Data::setGradient(Eigen::Matrix<c_float, n, 1>& gradient)
-{
-    if(gradient.rows() != m_data->n){
-        std::cerr << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
-                  << std::endl;
-        return false;
-    }
-    m_isGradientSet = true;
-    m_data->q = gradient.data();
-    return true;
-}
-
-template<typename T>
-bool OsqpEigen::Data::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix)
+template<typename Derived>
+bool OsqpEigen::Data::setLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix)
 {
     if(m_isLinearConstraintsMatrixSet){
         std::cerr << "[OsqpEigen::Data::setLinearConstraintsMatrix] The linear constraint matrix was already set. "
@@ -92,31 +79,5 @@ bool OsqpEigen::Data::setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &l
 
     m_isLinearConstraintsMatrixSet = true;
 
-    return true;
-}
-
-template<int m>
-bool OsqpEigen::Data::setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound)
-{
-    if(lowerBound.rows() != m_data->m){
-        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
-                  << std::endl;
-        return false;
-    }
-    m_isLowerBoundSet = true;
-    m_data->l = lowerBound.data();
-    return true;
-}
-
-template<int m>
-bool OsqpEigen::Data::setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound)
-{
-    if(upperBound.rows() != m_data->m){
-        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the upper bound must be equal to the number of the variables."
-                  << std::endl;
-        return false;
-    }
-    m_isUpperBoundSet = true;
-    m_data->u = upperBound.data();
     return true;
 }

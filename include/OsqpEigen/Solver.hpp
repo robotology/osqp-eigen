@@ -125,36 +125,44 @@ namespace OsqpEigen
         /**
          * Update the linear part of the cost function (Gradient).
          * @param gradient is the Gradient vector.
+         * @note the elements of the gradient are not copied inside the library.
+         * The user has to guarantee that the lifetime of the objects passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
-        template<int n>
-        bool updateGradient(Eigen::Matrix<c_float, n, 1>& gradient);
+        bool updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient);
 
         /**
          * Update the lower bounds limit (size m).
          * @param lowerBound is the lower bound constraint vector.
+         * @note the elements of the lowerBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
+        bool updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound);
 
         /**
          * Update the upper bounds limit (size m).
          * @param upperBound is the upper bound constraint vector.
+         * @note the elements of the upperBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
 
         /**
          * Update both upper and lower bounds (size m).
          * @param lowerBound is the lower bound constraint vector;
          * @param upperBound is the upper bound constraint vector.
+         * @note the elements of the lowerBound and upperBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the objects passed is the same of the
+         * OsqpEigen object
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        bool updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
-                          Eigen::Matrix<c_float, m, 1>& upperBound);
+        bool updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound,
+                          const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
 
         /**
          * Update the quadratic part of the cost function (Hessian).
@@ -167,8 +175,8 @@ namespace OsqpEigen
          * @param hessian is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
+        template<typename Derived>
+        bool updateHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix);
 
         /**
          * Update the linear constraints matrix (A)
@@ -180,8 +188,8 @@ namespace OsqpEigen
          * @param linearConstraintsMatrix is the linear constraint matrix A
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        bool updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
+        template<typename Derived>
+        bool updateLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix);
 
         /**
          * Set the entire
