@@ -82,8 +82,31 @@ namespace OsqpEigen
          * @param hessianMatrix is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
+        template<typename T>
+        [[deprecated("Use setHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix) instead")]]
+        bool setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
+
+        /**
+         * Set the quadratic part of the cost function (Hessian).
+         * It is assumed to be a simmetric matrix.
+         * @param hessianMatrix is the Hessian matrix.
+         * @return true/false in case of success/failure.
+         */
         template<typename Derived>
         bool setHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix);
+
+
+        /**
+         * Set the linear part of the cost function (Gradient).
+         * @param gradientVector is the Gradient vector.
+         * @note the elements of the gradient are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object
+         * @return true/false in case of success/failure.
+         */
+        template<int n>
+        [[deprecated("Use setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradientVector) instead")]]
+        bool setGradient(Eigen::Matrix<c_float, n, 1> &gradientVector);
 
         /**
          * Set the linear part of the cost function (Gradient).
@@ -94,6 +117,15 @@ namespace OsqpEigen
          * @return true/false in case of success/failure.
          */
         bool setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradientVector);
+
+        /**
+         * Set the linear constraint matrix A (size m x n)
+         * @param linearConstraintsMatrix is the linear constraints matrix A.
+         * @return true/false in case of success/failure.
+         */
+        template<typename T>
+        [[deprecated("Use setLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix) instead")]]
+        bool setLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
 
         /**
          * Set the linear constraint matrix A (size m x n)
@@ -111,7 +143,31 @@ namespace OsqpEigen
          * OsqpEigen object
          * @return true/false in case of success/failure.
          */
+        template<int m>
+        [[deprecated("Use setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBoundVector) instead")]]
+        bool setLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBoundVector);
+
+        /**
+         * Set the array for lower bound (size m).
+         * @param lowerBoundVector is the lower bound constraint.
+         * @note the elements of the lowerBoundVector are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object
+         * @return true/false in case of success/failure.
+         */
         bool setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBoundVector);
+
+       /**
+         * Set the array for upper bound (size m).
+         * @param upperBoundVector is the upper bound constraint.
+         * @note the elements of the upperBoundVector are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
+         * @return true/false in case of success/failure.
+         */
+        template<int m>
+        [[deprecated("Use setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBoundVector) instead")]]
+        bool setUpperBound(Eigen::Matrix<c_float, m, 1>& upperBoundVector);
 
         /**
          * Set the array for upper bound (size m).
