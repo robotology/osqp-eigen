@@ -8,7 +8,7 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include <OsqpEigen.h>
+#include <OsqpEigen/OsqpEigen.h>
 #include <osqp.h>
 
 template<typename T, int n, int m>

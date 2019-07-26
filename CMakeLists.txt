@@ -69,7 +69,7 @@ set(${LIBRARY_TARGET_NAME}_SRC
   src/Solver.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
-  include/OsqpEigen.h
+  include/OsqpEigen/OsqpEigen.h
   include/OsqpEigen/Constants.hpp
   include/OsqpEigen/SparseMatrixHelper.hpp
   include/OsqpEigen/SparseMatrixHelper.tpp
@@ -84,6 +84,8 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE osqp::osqp Eigen3::Eigen)
+
+add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
