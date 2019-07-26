@@ -8,7 +8,8 @@
 // gtest
 #include <gtest/gtest.h>
 
-#include <OsqpEigen.h>
+// OsqpEigen
+#include <OsqpEigen/OsqpEigen.h>
 
 // colors
 #define ANSI_TXT_GRN "\033[0;32m"
