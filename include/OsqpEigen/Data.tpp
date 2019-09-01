@@ -32,7 +32,9 @@ bool OsqpEigen::Data::setHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatr
     }
 
     //set the hessian matrix
-    if(!OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(hessianMatrix, m_data->P)){
+    // osqp 0.6.0 required only the upper triangular part of the hessian matrix
+    Eigen::SparseMatrix<T> hessianMatrixUpperTriangular = hessianMatrix.template triangularView<Eigen::Upper>();
+    if(!OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(hessianMatrixUpperTriangular, m_data->P)){
         std::cerr << "[OsqpEigen::Data::setHessianMatrix] Unable to instantiate the osqp sparse matrix."
                   << std::endl;
         return false;
