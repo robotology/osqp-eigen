@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 // OsqpEigen
-#include <OsqpEigen.h>
+#include <OsqpEigen/OsqpEigen.h>
 
 // eigen
 #include <Eigen/Dense>
