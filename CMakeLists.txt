@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 project(OsqpEigen
   LANGUAGES CXX
-  VERSION 0.3.0)
+  VERSION 0.3.1)
 
 # add GNU dirs
 include(GNUInstallDirs)
