@@ -233,6 +233,9 @@ include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
 include(CMakeParseArguments)
 
+# custom version of the   write_basic_package_version_file
+# available only from cmake 3.11
+include(WriteBasicConfigVersionFile)
 
 function(INSTALL_BASIC_PACKAGE_FILES _Name)
 
