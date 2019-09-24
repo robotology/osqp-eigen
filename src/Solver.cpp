@@ -78,10 +78,8 @@ bool OsqpEigen::Solver::initSolver()
         return false;
     }
 
-    m_workspace = osqp_setup(m_data->getData(),
-                             m_settings->getSettings());
-
-    if(m_workspace == OSQP_NULL){
+    if(osqp_setup(&m_workspace, m_data->getData(),
+                  m_settings->getSettings()) != 0 ){
         std::cerr << "[OsqpEigen::Solver::initSolver] Unable to setup the workspace."
                   << std::endl;
         return false;
