@@ -144,9 +144,9 @@ const Eigen::VectorXd &OsqpEigen::Solver::getDualSolution()
 {
     // copy data from an array to Eigen vector
     c_float* solution = m_workspace->solution->y;
-    m_dual_solution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->m, 1);
+    m_dualSolution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->m, 1);
 
-    return m_dual_solution;
+    return m_dualSolution;
 }
 
 const std::unique_ptr<OsqpEigen::Settings>& OsqpEigen::Solver::settings() const
