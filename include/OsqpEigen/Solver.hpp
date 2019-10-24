@@ -37,7 +37,7 @@ namespace OsqpEigen
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_dualVariables;
         Eigen::VectorXd m_solution;
-        Eigen::VectorXd m_dual_solution;
+        Eigen::VectorXd m_dualSolution;
 
         std::vector<c_int> m_hessianNewIndices;
         std::vector<c_float> m_hessianNewValues;
