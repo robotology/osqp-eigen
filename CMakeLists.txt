@@ -115,3 +115,5 @@ if(BUILD_TESTING)
 endif()
 
 include(AddUninstallTarget)
+
+export(PACKAGE ${PROJECT_NAME})
