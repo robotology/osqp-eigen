@@ -27,7 +27,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED 11)
 
 project(OsqpEigen
   LANGUAGES CXX
-  VERSION 0.5.0)
+  VERSION 0.5.1)
 
 # add GNU dirs
 include(GNUInstallDirs)
@@ -102,7 +102,7 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
 include(InstallBasicPackageFiles)
 install_basic_package_files(${PROJECT_NAME}
   VERSION ${${PROJECT_NAME}_VERSION}
-  COMPATIBILITY SameMinorVersion
+  COMPATIBILITY SameMajorVersion
   VARS_PREFIX ${PROJECT_NAME}
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
   CONFIG_TEMPLATE ${CMAKE_SOURCE_DIR}/cmake/OsqpEigenConfig.cmake.in)
