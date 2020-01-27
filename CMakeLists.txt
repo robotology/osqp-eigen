@@ -83,13 +83,18 @@ add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TAR
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE osqp::osqp Eigen3::Eigen)
+target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE Eigen3::Eigen)
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp)
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
 set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
   PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
+
+# List exported CMake package dependencies
+set(OSQP_EIGEN_EXPORTED_DEPENDENCIES "")
+list(APPEND OSQP_EIGEN_EXPORTED_DEPENDENCIES osqp)
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
   EXPORT  ${PROJECT_NAME}
@@ -105,7 +110,7 @@ install_basic_package_files(${PROJECT_NAME}
   COMPATIBILITY SameMajorVersion
   VARS_PREFIX ${PROJECT_NAME}
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
-  CONFIG_TEMPLATE ${CMAKE_SOURCE_DIR}/cmake/OsqpEigenConfig.cmake.in)
+  DEPENDENCIES ${OSQP_EIGEN_EXPORTED_DEPENDENCIES})
 
 ## Testing
 option(BUILD_TESTING "Create tests using CMake" OFF)
