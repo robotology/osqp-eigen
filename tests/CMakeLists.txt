@@ -25,24 +25,24 @@ add_test(NAME SparseMatrixTest
 
 # QPTest
 add_executable(QPTest QPTest.cpp)
-target_link_libraries(QPTest OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
+target_link_libraries(QPTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
 add_test(NAME QPTest
   COMMAND QPTest)
 
 # Update matrix
 add_executable(UpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(UpdateMatricesTest OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
+target_link_libraries(UpdateMatricesTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
 add_test(NAME UpdateMatricesTest
   COMMAND UpdateMatricesTest)
 
 # MPCTest
 add_executable(MPCTest MPCTest.cpp)
-target_link_libraries(MPCTest OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
+target_link_libraries(MPCTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
 add_test(NAME MPCTest
   COMMAND MPCTest)
 
 # MPCTest update matrix
 add_executable(MPCUpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(MPCUpdateMatricesTest OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
+target_link_libraries(MPCUpdateMatricesTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
 add_test(NAME MPCUpdateMatricesTest
   COMMAND MPCUpdateMatricesTest)
