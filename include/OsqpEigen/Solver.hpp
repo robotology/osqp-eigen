@@ -31,7 +31,7 @@ namespace OsqpEigen
      */
     class Solver
     {
-        OSQPWorkspace *m_workspace;  /**< OSQPWorkspace struct. */
+        std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>> m_workspace;  /**< Pointer to OSQPWorkspace struct. */
         std::unique_ptr<OsqpEigen::Settings> m_settings; /**< Pointer to Settings class. */
         std::unique_ptr<OsqpEigen::Data> m_data; /**< Pointer to Data class. */
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
@@ -75,17 +75,18 @@ namespace OsqpEigen
         void selectUpperTriangularTriplets(const std::vector<Eigen::Triplet<T>> &fullMatrixTriplets,
                                            std::vector<Eigen::Triplet<T>> &upperTriangularMatrixTriplets) const;
 
+        /**
+         * Custom Deleter for the OSQPWorkspace. It is required to free the @ref m_workspace unique_ptr
+         * @param ptr raw pointer to the workspace
+         */
+        static void OSQPWorkspaceDeleter(OSQPWorkspace* ptr) noexcept;
+
     public:
 
         /**
          * Constructor.
          */
         Solver();
-
-        /**
-         * Deconstructor.
-         */
-        ~Solver();
 
         /**
          * Initialize the solver with the actual initial data and settings.
