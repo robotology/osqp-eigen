@@ -49,7 +49,7 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseCompressedBase<De
     if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
                          m_hessianNewIndices, m_hessianNewValues)){
         if (m_hessianNewValues.size() > 0) {
-            if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
+            if(osqp_update_P(m_workspace.get(), m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
                 std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update hessian matrix."
                           << std::endl;
                 return false;
@@ -145,7 +145,7 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseCompres
     if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
                          m_constraintsNewIndices, m_constraintsNewValues)){
         if (m_constraintsNewValues.size() > 0) {
-            if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
+            if(osqp_update_A(m_workspace.get(), m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
                 std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update linear constraints matrix."
                           << std::endl;
                 return false;
@@ -224,7 +224,7 @@ bool OsqpEigen::Solver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariabl
     m_primalVariables = primalVariable.template cast <c_float>();
     m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start(m_workspace, m_primalVariables.data(), m_dualVariables.data()) == 0);
+    return (osqp_warm_start(m_workspace.get(), m_primalVariables.data(), m_dualVariables.data()) == 0);
 
 }
 
@@ -240,7 +240,7 @@ bool OsqpEigen::Solver::setPrimalVariable(const Eigen::Matrix<T, n, 1> &primalVa
 
     m_primalVariables = primalVariable.template cast <c_float>();
 
-    return (osqp_warm_start_x(m_workspace, m_primalVariables.data()) == 0);
+    return (osqp_warm_start_x(m_workspace.get(), m_primalVariables.data()) == 0);
 }
 
 
@@ -256,7 +256,7 @@ bool OsqpEigen::Solver::setDualVariable(const Eigen::Matrix<T, m, 1> &dualVariab
 
     m_dualVariables = dualVariable.template cast <c_float>();
 
-    return (osqp_warm_start_y(m_workspace, m_dualVariables.data()) == 0);
+    return (osqp_warm_start_y(m_workspace.get(), m_dualVariables.data()) == 0);
 }
 
 template<typename T, int n>
@@ -365,7 +365,7 @@ bool OsqpEigen::Solver::updateGradient(Eigen::Matrix<c_float, n, 1>& gradient)
     }
 
     // update the gradient vector
-    if(osqp_update_lin_cost(m_workspace, gradient.data())){
+    if(osqp_update_lin_cost(m_workspace.get(), gradient.data())){
         std::cerr << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
                   << std::endl;
         return false;
@@ -384,7 +384,7 @@ bool OsqpEigen::Solver::updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBoun
     }
 
     // update the lower bound vector
-    if(osqp_update_lower_bound(m_workspace, lowerBound.data())){
+    if(osqp_update_lower_bound(m_workspace.get(), lowerBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
                   << std::endl;
         return false;
@@ -404,7 +404,7 @@ bool OsqpEigen::Solver::updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBoun
     }
 
     // update the upper bound vector
-    if(osqp_update_upper_bound(m_workspace, upperBound.data())){
+    if(osqp_update_upper_bound(m_workspace.get(), upperBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
                   << std::endl;
         return false;
@@ -432,7 +432,7 @@ bool OsqpEigen::Solver::updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
     }
 
     // update lower and upper constraints
-    if(osqp_update_bounds(m_workspace, lowerBound.data(), upperBound.data())){
+    if(osqp_update_bounds(m_workspace.get(), lowerBound.data(), upperBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
                   << std::endl;
         return false;
@@ -480,7 +480,7 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseMatrix<T> &hessia
     if(evaluateNewValues(m_oldHessianTriplet,  m_newUpperTriangularHessianTriplets,
                          m_hessianNewIndices, m_hessianNewValues)){
         if (m_hessianNewValues.size() > 0) {
-            if(osqp_update_P(m_workspace, m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
+            if(osqp_update_P(m_workspace.get(), m_hessianNewValues.data(), m_hessianNewIndices.data(), m_hessianNewIndices.size()) != 0){
                 std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to update hessian matrix."
                           << std::endl;
                 return false;
@@ -576,7 +576,7 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseMatrix<
     if(evaluateNewValues(m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet,
                          m_constraintsNewIndices, m_constraintsNewValues)){
         if (m_constraintsNewValues.size() > 0) {
-            if(osqp_update_A(m_workspace, m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
+            if(osqp_update_A(m_workspace.get(), m_constraintsNewValues.data(), m_constraintsNewIndices.data(), m_constraintsNewIndices.size()) != 0){
                 std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to update linear constraints matrix."
                           << std::endl;
                 return false;
