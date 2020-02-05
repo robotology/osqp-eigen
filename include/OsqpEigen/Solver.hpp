@@ -131,31 +131,7 @@ namespace OsqpEigen
          * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
-        template<int n>
-        [[deprecated("Use updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient) instead")]]
-        bool updateGradient(Eigen::Matrix<c_float, n, 1>& gradient);
-
-        /**
-         * Update the linear part of the cost function (Gradient).
-         * @param gradient is the Gradient vector.
-         * @note the elements of the gradient are not copied inside the library.
-         * The user has to guarantee that the lifetime of the objects passed is the same of the
-         * OsqpEigen object.
-         * @return true/false in case of success/failure.
-         */
         bool updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient);
-
-        /**
-         * Update the lower bounds limit (size m).
-         * @param lowerBound is the lower bound constraint vector.
-         * @note the elements of the lowerBound are not copied inside the library.
-         * The user has to guarantee that the lifetime of the object passed is the same of the
-         * OsqpEigen object.
-         * @return true/false in case of success/failure.
-         */
-        template<int m>
-        [[deprecated("Use updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound) instead")]]
-        bool updateLowerBound(Eigen::Matrix<c_float, m, 1>& lowerBound);
 
         /**
          * Update the lower bounds limit (size m).
@@ -175,33 +151,7 @@ namespace OsqpEigen
          * OsqpEigen object.
          * @return true/false in case of success/failure.
          */
-        template<int m>
-        [[deprecated("Use updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound) instead")]]
-        bool updateUpperBound(Eigen::Matrix<c_float, m, 1>& upperBound);
-
-        /**
-         * Update the upper bounds limit (size m).
-         * @param upperBound is the upper bound constraint vector.
-         * @note the elements of the upperBound are not copied inside the library.
-         * The user has to guarantee that the lifetime of the object passed is the same of the
-         * OsqpEigen object.
-         * @return true/false in case of success/failure.
-         */
         bool updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound);
-
-        /**
-         * Update both upper and lower bounds (size m).
-         * @param lowerBound is the lower bound constraint vector;
-         * @param upperBound is the upper bound constraint vector.
-         * @note the elements of the lowerBound and upperBound are not copied inside the library.
-         * The user has to guarantee that the lifetime of the objects passed is the same of the
-         * OsqpEigen object
-         * @return true/false in case of success/failure.
-         */
-        template<int m>
-        [[deprecated("Use updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound, const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound) instead")]]
-        bool updateBounds(Eigen::Matrix<c_float, m, 1>& lowerBound,
-                          Eigen::Matrix<c_float, m, 1>& upperBound);
 
         /**
          * Update both upper and lower bounds (size m).
@@ -226,37 +176,8 @@ namespace OsqpEigen
          * @param hessian is the Hessian matrix.
          * @return true/false in case of success/failure.
          */
-        template<typename T>
-        [[deprecated("Use updateHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix) instead")]]
-        bool updateHessianMatrix(const Eigen::SparseMatrix<T> &hessianMatrix);
-
-        /**
-         * Update the quadratic part of the cost function (Hessian).
-         * It is assumed to be a simmetric matrix.
-         * \note
-         * If the sparsity pattern is preserved the matrix is simply update
-         * otherwise the entire solver will be reinitialized. In this case
-         * the primal and dual variable are copied in the new workspace.
-         *
-         * @param hessian is the Hessian matrix.
-         * @return true/false in case of success/failure.
-         */
         template<typename Derived>
         bool updateHessianMatrix(const Eigen::SparseCompressedBase<Derived> &hessianMatrix);
-
-        /**
-         * Update the linear constraints matrix (A)
-         * \note
-         * If the sparsity pattern is preserved the matrix is simply update
-         * otherwise the entire solver will be reinitialized. In this case
-         * the primal and dual variable are copied in the new workspace.
-         *
-         * @param linearConstraintsMatrix is the linear constraint matrix A
-         * @return true/false in case of success/failure.
-         */
-        template<typename T>
-        [[deprecated("Use updateLinearConstraintsMatrix(const Eigen::SparseCompressedBase<Derived> &linearConstraintsMatrix) instead")]]
-        bool updateLinearConstraintsMatrix(const Eigen::SparseMatrix<T> &linearConstraintsMatrix);
 
         /**
          * Update the linear constraints matrix (A)
