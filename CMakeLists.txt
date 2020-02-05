@@ -114,6 +114,8 @@ install_basic_package_files(${PROJECT_NAME}
 
 ## Testing
 option(BUILD_TESTING "Create tests using CMake" OFF)
+option(RUN_VALGRIND_TESTS "Run tests with Valgrind" FALSE)
+mark_as_advanced(RUN_VALGRIND_TESTS)
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(tests)

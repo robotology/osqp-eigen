@@ -17,32 +17,48 @@ endif()
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
-# QPTest
-add_executable(SparseMatrixTest SparseMatrixTest.cpp)
-target_link_libraries(SparseMatrixTest OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
-add_test(NAME SparseMatrixTest
-  COMMAND SparseMatrixTest)
+# adding support for checking the tests with valgrind
+if(RUN_VALGRIND_TESTS)
+     find_package(VALGRIND REQUIRED)
+     if(VALGRIND_FOUND)
+         set(CTEST_MEMORYCHECK_COMMAND ${VALGRIND_PROGRAM})
+         set(MEMORYCHECK_COMMAND ${VALGRIND_PROGRAM})
+         if (APPLE)
+             set(MEMORYCHECK_SUPPRESSIONS "--suppressions=${PROJECT_SOURCE_DIR}/cmake/valgrind-macos.supp")
+         else ()
+             set(MEMORYCHECK_SUPPRESSIONS "")
+         endif ()
+         set(MEMORYCHECK_COMMAND_OPTIONS "--leak-check=full --error-exitcode=1 ${MEMORYCHECK_SUPPRESSIONS}"  CACHE STRING "Options to pass to the memory checker")
+         mark_as_advanced(MEMORYCHECK_COMMAND_OPTIONS)
+         set(MEMCHECK_COMMAND_COMPLETE "${MEMORYCHECK_COMMAND} ${MEMORYCHECK_COMMAND_OPTIONS}")
+         separate_arguments(MEMCHECK_COMMAND_COMPLETE)
+     endif()
+endif()
+
+macro(add_osqpeigen_test classname)
+    set(testsrc ${classname}Test.cpp)
+    set(testbinary ${classname}Test)
+    set(testname   ${classname}Test)
+    add_executable(${testbinary} ${testsrc})
+    target_link_libraries(${testbinary} PRIVATE OsqpEigen::OsqpEigen osqp::osqp Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
+    add_test(NAME ${testname} COMMAND ${testbinary})
+
+    if(RUN_VALGRIND_TESTS)
+        add_test(NAME memcheck_${testname} COMMAND ${MEMCHECK_COMMAND_COMPLETE} $<TARGET_FILE:${testbinary}>)
+    endif()
+endmacro()
 
 # QPTest
-add_executable(QPTest QPTest.cpp)
-target_link_libraries(QPTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
-add_test(NAME QPTest
-  COMMAND QPTest)
+add_osqpeigen_test(SparseMatrix)
+
+# QPTest
+add_osqpeigen_test(QP)
 
 # Update matrix
-add_executable(UpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(UpdateMatricesTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
-add_test(NAME UpdateMatricesTest
-  COMMAND UpdateMatricesTest)
+add_osqpeigen_test(UpdateMatrices)
 
 # MPCTest
-add_executable(MPCTest MPCTest.cpp)
-target_link_libraries(MPCTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
-add_test(NAME MPCTest
-  COMMAND MPCTest)
+add_osqpeigen_test(MPC)
 
 # MPCTest update matrix
-add_executable(MPCUpdateMatricesTest UpdateMatricesTest.cpp)
-target_link_libraries(MPCUpdateMatricesTest OsqpEigen::OsqpEigen Eigen3::Eigen ${GTEST_LIBRARIES} pthread)
-add_test(NAME MPCUpdateMatricesTest
-  COMMAND MPCUpdateMatricesTest)
+add_osqpeigen_test(MPCUpdateMatrices)
