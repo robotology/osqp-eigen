@@ -10,17 +10,18 @@
 #include <OsqpEigen/Settings.hpp>
 #include <OsqpEigen/Solver.hpp>
 
+void OsqpEigen::Solver::OSQPWorkspaceDeleter(OSQPWorkspace* ptr) noexcept
+{
+    if(ptr != nullptr)
+        osqp_cleanup(ptr);
+}
+
 OsqpEigen::Solver::Solver()
     : m_isSolverInitialized(false)
+    , m_workspace{nullptr, Solver::OSQPWorkspaceDeleter}
 {
     m_settings = std::make_unique<OsqpEigen::Settings>();
     m_data = std::make_unique<OsqpEigen::Data>();
-    m_workspace = nullptr;
-}
-
-OsqpEigen::Solver::~Solver()
-{
-    clearSolver();
 }
 
 bool OsqpEigen::Solver::clearSolverVariables()
@@ -59,7 +60,6 @@ bool OsqpEigen::Solver::clearSolverVariables()
         m_workspace->xz_tilde[i] = 0;
     }
 
-
     return true;
 }
 
@@ -78,13 +78,15 @@ bool OsqpEigen::Solver::initSolver()
         return false;
     }
 
-    if(osqp_setup(&m_workspace, m_data->getData(),
+    OSQPWorkspace* workspace;
+    if(osqp_setup(&workspace, m_data->getData(),
                   m_settings->getSettings()) != 0 ){
         std::cerr << "[OsqpEigen::Solver::initSolver] Unable to setup the workspace."
                   << std::endl;
         return false;
     }
 
+    m_workspace.reset(workspace);
 
     m_isSolverInitialized = true;
     return true;
@@ -98,7 +100,7 @@ bool OsqpEigen::Solver::isInitialized()
 void OsqpEigen::Solver::clearSolver()
 {
     if(m_isSolverInitialized){
-        osqp_cleanup(m_workspace);
+        m_workspace.reset();
         m_isSolverInitialized = false;
     }
 }
@@ -112,7 +114,7 @@ bool OsqpEigen::Solver::solve()
         return false;
     }
 
-    if(osqp_solve(m_workspace) != 0){
+    if(osqp_solve(m_workspace.get()) != 0){
         std::cerr << "[OsqpEigen::Solver::solve] Unable to solve the problem."
                   << std::endl;
         return false;
@@ -158,7 +160,7 @@ bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_fl
     }
 
     // update the gradient vector
-    if(osqp_update_lin_cost(m_workspace, gradient.data())){
+    if(osqp_update_lin_cost(m_workspace.get(), gradient.data())){
         std::cerr << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
                   << std::endl;
         return false;
@@ -176,7 +178,7 @@ bool OsqpEigen::Solver::updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_
     }
 
     // update the lower bound vector
-    if(osqp_update_lower_bound(m_workspace, lowerBound.data())){
+    if(osqp_update_lower_bound(m_workspace.get(), lowerBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
                   << std::endl;
         return false;
@@ -195,7 +197,7 @@ bool OsqpEigen::Solver::updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_
     }
 
     // update the upper bound vector
-    if(osqp_update_upper_bound(m_workspace, upperBound.data())){
+    if(osqp_update_upper_bound(m_workspace.get(), upperBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
                   << std::endl;
         return false;
@@ -221,7 +223,7 @@ bool OsqpEigen::Solver::updateBounds(const Eigen::Ref<const Eigen::Matrix<c_floa
     }
 
     // update lower and upper constraints
-    if(osqp_update_bounds(m_workspace, lowerBound.data(), upperBound.data())){
+    if(osqp_update_bounds(m_workspace.get(), lowerBound.data(), upperBound.data())){
         std::cerr << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
                   << std::endl;
         return false;
