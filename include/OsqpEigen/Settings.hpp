@@ -170,6 +170,12 @@ namespace OsqpEigen
         void setWarmStart(const bool warmStart);
 
         /**
+        * Set the maximum number of seconds allowed to solve the problem.
+        * @param timeLimit is the time limit in seconds. If 0, then disabled.
+        */
+        void setTimeLimit(const double timeLimit);
+
+        /**
          * Get a pointer to Settings struct.
          * @return a const pointer to OSQPSettings struct.
          */
