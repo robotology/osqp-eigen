@@ -159,6 +159,11 @@ const std::unique_ptr<OsqpEigen::Data>& OsqpEigen::Solver::data() const
     return m_data;
 }
 
+const std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>>& OsqpEigen::Solver::workspace() const
+{
+    return m_workspace;
+}
+
 bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient)
 {
     // check if the dimension of the gradient is correct
