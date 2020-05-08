@@ -34,7 +34,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
     osqpSparseMatrix = csc_spalloc(rows, cols, numberOfNonZeroCoeff, 1, 0);
 
     int innerOsqpPosition = 0;
-    for(int k = 0; k < cols; k++) {
+    for(int k = 0; k < eigenSparseMatrix.outerSize(); k++) {
         if (eigenSparseMatrix.isCompressed()) {
             osqpSparseMatrix->p[k] = static_cast<c_int>(outerIndexPtr[k]);
         } else {
