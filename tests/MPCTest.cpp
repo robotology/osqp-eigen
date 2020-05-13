@@ -213,7 +213,7 @@ double getErrorNorm(const Eigen::Matrix<double, 12, 1> &x,
 }
 
 
-TEST(MPCTest,)
+TEST(MPCTest, nullptr)
 {
     // open the ofstream
     std::ofstream dataStream;

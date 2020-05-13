@@ -183,7 +183,7 @@ void updateConstraintVectors(const Eigen::Matrix<double, 2, 1> &x0,
     upperBound.block(0,0,2,1) = -x0;
 }
 
-TEST(MPCTest,)
+TEST(MPCTest, nullptr)
 {
     // open the ofstream
     std::ofstream dataStream;
