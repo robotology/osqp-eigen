@@ -18,12 +18,8 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
     c_int numberOfNonZeroCoeff = colMajorCopy.nonZeros();
 
     // get innerr and outer index
-    const int* innerIndexPtr = colMajorCopy.innerIndexPtr();
     const int* outerIndexPtr = colMajorCopy.outerIndexPtr();
     const int* innerNonZerosPtr = colMajorCopy.innerNonZeroPtr();
-
-    // get nonzero values
-    auto valuePtr = colMajorCopy.valuePtr();
 
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
