@@ -10,7 +10,7 @@
 
 #include <OsqpEigen/OsqpEigen.h>
 
-TEST(QPProblem, )
+TEST(QPProblem, nullptr)
 {
     Eigen::Matrix2d H;
     H << 4, 1,
