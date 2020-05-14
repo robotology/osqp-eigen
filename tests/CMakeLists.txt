@@ -19,7 +19,8 @@ add_osqpeigen_test(
 add_osqpeigen_test(
   NAME MPC
   SOURCES MPCTest.cpp
-  LINKS OsqpEigen::OsqpEigen Eigen3::Eigen)
+  LINKS OsqpEigen::OsqpEigen Eigen3::Eigen
+  COMPILE_DEFINITIONS _USE_MATH_DEFINES)
 
 add_osqpeigen_test(
   NAME MPCUpdateMatrices

@@ -40,7 +40,7 @@ function(add_osqpeigen_test)
 
       set(options)
       set(oneValueArgs NAME)
-      set(multiValueArgs SOURCES LINKS)
+      set(multiValueArgs SOURCES LINKS COMPILE_DEFINITIONS)
 
       set(prefix "osqp_eigen")
 
@@ -62,6 +62,7 @@ function(add_osqpeigen_test)
       target_compile_features(${targetname} PUBLIC cxx_std_14)
 
       add_test(NAME ${targetname} COMMAND ${targetname})
+      target_compile_definitions(${targetname} PRIVATE ${${prefix}_COMPILE_DEFINITIONS})
 
       if(OSQPEIGEN_RUN_Valgrind_tests)
         add_test(NAME memcheck_${targetname} COMMAND ${MEMCHECK_COMMAND_COMPLETE} $<TARGET_FILE:${targetname}>)
