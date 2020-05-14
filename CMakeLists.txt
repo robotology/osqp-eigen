@@ -62,6 +62,16 @@ include(CTest)
 # Check OsqpEigen dependencies, find necessary libraries.
 include(OsqpEigenDependencies)
 
+# Set default build type to "Release" in single-config generators
+if(NOT CMAKE_CONFIGURATION_TYPES)
+    if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+        "Choose the type of build, recommanded options are: Debug or Release" FORCE)
+    endif()
+    set(OSQPEIGEN_BUILD_TYPES "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${OSQPEIGEN_BUILD_TYPES})
+endif()
+
 set(LIBRARY_TARGET_NAME OsqpEigen)
 
 # List of CPP (source) library files.
