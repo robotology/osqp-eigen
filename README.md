@@ -3,6 +3,7 @@ Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) l
 
 | System        | Status                                                                                                                                                                      |
 | ------------- | :-------------:                                                                                                                                                             |
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/04ecd5d1cc8f42a5b1bfb6a527fa398f)](https://app.codacy.com/manual/GiulioRomualdi/osqp-eigen?utm_source=github.com&utm_medium=referral&utm_content=robotology/osqp-eigen&utm_campaign=Badge_Grade_Dashboard)
 | Linux / OSX   | [![Build Status](https://travis-ci.org/robotology/osqp-eigen.svg?branch=master)](https://travis-ci.org/robotology/osqp-eigen)                                               |
 | Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/1uecfmyvxb2dujt9/branch/master?svg=true)](https://ci.appveyor.com/project/robotology/osqp-eigen/branch/master) |
 
