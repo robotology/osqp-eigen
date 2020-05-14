@@ -60,7 +60,7 @@ option(BUILD_TESTING "Create tests using CMake" OFF)
 include(CTest)
 
 # Check OsqpEigen dependencies, find necessary libraries.
-include(OsqpEigenFindDependencies)
+include(OsqpEigenDependencies)
 
 set(LIBRARY_TARGET_NAME OsqpEigen)
 
