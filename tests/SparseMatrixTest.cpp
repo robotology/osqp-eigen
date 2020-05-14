@@ -2,11 +2,11 @@
  * @file SparseMatrixTest.cpp
  * @author Giulio Romualdi
  * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
- * @date 2018
+ * @date 2020
  */
 
-// gtest
-#include <gtest/gtest.h>
+// Catch2
+#include <catch2/catch.hpp>
 
 #include <OsqpEigen/OsqpEigen.h>
 #include <osqp.h>
@@ -28,16 +28,15 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletListCsc))
         return false;
 
-    for(auto a: tripletListCsc)
-        std::cout<<a.row() << " " <<a.col() << " " <<a.value()<<"\n ";
+    for(const auto& a: tripletListCsc)
+        std::cout << a.row() << " " <<a.col() << " " <<a.value() << std::endl;
 
     std::vector<Eigen::Triplet<T>> tripletListEigen;
     OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(matrix, tripletListEigen);
 
-    std::cout<<"***********************************************\n";
-    for(auto a: tripletListEigen)
-        std::cout<<a.row() << " " <<a.col() << " " <<a.value()<<"\n ";
-
+    std::cout << "***********************************************" << std::endl;
+    for(const auto& a: tripletListEigen)
+        std::cout << a.row() << " " <<a.col() << " " <<a.value() << std::endl;
 
     bool outcome = matrix.isApprox(newMatrix);
 
@@ -46,48 +45,46 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     return outcome;
 }
 
-TEST(SparseMatrix, Double)
+TEST_CASE("SparseMatrix")
 {
-    Eigen::Matrix3d m;
-    m << 0, 1.002311, 0,
-        0, 0, 0,
-        0, 0.90835435,0;
+    SECTION("Data type - double")
+    {
 
-    ASSERT_TRUE(computeTest(m));
-}
+        Eigen::Matrix3d m;
+        m << 0, 1.002311, 0,
+            0, 0, 0,
+            0, 0.90835435,0;
 
-TEST(SparseMatrix, Float)
-{
-    Eigen::Matrix3f m;
-    m << 0, 1, 0,
-        0, 0, 0,
-        0, 1,0;
+        REQUIRE(computeTest(m));
+    }
 
-    ASSERT_TRUE(computeTest(m));
-}
+    SECTION("Data type - float")
+    {
+        Eigen::Matrix3f m;
+        m << 0, 1, 0,
+            0, 0, 0,
+            0, 1,0;
 
-TEST(SparseMatrix, Int)
-{
-    Eigen::Matrix3i m;
-    m << 0, 1, 0,
-        0, 0, 0,
-        0, 1,0;
+        REQUIRE(computeTest(m));
+    }
 
-    ASSERT_TRUE(computeTest(m));
-}
+    SECTION("Data type - int")
+    {
 
-TEST(SparseMatrix, Double1)
-{
-    Eigen::Matrix<double,4,2> m;
-    m << 0, 0, 0, 4,
-        0, 0, 0, 0;
+        Eigen::Matrix3i m;
+        m << 0, 1, 0,
+            0, 0, 0,
+            0, 1,0;
 
-    ASSERT_TRUE(computeTest(m));
-}
+        REQUIRE(computeTest(m));
+    }
 
+    SECTION("Data type - double")
+    {
+        Eigen::Matrix<double,4,2> m;
+        m << 0, 0, 0, 4,
+            0, 0, 0, 0;
 
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+        REQUIRE(computeTest(m));
+    }
 }

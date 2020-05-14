@@ -2,15 +2,15 @@
  * @file QPTest.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
- * @date 2018
+ * @date 2020
  */
 
-// gtest
-#include <gtest/gtest.h>
+// Catch2
+#include <catch2/catch.hpp>
 
 #include <OsqpEigen/OsqpEigen.h>
 
-TEST(QPProblem, nullptr)
+TEST_CASE("QPProblem")
 {
     Eigen::Matrix2d H;
     H << 4, 1,
@@ -37,37 +37,22 @@ TEST(QPProblem, nullptr)
     OsqpEigen::Solver solver;
     solver.settings()->setVerbosity(false);
 
-    ASSERT_FALSE(solver.data()->setHessianMatrix(H_s));
+    REQUIRE_FALSE(solver.data()->setHessianMatrix(H_s));
     solver.data()->setNumberOfVariables(2);
 
     solver.data()->setNumberOfConstraints(3);
-    ASSERT_TRUE(solver.data()->setHessianMatrix(H_s));
-    ASSERT_TRUE(solver.data()->setGradient(gradient));
-    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(A_s));
-    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
+    REQUIRE(solver.data()->setHessianMatrix(H_s));
+    REQUIRE(solver.data()->setGradient(gradient));
+    REQUIRE(solver.data()->setLinearConstraintsMatrix(A_s));
+    REQUIRE(solver.data()->setLowerBound(lowerBound));
+    REQUIRE(solver.data()->setUpperBound(upperBound));
 
 
-    ASSERT_TRUE(solver.initSolver());
+    REQUIRE(solver.initSolver());
 
-    ASSERT_TRUE(solver.solve());
+    REQUIRE(solver.solve());
 
     std::cerr << "The solution of the QP problem is" << std::endl;
     std::cerr << "[ " << solver.getSolution() << " ]"
               << std::endl;
-};
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    clock_t startTime, endTime;
-
-    startTime = clock();
-    bool outcome = RUN_ALL_TESTS();
-    endTime = clock();
-
-    std::cerr << "Total time " << (static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC)
-              << " seconds." << std::endl;
-
-    return outcome;
 }
