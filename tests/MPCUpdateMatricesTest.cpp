@@ -14,6 +14,7 @@
 // eigen
 #include <Eigen/Dense>
 
+#include <cmath>
 #include <iostream>
 #include <fstream>
 
