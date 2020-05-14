@@ -30,7 +30,7 @@
 include(CMakeDependentOption)
 
 # Check if a package is installed and set some cmake variables
-macro(checkandset_dependency package)
+macro(checkandset_optional_dependency package)
 
   set(PREFIX "OSQPEIGEN")
 
@@ -113,11 +113,3 @@ macro(OSQPEIGEN_DEPENDENT_OPTION _option _doc _default _deps _force)
   endif()
 
 endmacro()
-
-
-
-################################################################################
-# Find all packages
-
-find_package(Eigen3 3.2.92 REQUIRED)
-find_package(osqp REQUIRED)
