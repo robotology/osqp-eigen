@@ -10,18 +10,16 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
                                                              csc*& osqpSparseMatrix)
 
 {
+    Eigen::SparseMatrix<typename Derived::value_type, Eigen::ColMajor> colMajorCopy; //Copying into a new sparse matrix to be sure to use a CSC matrix
+    colMajorCopy = eigenSparseMatrix; //This may perform merory allocation, but this is already the case for allocating the osqpSparseMatrix
     // get number of row, columns and nonZeros from Eigen SparseMatrix
-    c_int rows = eigenSparseMatrix.rows();
-    c_int cols = eigenSparseMatrix.cols();
-    c_int numberOfNonZeroCoeff = eigenSparseMatrix.nonZeros();
+    c_int rows = colMajorCopy.rows();
+    c_int cols = colMajorCopy.cols();
+    c_int numberOfNonZeroCoeff = colMajorCopy.nonZeros();
 
     // get innerr and outer index
-    const int* innerIndexPtr = eigenSparseMatrix.innerIndexPtr();
-    const int* outerIndexPtr = eigenSparseMatrix.outerIndexPtr();
-    const int* innerNonZerosPtr = eigenSparseMatrix.innerNonZeroPtr();
-
-    // get nonzero values
-    auto valuePtr = eigenSparseMatrix.valuePtr();
+    const int* outerIndexPtr = colMajorCopy.outerIndexPtr();
+    const int* innerNonZerosPtr = colMajorCopy.innerNonZeroPtr();
 
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
@@ -35,7 +33,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
 
     int innerOsqpPosition = 0;
     for(int k = 0; k < cols; k++) {
-        if (eigenSparseMatrix.isCompressed()) {
+        if (colMajorCopy.isCompressed()) {
             osqpSparseMatrix->p[k] = static_cast<c_int>(outerIndexPtr[k]);
         } else {
             if (k == 0) {
@@ -44,7 +42,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
                 osqpSparseMatrix->p[k] = osqpSparseMatrix->p[k-1] + innerNonZerosPtr[k-1];
             }
         }
-        for (typename Eigen::SparseCompressedBase<Derived>::InnerIterator it(eigenSparseMatrix,k); it; ++it) {
+        for (typename Eigen::SparseMatrix<typename Derived::value_type, Eigen::ColMajor>::InnerIterator it(colMajorCopy,k); it; ++it) {
             osqpSparseMatrix->i[innerOsqpPosition] = static_cast<c_int>(it.row());
             osqpSparseMatrix->x[innerOsqpPosition] = static_cast<c_float>(it.value());
             innerOsqpPosition++;

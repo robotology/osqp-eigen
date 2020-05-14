@@ -14,7 +14,7 @@
 template<typename T, int n, int m>
 bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
 {
-    Eigen::SparseMatrix<T> matrix, newMatrix;
+    Eigen::SparseMatrix<T, Eigen::ColMajor> matrix, newMatrix, newMatrixFromCSR;
     matrix = mEigen.sparseView();
 
     csc* osqpSparseMatrix = nullptr;
@@ -22,8 +22,21 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     if(!OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(matrix, osqpSparseMatrix))
         return false;
 
+    Eigen::SparseMatrix<T, Eigen::RowMajor> csrMatrix;
+    csrMatrix = matrix;
+    csc* otherOsqpSparseMatrix = nullptr;
+    if(!OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(csrMatrix, otherOsqpSparseMatrix))
+        return false;
+
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(osqpSparseMatrix, newMatrix))
         return false;
+
+    if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(otherOsqpSparseMatrix, newMatrixFromCSR))
+        return false;
+
+    if (!newMatrixFromCSR.isApprox(newMatrix))
+        return false;
+
     std::vector<Eigen::Triplet<T>> tripletListCsc;
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(osqpSparseMatrix, tripletListCsc))
         return false;
@@ -41,6 +54,8 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     bool outcome = matrix.isApprox(newMatrix);
 
     csc_spfree(osqpSparseMatrix);
+    csc_spfree(otherOsqpSparseMatrix);
+
 
     return outcome;
 }
