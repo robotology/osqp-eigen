@@ -95,8 +95,7 @@ add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TAR
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE Eigen3::Eigen)
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp)
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
@@ -108,7 +107,7 @@ target_compile_features(${LIBRARY_TARGET_NAME} PUBLIC cxx_std_14)
 
 # List exported CMake package dependencies
 set(OSQP_EIGEN_EXPORTED_DEPENDENCIES "")
-list(APPEND OSQP_EIGEN_EXPORTED_DEPENDENCIES osqp)
+list(APPEND OSQP_EIGEN_EXPORTED_DEPENDENCIES osqp Eigen)
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
   EXPORT  ${PROJECT_NAME}
