@@ -2,7 +2,10 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later
 
 # Set cmake mimimun version
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
+
+project(OsqpEigen
+  VERSION 0.6.101)
 
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -19,15 +22,6 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
-
-# Enable C++14
-set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED 11)
-
-project(OsqpEigen
-  LANGUAGES CXX
-  VERSION 0.6.101)
 
 # add GNU dirs
 include(GNUInstallDirs)
@@ -53,12 +47,11 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
   endif()
 endif()
 
-# find Eigen
-find_package(Eigen3 REQUIRED)
-include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+option(BUILD_TESTING "Create tests using CMake" OFF)
+include(CTest)
 
-# add OSQP library
-find_package(osqp REQUIRED)
+# Check OsqpEigen dependencies, find necessary libraries.
+include(OsqpEigenFindDependencies)
 
 set(LIBRARY_TARGET_NAME OsqpEigen)
 
@@ -113,12 +106,7 @@ install_basic_package_files(${PROJECT_NAME}
   DEPENDENCIES ${OSQP_EIGEN_EXPORTED_DEPENDENCIES})
 
 ## Testing
-option(BUILD_TESTING "Create tests using CMake" OFF)
-option(RUN_VALGRIND_TESTS "Run tests with Valgrind" FALSE)
-mark_as_advanced(RUN_VALGRIND_TESTS)
-include(CTest)
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
+include(AddOsqpEigenUnitTest)
+add_subdirectory(tests)
 
 include(AddUninstallTarget)
