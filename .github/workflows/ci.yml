@@ -1,0 +1,176 @@
+name: C++ CI Workflow
+
+on:
+  push:
+  pull_request:
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  # Execute a "nightly" build at 2 AM UTC
+  - cron:  '0 2 * * *'
+
+env:
+  osqp_TAG: v0.6.0
+  vcpkg_robotology_TAG: v0.0.3
+  Catch2_TAG: v2.12.1
+
+# Test with different operating systems
+jobs:
+  build:
+    name: '[${{ matrix.os }}@${{ matrix.build_type }}]'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        build_type: [Debug, Release]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
+      fail-fast: false
+
+    # operating system dependences
+    steps:
+    - uses: actions/checkout@master
+
+    # Print environment variables to simplify development and debugging
+    - name: Environment Variables
+      shell: bash
+      run: env
+
+    # ============
+    # DEPENDENCIES
+    # ============
+
+    # Remove apt repos that are known to break from time to time
+    # See https://github.com/actions/virtual-environments/issues/323
+    - name: Remove broken apt repos [Ubuntu]
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        for apt_file in `grep -lr microsoft /etc/apt/sources.list.d/`; do sudo rm $apt_file; done
+
+    - name: Dependencies [Windows]
+      if: matrix.os == 'windows-latest'
+      run: |
+        # To avoid spending a huge time compiling vcpkg dependencies, we download a root that comes precompiled with all the ports that we need
+        choco install -y wget unzip
+        # To avoid problems with non-relocatable packages, we unzip the archive exactly in the same C:/robotology/vcpkg
+        # that has been used to create the pre-compiled archive
+        cd C:/
+        md C:/robotology
+        md C:/robotology/vcpkg
+        wget https://github.com/robotology/robotology-superbuild-dependencies-vcpkg/releases/download/${env:vcpkg_robotology_TAG}/vcpkg-robotology.zip
+        unzip vcpkg-robotology.zip -d C:/robotology/vcpkg
+        # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg
+        echo "::set-env name=VCPKG_INSTALLATION_ROOT::C:/robotology/vcpkg"
+
+        # Install Catch2
+        cd C:/robotology/vcpkg
+        ./vcpkg.exe install --triplet x64-windows catch2
+
+    - name: Dependencies [macOS]
+      if: matrix.os == 'macOS-latest'
+      run: |
+        brew install eigen catch2
+
+    - name: Dependencies [Ubuntu]
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install git build-essential cmake libeigen3-dev valgrind
+
+    - name: Cache Source-based Dependencies
+      id: cache-source-deps
+      uses: actions/cache@v1
+      with:
+        path: ${{ github.workspace }}/install/deps
+        key: source-deps-${{ runner.os }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ env.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
+
+    - name: Source-based Dependencies [Windows]
+      if: steps.cache-source-deps.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        # osqp
+        cd ${GITHUB_WORKSPACE}
+        git clone --recursive -b ${osqp_TAG} https://github.com/oxfordcontrol/osqp
+        cd osqp
+        mkdir -p build
+        cd build
+        cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake \
+                     -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps ..
+
+        cmake --build . --config ${{ matrix.build_type }} --target INSTALL
+
+    - name: Source-based Dependencies [Ubuntu/macOS]
+      if: steps.cache-source-deps.outputs.cache-hit != 'true' && (matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest')
+      shell: bash
+      run: |
+        # osqp
+        cd ${GITHUB_WORKSPACE}
+        git clone --recursive -b ${osqp_TAG} https://github.com/oxfordcontrol/osqp
+        cd osqp
+        mkdir -p build
+        cd build
+        cmake -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps ..
+        cmake --build . --config ${{ matrix.build_type }} --target install
+
+
+    - name: Source-based Dependencies [Ubuntu]
+      if: steps.cache-source-deps.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+         git clone -b ${Catch2_TAG} https://github.com/catchorg/Catch2.git
+         cd Catch2
+         mkdir -p build
+         cd build
+         cmake  -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
+                -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps \
+                -DBUILD_TESTING=OFF ..
+         cmake --build . --config ${{ matrix.build_type }} --target install
+
+    # ===================
+    # CMAKE-BASED PROJECT
+    # ===================
+
+    - name: Configure [Windows]
+      if: matrix.os == 'windows-latest'
+      shell: bash
+      run: |
+        mkdir -p build
+        cd build
+        cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake \
+              -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install \
+              -DBUILD_TESTING:BOOL=ON ..
+
+    - name: Configure [Ubuntu]
+      if: matrix.os == 'ubuntu-latest'
+      shell: bash
+      run: |
+        mkdir -p build
+        cd build
+        cmake -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
+              -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+              -DBUILD_TESTING:BOOL=ON \
+              -DOSQPEIGEN_RUN_Valgrind_tests:BOOL=ON ..
+
+    - name: Configure [macOS]
+      if: matrix.os == 'macOS-latest'
+      shell: bash
+      run: |
+        mkdir -p build
+        cd build
+        cmake -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
+              -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
+              -DBUILD_TESTING:BOOL=ON ..
+
+    - name: Build
+      shell: bash
+      run: |
+        cd build
+        export PATH=$PATH:/d/a/osqp-eigen/osqp-eigen/install/bin:/d/a/osqp-eigen/osqp-eigen/install/deps/bin:/c/robotology/vcpkg/installed/x64-windows/bin:/c/robotology/vcpkg/installed/x64-windows/debug/bin
+        cmake --build . --config ${{ matrix.build_type }}
+
+    - name: Test
+      shell: bash
+      run: |
+        cd build
+        export PATH=$PATH:/d/a/osqp-eigen/osqp-eigen/install/bin:/d/a/osqp-eigen/osqp-eigen/install/deps/bin:/c/robotology/vcpkg/installed/x64-windows/bin:/c/robotology/vcpkg/installed/x64-windows/debug/bin
+        ctest --output-on-failure -C ${{ matrix.build_type }} .
