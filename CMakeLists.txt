@@ -119,6 +119,7 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
 
 include(InstallBasicPackageFiles)
 install_basic_package_files(${PROJECT_NAME}
+  NAMESPACE OsqpEigen::
   VERSION ${${PROJECT_NAME}_VERSION}
   COMPATIBILITY SameMajorVersion
   VARS_PREFIX ${PROJECT_NAME}
