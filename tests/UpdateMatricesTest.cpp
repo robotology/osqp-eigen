@@ -2,11 +2,11 @@
  * @file UpdateMatricesTest.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
- * @date 2018
+ * @date 2020
  */
 
-// gtest
-#include <gtest/gtest.h>
+// Catch2
+#include <catch2/catch.hpp>
 
 // OsqpEigen
 #include <OsqpEigen/OsqpEigen.h>
@@ -29,7 +29,7 @@ Eigen::Vector3d upperBound;
 
 OsqpEigen::Solver solver;
 
-TEST(QPProblem, FirstRun)
+TEST_CASE("QPProblem - FirstRun")
 {
     // hessian matrix
     H << 4, 0,
@@ -52,22 +52,22 @@ TEST(QPProblem, FirstRun)
     solver.data()->setNumberOfVariables(2);
     solver.data()->setNumberOfConstraints(3);
     solver.settings()->setScaling(0);
-    ASSERT_TRUE(solver.data()->setHessianMatrix(H_s));
-    ASSERT_TRUE(solver.data()->setGradient(gradient));
-    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(A_s));
-    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
+    REQUIRE(solver.data()->setHessianMatrix(H_s));
+    REQUIRE(solver.data()->setGradient(gradient));
+    REQUIRE(solver.data()->setLinearConstraintsMatrix(A_s));
+    REQUIRE(solver.data()->setLowerBound(lowerBound));
+    REQUIRE(solver.data()->setUpperBound(upperBound));
 
-    ASSERT_TRUE(solver.initSolver());
-    ASSERT_TRUE(solver.solve());
+    REQUIRE(solver.initSolver());
+    REQUIRE(solver.solve());
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
               << solution(1) << "]"
               << ANSI_TXT_DFT << std::endl;
-};
+}
 
-TEST(QPProblem, SparsityConstant)
+TEST_CASE("QPProblem - SparsityConstant")
 {
     // update hessian matrix
     H << 4, 0,
@@ -78,9 +78,9 @@ TEST(QPProblem, SparsityConstant)
         0, 1;
     A_s = A.sparseView();
 
-    ASSERT_TRUE(solver.updateHessianMatrix(H_s));
-    ASSERT_TRUE(solver.updateLinearConstraintsMatrix(A_s));
-    ASSERT_TRUE(solver.solve());
+    REQUIRE(solver.updateHessianMatrix(H_s));
+    REQUIRE(solver.updateLinearConstraintsMatrix(A_s));
+    REQUIRE(solver.solve());
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
@@ -88,7 +88,7 @@ TEST(QPProblem, SparsityConstant)
               << ANSI_TXT_DFT << std::endl;
 };
 
-TEST(QPProblem, SparsityChange)
+TEST_CASE("QPProblem - SparsityChange")
 {
     // update hessian matrix
     H << 1, 1,
@@ -99,27 +99,12 @@ TEST(QPProblem, SparsityChange)
         0, 1;
     A_s = A.sparseView();
 
-    ASSERT_TRUE(solver.updateHessianMatrix(H_s));
-    ASSERT_TRUE(solver.updateLinearConstraintsMatrix(A_s));
-    ASSERT_TRUE(solver.solve());
+    REQUIRE(solver.updateHessianMatrix(H_s));
+    REQUIRE(solver.updateLinearConstraintsMatrix(A_s));
+    REQUIRE(solver.solve());
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
               << solution(1) << "]"
               << ANSI_TXT_DFT << std::endl;
 };
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    clock_t startTime, endTime;
-
-    startTime = clock();
-    bool outcome = RUN_ALL_TESTS();
-    endTime = clock();
-
-    std::cerr << "Total time " << (static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC)
-              << " seconds." << std::endl;
-
-    return outcome;
-}

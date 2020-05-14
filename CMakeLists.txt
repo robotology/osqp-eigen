@@ -2,7 +2,10 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later
 
 # Set cmake mimimun version
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
+
+project(OsqpEigen
+  VERSION 0.6.101)
 
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -20,14 +23,14 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
 
-# Enable C++14
+# Disable C and C++ compiler extensions.
+# C/CXX_EXTENSIONS are ON by default to allow the compilers to use extended
+# variants of the C/CXX language.
+# However, this could expose cross-platform bugs in user code or in the headers
+# of third-party dependencies and thus it is strongly suggested to turn
+# extensions off.
+set(CMAKE_C_EXTENSIONS OFF)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED 11)
-
-project(OsqpEigen
-  LANGUAGES CXX
-  VERSION 0.6.101)
 
 # add GNU dirs
 include(GNUInstallDirs)
@@ -53,12 +56,21 @@ if(NOT CMAKE_CONFIGURATION_TYPES)
   endif()
 endif()
 
-# find Eigen
-find_package(Eigen3 REQUIRED)
-include_directories(SYSTEM ${EIGEN3_INCLUDE_DIR})
+option(BUILD_TESTING "Create tests using CMake" OFF)
+include(CTest)
 
-# add OSQP library
-find_package(osqp REQUIRED)
+# Check OsqpEigen dependencies, find necessary libraries.
+include(OsqpEigenDependencies)
+
+# Set default build type to "Release" in single-config generators
+if(NOT CMAKE_CONFIGURATION_TYPES)
+    if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Release" CACHE STRING
+        "Choose the type of build, recommanded options are: Debug or Release" FORCE)
+    endif()
+    set(OSQPEIGEN_BUILD_TYPES "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${OSQPEIGEN_BUILD_TYPES})
+endif()
 
 set(LIBRARY_TARGET_NAME OsqpEigen)
 
@@ -83,8 +95,7 @@ add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TAR
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PRIVATE Eigen3::Eigen)
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp)
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
@@ -92,9 +103,11 @@ set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
   PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
 
+target_compile_features(${LIBRARY_TARGET_NAME} PUBLIC cxx_std_14)
+
 # List exported CMake package dependencies
 set(OSQP_EIGEN_EXPORTED_DEPENDENCIES "")
-list(APPEND OSQP_EIGEN_EXPORTED_DEPENDENCIES osqp)
+list(APPEND OSQP_EIGEN_EXPORTED_DEPENDENCIES osqp Eigen)
 
 install(TARGETS ${LIBRARY_TARGET_NAME}
   EXPORT  ${PROJECT_NAME}
@@ -106,6 +119,7 @@ install(TARGETS ${LIBRARY_TARGET_NAME}
 
 include(InstallBasicPackageFiles)
 install_basic_package_files(${PROJECT_NAME}
+  NAMESPACE OsqpEigen::
   VERSION ${${PROJECT_NAME}_VERSION}
   COMPATIBILITY SameMajorVersion
   VARS_PREFIX ${PROJECT_NAME}
@@ -113,12 +127,7 @@ install_basic_package_files(${PROJECT_NAME}
   DEPENDENCIES ${OSQP_EIGEN_EXPORTED_DEPENDENCIES})
 
 ## Testing
-option(BUILD_TESTING "Create tests using CMake" OFF)
-option(RUN_VALGRIND_TESTS "Run tests with Valgrind" FALSE)
-mark_as_advanced(RUN_VALGRIND_TESTS)
-include(CTest)
-if(BUILD_TESTING)
-  add_subdirectory(tests)
-endif()
+include(AddOsqpEigenUnitTest)
+add_subdirectory(tests)
 
 include(AddUninstallTarget)

@@ -2,11 +2,11 @@
  * @file UpdateMatricesTest.cpp
  * @author Giulio Romualdi
  * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
- * @date 2018
+ * @date 2020
  */
 
-// gtest
-#include <gtest/gtest.h>
+// Catch2
+#include <catch2/catch.hpp>
 
 // OsqpEigen
 #include <OsqpEigen/OsqpEigen.h>
@@ -14,6 +14,7 @@
 // eigen
 #include <Eigen/Dense>
 
+#include <cmath>
 #include <iostream>
 #include <fstream>
 
@@ -183,7 +184,7 @@ void updateConstraintVectors(const Eigen::Matrix<double, 2, 1> &x0,
     upperBound.block(0,0,2,1) = -x0;
 }
 
-TEST(MPCTest, nullptr)
+TEST_CASE("MPCTest Update matrices")
 {
     // open the ofstream
     std::ofstream dataStream;
@@ -236,14 +237,14 @@ TEST(MPCTest, nullptr)
     // set the initial data of the QP solver
     solver.data()->setNumberOfVariables(2 * (mpcWindow + 1) + 1 * mpcWindow);
     solver.data()->setNumberOfConstraints(2 * (mpcWindow + 1));
-    ASSERT_TRUE(solver.data()->setHessianMatrix(hessian));
-    ASSERT_TRUE(solver.data()->setGradient(gradient));
-    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(linearMatrix));
-    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
+    REQUIRE(solver.data()->setHessianMatrix(hessian));
+    REQUIRE(solver.data()->setGradient(gradient));
+    REQUIRE(solver.data()->setLinearConstraintsMatrix(linearMatrix));
+    REQUIRE(solver.data()->setLowerBound(lowerBound));
+    REQUIRE(solver.data()->setUpperBound(upperBound));
 
     // instantiate the solver
-    ASSERT_TRUE(solver.initSolver());
+    REQUIRE(solver.initSolver());
 
     // controller input and QPSolution vector
     Eigen::VectorXd ctr;
@@ -262,17 +263,17 @@ TEST(MPCTest, nullptr)
         setDynamicsMatrices(a, b, c, i * T);
 
         // update the constraint bound
-        ASSERT_TRUE(updateHessianMatrix(solver, Q, R, mpcWindow, i));
-        ASSERT_TRUE(updateLinearConstraintsMatrix(solver, mpcWindow, i));
+        REQUIRE(updateHessianMatrix(solver, Q, R, mpcWindow, i));
+        REQUIRE(updateLinearConstraintsMatrix(solver, mpcWindow, i));
 
         castMPCToQPGradient(Q, yRef, mpcWindow, i, gradient);
-        ASSERT_TRUE(solver.updateGradient(gradient));
+        REQUIRE(solver.updateGradient(gradient));
 
         updateConstraintVectors(x0, lowerBound, upperBound);
-        ASSERT_TRUE(solver.updateBounds(lowerBound, upperBound));
+        REQUIRE(solver.updateBounds(lowerBound, upperBound));
 
         // solve the QP problem
-        ASSERT_TRUE(solver.solve());
+        REQUIRE(solver.solve());
 
         // get the controller input
         QPSolution = solver.getSolution();
@@ -298,11 +299,4 @@ TEST(MPCTest, nullptr)
 
     std::cout << COUT_GTEST_MGT << "Avarage time = " << avarageTime / numberOfSteps
               << " seconds." << ANSI_TXT_DFT << std::endl;
-}
-
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
 }

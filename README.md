@@ -11,7 +11,7 @@ Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) l
 - [osqp](http://osqp.readthedocs.io/en/latest/index.html) of course :smile:;
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page);
 - [cmake](https://cmake.org/);
-- [googletest](https://github.com/google/googletest) (only for testing).
+- [Catch2](https://github.com/catchorg/Catch2) (only for testing).
 
 ## Build the library and the application
 ### Linux / macOs
