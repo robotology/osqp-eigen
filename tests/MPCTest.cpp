@@ -14,8 +14,9 @@
 // eigen
 #include <Eigen/Dense>
 
-#include <iostream>
+#include <cmath>
 #include <fstream>
+#include <iostream>
 
 // colors
 #define ANSI_TXT_GRN "\033[0;32m"
