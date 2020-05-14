@@ -5,13 +5,6 @@
 # This software may be modified and distributed under the terms of the
 # BSD-3-Clause license. See the accompanying LICENSE file for details.
 
-
-find_package(Catch2 QUIET)
-checkandset_dependency(Catch2)
-
-find_package(VALGRIND QUIET)
-checkandset_dependency(VALGRIND)
-
 osqpeigen_dependent_option(OSQPEIGEN_COMPILE_tests
   "Compile tests?" ON
   "OSQPEIGEN_HAS_Catch2;BUILD_TESTING" OFF)
@@ -45,7 +38,7 @@ function(add_osqpeigen_test)
 
     if(OSQPEIGEN_COMPILE_tests)
 
-      set(options DEPENDS_ON_EIGEN_PRIVATE)
+      set(options)
       set(oneValueArgs NAME)
       set(multiValueArgs SOURCES LINKS)
 
@@ -59,7 +52,6 @@ function(add_osqpeigen_test)
 
       set(name ${${prefix}_NAME})
       set(unit_test_files ${${prefix}_SOURCES})
-      set(depends_on_eigen_private ${${prefix}_DEPENDS_ON_EIGEN_PRIVATE})
 
       set(targetname ${name}UnitTests)
       add_executable(${targetname}
@@ -67,11 +59,7 @@ function(add_osqpeigen_test)
 
       target_link_libraries(${targetname} PRIVATE CatchTestMain ${${prefix}_LINKS})
       target_compile_definitions(${targetname} PRIVATE CATCH_CONFIG_FAST_COMPILE CATCH_CONFIG_DISABLE_MATCHERS)
-      target_compile_features(${targetname} PUBLIC cxx_std_17)
-
-      if (depends_on_eigen_private)
-        target_include_directories(${targetname} PRIVATE SYSTEM ${EIGEN3_INCLUDE_DIR})
-      endif()
+      target_compile_features(${targetname} PUBLIC cxx_std_14)
 
       add_test(NAME ${targetname} COMMAND ${targetname})
 
