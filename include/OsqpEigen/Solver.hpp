@@ -231,6 +231,12 @@ namespace OsqpEigen
          * @return the pointer to Data object.
          */
         const std::unique_ptr<OsqpEigen::Data>& data() const;
+
+        /**
+         * Get the pointer to the OSQP workspace.
+         * @return the pointer to Workspace object.
+         */
+        const std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>>& workspace() const;
     };
 
     #include <OsqpEigen/Solver.tpp>
