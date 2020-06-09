@@ -1,0 +1,50 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+    - 'master'
+
+jobs:
+  docs:
+    name: "Deploy"
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@master
+      - uses: webfactory/ssh-agent@v0.3.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_GH_PAGES }}
+      - name: Dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y doxygen graphviz
+
+      - name: Check remote
+        run: git ls-remote --heads --exit-code https://github.com/${{ github.repository }}.git gh-pages
+
+      - name: Configure Git
+        run: |
+          git config --global push.default upstream
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+
+      - name: Clone and rebase
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          git clone git@github.com:${{ github.repository }}.git gh-pages
+          cd gh-pages
+          git checkout gh-pages
+          git rebase master
+
+      - name: Build Doxygen
+        run: |
+          cd ${GITHUB_WORKSPACE}/gh-pages/doxygen
+          doxygen ./generate.txt
+
+      - name: Commit and push
+        run: |
+          cd ${GITHUB_WORKSPACE}/gh-pages
+          git add .
+          git commit --amend --no-edit
+          git push --force-with-lease

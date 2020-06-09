@@ -140,6 +140,15 @@ const Eigen::VectorXd &OsqpEigen::Solver::getSolution()
     return m_solution;
 }
 
+const Eigen::VectorXd &OsqpEigen::Solver::getDualSolution()
+{
+    // copy data from an array to Eigen vector
+    c_float* solution = m_workspace->solution->y;
+    m_dualSolution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->m, 1);
+
+    return m_dualSolution;
+}
+
 const std::unique_ptr<OsqpEigen::Settings>& OsqpEigen::Solver::settings() const
 {
     return m_settings;
@@ -148,6 +157,11 @@ const std::unique_ptr<OsqpEigen::Settings>& OsqpEigen::Solver::settings() const
 const std::unique_ptr<OsqpEigen::Data>& OsqpEigen::Solver::data() const
 {
     return m_data;
+}
+
+const std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>>& OsqpEigen::Solver::workspace() const
+{
+    return m_workspace;
 }
 
 bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient)

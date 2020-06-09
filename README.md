@@ -1,17 +1,22 @@
-# osqp-eigen
-Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) library.
+<p align="center">
+<h1 align="center">osqp-eigen</h1>
+</p>
 
-| System        | Status                                                                                                                                                                      |
-| ------------- | :-------------:                                                                                                                                                             |
-| Linux / OSX   | [![Build Status](https://travis-ci.org/robotology/osqp-eigen.svg?branch=master)](https://travis-ci.org/robotology/osqp-eigen)                                               |
-| Windows       | [![Build status](https://ci.appveyor.com/api/projects/status/1uecfmyvxb2dujt9/branch/master?svg=true)](https://ci.appveyor.com/project/robotology/osqp-eigen/branch/master) |
+<p align="center">
+<a href="https://isocpp.org"><img src="https://img.shields.io/badge/standard-C++14-blue.svg?style=flat&logo=c%2B%2B" alt="C++ Standard"/></a>
+<a href="./LICENSE"><img src="https://img.shields.io/badge/license-LGPL-19c2d8.svg" alt="Size" /></a>
+<a href="https://www.codacy.com/manual/GiulioRomualdi/osqp-eigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade"><img src="https://api.codacy.com/project/badge/Grade/a73c260e38d949eabeecc424410d859c"/></a>
+<a href="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg"><img src="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg"/></a>
+</p>
+
+Simple C++ wrapper for [osqp](http://osqp.readthedocs.io/en/latest/index.html) library.
 
 
 ## Dependeces
 - [osqp](http://osqp.readthedocs.io/en/latest/index.html) of course :smile:;
 - [Eigen3](http://eigen.tuxfamily.org/index.php?title=Main_Page);
 - [cmake](https://cmake.org/);
-- [googletest](https://github.com/google/googletest) (only for testing).
+- [Catch2](https://github.com/catchorg/Catch2) (only for testing).
 
 ## Build the library and the application
 ### Linux / macOs

@@ -5,8 +5,8 @@
  * @date 2018
  */
 
-// gtest
-#include <gtest/gtest.h>
+// Catch2
+#include <catch2/catch.hpp>
 
 // OsqpEigen
 #include <OsqpEigen/OsqpEigen.h>
@@ -14,8 +14,9 @@
 // eigen
 #include <Eigen/Dense>
 
-#include <iostream>
+#include <cmath>
 #include <fstream>
+#include <iostream>
 
 // colors
 #define ANSI_TXT_GRN "\033[0;32m"
@@ -213,7 +214,7 @@ double getErrorNorm(const Eigen::Matrix<double, 12, 1> &x,
 }
 
 
-TEST(MPCTest,)
+TEST_CASE("MPCTest")
 {
     // open the ofstream
     std::ofstream dataStream;
@@ -272,14 +273,14 @@ TEST(MPCTest,)
     // set the initial data of the QP solver
     solver.data()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
     solver.data()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
-    ASSERT_TRUE(solver.data()->setHessianMatrix(hessian));
-    ASSERT_TRUE(solver.data()->setGradient(gradient));
-    ASSERT_TRUE(solver.data()->setLinearConstraintsMatrix(linearMatrix));
-    ASSERT_TRUE(solver.data()->setLowerBound(lowerBound));
-    ASSERT_TRUE(solver.data()->setUpperBound(upperBound));
+    REQUIRE(solver.data()->setHessianMatrix(hessian));
+    REQUIRE(solver.data()->setGradient(gradient));
+    REQUIRE(solver.data()->setLinearConstraintsMatrix(linearMatrix));
+    REQUIRE(solver.data()->setLowerBound(lowerBound));
+    REQUIRE(solver.data()->setUpperBound(upperBound));
 
     // instantiate the solver
-    ASSERT_TRUE(solver.initSolver());
+    REQUIRE(solver.initSolver());
 
     // controller input and QPSolution vector
     Eigen::Vector4d ctr;
@@ -296,7 +297,7 @@ TEST(MPCTest,)
         startTime = clock();
 
         // solve the QP problem
-        ASSERT_TRUE(solver.solve());
+        REQUIRE(solver.solve());
 
         // get the controller input
         QPSolution = solver.getSolution();
@@ -313,7 +314,7 @@ TEST(MPCTest,)
 
         // update the constraint bound
         updateConstraintVectors(x0, lowerBound, upperBound);
-        ASSERT_TRUE(solver.updateBounds(lowerBound, upperBound));
+        REQUIRE(solver.updateBounds(lowerBound, upperBound));
 
         endTime = clock();
 
@@ -326,12 +327,5 @@ TEST(MPCTest,)
     std::cout << COUT_GTEST_MGT << "Avarage time = " << avarageTime / numberOfSteps
               << " seconds." << ANSI_TXT_DFT << std::endl;
 
-    ASSERT_LE(getErrorNorm(x0, xRef), 0.001);
-}
-
-
-int main(int argc, char **argv)
-{
-    testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
+    REQUIRE(getErrorNorm(x0, xRef) <=  0.001);
 }

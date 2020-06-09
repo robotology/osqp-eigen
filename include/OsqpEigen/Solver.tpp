@@ -89,7 +89,11 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseCompressedBase<De
         clearSolver();
 
         // initialize a new solver
-        initSolver();
+        if(!initSolver()){
+            std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] Unable to Initialize the solver."
+                      << std::endl;
+            return false;
+        }
 
         // set the old primal and dual variables
         if(!setPrimalVariable(m_primalVariables)){
@@ -184,8 +188,11 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseCompres
         // clear the old solver
         clearSolver();
 
-        // initialize a new solver
-        initSolver();
+        if(!initSolver()){
+            std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] Unable to Initialize the solver."
+                      << std::endl;
+            return false;
+        }
 
         // set the old primal and dual variables
         if(!setPrimalVariable(m_primalVariables)){
