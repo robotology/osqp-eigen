@@ -123,7 +123,7 @@ bool OsqpEigen::Solver::solve()
     // check if the solution is feasible
     if(m_workspace->info->status_val != OSQP_SOLVED)
     {
-        std::cerr << "[OsqpEigen::Solver::solve] The solution is unfeasible."
+        std::cerr << "[OsqpEigen::Solver::solve] The solution is infeasible."
                   << std::endl;
         return false;
     }

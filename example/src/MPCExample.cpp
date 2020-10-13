@@ -256,7 +256,7 @@ int main()
 
     // set the initial data of the QP solver
     solver.data()->setNumberOfVariables(12 * (mpcWindow + 1) + 4 * mpcWindow);
-    solver.data()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) +  4 * mpcWindow);
+    solver.data()->setNumberOfConstraints(2 * 12 * (mpcWindow + 1) + 4 * mpcWindow);
     if(!solver.data()->setHessianMatrix(hessian)) return 1;
     if(!solver.data()->setGradient(gradient)) return 1;
     if(!solver.data()->setLinearConstraintsMatrix(linearMatrix)) return 1;
