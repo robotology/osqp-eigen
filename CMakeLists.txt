@@ -126,6 +126,9 @@ install_basic_package_files(${PROJECT_NAME}
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
   DEPENDENCIES ${OSQP_EIGEN_EXPORTED_DEPENDENCIES})
 
+# Install package.xml to share
+install(FILES package.xml DESTINATION share/cmake/osqp-eigen)
+
 ## Testing
 include(AddOsqpEigenUnitTest)
 add_subdirectory(tests)

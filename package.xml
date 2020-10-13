@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>osqp-eigen</name>
+  <version>0.6.2</version>
+  <description>Simple Eigen-C++ wrapper for OSQP library </description>
+  <maintainer email="tbd@tbd.tbd">tbd</maintainer>
+
+  <license>LGPLv3</license>
+
+  <url type="website">https://github.com/Robotology/osqp-eigen</url>
+
+  <build_depend>git</build_depend>
+  <!-- The following tags are recommended by REP-136 -->
+  <exec_depend condition="$ROS_VERSION == 1">catkin</exec_depend>
+  <exec_depend condition="$ROS_VERSION == 2">ament_cmake</exec_depend>
+  <depend>osqp</depend>
+
+  <buildtool_depend>cmake</buildtool_depend>
+  <export>
+    <build_type>cmake</build_type>
+  </export>
+</package>
