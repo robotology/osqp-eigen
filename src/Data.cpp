@@ -107,6 +107,11 @@ bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynam
     return true;
 }
 
+Eigen::Matrix<c_float, Eigen::Dynamic, 1> OsqpEigen::Data::getGradient()
+{
+    return Eigen::Map<Eigen::Matrix<c_float, Eigen::Dynamic, 1>>(m_data->q, m_data->n);
+}
+
 bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound)
 {
     if(lowerBound.rows() != m_data->m){

@@ -95,6 +95,8 @@ namespace OsqpEigen
          */
         bool setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradientVector);
 
+        Eigen::Matrix<c_float, Eigen::Dynamic, 1> getGradient();
+
         /**
          * Set the linear constraint matrix A (size m x n)
          * @param linearConstraintsMatrix is the linear constraints matrix A.
