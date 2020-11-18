@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@master
-      - uses: webfactory/ssh-agent@v0.3.0
+      - uses: webfactory/ssh-agent@v0.4.1
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_GH_PAGES }}
       - name: Dependencies
