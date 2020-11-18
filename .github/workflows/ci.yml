@@ -12,6 +12,8 @@ env:
   osqp_TAG: v0.6.0
   vcpkg_robotology_TAG: v0.0.3
   Catch2_TAG: v2.12.1
+  # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
+  VCPKG_INSTALLATION_ROOT: C:\robotology\vcpkg
 
 # Test with different operating systems
 jobs:
@@ -56,8 +58,6 @@ jobs:
         md C:/robotology/vcpkg
         wget https://github.com/robotology/robotology-superbuild-dependencies-vcpkg/releases/download/${env:vcpkg_robotology_TAG}/vcpkg-robotology.zip
         unzip vcpkg-robotology.zip -d C:/robotology/vcpkg
-        # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg
-        echo "::set-env name=VCPKG_INSTALLATION_ROOT::C:/robotology/vcpkg"
 
         # Install Catch2
         cd C:/robotology/vcpkg
