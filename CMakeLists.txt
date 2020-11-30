@@ -59,6 +59,11 @@ endif()
 option(BUILD_TESTING "Create tests using CMake" OFF)
 include(CTest)
 
+option(DEBUG_OUTPUT "Print debug error messages to cerr" ON)
+if(DEBUG_OUTPUT)
+    add_compile_definitions("DEBUG_OUTPUT")
+endif()
+
 # Check OsqpEigen dependencies, find necessary libraries.
 include(OsqpEigenDependencies)
 
@@ -78,7 +83,8 @@ set(LIBRARY_TARGET_NAME OsqpEigen)
 set(${LIBRARY_TARGET_NAME}_SRC
   src/Data.cpp
   src/Settings.cpp
-  src/Solver.cpp)
+  src/Solver.cpp
+  src/Debug.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
   include/OsqpEigen/OsqpEigen.h
