@@ -85,6 +85,12 @@ void OsqpEigen::Settings::setAdaptiveRhoFraction(const double adaptiveRhoFractio
     unused(adaptiveRhoFraction);
 # endif //# if EMBEDDED != 1
 }
+
+void OsqpEigen::Settings::setMaxIteraction(const int maxIteration)
+{
+    setMaxIteration(maxIteration);
+}
+
 void OsqpEigen::Settings::setMaxIteration(const int maxIteration)
 {
     m_settings->max_iter = (c_int)maxIteration;
