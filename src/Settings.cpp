@@ -47,7 +47,7 @@ void OsqpEigen::Settings::setAdaptiveRho(const bool isRhoStepSizeAdactive)
 # if EMBEDDED != 1
     m_settings->adaptive_rho = (c_int)isRhoStepSizeAdactive;
 # else
-    debugStream<< "[OsqpEigen::Settings::setAdaptiveRho] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setAdaptiveRho] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(isRhoStepSizeAdactive);
 # endif
 }
@@ -57,7 +57,7 @@ void OsqpEigen::Settings::setAdaptiveRhoInterval(const int rhoInterval)
 # if EMBEDDED != 1
     m_settings->adaptive_rho_interval = (c_int)rhoInterval;
 # else
-    debugStream<< "[OsqpEigen::Settings::setAdaptiveRhoInterval] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setAdaptiveRhoInterval] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(rhoInterval);
 # endif
 }
@@ -67,7 +67,7 @@ void OsqpEigen::Settings::setAdaptiveRhoTolerance(const double adaptiveRhoTolera
 # if EMBEDDED != 1
     m_settings->adaptive_rho_tolerance = (c_float)adaptiveRhoTolerance;
 # else
-    debugStream<< "[OsqpEigen::Settings::setAdaptiveRhoTolerance] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setAdaptiveRhoTolerance] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(adaptiveRhoTolerance);
 # endif
 }
@@ -82,7 +82,7 @@ void OsqpEigen::Settings::setAdaptiveRhoFraction(const double adaptiveRhoFractio
     unused(adaptiveRhoFraction);
 # endif //ifdef PROFILING
 # else //# if EMBEDDED != 1
-    debugStream<< "[OsqpEigen::Settings::setAdaptiveRhoFraction] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setAdaptiveRhoFraction] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(adaptiveRhoFraction);
 # endif //# if EMBEDDED != 1
 }
@@ -126,7 +126,7 @@ void OsqpEigen::Settings::setDelta(const double delta)
 # ifndef EMBEDDED
     m_settings->delta = (c_float)delta;
 # else
-    debugStream<< "[OsqpEigen::Settings::setDelta] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setDelta] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(delta);
 # endif
 }
@@ -136,7 +136,7 @@ void OsqpEigen::Settings::setPolish(const bool polish)
 # ifndef EMBEDDED
     m_settings->polish = (c_int)polish;
 # else
-    debugStream<< "[OsqpEigen::Settings::setPolish] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setPolish] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(polish);
 # endif
 }
@@ -146,7 +146,7 @@ void OsqpEigen::Settings::setPolishRefineIter(const int polishRefineIter)
 # ifndef EMBEDDED
     m_settings->polish_refine_iter = (c_int)polishRefineIter;
 # else
-    debugStream<< "[OsqpEigen::Settings::setPolishRefineIter] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setPolishRefineIter] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(polishRefineIter);
 # endif
 }
@@ -156,7 +156,7 @@ void OsqpEigen::Settings::setVerbosity(const bool isVerbose)
 #ifndef EMBEDDED
     m_settings->verbose = (c_int)isVerbose;
 #else
-    debugStream<< "[OsqpEigen::Settings::setVerbosity] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+    debugStream()<< "[OsqpEigen::Settings::setVerbosity] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
     unused(isVerbose);
 #endif
 }
