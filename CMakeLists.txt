@@ -59,10 +59,7 @@ endif()
 option(BUILD_TESTING "Create tests using CMake" OFF)
 include(CTest)
 
-option(DEBUG_OUTPUT "Print debug error messages to cerr" ON)
-if(DEBUG_OUTPUT)
-    add_compile_definitions("DEBUG_OUTPUT")
-endif()
+option(OSQP_EIGEN_DEBUG_OUTPUT "Print debug error messages to cerr" ON)
 
 # Check OsqpEigen dependencies, find necessary libraries.
 include(OsqpEigenDependencies)
@@ -95,7 +92,8 @@ set(${LIBRARY_TARGET_NAME}_HDR
   include/OsqpEigen/Data.tpp
   include/OsqpEigen/Settings.hpp
   include/OsqpEigen/Solver.hpp
-  include/OsqpEigen/Solver.tpp)
+  include/OsqpEigen/Solver.tpp
+  include/OsqpEigen/Debug.hpp)
 
 add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -110,6 +108,10 @@ set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
 
 target_compile_features(${LIBRARY_TARGET_NAME} PUBLIC cxx_std_14)
+
+if(OSQP_EIGEN_DEBUG_OUTPUT)
+    target_compile_definitions(${LIBRARY_TARGET_NAME} PRIVATE "OSQP_EIGEN_DEBUG_OUTPUT")
+endif()
 
 # List exported CMake package dependencies
 set(OSQP_EIGEN_EXPORTED_DEPENDENCIES "")

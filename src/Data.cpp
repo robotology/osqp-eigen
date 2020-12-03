@@ -99,7 +99,7 @@ bool OsqpEigen::Data::isSet() const
 bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradient)
 {
     if(gradient.rows() != m_data->n){
-        debugStream << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -111,7 +111,7 @@ bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynam
 bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound)
 {
     if(lowerBound.rows() != m_data->m){
-        debugStream << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -123,7 +123,7 @@ bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dyn
 bool OsqpEigen::Data::setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
 {
     if(upperBound.rows() != m_data->m){
-        debugStream << "[OsqpEigen::Data::setLowerBound] The size of the upper bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setLowerBound] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }

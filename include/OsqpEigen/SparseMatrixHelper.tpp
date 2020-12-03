@@ -26,7 +26,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCo
     // instantiate csc matrix
     // MEMORY ALLOCATION!!
     if(osqpSparseMatrix != nullptr){
-        debugStream << "[OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
+        debugStream() << "[OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix] osqpSparseMatrix pointer is not a null pointer! "
                   << std::endl;
         return false;
     }
@@ -63,7 +63,7 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(const csc* const 
 {
     // if the matrix is not instantiate the triplets vector is empty
     if(osqpSparseMatrix == nullptr){
-        debugStream << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets] the osqpSparseMatrix is not initialized."
+        debugStream() << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -103,7 +103,7 @@ bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix(const cs
 {
     // if the matrix is not instantiate the eigen matrix is empty
     if(osqpSparseMatrix == nullptr) {
-        debugStream << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
+        debugStream() << "[OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix] the osqpSparseMatrix is not initialized."
                   << std::endl;
         return false;
     }
@@ -130,7 +130,7 @@ bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets(const Eigen::Spa
                                                                 std::vector<Eigen::Triplet<T>> &tripletList)
 {
     if(eigenSparseMatrix.nonZeros() == 0){
-        debugStream << "[OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
+        debugStream() << "[OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets] The eigenSparseMatrix is empty."
                   << std::endl;
         return false;
     }

@@ -78,7 +78,7 @@ void OsqpEigen::Settings::setAdaptiveRhoFraction(const double adaptiveRhoFractio
 # ifdef PROFILING
     m_settings->adaptive_rho_fraction = (c_float)adaptiveRhoFraction;
 # else
-    debugStream<< "[OsqpEigen::Settings::setAdaptiveRhoFraction] OSPQ has been set without PROFILING, hence this setting is disabled." << std::endl;
+    debugStream() << "[OsqpEigen::Settings::setAdaptiveRhoFraction] OSPQ has been set without PROFILING, hence this setting is disabled." << std::endl;
     unused(adaptiveRhoFraction);
 # endif //ifdef PROFILING
 # else //# if EMBEDDED != 1
@@ -181,7 +181,7 @@ void OsqpEigen::Settings::setTimeLimit(const double timeLimit)
 # ifdef PROFILING
     m_settings->time_limit = (c_float)timeLimit;
 # else
-    debugStream<< "[OsqpEigen::Settings::setTimeLimit] OSPQ has been set without PROFILING, hence this setting is disabled." << std::endl;
+    debugStream() << "[OsqpEigen::Settings::setTimeLimit] OSPQ has been set without PROFILING, hence this setting is disabled." << std::endl;
     unused(timeLimit);
 # endif
 }
