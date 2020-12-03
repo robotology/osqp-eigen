@@ -95,7 +95,7 @@ namespace OsqpEigen
          * Set the max number of iterations.
          * @param maxIteration max number of iteration
          */
-		void setMaxIteration(const int maxIteration);
+        void setMaxIteration(const int maxIteration);
 
         /**
          * Set the absolute convergence tolerance.
