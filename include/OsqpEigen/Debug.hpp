@@ -4,7 +4,7 @@
 #include <iostream>
 
 namespace OsqpEigen {
-	std::ostream &debugStream();
+    std::ostream &debugStream();
 }
 
 #endif /* OSQPEIGEN_DEBUG_HPP */
