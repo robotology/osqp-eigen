@@ -5,7 +5,7 @@
  * @date 2018
  */
 
-#include "Debug.hpp"
+#include <OsqpEigen/Debug.hpp>
 
 template<typename Derived>
 bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(const Eigen::SparseCompressedBase<Derived> &eigenSparseMatrix,
