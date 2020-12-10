@@ -9,6 +9,7 @@
 #include <OsqpEigen/Data.hpp>
 #include <OsqpEigen/Settings.hpp>
 #include <OsqpEigen/Solver.hpp>
+#include <OsqpEigen/Debug.hpp>
 
 void OsqpEigen::Solver::OSQPWorkspaceDeleter(OSQPWorkspace* ptr) noexcept
 {
@@ -27,7 +28,7 @@ OsqpEigen::Solver::Solver()
 bool OsqpEigen::Solver::clearSolverVariables()
 {
     if(!m_isSolverInitialized){
-        std::cerr << "[OsqpEigen::Solver::clearSolverVariables] Unable to clear the solver variables. "
+        debugStream() << "[OsqpEigen::Solver::clearSolverVariables] Unable to clear the solver variables. "
                   << "Are you sure that the solver is initialized?"
                   << std::endl;
         return false;
@@ -66,14 +67,14 @@ bool OsqpEigen::Solver::clearSolverVariables()
 bool OsqpEigen::Solver::initSolver()
 {
     if(m_isSolverInitialized){
-        std::cerr << "[OsqpEigen::Solver::initSolver] The solver has been already initialized. "
+        debugStream() << "[OsqpEigen::Solver::initSolver] The solver has been already initialized. "
                   << "Please use clearSolver() method to deallocate memory."
                   << std::endl;
         return false;
     }
 
     if(!m_data->isSet()){
-        std::cerr << "[OsqpEigen::Solver::initSolver] Some data are not set."
+        debugStream() << "[OsqpEigen::Solver::initSolver] Some data are not set."
                   << std::endl;
         return false;
     }
@@ -81,7 +82,7 @@ bool OsqpEigen::Solver::initSolver()
     OSQPWorkspace* workspace;
     if(osqp_setup(&workspace, m_data->getData(),
                   m_settings->getSettings()) != 0 ){
-        std::cerr << "[OsqpEigen::Solver::initSolver] Unable to setup the workspace."
+        debugStream() << "[OsqpEigen::Solver::initSolver] Unable to setup the workspace."
                   << std::endl;
         return false;
     }
@@ -108,14 +109,14 @@ void OsqpEigen::Solver::clearSolver()
 bool OsqpEigen::Solver::solve()
 {
     if(!m_isSolverInitialized){
-        std::cerr << "[OsqpEigen::Solver::solve] The solve has hot been initialized yet. "
+        debugStream() << "[OsqpEigen::Solver::solve] The solve has hot been initialized yet. "
                   << "Please call initSolver() method."
                   << std::endl;
         return false;
     }
 
     if(osqp_solve(m_workspace.get()) != 0){
-        std::cerr << "[OsqpEigen::Solver::solve] Unable to solve the problem."
+        debugStream() << "[OsqpEigen::Solver::solve] Unable to solve the problem."
                   << std::endl;
         return false;
     }
@@ -123,7 +124,7 @@ bool OsqpEigen::Solver::solve()
     // check if the solution is feasible
     if(m_workspace->info->status_val != OSQP_SOLVED)
     {
-        std::cerr << "[OsqpEigen::Solver::solve] The solution is unfeasible."
+        debugStream() << "[OsqpEigen::Solver::solve] The solution is unfeasible."
                   << std::endl;
         return false;
     }
@@ -168,14 +169,14 @@ bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_fl
 {
     // check if the dimension of the gradient is correct
     if(gradient.rows() != m_workspace->data->n){
-        std::cerr << "[OsqpEigen::Solver::updateGradient] The size of the gradient must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Solver::updateGradient] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the gradient vector
     if(osqp_update_lin_cost(m_workspace.get(), gradient.data())){
-        std::cerr << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
+        debugStream() << "[OsqpEigen::Solver::updateGradient] Error when the update gradient is called."
                   << std::endl;
         return false;
     }
@@ -186,14 +187,14 @@ bool OsqpEigen::Solver::updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_
 {
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[OsqpEigen::Solver::updateLowerBound] The size of the lower bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Solver::updateLowerBound] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the lower bound vector
     if(osqp_update_lower_bound(m_workspace.get(), lowerBound.data())){
-        std::cerr << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
+        debugStream() << "[OsqpEigen::Solver::updateLowerBound] Error when the update lower bound is called."
                   << std::endl;
         return false;
     }
@@ -205,14 +206,14 @@ bool OsqpEigen::Solver::updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[OsqpEigen::Solver::updateUpperBound] The size of the upper bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Solver::updateUpperBound] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update the upper bound vector
     if(osqp_update_upper_bound(m_workspace.get(), upperBound.data())){
-        std::cerr << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
+        debugStream() << "[OsqpEigen::Solver::updateUpperBound] Error when the update upper bound is called."
                   << std::endl;
         return false;
     }
@@ -224,21 +225,21 @@ bool OsqpEigen::Solver::updateBounds(const Eigen::Ref<const Eigen::Matrix<c_floa
 {
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
-        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the upper bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Solver::updateBounds] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
-        std::cerr << "[OsqpEigen::Solver::updateBounds] The size of the lower bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Solver::updateBounds] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
 
     // update lower and upper constraints
     if(osqp_update_bounds(m_workspace.get(), lowerBound.data(), upperBound.data())){
-        std::cerr << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
+        debugStream() << "[OsqpEigen::Solver::updateBounds] Error when the update bounds is called."
                   << std::endl;
         return false;
     }
