@@ -131,3 +131,14 @@ bool OsqpEigen::Data::setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dyn
     m_data->u = upperBound.data();
     return true;
 }
+
+bool OsqpEigen::Data::setBounds(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound,
+                                Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
+{
+    bool ok = true;
+
+    ok = ok && this->setLowerBound(lowerBound);
+    ok = ok && this->setUpperBound(upperBound);
+
+    return ok;
+}
