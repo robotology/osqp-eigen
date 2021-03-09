@@ -124,6 +124,18 @@ namespace OsqpEigen
         bool setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBoundVector);
 
         /**
+         * Set the array for upper and lower bounds (size m).
+         * @param lowerBound is the lower bound constraint.
+         * @param upperBound is the upper bound constraint.
+         * @note the elements of the upperBound and lowerBound are not copied inside the library.
+         * The user has to guarantee that the lifetime of the object passed is the same of the
+         * OsqpEigen object.
+         * @return true/false in case of success/failure.
+         */
+        bool setBounds(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound,
+                       Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound);
+
+        /**
          * Get the OSQPData struct.
          * @return a const point to the OSQPData struct.
          */
