@@ -10,6 +10,37 @@
 
 #include <OsqpEigen/OsqpEigen.h>
 
+TEST_CASE("QPProblem - Unconstrained")
+{
+    constexpr double tolerance = 1e-4;
+
+    Eigen::SparseMatrix<double> H_s(2,2);
+    H_s.insert(0,0) = 3;
+    H_s.insert(0,1) = 2;
+    H_s.insert(1,0) = 2;
+    H_s.insert(1,1) = 4;
+
+    Eigen::Vector2d gradient;
+    gradient << 3, 1;
+
+    OsqpEigen::Solver solver;
+    solver.settings()->setVerbosity(false);
+    solver.data()->setNumberOfVariables(2);
+    solver.data()->setNumberOfConstraints(0);
+
+    REQUIRE(solver.data()->setHessianMatrix(H_s));
+    REQUIRE(solver.data()->setGradient(gradient));
+
+    REQUIRE(solver.initSolver());
+    REQUIRE(solver.solve());
+
+    // expected solution
+    Eigen::Vector2d expectedSolution;
+    expectedSolution << -1.2500,  0.3750;
+    REQUIRE(solver.getSolution().isApprox(expectedSolution, tolerance));
+}
+
+
 TEST_CASE("QPProblem")
 {
     constexpr double tolerance = 1e-4;
