@@ -24,7 +24,9 @@ TEST_CASE("QPProblem - Unconstrained")
     gradient << 3, 1;
 
     OsqpEigen::Solver solver;
-    solver.settings()->setVerbosity(false);
+    solver.settings()->setVerbosity(true);
+    solver.settings()->setAlpha(1.0);
+
     solver.data()->setNumberOfVariables(2);
     solver.data()->setNumberOfConstraints(0);
 
@@ -37,6 +39,7 @@ TEST_CASE("QPProblem - Unconstrained")
     // expected solution
     Eigen::Vector2d expectedSolution;
     expectedSolution << -1.2500,  0.3750;
+
     REQUIRE(solver.getSolution().isApprox(expectedSolution, tolerance));
 }
 
@@ -67,7 +70,7 @@ TEST_CASE("QPProblem")
     upperBound << 1, 0.7, 0.7;
 
     OsqpEigen::Solver solver;
-    solver.settings()->setVerbosity(false);
+    solver.settings()->setVerbosity(true);
     solver.settings()->setAlpha(1.0);
 
     REQUIRE_FALSE(solver.data()->setHessianMatrix(H_s));
@@ -85,5 +88,6 @@ TEST_CASE("QPProblem")
     REQUIRE(solver.solve());
     Eigen::Vector2d expectedSolution;
     expectedSolution << 0.3,  0.7;
+
     REQUIRE(solver.getSolution().isApprox(expectedSolution, tolerance));
 }
