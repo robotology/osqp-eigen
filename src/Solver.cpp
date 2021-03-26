@@ -186,6 +186,12 @@ const std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>>& Osqp
 
 bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& gradient)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::updateGradient] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     // check if the dimension of the gradient is correct
     if(gradient.rows() != m_workspace->data->n){
         debugStream() << "[OsqpEigen::Solver::updateGradient] The size of the gradient must be equal to the number of the variables."
@@ -204,6 +210,12 @@ bool OsqpEigen::Solver::updateGradient(const Eigen::Ref<const Eigen::Matrix<c_fl
 
 bool OsqpEigen::Solver::updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::updateLowerBound] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     // check if the dimension of the lowerBound vector is correct
     if(lowerBound.rows() != m_workspace->data->m){
         debugStream() << "[OsqpEigen::Solver::updateLowerBound] The size of the lower bound must be equal to the number of the variables."
@@ -223,6 +235,12 @@ bool OsqpEigen::Solver::updateLowerBound(const Eigen::Ref<const Eigen::Matrix<c_
 
 bool OsqpEigen::Solver::updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::updateUpperBound] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
         debugStream() << "[OsqpEigen::Solver::updateUpperBound] The size of the upper bound must be equal to the number of the variables."
@@ -242,6 +260,12 @@ bool OsqpEigen::Solver::updateUpperBound(const Eigen::Ref<const Eigen::Matrix<c_
 bool OsqpEigen::Solver::updateBounds(const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& lowerBound,
                                      const Eigen::Ref<const Eigen::Matrix<c_float, Eigen::Dynamic, 1>>& upperBound)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::updateBounds] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     // check if the dimension of the upperBound vector is correct
     if(upperBound.rows() != m_workspace->data->m){
         debugStream() << "[OsqpEigen::Solver::updateBounds] The size of the upper bound must be equal to the number of the variables."

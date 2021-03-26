@@ -216,6 +216,12 @@ template<typename T, int n, int m>
 bool OsqpEigen::Solver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariable,
                                                   const Eigen::Matrix<T, m, 1> &dualVariable)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::setWarmStart] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     if(primalVariable.rows() != m_workspace->data->n){
         debugStream() << "[OsqpEigen::Solver::setWarmStart] The size of the primal variable vector has to be equal to "
                   << " the number of variables."
@@ -240,6 +246,12 @@ bool OsqpEigen::Solver::setWarmStart(const Eigen::Matrix<T, n, 1> &primalVariabl
 template<typename T, int n>
 bool OsqpEigen::Solver::setPrimalVariable(const Eigen::Matrix<T, n, 1> &primalVariable)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::setPrimalVariable] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     if(primalVariable.rows() != m_workspace->data->n){
         debugStream() << "[OsqpEigen::Solver::setPrimalVariable] The size of the primal variable vector has to be equal to "
                   << " the number of variables."
@@ -271,6 +283,12 @@ bool OsqpEigen::Solver::setDualVariable(const Eigen::Matrix<T, m, 1> &dualVariab
 template<typename T, int n>
 bool OsqpEigen::Solver::getPrimalVariable(Eigen::Matrix<T, n, 1> &primalVariable)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::getPrimalVariable] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
     if(n == Eigen::Dynamic){
         primalVariable.resize(m_workspace->data->n, 1);
     }
@@ -291,6 +309,13 @@ bool OsqpEigen::Solver::getPrimalVariable(Eigen::Matrix<T, n, 1> &primalVariable
 template<typename T, int m>
 bool OsqpEigen::Solver::getDualVariable(Eigen::Matrix<T, m, 1> &dualVariable)
 {
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::getDualVariable] The solver is not initialized"
+                      << std::endl;
+        return false;
+    }
+
+
     if(m == Eigen::Dynamic){
         dualVariable.resize(m_workspace->data->m, 1);
     }
