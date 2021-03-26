@@ -79,6 +79,25 @@ bool OsqpEigen::Solver::initSolver()
         return false;
     }
 
+    // if the number of constraints is equal to zero the user may not
+    // call setLinearConstraintsMatrix()
+    if(m_data->getData()->m == 0)
+    {
+        if(m_data->getData()->A == nullptr)
+        {
+            // let's create the matrix manually. This is required by osqp. Please check
+            // https://github.com/oxfordcontrol/osqp/issues/295
+            Eigen::SparseMatrix<c_float> A(m_data->getData()->m, m_data->getData()->n);
+            if(!m_data->setLinearConstraintsMatrix(A))
+            {
+                debugStream() << "[OsqpEigen::Solver::initSolver] Unable to set the empty linear constraint "
+                              << "matrix in case of unconstrained optimization problem"
+                              << std::endl;
+                return false;
+            }
+        }
+    }
+
     OSQPWorkspace* workspace;
     if(osqp_setup(&workspace, m_data->getData(),
                   m_settings->getSettings()) != 0 ){

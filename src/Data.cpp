@@ -87,13 +87,16 @@ OSQPData* const & OsqpEigen::Data::getData() const
 
 bool OsqpEigen::Data::isSet() const
 {
+    const bool areConstraintsOk = (m_data->m == 0) ||
+        m_isLinearConstraintsMatrixSet &&
+        m_isLowerBoundSet &&
+        m_isUpperBoundSet;
+
     return m_isNumberOfVariablesSet &&
         m_isNumberOfConstraintsSet &&
         m_isHessianMatrixSet &&
         m_isGradientSet &&
-        m_isLinearConstraintsMatrixSet &&
-        m_isLowerBoundSet &&
-        m_isUpperBoundSet;
+        areConstraintsOk;
 }
 
 bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradient)
