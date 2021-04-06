@@ -2,7 +2,7 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later
 
 # Set cmake mimimun version
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
 project(OsqpEigen
   VERSION 0.6.3)
