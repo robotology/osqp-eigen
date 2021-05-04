@@ -1,0 +1,550 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_osqp_eigen_1_1_data" kind="class" language="C++" prot="public">
+    <compoundname>OsqpEigen::Data</compoundname>
+    <includes refid="_data_8hpp" local="no">Data.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1a579a5688c6f5ada099d79a3b38a4a1bb" prot="private" static="no" mutable="no">
+        <type>OSQPData *</type>
+        <definition>OSQPData* OsqpEigen::Data::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <briefdescription>
+<para>OSQPData struct. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="30" column="18" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="30" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1aecc14cd3f0673025fe2cbc4bd75fe824" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isNumberOfVariablesSet</definition>
+        <argsstring></argsstring>
+        <name>m_isNumberOfVariablesSet</name>
+        <briefdescription>
+<para>Boolean true if the number of variables is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="31" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="31" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1a21c37f92dc776941c56c43618e402ed1" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isNumberOfConstraintsSet</definition>
+        <argsstring></argsstring>
+        <name>m_isNumberOfConstraintsSet</name>
+        <briefdescription>
+<para>Boolean true if the number of constraints is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="32" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="32" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1a68a101ee4aabcf9c8366057efa2b0d6d" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isHessianMatrixSet</definition>
+        <argsstring></argsstring>
+        <name>m_isHessianMatrixSet</name>
+        <briefdescription>
+<para>Boolean true if the hessian matrix is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="33" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1afdc7dab2e9b7c589969a2debc930a40a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isGradientSet</definition>
+        <argsstring></argsstring>
+        <name>m_isGradientSet</name>
+        <briefdescription>
+<para>Boolean true if the gradient vector is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="34" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1a19d80021cb8de7b445b0b8894c886d8d" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isLinearConstraintsMatrixSet</definition>
+        <argsstring></argsstring>
+        <name>m_isLinearConstraintsMatrixSet</name>
+        <briefdescription>
+<para>Boolean true if the linear constrain matrix is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="35" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1a4fd20ba44d64c56f61575bb38d9e2aaa" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isLowerBoundSet</definition>
+        <argsstring></argsstring>
+        <name>m_isLowerBoundSet</name>
+        <briefdescription>
+<para>Boolean true if the lower bound vector is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="36" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_data_1ab9142e52e4b5835cf3080a38120c27bc" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::m_isUpperBoundSet</definition>
+        <argsstring></argsstring>
+        <name>m_isUpperBoundSet</name>
+        <briefdescription>
+<para>Boolean true if the upper bound vector is set. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="37" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a3273d3a0bc715ebf8ec761de53b8c609" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Data::Data</definition>
+        <argsstring>()</argsstring>
+        <name>Data</name>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="43" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1abc922eb476cd94d8cff33b41aa540132" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Data::Data</definition>
+        <argsstring>(int n, int m)</argsstring>
+        <name>Data</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of variables; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of constraints. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="50" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a470e51411686dc0c57ded9db7e67e9f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Data::~Data</definition>
+        <argsstring>()</argsstring>
+        <name>~Data</name>
+        <briefdescription>
+<para>Deconstructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="55" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1ab66614fe057c238c53b3efcd546c96c0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Data::clearHessianMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>clearHessianMatrix</name>
+        <briefdescription>
+<para>Clear the hessian matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="60" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a93b0b00a90c6fafd4fb8a23cb8553a0f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Data::clearLinearConstraintsMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>clearLinearConstraintsMatrix</name>
+        <briefdescription>
+<para>Clear the linear constraints matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="65" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1abd09d8d70fcbaa8db833b87ca0bcbbab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Data::setNumberOfVariables</definition>
+        <argsstring>(int n)</argsstring>
+        <name>setNumberOfVariables</name>
+        <param>
+          <type>int</type>
+          <declname>n</declname>
+        </param>
+        <briefdescription>
+<para>Set the number of variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>n</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of variables. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="71" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1aea746479660e90e46fbf185dca91d936" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Data::setNumberOfConstraints</definition>
+        <argsstring>(int m)</argsstring>
+        <name>setNumberOfConstraints</name>
+        <param>
+          <type>int</type>
+          <declname>m</declname>
+        </param>
+        <briefdescription>
+<para>Set the number of constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>m</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the number of constraints. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="77" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a9daa8e7e8f02a77a2589323290be7e9a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setHessianMatrix</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;hessianMatrix)</argsstring>
+        <name>setHessianMatrix</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>hessianMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Set the quadratic part of the cost function (Hessian). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is assumed to be a simmetric matrix. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hessianMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Hessian matrix. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="86" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.tpp" bodystart="13" bodyend="46"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1ab86ee5d803c64024e54c36f6788e0b60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setGradient</definition>
+        <argsstring>(Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; gradientVector)</argsstring>
+        <name>setGradient</name>
+        <param>
+          <type>Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt;</type>
+          <declname>gradientVector</declname>
+        </param>
+        <briefdescription>
+<para>Set the linear part of the cost function (Gradient). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gradientVector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Gradient vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the gradient are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="96" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a417bc1b26a3ed55015f7516e8c393e53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setLinearConstraintsMatrix</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;linearConstraintsMatrix)</argsstring>
+        <name>setLinearConstraintsMatrix</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>linearConstraintsMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Set the linear constraint matrix A (size m x n) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>linearConstraintsMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the linear constraints matrix A. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="104" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.tpp" bodystart="49" bodyend="87"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1aaa6bdc5a9905c3719d5b198106ed4683" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setLowerBound</definition>
+        <argsstring>(Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; lowerBoundVector)</argsstring>
+        <name>setLowerBound</name>
+        <param>
+          <type>Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt;</type>
+          <declname>lowerBoundVector</declname>
+        </param>
+        <briefdescription>
+<para>Set the array for lower bound (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lowerBoundVector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lower bound constraint. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the lowerBoundVector are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="114" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a192ea4157ba225bcf83dfce4231ca06f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setUpperBound</definition>
+        <argsstring>(Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; upperBoundVector)</argsstring>
+        <name>setUpperBound</name>
+        <param>
+          <type>Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt;</type>
+          <declname>upperBoundVector</declname>
+        </param>
+        <briefdescription>
+<para>Set the array for upper bound (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>upperBoundVector</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper bound constraint. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the upperBoundVector are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object. </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="124" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1afab7a091ed33ef7334037ecf0014f8aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::setBounds</definition>
+        <argsstring>(Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; lowerBound, Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; upperBound)</argsstring>
+        <name>setBounds</name>
+        <param>
+          <type>Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt;</type>
+          <declname>lowerBound</declname>
+        </param>
+        <param>
+          <type>Eigen::Ref&lt; Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt;</type>
+          <declname>upperBound</declname>
+        </param>
+        <briefdescription>
+<para>Set the array for upper and lower bounds (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lowerBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lower bound constraint. </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upperBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper bound constraint. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the upperBound and lowerBound are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object. </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="135" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a64b604ab9972dd3e8d3fcc0a18ad5644" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>OSQPData *const  &amp;</type>
+        <definition>OSQPData* const&amp; OsqpEigen::Data::getData</definition>
+        <argsstring>() const</argsstring>
+        <name>getData</name>
+        <briefdescription>
+<para>Get the OSQPData struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>a const point to the OSQPData struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="142" column="25"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1aac543c780466b0db451ca60f0a5753eb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Data::isSet</definition>
+        <argsstring>() const</argsstring>
+        <name>isSet</name>
+        <briefdescription>
+<para>Verify if all the matrix and vectors are already set. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if all the OSQPData struct are set. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="148" column="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_osqp_eigen_1_1_data" kindref="compound">Data</ref> class is a wrapper of the OSQP OSQPData struct. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="28" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="29" bodyend="149"/>
+    <listofallmembers>
+      <member refid="class_osqp_eigen_1_1_data_1ab66614fe057c238c53b3efcd546c96c0" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>clearHessianMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a93b0b00a90c6fafd4fb8a23cb8553a0f" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>clearLinearConstraintsMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a3273d3a0bc715ebf8ec761de53b8c609" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>Data</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1abc922eb476cd94d8cff33b41aa540132" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>Data</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a64b604ab9972dd3e8d3fcc0a18ad5644" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>getData</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1aac543c780466b0db451ca60f0a5753eb" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>isSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a579a5688c6f5ada099d79a3b38a4a1bb" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_data</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1afdc7dab2e9b7c589969a2debc930a40a" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isGradientSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a68a101ee4aabcf9c8366057efa2b0d6d" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isHessianMatrixSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a19d80021cb8de7b445b0b8894c886d8d" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isLinearConstraintsMatrixSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a4fd20ba44d64c56f61575bb38d9e2aaa" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isLowerBoundSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a21c37f92dc776941c56c43618e402ed1" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isNumberOfConstraintsSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1aecc14cd3f0673025fe2cbc4bd75fe824" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isNumberOfVariablesSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1ab9142e52e4b5835cf3080a38120c27bc" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isUpperBoundSet</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1afab7a091ed33ef7334037ecf0014f8aa" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setBounds</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1ab86ee5d803c64024e54c36f6788e0b60" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setGradient</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a9daa8e7e8f02a77a2589323290be7e9a" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setHessianMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a417bc1b26a3ed55015f7516e8c393e53" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setLinearConstraintsMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1aaa6bdc5a9905c3719d5b198106ed4683" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setLowerBound</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1aea746479660e90e46fbf185dca91d936" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setNumberOfConstraints</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1abd09d8d70fcbaa8db833b87ca0bcbbab" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setNumberOfVariables</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a192ea4157ba225bcf83dfce4231ca06f" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>setUpperBound</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a470e51411686dc0c57ded9db7e67e9f7" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>~Data</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

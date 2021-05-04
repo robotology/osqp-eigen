@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_debug_8hpp" kind="file" language="C++">
+    <compoundname>Debug.hpp</compoundname>
+    <includes local="no">iostream</includes>
+    <includedby refid="_data_8tpp" local="no">Data.tpp</includedby>
+    <includedby refid="_solver_8tpp" local="yes">Solver.tpp</includedby>
+    <includedby refid="_sparse_matrix_helper_8tpp" local="no">SparseMatrixHelper.tpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Debug.hpp</label>
+        <link refid="_debug_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="7">
+        <label>SparseMatrixHelper.tpp</label>
+        <link refid="_sparse_matrix_helper_8tpp"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Solver.tpp</label>
+        <link refid="_solver_8tpp"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+      <node id="2">
+        <label>Data.tpp</label>
+        <link refid="_data_8tpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>Data.hpp</label>
+        <link refid="_data_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Debug.hpp</label>
+        <link refid="_debug_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>SparseMatrixHelper.hpp</label>
+        <link refid="_sparse_matrix_helper_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespace_osqp_eigen">OsqpEigen</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,986 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_osqp_eigen_1_1_solver" kind="class" language="C++" prot="public">
+    <compoundname>OsqpEigen::Solver</compoundname>
+    <includes refid="_solver_8hpp" local="no">Solver.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ad7d4c0cde783ce72fac5427bde512ddd" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; OSQPWorkspace, std::function&lt; void(OSQPWorkspace *)&gt; &gt;</type>
+        <definition>std::unique_ptr&lt;OSQPWorkspace, std::function&lt;void(OSQPWorkspace *)&gt; &gt; OsqpEigen::Solver::m_workspace</definition>
+        <argsstring></argsstring>
+        <name>m_workspace</name>
+        <briefdescription>
+<para>Pointer to OSQPWorkspace struct. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="34" column="25" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="34" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a17903ad4bb4f168dc3785d825f0dbd7d" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">OsqpEigen::Settings</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;OsqpEigen::Settings&gt; OsqpEigen::Solver::m_settings</definition>
+        <argsstring></argsstring>
+        <name>m_settings</name>
+        <briefdescription>
+<para>Pointer to <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">Settings</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="35" column="25" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" prot="private" static="no" mutable="no">
+        <type>std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_data" kindref="compound">OsqpEigen::Data</ref> &gt;</type>
+        <definition>std::unique_ptr&lt;OsqpEigen::Data&gt; OsqpEigen::Solver::m_data</definition>
+        <argsstring></argsstring>
+        <name>m_data</name>
+        <briefdescription>
+<para>Pointer to <ref refid="class_osqp_eigen_1_1_data" kindref="compound">Data</ref> class. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="36" column="25" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="36" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1aabc061c3eb02c25f15beb3d5ad279380" prot="private" static="no" mutable="no">
+        <type>Eigen::Matrix&lt; c_float, Eigen::Dynamic,1 &gt;</type>
+        <definition>Eigen::Matrix&lt;c_float, Eigen::Dynamic ,1&gt; OsqpEigen::Solver::m_primalVariables</definition>
+        <argsstring></argsstring>
+        <name>m_primalVariables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="37" column="23" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="37" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ab604903d64b7595c73aa3712adeb2016" prot="private" static="no" mutable="no">
+        <type>Eigen::Matrix&lt; c_float, Eigen::Dynamic,1 &gt;</type>
+        <definition>Eigen::Matrix&lt;c_float, Eigen::Dynamic ,1&gt; OsqpEigen::Solver::m_dualVariables</definition>
+        <argsstring></argsstring>
+        <name>m_dualVariables</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="38" column="23" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="38" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a9514252b4db1fc220c9f1d15298d051c" prot="private" static="no" mutable="no">
+        <type>Eigen::VectorXd</type>
+        <definition>Eigen::VectorXd OsqpEigen::Solver::m_solution</definition>
+        <argsstring></argsstring>
+        <name>m_solution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="39" column="25" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a3a246aa7571877509811a3cb34209177" prot="private" static="no" mutable="no">
+        <type>Eigen::VectorXd</type>
+        <definition>Eigen::VectorXd OsqpEigen::Solver::m_dualSolution</definition>
+        <argsstring></argsstring>
+        <name>m_dualSolution</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="40" column="25" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="40" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ae048ac05eeaafb9b5e2d8aa9b175fb71" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; c_int &gt;</type>
+        <definition>std::vector&lt;c_int&gt; OsqpEigen::Solver::m_hessianNewIndices</definition>
+        <argsstring></argsstring>
+        <name>m_hessianNewIndices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="42" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="42" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ab917aa389ee35c1d45210f928aa44b91" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; c_float &gt;</type>
+        <definition>std::vector&lt;c_float&gt; OsqpEigen::Solver::m_hessianNewValues</definition>
+        <argsstring></argsstring>
+        <name>m_hessianNewValues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="43" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ac3d081b1d184113fe63c0fd2ee50fdb2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; c_int &gt;</type>
+        <definition>std::vector&lt;c_int&gt; OsqpEigen::Solver::m_constraintsNewIndices</definition>
+        <argsstring></argsstring>
+        <name>m_constraintsNewIndices</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="45" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="45" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a5bd4fa6acddcb9014e91eece01fac72d" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; c_float &gt;</type>
+        <definition>std::vector&lt;c_float&gt; OsqpEigen::Solver::m_constraintsNewValues</definition>
+        <argsstring></argsstring>
+        <name>m_constraintsNewValues</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="46" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="46" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a7e876a5973b52bc516e5ef777b4098f8" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Eigen::Triplet&lt; c_float &gt; &gt;</type>
+        <definition>std::vector&lt;Eigen::Triplet&lt;c_float&gt; &gt; OsqpEigen::Solver::m_oldHessianTriplet</definition>
+        <argsstring></argsstring>
+        <name>m_oldHessianTriplet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="48" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1acb38dfc52c5263c37c8e03b31f081d09" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Eigen::Triplet&lt; c_float &gt; &gt;</type>
+        <definition>std::vector&lt;Eigen::Triplet&lt;c_float&gt; &gt; OsqpEigen::Solver::m_newHessianTriplet</definition>
+        <argsstring></argsstring>
+        <name>m_newHessianTriplet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="48" column="41" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a9faef285eb45188cb0bebc05b2b6a7f1" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Eigen::Triplet&lt; c_float &gt; &gt;</type>
+        <definition>std::vector&lt;Eigen::Triplet&lt;c_float&gt; &gt; OsqpEigen::Solver::m_newUpperTriangularHessianTriplets</definition>
+        <argsstring></argsstring>
+        <name>m_newUpperTriangularHessianTriplets</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="48" column="61" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="48" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1ad66b24af87c22b54b2fb50f242abc5ae" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Eigen::Triplet&lt; c_float &gt; &gt;</type>
+        <definition>std::vector&lt;Eigen::Triplet&lt;c_float&gt; &gt; OsqpEigen::Solver::m_oldLinearConstraintsTriplet</definition>
+        <argsstring></argsstring>
+        <name>m_oldLinearConstraintsTriplet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="49" column="21" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a36f93bea19037f42b45cd2822feeb677" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; Eigen::Triplet&lt; c_float &gt; &gt;</type>
+        <definition>std::vector&lt;Eigen::Triplet&lt;c_float&gt; &gt; OsqpEigen::Solver::m_newLinearConstraintsTriplet</definition>
+        <argsstring></argsstring>
+        <name>m_newLinearConstraintsTriplet</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="49" column="51" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="49" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::m_isSolverInitialized</definition>
+        <argsstring></argsstring>
+        <name>m_isSolverInitialized</name>
+        <briefdescription>
+<para>Boolean true if solver is initialized. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="53" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="53" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::evaluateNewValues</definition>
+        <argsstring>(const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;oldMatrixTriplet, const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;newMatrixTriplet, std::vector&lt; c_int &gt; &amp;newIndices, std::vector&lt; c_float &gt; &amp;newValues) const</argsstring>
+        <name>evaluateNewValues</name>
+        <param>
+          <type>const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>oldMatrixTriplet</declname>
+        </param>
+        <param>
+          <type>const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>newMatrixTriplet</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; c_int &gt; &amp;</type>
+          <declname>newIndices</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; c_float &gt; &amp;</type>
+          <declname>newValues</declname>
+        </param>
+        <briefdescription>
+<para>Evaluate the position and the values of the new elements of a sparse matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>oldMatrixTriplet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector containing the triplets of the old sparse matrix; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newMatrixTriplet</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector containing the triplets of the mew sparse matrix; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newIndices</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector of the index mapping new elements to position in the sparse matrix; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>newValues</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector of new elements in the sparse matrix. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true if the sparsity patern is not changed false otherwise. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="65" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="337" bodyend="370"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a4655b76d4b4cfa5bd358a844392eeea2" prot="private" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void OsqpEigen::Solver::selectUpperTriangularTriplets</definition>
+        <argsstring>(const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;fullMatrixTriplets, std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;upperTriangularMatrixTriplets) const</argsstring>
+        <name>selectUpperTriangularTriplets</name>
+        <param>
+          <type>const std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>fullMatrixTriplets</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>upperTriangularMatrixTriplets</declname>
+        </param>
+        <briefdescription>
+<para>Takes only the triplets which belongs to the upper triangular part of the matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>fullMatrixTriplets</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector containing the triplets of the sparse matrix; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upperTriangularMatrixTriplets</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>vector containing the triplets of the mew sparse matrix; </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="76" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="373" bodyend="389"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-func">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a92805fc8c51669c4bf44337e4f94f603" prot="private" static="yes" const="no" explicit="no" inline="no" noexcept="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>static void OsqpEigen::Solver::OSQPWorkspaceDeleter</definition>
+        <argsstring>(OSQPWorkspace *ptr) noexcept</argsstring>
+        <name>OSQPWorkspaceDeleter</name>
+        <param>
+          <type>OSQPWorkspace *</type>
+          <declname>ptr</declname>
+        </param>
+        <briefdescription>
+<para>Custom Deleter for the OSQPWorkspace. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is required to free the m_workspace unique_ptr <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>ptr</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>raw pointer to the workspace </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="83" column="21"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a4de5403060c8798d0e138aaff0158cf9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Solver::Solver</definition>
+        <argsstring>()</argsstring>
+        <name>Solver</name>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="90" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::initSolver</definition>
+        <argsstring>()</argsstring>
+        <name>initSolver</name>
+        <briefdescription>
+<para>Initialize the solver with the actual initial data and settings. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="96" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a05c8a18a9d9ed9a74fc0dc26af711348" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::isInitialized</definition>
+        <argsstring>()</argsstring>
+        <name>isInitialized</name>
+        <briefdescription>
+<para>Check if the solver is initialized. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true if the solver is initialized. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="102" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a34214395818d23bc1552fc9bbcf0f47b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Solver::clearSolver</definition>
+        <argsstring>()</argsstring>
+        <name>clearSolver</name>
+        <briefdescription>
+<para>Dealocate memory. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="107" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a11605685ef645c991b1f7935d1b854f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::clearSolverVariables</definition>
+        <argsstring>()</argsstring>
+        <name>clearSolverVariables</name>
+        <briefdescription>
+<para>Set to zero all the solver variables. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="113" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::solve</definition>
+        <argsstring>()</argsstring>
+        <name>solve</name>
+        <briefdescription>
+<para>Solve the QP optimization problem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="119" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const Eigen::VectorXd &amp;</type>
+        <definition>const Eigen::VectorXd&amp; OsqpEigen::Solver::getSolution</definition>
+        <argsstring>()</argsstring>
+        <name>getSolution</name>
+        <briefdescription>
+<para>Get the optimization problem solution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>an Eigen::Vector contating the optimization result. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="125" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a16e432494b4d53838186d80a7dc281b4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>const Eigen::VectorXd &amp;</type>
+        <definition>const Eigen::VectorXd&amp; OsqpEigen::Solver::getDualSolution</definition>
+        <argsstring>()</argsstring>
+        <name>getDualSolution</name>
+        <briefdescription>
+<para>Get the dual optimization problem solution. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>an Eigen::Vector contating the optimization result. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="131" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateGradient</definition>
+        <argsstring>(const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;gradient)</argsstring>
+        <name>updateGradient</name>
+        <param>
+          <type>const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;</type>
+          <declname>gradient</declname>
+        </param>
+        <briefdescription>
+<para>Update the linear part of the cost function (Gradient). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gradient</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Gradient vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the gradient are not copied inside the library. The user has to guarantee that the lifetime of the objects passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object. </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="141" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateLowerBound</definition>
+        <argsstring>(const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;lowerBound)</argsstring>
+        <name>updateLowerBound</name>
+        <param>
+          <type>const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;</type>
+          <declname>lowerBound</declname>
+        </param>
+        <briefdescription>
+<para>Update the lower bounds limit (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lowerBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lower bound constraint vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the lowerBound are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object. </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="151" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateUpperBound</definition>
+        <argsstring>(const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;upperBound)</argsstring>
+        <name>updateUpperBound</name>
+        <param>
+          <type>const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;</type>
+          <declname>upperBound</declname>
+        </param>
+        <briefdescription>
+<para>Update the upper bounds limit (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>upperBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper bound constraint vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the upperBound are not copied inside the library. The user has to guarantee that the lifetime of the object passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object. </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="161" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateBounds</definition>
+        <argsstring>(const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;lowerBound, const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;upperBound)</argsstring>
+        <name>updateBounds</name>
+        <param>
+          <type>const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;</type>
+          <declname>lowerBound</declname>
+        </param>
+        <param>
+          <type>const Eigen::Ref&lt; const Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;&gt; &amp;</type>
+          <declname>upperBound</declname>
+        </param>
+        <briefdescription>
+<para>Update both upper and lower bounds (size m). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>lowerBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the lower bound constraint vector; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>upperBound</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the upper bound constraint vector. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="note"><para>the elements of the lowerBound and upperBound are not copied inside the library. The user has to guarantee that the lifetime of the objects passed is the same of the <ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> object </para>
+</simplesect>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="172" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a5ddf094f1eeff686fa8cec802a50f436" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateHessianMatrix</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;hessianMatrix)</argsstring>
+        <name>updateHessianMatrix</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>hessianMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Update the quadratic part of the cost function (Hessian). </para>
+        </briefdescription>
+        <detaileddescription>
+<para>It is assumed to be a simmetric matrix. <simplesect kind="note"><para>If the sparsity pattern is preserved the matrix is simply update otherwise the entire solver will be reinitialized. In this case the primal and dual variable are copied in the new workspace.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>hessian</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the Hessian matrix. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="187" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="15" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1ae9adb54d29b947222aa7ec788a7d2e30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::updateLinearConstraintsMatrix</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;linearConstraintsMatrix)</argsstring>
+        <name>updateLinearConstraintsMatrix</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>linearConstraintsMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Update the linear constraints matrix (A) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="note"><para>If the sparsity pattern is preserved the matrix is simply update otherwise the entire solver will be reinitialized. In this case the primal and dual variable are copied in the new workspace.</para>
+</simplesect>
+<parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>linearConstraintsMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the linear constraint matrix A </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="200" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="117" bodyend="213"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a13f8e53aae03e483fa46066c7b93e066" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>n</declname>
+            <defname>n</defname>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>m</declname>
+            <defname>m</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::setWarmStart</definition>
+        <argsstring>(const Eigen::Matrix&lt; T, n, 1 &gt; &amp;primalVariable, const Eigen::Matrix&lt; T, m, 1 &gt; &amp;dualVariable)</argsstring>
+        <name>setWarmStart</name>
+        <param>
+          <type>const Eigen::Matrix&lt; T, n, 1 &gt; &amp;</type>
+          <declname>primalVariable</declname>
+        </param>
+        <param>
+          <type>const Eigen::Matrix&lt; T, m, 1 &gt; &amp;</type>
+          <declname>dualVariable</declname>
+        </param>
+        <briefdescription>
+<para>Set the entire. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>linearConstraintsMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the linear constraint matrix A </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>true/false in case of success/failure. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="208" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="216" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a6665f91ac8c073b753cba4af1aad606e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>n</declname>
+            <defname>n</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::setPrimalVariable</definition>
+        <argsstring>(const Eigen::Matrix&lt; T, n, 1 &gt; &amp;primalVariable)</argsstring>
+        <name>setPrimalVariable</name>
+        <param>
+          <type>const Eigen::Matrix&lt; T, n, 1 &gt; &amp;</type>
+          <declname>primalVariable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="212" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="247" bodyend="265"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a18059c9138e3ce633ea71ea7a7b3d1e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>m</declname>
+            <defname>m</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::setDualVariable</definition>
+        <argsstring>(const Eigen::Matrix&lt; T, m, 1 &gt; &amp;dualVariable)</argsstring>
+        <name>setDualVariable</name>
+        <param>
+          <type>const Eigen::Matrix&lt; T, m, 1 &gt; &amp;</type>
+          <declname>dualVariable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="215" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="269" bodyend="281"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>n</declname>
+            <defname>n</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::getPrimalVariable</definition>
+        <argsstring>(Eigen::Matrix&lt; T, n, 1 &gt; &amp;primalVariable)</argsstring>
+        <name>getPrimalVariable</name>
+        <param>
+          <type>Eigen::Matrix&lt; T, n, 1 &gt; &amp;</type>
+          <declname>primalVariable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="218" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="284" bodyend="307"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+          <param>
+            <type>int</type>
+            <declname>m</declname>
+            <defname>m</defname>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::Solver::getDualVariable</definition>
+        <argsstring>(Eigen::Matrix&lt; T, m, 1 &gt; &amp;dualVariable)</argsstring>
+        <name>getDualVariable</name>
+        <param>
+          <type>Eigen::Matrix&lt; T, m, 1 &gt; &amp;</type>
+          <declname>dualVariable</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="221" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="310" bodyend="334"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">OsqpEigen::Settings</ref> &gt; &amp;</type>
+        <definition>const std::unique_ptr&lt;OsqpEigen::Settings&gt;&amp; OsqpEigen::Solver::settings</definition>
+        <argsstring>() const</argsstring>
+        <name>settings</name>
+        <briefdescription>
+<para>Get the solver settings pointer. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>the pointer to <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">Settings</ref> object. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="227" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_data" kindref="compound">OsqpEigen::Data</ref> &gt; &amp;</type>
+        <definition>const std::unique_ptr&lt;OsqpEigen::Data&gt;&amp; OsqpEigen::Solver::data</definition>
+        <argsstring>() const</argsstring>
+        <name>data</name>
+        <briefdescription>
+<para>Get the pointer to the solver initial data. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>the pointer to <ref refid="class_osqp_eigen_1_1_data" kindref="compound">Data</ref> object. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="233" column="31"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a72a30e139c337f112157de93eaa6955a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::unique_ptr&lt; OSQPWorkspace, std::function&lt; void(OSQPWorkspace *)&gt; &gt; &amp;</type>
+        <definition>const std::unique_ptr&lt;OSQPWorkspace, std::function&lt;void(OSQPWorkspace *)&gt; &gt;&amp; OsqpEigen::Solver::workspace</definition>
+        <argsstring>() const</argsstring>
+        <name>workspace</name>
+        <briefdescription>
+<para>Get the pointer to the OSQP workspace. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>the pointer to Workspace object. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="239" column="31"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="class_osqp_eigen_1_1_solver" kindref="compound">Solver</ref> class is a wrapper of the OSQP OSQPWorkspace struct. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="32" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="33" bodyend="240"/>
+    <listofallmembers>
+      <member refid="class_osqp_eigen_1_1_solver_1a34214395818d23bc1552fc9bbcf0f47b" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>clearSolver</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a11605685ef645c991b1f7935d1b854f4" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>clearSolverVariables</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>data</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>evaluateNewValues</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a16e432494b4d53838186d80a7dc281b4" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualSolution</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualVariable</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getPrimalVariable</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getSolution</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>initSolver</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a05c8a18a9d9ed9a74fc0dc26af711348" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>isInitialized</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ac3d081b1d184113fe63c0fd2ee50fdb2" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_constraintsNewIndices</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a5bd4fa6acddcb9014e91eece01fac72d" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_constraintsNewValues</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_data</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a3a246aa7571877509811a3cb34209177" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_dualSolution</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ab604903d64b7595c73aa3712adeb2016" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_dualVariables</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ae048ac05eeaafb9b5e2d8aa9b175fb71" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_hessianNewIndices</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ab917aa389ee35c1d45210f928aa44b91" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_hessianNewValues</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_isSolverInitialized</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1acb38dfc52c5263c37c8e03b31f081d09" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_newHessianTriplet</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a36f93bea19037f42b45cd2822feeb677" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_newLinearConstraintsTriplet</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a9faef285eb45188cb0bebc05b2b6a7f1" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_newUpperTriangularHessianTriplets</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a7e876a5973b52bc516e5ef777b4098f8" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_oldHessianTriplet</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ad66b24af87c22b54b2fb50f242abc5ae" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_oldLinearConstraintsTriplet</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1aabc061c3eb02c25f15beb3d5ad279380" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_primalVariables</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a17903ad4bb4f168dc3785d825f0dbd7d" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_settings</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a9514252b4db1fc220c9f1d15298d051c" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_solution</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ad7d4c0cde783ce72fac5427bde512ddd" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>m_workspace</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a92805fc8c51669c4bf44337e4f94f603" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>OSQPWorkspaceDeleter</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a4655b76d4b4cfa5bd358a844392eeea2" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>selectUpperTriangularTriplets</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a18059c9138e3ce633ea71ea7a7b3d1e2" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>setDualVariable</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a6665f91ac8c073b753cba4af1aad606e" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>setPrimalVariable</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>settings</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a13f8e53aae03e483fa46066c7b93e066" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>setWarmStart</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>solve</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a4de5403060c8798d0e138aaff0158cf9" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>Solver</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateBounds</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateGradient</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a5ddf094f1eeff686fa8cec802a50f436" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateHessianMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1ae9adb54d29b947222aa7ec788a7d2e30" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateLinearConstraintsMatrix</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateLowerBound</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>updateUpperBound</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a72a30e139c337f112157de93eaa6955a" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>workspace</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

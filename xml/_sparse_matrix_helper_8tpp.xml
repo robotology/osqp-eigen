@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_sparse_matrix_helper_8tpp" kind="file" language="C++">
+    <compoundname>SparseMatrixHelper.tpp</compoundname>
+    <includes refid="_debug_8hpp" local="no">OsqpEigen/Debug.hpp</includes>
+    <includedby refid="_sparse_matrix_helper_8hpp" local="no">SparseMatrixHelper.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>SparseMatrixHelper.tpp</label>
+        <link refid="_sparse_matrix_helper_8tpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>OsqpEigen/Debug.hpp</label>
+        <link refid="_debug_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>SparseMatrixHelper.tpp</label>
+        <link refid="_sparse_matrix_helper_8tpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+      <node id="3">
+        <label>Data.hpp</label>
+        <link refid="_data_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>SparseMatrixHelper.hpp</label>
+        <link refid="_sparse_matrix_helper_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Giulio Romualdi </para>
+</simplesect>
+<simplesect kind="copyright"><para>Released under the terms of the LGPLv2.1 or later, see LGPL.TXT </para>
+</simplesect>
+<simplesect kind="date"><para>2018 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp"/>
+  </compounddef>
+</doxygen>

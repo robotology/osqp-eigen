@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_data_8tpp" kind="file" language="C++">
+    <compoundname>Data.tpp</compoundname>
+    <includes local="no">iostream</includes>
+    <includes refid="_debug_8hpp" local="no">OsqpEigen/Debug.hpp</includes>
+    <includedby refid="_data_8hpp" local="no">Data.hpp</includedby>
+    <incdepgraph>
+      <node id="1">
+        <label>Data.tpp</label>
+        <link refid="_data_8tpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>OsqpEigen/Debug.hpp</label>
+        <link refid="_debug_8hpp_source"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>iostream</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="4">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+      <node id="1">
+        <label>Data.tpp</label>
+        <link refid="_data_8tpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Data.hpp</label>
+        <link refid="_data_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Giulio Romualdi </para>
+</simplesect>
+<simplesect kind="copyright"><para>Released under the terms of the LGPLv2.1 or later, see LGPL.TXT </para>
+</simplesect>
+<simplesect kind="date"><para>2018 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.tpp"/>
+  </compounddef>
+</doxygen>

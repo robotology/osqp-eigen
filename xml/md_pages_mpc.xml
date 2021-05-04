@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md_pages_mpc" kind="page">
+    <compoundname>md_pages_mpc</compoundname>
+    <title>Using osqp-eigen in MPC fashion</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para>The problem is to develop a controller that allows a linear system to track a constant reference state <formula id="0">$x_r$</formula>. This kind of problem can be solved using a lot of different controller architectures, however in order to write a tutorial for osqp-eigen library the <ulink url="https://en.wikipedia.org/wiki/Model_predictive_control"><bold>MPC</bold></ulink> approach will be chosen. Thus we have to find a controller low <formula id="1">$u_0^*$</formula> such that: <formula id="2">\[ \begin{split}\begin{array}{ll} u_0 ^* = \mbox{arg min}_{x_k, u_k} &amp; (x_N-x_r)^T Q_N (x_N-x_r) + \sum_{k=0}^{N-1} (x_k-x_r)^T Q (x_k-x_r) + u_k^T R u_k \\ \mbox{subject to} &amp; x_{k+1} = A x_k + B u_k \\ &amp; x_{\rm min} \le x_k \le x_{\rm max} \\ &amp; u_{\rm min} \le u_k \le u_{\rm max} \\ &amp; x_0 = \bar{x} \end{array}\end{split} \]</formula> where <formula id="3">$Q$</formula>, <formula id="4">$Q_N$</formula> and <formula id="5">$R$</formula> are symmetric positive definite matrices; the states <formula id="6">$x_k$</formula> and the inputs <formula id="7">$u_k$</formula> have to be constrained between some lower and upper bounds and the reference state <formula id="0">$x_r$</formula> is <formula id="8">\[ x_r = \begin{bmatrix} 0 &amp; 0 &amp; 1 &amp; 0 &amp; \cdots &amp; &amp; 0 \end{bmatrix} ^\top \]</formula></para>
+<sect1 id="md_pages_mpc_1autotoc_md8">
+<title>Convert MPC into a QP</title>
+<para>First of all the MPC problem has to be casted to a standard QP problem. <formula id="9">\[ \begin{split}\begin{array}{ll} \mbox{minimize} &amp; \frac{1}{2} x^T P x + q^T x \\ \mbox{subject to} &amp; l \leq A_c x \leq u \end{array}\end{split} \]</formula> where the hessian matrix <formula id="10">$P$</formula> is equal to <formula id="11">\[ P = \text{diag}(Q, Q, ..., Q_N, R, ..., R) \]</formula> while the gradient vector is <formula id="12">\[ q = \begin{bmatrix} -Q x_r \\ -Q x_r \\ \vdots \\ -Q_N x_r \\ 0\\ \vdots\\ 0 \end{bmatrix} \]</formula></para>
+<para>The linear constraint matrix <formula id="13">$A_c$</formula> is <formula id="14">\[ A_c = \left[ \begin{array}{ccccc|cccc} -I &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ A &amp; -I &amp; 0 &amp; \cdots &amp; 0 &amp; B &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; A &amp; -I &amp; \cdots &amp; 0 &amp; 0 &amp; B &amp; \cdots &amp; 0\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; -I &amp; 0 &amp; 0 &amp; \cdots &amp; B\\ \hline I &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; I &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; 0 &amp; I &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; I &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; I &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; I &amp; \cdots &amp; 0\\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; I \end{array} \right] \]</formula> while the upper and the lower bound are <formula id="15">\[ l = \begin{bmatrix} -x_0 \\ 0 \\ \vdots \\ 0 \\ x_{min}\\ \vdots\\ x_{min}\\ u_{min}\\ \vdots\\ u_{min}\\ \end{bmatrix} \quad u = \begin{bmatrix} -x_0 \\ 0 \\ \vdots \\ 0 \\ x_{max}\\ \vdots\\ x_{max}\\ u_{max}\\ \vdots\\ u_{max}\\ \end{bmatrix} \]</formula></para>
+<para>Since the osqp-eigen handles only QP problem this operation shall be done by the user. You can find the implementation of the following functions <ulink url="https://github.com/GiulioRomualdi/osqp-eigen/blob/master/example/src/MPCExample.cpp#L71-L182"><bold>here</bold></ulink>. <programlisting filename=".cpp"><codeline><highlight class="normal">castMPCToQPHessian(Q,<sp/>R,<sp/>mpcWindow,<sp/>hessian);</highlight></codeline>
+<codeline><highlight class="normal">castMPCToQPGradient(Q,<sp/>xRef,<sp/>mpcWindow,<sp/>gradient);</highlight></codeline>
+<codeline><highlight class="normal">castMPCToQPConstraintMatrix(a,<sp/>b,<sp/>mpcWindow,<sp/>linearMatrix);</highlight></codeline>
+<codeline><highlight class="normal">castMPCToQPConstraintVectores(xMax,<sp/>xMin,<sp/>uMax,<sp/>uMin,<sp/>x0,<sp/>mpcWindow,<sp/>lowerBound,<sp/>upperBound);</highlight></codeline>
+</programlisting></para>
+<sect2 id="md_pages_mpc_1OSQP_init">
+<title>Solver initialization</title>
+<para>Now you are able to use the OSQP solver. We first create an instance of the solver <programlisting filename=".cpp"><codeline><highlight class="comment">//<sp/>instantiate<sp/>the<sp/>solver</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><ref refid="class_osqp_eigen_1_1_solver" kindref="compound">OsqpEigen::Solver</ref><sp/>solver;</highlight></codeline>
+</programlisting> when the solver is instantiated the <ulink url="http://osqp.readthedocs.io/en/latest/interfaces/solver_settings.html"><bold>default settings</bold></ulink> are automatically loaded, however you can change each setting using the following function <programlisting filename=".cpp"><codeline><highlight class="normal">solver.<ref refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" kindref="member">settings</ref>()-&gt;set&lt;Setting&gt;()</highlight></codeline>
+</programlisting> where <computeroutput>set&lt;Setting&gt;()</computeroutput> is a setter function. You can find the list of all the setter functions in the <computeroutput><ref refid="class_osqp_eigen_1_1_settings" kindref="compound">OsqpEigen::Settings</ref></computeroutput> class. For example you can use the warm start variables in the optimization problem by calling <programlisting filename=".cpp"><codeline><highlight class="normal">solver.<ref refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" kindref="member">settings</ref>()-&gt;setWarmStart(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+</programlisting></para>
+<para>Now you can set the data of the optimization problem (number of variables, number of constraints and so on) <programlisting filename=".cpp"><codeline><highlight class="normal">solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setNumberOfVariables(numberOfVariable);</highlight></codeline>
+<codeline><highlight class="normal">solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setNumberOfConstraints(numberOfConstraints);</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setHessianMatrix(hessian))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setGradient(gradient))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setLinearConstraintMatrix(linearMatrix))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setLowerBound(lowerBound))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setUpperBound(upperBound))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+</programlisting> The setter functions return <computeroutput>True</computeroutput> in case of success and <computeroutput>False</computeroutput> otherwise.</para>
+<para>Now you are able to initialize the solver. All data and settings will be stored inside the osqp struct and the optimization problem will be initialized. <programlisting filename=".cpp"><codeline><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" kindref="member">initSolver</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+</programlisting></para>
+<para>The optimization problem can be solved calling the following method <programlisting filename=".cpp"><codeline><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" kindref="member">solve</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+</programlisting> and the solution can be easily got by calling the following method <programlisting filename=".cpp"><codeline><highlight class="normal">Eigen::VectorXd<sp/>QPSolution<sp/>=<sp/>solver.<ref refid="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" kindref="member">getSolution</ref>();</highlight></codeline>
+</programlisting></para>
+<para>If you need to update the bounds constraints and the gradient vector you can use the following methods:<itemizedlist>
+<listitem><para><computeroutput><ref refid="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" kindref="member">OsqpEigen::Solver::updateBounds</ref></computeroutput> to update both upper and lower bounds;</para>
+</listitem><listitem><para><computeroutput><ref refid="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" kindref="member">OsqpEigen::Solver::updateLowerBound</ref></computeroutput> to update the lower bound;</para>
+</listitem><listitem><para><computeroutput><ref refid="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" kindref="member">OsqpEigen::Solver::updateUpperBound</ref></computeroutput> to update the upper bound;</para>
+</listitem><listitem><para><computeroutput><ref refid="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" kindref="member">OsqpEigen::Solver::updateGradient</ref></computeroutput> to update the gradient vector.</para>
+</listitem></itemizedlist>
+</para>
+</sect2>
+<sect2 id="md_pages_mpc_1results">
+<title>Example</title>
+<para>In the following the example of MPC controller is shown. <programlisting filename="MPCExample.cpp"><codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>osqp-eigen</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_osqp_eigen_8h" kindref="compound">OsqpEigen/OsqpEigen.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="comment">//<sp/>eigen</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;Eigen/Dense&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setDynamicsMatrices(Eigen::Matrix&lt;double,<sp/>12,<sp/>12&gt;<sp/>&amp;a,<sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>4&gt;<sp/>&amp;b)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>a<sp/>&lt;&lt;<sp/>1.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.1,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>1.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.1,<sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>1.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.1,<sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0488,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>1.,<sp/>0.,<sp/>0.,<sp/>0.0016,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.0992,<sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.0488,<sp/>0.,<sp/>0.,<sp/>1.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.0016,<sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.0992,<sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>1.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.0992,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>1.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>1.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>1.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.9734,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.0488,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.9846,<sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.9734,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.0488,<sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.9846,<sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.9846;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>b<sp/>&lt;&lt;<sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>-0.0726,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.0726,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-0.0726,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>0.0726,<sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-0.0152,<sp/><sp/>0.0152,<sp/>-0.0152,<sp/>0.0152,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-0.,<sp/><sp/><sp/><sp/><sp/>-0.0006,<sp/>-0.,<sp/><sp/><sp/><sp/><sp/>0.0006,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0006,<sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.0006,<sp/>0.0000,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0106,<sp/><sp/><sp/>0.0106,<sp/><sp/>0.0106,<sp/>0.0106,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,<sp/><sp/><sp/><sp/><sp/><sp/><sp/>-1.4512,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>1.4512,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-1.4512,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/><sp/>1.4512,<sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-0.3049,<sp/><sp/>0.3049,<sp/>-0.3049,<sp/>0.3049,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-0.,<sp/><sp/><sp/><sp/><sp/>-0.0236,<sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>0.0236,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0236,<sp/><sp/><sp/>0.,<sp/><sp/><sp/><sp/><sp/>-0.0236,<sp/>0.<sp/><sp/><sp/><sp/>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.2107,<sp/><sp/><sp/>0.2107,<sp/><sp/>0.2107,<sp/>0.2107;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setInequalityConstraints(Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xMax,<sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xMin,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>&amp;uMax,<sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>&amp;uMin)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>u0<sp/>=<sp/>10.5916;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>input<sp/>inequality<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uMin<sp/>&lt;&lt;<sp/>9.6<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9.6<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9.6<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>9.6<sp/>-<sp/>u0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>uMax<sp/>&lt;&lt;<sp/>13<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/>-<sp/>u0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>13<sp/>-<sp/>u0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>state<sp/>inequality<sp/>constraints</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>xMin<sp/>&lt;&lt;<sp/>-M_PI/6,-M_PI/6,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-1.,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<sp/>-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,-<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>xMax<sp/>&lt;&lt;<sp/>M_PI/6,M_PI/6,<sp/><ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<sp/><ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>,<ref refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kindref="member">OsqpEigen::INFTY</ref>;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>setWeightMatrices(Eigen::DiagonalMatrix&lt;double,<sp/>12&gt;<sp/>&amp;Q,<sp/>Eigen::DiagonalMatrix&lt;double,<sp/>4&gt;<sp/>&amp;R)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Q.diagonal()<sp/>&lt;&lt;<sp/>0,<sp/>0,<sp/>10.,<sp/>10.,<sp/>10.,<sp/>10.,<sp/>0,<sp/>0,<sp/>0,<sp/>5.,<sp/>5.,<sp/>5.;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>R.diagonal()<sp/>&lt;&lt;<sp/>0.1,<sp/>0.1,<sp/>0.1,<sp/>0.1;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>castMPCToQPHessian(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::DiagonalMatrix&lt;double,<sp/>12&gt;<sp/>&amp;Q,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::DiagonalMatrix&lt;double,<sp/>4&gt;<sp/>&amp;R,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mpcWindow,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>&amp;hessianMatrix)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>hessianMatrix.resize(12*(mpcWindow+1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow,<sp/>12*(mpcWindow+1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//populate<sp/>hessian<sp/>matrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i&lt;12*(mpcWindow+1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow;<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(i<sp/>&lt;<sp/>12*(mpcWindow+1)){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>posQ=i%12;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>Q.diagonal()[posQ];</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(value<sp/>!=<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hessianMatrix.insert(i,i)<sp/>=<sp/>value;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>posR=i%4;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>R.diagonal()[posR];</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(value<sp/>!=<sp/>0)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>hessianMatrix.insert(i,i)<sp/>=<sp/>value;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>castMPCToQPGradient(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::DiagonalMatrix&lt;double,<sp/>12&gt;<sp/>&amp;Q,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xRef,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mpcWindow,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>&amp;gradient)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,12,1&gt;<sp/>Qx_ref;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Qx_ref<sp/>=<sp/>Q<sp/>*<sp/>(-xRef);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>populate<sp/>the<sp/>gradient<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>gradient<sp/>=<sp/>Eigen::VectorXd::Zero(12*(mpcWindow+1)<sp/>+<sp/><sp/>4*mpcWindow,<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i&lt;12*(mpcWindow+1);<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>posQ=i%12;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>Qx_ref(posQ,0);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>gradient(i,0)<sp/>=<sp/>value;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>castMPCToQPConstraintMatrix(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>12&gt;<sp/>&amp;dynamicMatrix,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>4&gt;<sp/>&amp;controlMatrix,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mpcWindow,<sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>&amp;constraintMatrix)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>constraintMatrix.resize(12*(mpcWindow+1)<sp/><sp/>+<sp/>12*(mpcWindow+1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow,<sp/>12*(mpcWindow+1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>populate<sp/>linear<sp/>constraint<sp/>matrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i&lt;12*(mpcWindow+1);<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constraintMatrix.insert(i,i)<sp/>=<sp/>-1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mpcWindow;<sp/>i++)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j&lt;12;<sp/>j++)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k&lt;12;<sp/>k++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>dynamicMatrix(j,k);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(value<sp/>!=<sp/>0){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constraintMatrix.insert(12<sp/>*<sp/>(i+1)<sp/>+<sp/>j,<sp/>12<sp/>*<sp/>i<sp/>+<sp/>k)<sp/>=<sp/>value;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>mpcWindow;<sp/>i++)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>12;<sp/>j++)</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>k<sp/>=<sp/>0;<sp/>k<sp/>&lt;<sp/>4;<sp/>k++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>value<sp/>=<sp/>controlMatrix(j,k);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(value<sp/>!=<sp/>0){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constraintMatrix.insert(12*(i+1)+j,<sp/>4*i+k+12*(mpcWindow<sp/>+<sp/>1))<sp/>=<sp/>value;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i&lt;12*(mpcWindow+1)<sp/>+<sp/>4*mpcWindow;<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>constraintMatrix.insert(i+(mpcWindow+1)*12,i)<sp/>=<sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>castMPCToQPConstraintVectors(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xMax,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xMin,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>&amp;uMax,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>&amp;uMin,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;x0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mpcWindow,<sp/>Eigen::VectorXd<sp/>&amp;lowerBound,<sp/>Eigen::VectorXd<sp/>&amp;upperBound)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>evaluate<sp/>the<sp/>lower<sp/>and<sp/>the<sp/>upper<sp/>inequality<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>lowerInequality<sp/>=<sp/>Eigen::MatrixXd::Zero(12*(mpcWindow+1)<sp/>+<sp/><sp/>4<sp/>*<sp/>mpcWindow,<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>upperInequality<sp/>=<sp/>Eigen::MatrixXd::Zero(12*(mpcWindow+1)<sp/>+<sp/><sp/>4<sp/>*<sp/>mpcWindow,<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i=0;<sp/>i&lt;mpcWindow+1;<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lowerInequality.block(12*i,0,12,1)<sp/>=<sp/>xMin;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>upperInequality.block(12*i,0,12,1)<sp/>=<sp/>xMax;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i=0;<sp/>i&lt;mpcWindow;<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lowerInequality.block(4<sp/>*<sp/>i<sp/>+<sp/>12<sp/>*<sp/>(mpcWindow<sp/>+<sp/>1),<sp/>0,<sp/>4,<sp/>1)<sp/>=<sp/>uMin;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>upperInequality.block(4<sp/>*<sp/>i<sp/>+<sp/>12<sp/>*<sp/>(mpcWindow<sp/>+<sp/>1),<sp/>0,<sp/>4,<sp/>1)<sp/>=<sp/>uMax;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>evaluate<sp/>the<sp/>lower<sp/>and<sp/>the<sp/>upper<sp/>equality<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>lowerEquality<sp/>=<sp/>Eigen::MatrixXd::Zero(12*(mpcWindow+1),1<sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>upperEquality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lowerEquality.block(0,0,12,1)<sp/>=<sp/>-x0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>upperEquality<sp/>=<sp/>lowerEquality;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lowerEquality<sp/>=<sp/>lowerEquality;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>merge<sp/>inequality<sp/>and<sp/>equality<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lowerBound<sp/>=<sp/>Eigen::MatrixXd::Zero(2*12*(mpcWindow+1)<sp/>+<sp/><sp/>4*mpcWindow,1<sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lowerBound<sp/>&lt;&lt;<sp/>lowerEquality,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>lowerInequality;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>upperBound<sp/>=<sp/>Eigen::MatrixXd::Zero(2*12*(mpcWindow+1)<sp/>+<sp/><sp/>4*mpcWindow,1<sp/>);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>upperBound<sp/>&lt;&lt;<sp/>upperEquality,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>upperInequality;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>updateConstraintVectors(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;x0,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>&amp;lowerBound,<sp/>Eigen::VectorXd<sp/>&amp;upperBound)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>lowerBound.block(0,0,12,1)<sp/>=<sp/>-x0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>upperBound.block(0,0,12,1)<sp/>=<sp/>-x0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">double</highlight><highlight class="normal"><sp/>getErrorNorm(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;x,</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>&amp;xRef)</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>evaluate<sp/>the<sp/>error</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>error<sp/>=<sp/>x<sp/>-<sp/>xRef;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>return<sp/>the<sp/>norm</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>error.norm();</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>main()</highlight></codeline>
+<codeline><highlight class="normal">{</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>preview<sp/>window</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>mpcWindow<sp/>=<sp/>20;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>the<sp/>dynamics<sp/>matrices</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>12&gt;<sp/>a;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>4&gt;<sp/>b;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>the<sp/>constraints<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>xMax;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>xMin;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>uMax;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>4,<sp/>1&gt;<sp/>uMin;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>the<sp/>weight<sp/>matrices</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::DiagonalMatrix&lt;double,<sp/>12&gt;<sp/>Q;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::DiagonalMatrix&lt;double,<sp/>4&gt;<sp/>R;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>the<sp/>initial<sp/>and<sp/>the<sp/>reference<sp/>state<sp/>space</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>x0;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>xRef;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>QP<sp/>problem<sp/>matrices<sp/>and<sp/>vectores</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>hessian;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>gradient;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>linearMatrix;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>lowerBound;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>upperBound;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>initial<sp/>and<sp/>the<sp/>desired<sp/>states</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>x0<sp/>&lt;&lt;<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0<sp/>;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>xRef<sp/>&lt;&lt;<sp/><sp/>0,<sp/>0,<sp/>1,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0,<sp/>0;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>MPC<sp/>problem<sp/>quantities</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>setDynamicsMatrices(a,<sp/>b);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>setInequalityConstraints(xMax,<sp/>xMin,<sp/>uMax,<sp/>uMin);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>setWeightMatrices(Q,<sp/>R);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cast<sp/>the<sp/>MPC<sp/>problem<sp/>as<sp/>QP<sp/>problem</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>castMPCToQPHessian(Q,<sp/>R,<sp/>mpcWindow,<sp/>hessian);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>castMPCToQPGradient(Q,<sp/>xRef,<sp/>mpcWindow,<sp/>gradient);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>castMPCToQPConstraintMatrix(a,<sp/>b,<sp/>mpcWindow,<sp/>linearMatrix);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>castMPCToQPConstraintVectors(xMax,<sp/>xMin,<sp/>uMax,<sp/>uMin,<sp/>x0,<sp/>mpcWindow,<sp/>lowerBound,<sp/>upperBound);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>instantiate<sp/>the<sp/>solver</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_osqp_eigen_1_1_solver" kindref="compound">OsqpEigen::Solver</ref><sp/>solver;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>settings</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//solver.settings()-&gt;setVerbosity(false);</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>solver.<ref refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" kindref="member">settings</ref>()-&gt;setWarmStart(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>initial<sp/>data<sp/>of<sp/>the<sp/>QP<sp/>solver</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setNumberOfVariables(12<sp/>*<sp/>(mpcWindow<sp/>+<sp/>1)<sp/>+<sp/>4<sp/>*<sp/>mpcWindow);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setNumberOfConstraints(2<sp/>*<sp/>12<sp/>*<sp/>(mpcWindow<sp/>+<sp/>1)<sp/>+<sp/><sp/>4<sp/>*<sp/>mpcWindow);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setHessianMatrix(hessian))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setGradient(gradient))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setLinearConstraintsMatrix(linearMatrix))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setLowerBound(lowerBound))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kindref="member">data</ref>()-&gt;setUpperBound(upperBound))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>instantiate<sp/>the<sp/>solver</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" kindref="member">initSolver</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>controller<sp/>input<sp/>and<sp/>QPSolution<sp/>vector</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Vector4d<sp/>ctr;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>QPSolution;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>number<sp/>of<sp/>iteration<sp/>steps</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>numberOfSteps<sp/>=<sp/>50;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>numberOfSteps;<sp/>i++){</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>solve<sp/>the<sp/>QP<sp/>problem</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" kindref="member">solve</ref>())<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>get<sp/>the<sp/>controller<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>QPSolution<sp/>=<sp/>solver.<ref refid="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" kindref="member">getSolution</ref>();</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>ctr<sp/>=<sp/>QPSolution.block(12<sp/>*<sp/>(mpcWindow<sp/>+<sp/>1),<sp/>0,<sp/>4,<sp/>1);</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>save<sp/>data<sp/>into<sp/>file</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>x0Data<sp/>=<sp/>x0.data();</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>propagate<sp/>the<sp/>model</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>x0<sp/>=<sp/>a<sp/>*<sp/>x0<sp/>+<sp/>b<sp/>*<sp/>ctr;</highlight></codeline>
+<codeline><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>update<sp/>the<sp/>constraint<sp/>bound</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>updateConstraintVectors(x0,<sp/>lowerBound,<sp/>upperBound);</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal">(!solver.<ref refid="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" kindref="member">updateBounds</ref>(lowerBound,<sp/>upperBound))<sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>1;</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline><highlight class="normal">}</highlight></codeline>
+</programlisting></para>
+<para>The example presented generates the following results <image type="html" name="mpc_result.png"></image>
+ </para>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="pages/mpc.md"/>
+  </compounddef>
+</doxygen>

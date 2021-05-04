@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_settings_8hpp" kind="file" language="C++">
+    <compoundname>Settings.hpp</compoundname>
+    <includes local="no">osqp.h</includes>
+    <includedby refid="_osqp_eigen_8h" local="no">OsqpEigen.h</includedby>
+    <includedby refid="_solver_8hpp" local="no">Solver.hpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>osqp.h</label>
+      </node>
+      <node id="1">
+        <label>Settings.hpp</label>
+        <link refid="_settings_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="3">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+      <node id="1">
+        <label>Settings.hpp</label>
+        <link refid="_settings_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_osqp_eigen_1_1_settings" prot="public">OsqpEigen::Settings</innerclass>
+    <innernamespace refid="namespace_osqp_eigen">OsqpEigen</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Giulio Romualdi </para>
+</simplesect>
+<simplesect kind="copyright"><para>Released under the terms of the LGPLv2.1 or later, see LGPL.TXT </para>
+</simplesect>
+<simplesect kind="date"><para>2018 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp"/>
+  </compounddef>
+</doxygen>

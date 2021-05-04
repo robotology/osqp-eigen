@@ -1,0 +1,189 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_osqp_eigen_1_1_sparse_matrix_helper" kind="namespace" language="C++">
+    <compoundname>OsqpEigen::SparseMatrixHelper</compoundname>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1a84479192d86e344f029d072a62c8217b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;eigenSparseMatrix, csc *&amp;osqpSparseMatrix)</argsstring>
+        <name>createOsqpSparseMatrix</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>eigenSparseMatrix</declname>
+        </param>
+        <param>
+          <type>csc *&amp;</type>
+          <declname>osqpSparseMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Allocate an osqpSparseMatrix struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>NOTE: <computeroutput>c_malloc</computeroutput> function is used to allocate memory please call <computeroutput>c_free</computeroutput> to deallcate memory. <simplesect kind="return"><para>a const point to the csc struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="41" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="11" bodyend="58" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="41" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1aec1a2210ce843eda8e4000c81d886131" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToEigenSparseMatrix</definition>
+        <argsstring>(const csc *const &amp;osqpSparseMatrix, Eigen::SparseMatrix&lt; T &gt; &amp;eigenSparseMatrix)</argsstring>
+        <name>osqpSparseMatrixToEigenSparseMatrix</name>
+        <param>
+          <type>const csc *const &amp;</type>
+          <declname>osqpSparseMatrix</declname>
+        </param>
+        <param>
+          <type>Eigen::SparseMatrix&lt; T &gt; &amp;</type>
+          <declname>eigenSparseMatrix</declname>
+        </param>
+        <briefdescription>
+<para>Convert an osqp sparse matrix into an eigen sparse matrix. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>osqpSparseMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a constant pointer to a constant csc struct; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>eigenSparseMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the eigen sparse matrix object. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a const point to the csc struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="51" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="101" bodyend="126" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="51" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1af45a1d77519f691542150e506b6dcdeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets</definition>
+        <argsstring>(const csc *const &amp;osqpSparseMatrix, std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;tripletList)</argsstring>
+        <name>osqpSparseMatrixToTriplets</name>
+        <param>
+          <type>const csc *const &amp;</type>
+          <declname>osqpSparseMatrix</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>tripletList</declname>
+        </param>
+        <briefdescription>
+<para>Convert an osqp sparse matrix into a eigen triplet list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>osqpSparseMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is reference to a constant pointer to a constant csc struct; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tripletList</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a std::vector containing the triplet. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a const point to the csc struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="61" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="61" bodyend="98" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="61" declcolumn="14"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1ae2383e6a41df66d2c34f61a8866af3e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename Derived</type>
+          </param>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>bool</type>
+        <definition>bool OsqpEigen::SparseMatrixHelper::eigenSparseMatrixToTriplets</definition>
+        <argsstring>(const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;eigenSparseMatrix, std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;tripletList)</argsstring>
+        <name>eigenSparseMatrixToTriplets</name>
+        <param>
+          <type>const Eigen::SparseCompressedBase&lt; Derived &gt; &amp;</type>
+          <declname>eigenSparseMatrix</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; Eigen::Triplet&lt; T &gt;&gt; &amp;</type>
+          <declname>tripletList</declname>
+        </param>
+        <briefdescription>
+<para>Convert an eigen sparse matrix into a eigen triplet list. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>eigenSparseMatrix</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the eigen sparse matrix object; </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>tripletList</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is a std::vector containing the triplet. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>a const point to the csc struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="71" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="129" bodyend="150" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="71" declcolumn="14"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="namespace_osqp_eigen_1_1_sparse_matrix_helper" kindref="compound">SparseMatrixHelper</ref> namespace is a namspace that contains helper function to handle osqp matrix. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>Use it to create ot update or manage an osqp sparse matrix. osqp sparse matrix in <ulink url="https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html">compressed-column</ulink> or triplet form. </para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="31" column="5"/>
+  </compounddef>
+</doxygen>

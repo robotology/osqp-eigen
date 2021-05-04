@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="namespace_osqp_eigen" kind="namespace" language="C++">
+    <compoundname>OsqpEigen</compoundname>
+    <innerclass refid="class_osqp_eigen_1_1_data" prot="public">OsqpEigen::Data</innerclass>
+    <innerclass refid="class_osqp_eigen_1_1_settings" prot="public">OsqpEigen::Settings</innerclass>
+    <innerclass refid="class_osqp_eigen_1_1_solver" prot="public">OsqpEigen::Solver</innerclass>
+    <innernamespace refid="namespace_osqp_eigen_1_1_sparse_matrix_helper">OsqpEigen::SparseMatrixHelper</innernamespace>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" prot="public" static="no" mutable="no">
+        <type>const c_float</type>
+        <definition>const c_float OsqpEigen::INFTY</definition>
+        <argsstring></argsstring>
+        <name>INFTY</name>
+        <initializer>= OSQP_INFTY</initializer>
+        <briefdescription>
+<para>Infinity constant. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="19" column="19" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_osqp_eigen_1a2d1a6e4df5e04b47587fa046f96ba459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; OsqpEigen::debugStream</definition>
+        <argsstring>()</argsstring>
+        <name>debugStream</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" line="7" column="18" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" declline="7" declcolumn="18"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para><ref refid="namespace_osqp_eigen" kindref="compound">OsqpEigen</ref> namespace. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="17" column="1"/>
+  </compounddef>
+</doxygen>

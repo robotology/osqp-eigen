@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_solver_8hpp" kind="file" language="C++">
+    <compoundname>Solver.hpp</compoundname>
+    <includes local="no">memory</includes>
+    <includes local="no">Eigen/Dense</includes>
+    <includes local="no">osqp.h</includes>
+    <includes refid="_data_8hpp" local="no">OsqpEigen/Data.hpp</includes>
+    <includes refid="_settings_8hpp" local="no">OsqpEigen/Settings.hpp</includes>
+    <includes refid="_constants_8hpp" local="no">OsqpEigen/Constants.hpp</includes>
+    <includes refid="_solver_8tpp" local="no">OsqpEigen/Solver.tpp</includes>
+    <includedby refid="_osqp_eigen_8h" local="no">OsqpEigen.h</includedby>
+    <incdepgraph>
+      <node id="9">
+        <label>OsqpEigen/SparseMatrixHelper.tpp</label>
+        <link refid="_sparse_matrix_helper_8tpp"/>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>osqp.h</label>
+      </node>
+      <node id="14">
+        <label>OsqpEigen/Solver.tpp</label>
+        <link refid="_solver_8tpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
+        <childnode refid="16" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="1">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
+        </childnode>
+        <childnode refid="14" relation="include">
+        </childnode>
+      </node>
+      <node id="15">
+        <label>auxil.h</label>
+      </node>
+      <node id="8">
+        <label>Eigen/Sparse</label>
+      </node>
+      <node id="3">
+        <label>Eigen/Dense</label>
+      </node>
+      <node id="13">
+        <label>OsqpEigen/Constants.hpp</label>
+        <link refid="_constants_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="11">
+        <label>OsqpEigen/Data.tpp</label>
+        <link refid="_data_8tpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>OsqpEigen/Data.hpp</label>
+        <link refid="_data_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>OsqpEigen/Debug.hpp</label>
+        <link refid="_debug_8hpp_source"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
+        <label>iostream</label>
+      </node>
+      <node id="12">
+        <label>OsqpEigen/Settings.hpp</label>
+        <link refid="_settings_8hpp"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="16">
+        <label>scaling.h</label>
+      </node>
+      <node id="2">
+        <label>memory</label>
+      </node>
+      <node id="6">
+        <label>OsqpEigen/SparseMatrixHelper.hpp</label>
+        <link refid="_sparse_matrix_helper_8hpp"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_osqp_eigen_1_1_solver" prot="public">OsqpEigen::Solver</innerclass>
+    <innernamespace refid="namespace_osqp_eigen">OsqpEigen</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><simplesect kind="author"><para>Giulio Romualdi </para>
+</simplesect>
+<simplesect kind="copyright"><para>Released under the terms of the LGPLv2.1 or later, see LGPL.TXT </para>
+</simplesect>
+<simplesect kind="date"><para>2018 </para>
+</simplesect>
+</para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp"/>
+  </compounddef>
+</doxygen>

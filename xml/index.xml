@@ -1,0 +1,148 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.9.1" xml:lang="en-US">
+  <compound refid="class_osqp_eigen_1_1_data" kind="class"><name>OsqpEigen::Data</name>
+    <member refid="class_osqp_eigen_1_1_data_1a579a5688c6f5ada099d79a3b38a4a1bb" kind="variable"><name>m_data</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1aecc14cd3f0673025fe2cbc4bd75fe824" kind="variable"><name>m_isNumberOfVariablesSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a21c37f92dc776941c56c43618e402ed1" kind="variable"><name>m_isNumberOfConstraintsSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a68a101ee4aabcf9c8366057efa2b0d6d" kind="variable"><name>m_isHessianMatrixSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1afdc7dab2e9b7c589969a2debc930a40a" kind="variable"><name>m_isGradientSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a19d80021cb8de7b445b0b8894c886d8d" kind="variable"><name>m_isLinearConstraintsMatrixSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a4fd20ba44d64c56f61575bb38d9e2aaa" kind="variable"><name>m_isLowerBoundSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1ab9142e52e4b5835cf3080a38120c27bc" kind="variable"><name>m_isUpperBoundSet</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a3273d3a0bc715ebf8ec761de53b8c609" kind="function"><name>Data</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1abc922eb476cd94d8cff33b41aa540132" kind="function"><name>Data</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a470e51411686dc0c57ded9db7e67e9f7" kind="function"><name>~Data</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1ab66614fe057c238c53b3efcd546c96c0" kind="function"><name>clearHessianMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a93b0b00a90c6fafd4fb8a23cb8553a0f" kind="function"><name>clearLinearConstraintsMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1abd09d8d70fcbaa8db833b87ca0bcbbab" kind="function"><name>setNumberOfVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1aea746479660e90e46fbf185dca91d936" kind="function"><name>setNumberOfConstraints</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a9daa8e7e8f02a77a2589323290be7e9a" kind="function"><name>setHessianMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1ab86ee5d803c64024e54c36f6788e0b60" kind="function"><name>setGradient</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a417bc1b26a3ed55015f7516e8c393e53" kind="function"><name>setLinearConstraintsMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1aaa6bdc5a9905c3719d5b198106ed4683" kind="function"><name>setLowerBound</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a192ea4157ba225bcf83dfce4231ca06f" kind="function"><name>setUpperBound</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1afab7a091ed33ef7334037ecf0014f8aa" kind="function"><name>setBounds</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a64b604ab9972dd3e8d3fcc0a18ad5644" kind="function"><name>getData</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1aac543c780466b0db451ca60f0a5753eb" kind="function"><name>isSet</name></member>
+  </compound>
+  <compound refid="class_osqp_eigen_1_1_settings" kind="class"><name>OsqpEigen::Settings</name>
+    <member refid="class_osqp_eigen_1_1_settings_1aaf0d55b6c98812ccc75dcc4beb133d53" kind="variable"><name>m_settings</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a0f16a3c4db592ce554ceacf2d5bff49d" kind="function"><name>Settings</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aa4dd86dacba75b83123d1933e944e0e8" kind="function"><name>~Settings</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a31f9fb782dc1bcdbe79981bc6464c8af" kind="function"><name>resetDefaultSettings</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a7412ba8eb706c52d80673628c54d2a40" kind="function"><name>setRho</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a59dc6a98b52eece19846a77a00036b5a" kind="function"><name>setSigma</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a879a1fec8d21859d4cdcaafdb6df4554" kind="function"><name>setScaling</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a9aa2c776ed96d6cc02fbbf29e3d70f2f" kind="function"><name>setAdaptiveRho</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a499bb35ff72b900bf0063f7f8be679de" kind="function"><name>setAdaptiveRhoInterval</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1afb3740497a1c9ecef66bc1c142169604" kind="function"><name>setAdaptiveRhoTolerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a82bb52fd369ecfc177fbccc1d5e510d8" kind="function"><name>setAdaptiveRhoFraction</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1ac670100dbf41f46a99122b58795038da" kind="function"><name>setMaxIteraction</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a1894d86b67a4b343c0d5887ecb9c7bc2" kind="function"><name>setMaxIteration</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a4498f6973031eadb2ad94b60dc856651" kind="function"><name>setAbsoluteTolerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aabf457998cd2b4ba6c6e61036a04de1e" kind="function"><name>setRelativeTolerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" kind="function"><name>setPrimalInfeasibilityTollerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" kind="function"><name>setDualInfeasibilityTollerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" kind="function"><name>setAlpha</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" kind="function"><name>setLinearSystemSolver</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" kind="function"><name>setDelta</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a64c052c5f72065b5319e152095228859" kind="function"><name>setPolish</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aabae74571bfbb2b33ec23b255476fbec" kind="function"><name>setPolishRefineIter</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1ac44115458417ef2257bc5c49634b0749" kind="function"><name>setVerbosity</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1ab7d836e9f75480452c7e353e64608a31" kind="function"><name>setScaledTerimination</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aebc0ad14de70c7c68c09135929dd7a75" kind="function"><name>setCheckTermination</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a5a9e4b887938fd742f81067563d021a6" kind="function"><name>setWarmStart</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a5c0f09d5cf848eee872d56245e01b1db" kind="function"><name>setTimeLimit</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" kind="function"><name>getSettings</name></member>
+  </compound>
+  <compound refid="class_osqp_eigen_1_1_solver" kind="class"><name>OsqpEigen::Solver</name>
+    <member refid="class_osqp_eigen_1_1_solver_1ad7d4c0cde783ce72fac5427bde512ddd" kind="variable"><name>m_workspace</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a17903ad4bb4f168dc3785d825f0dbd7d" kind="variable"><name>m_settings</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" kind="variable"><name>m_data</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1aabc061c3eb02c25f15beb3d5ad279380" kind="variable"><name>m_primalVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ab604903d64b7595c73aa3712adeb2016" kind="variable"><name>m_dualVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a9514252b4db1fc220c9f1d15298d051c" kind="variable"><name>m_solution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a3a246aa7571877509811a3cb34209177" kind="variable"><name>m_dualSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ae048ac05eeaafb9b5e2d8aa9b175fb71" kind="variable"><name>m_hessianNewIndices</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ab917aa389ee35c1d45210f928aa44b91" kind="variable"><name>m_hessianNewValues</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ac3d081b1d184113fe63c0fd2ee50fdb2" kind="variable"><name>m_constraintsNewIndices</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a5bd4fa6acddcb9014e91eece01fac72d" kind="variable"><name>m_constraintsNewValues</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a7e876a5973b52bc516e5ef777b4098f8" kind="variable"><name>m_oldHessianTriplet</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1acb38dfc52c5263c37c8e03b31f081d09" kind="variable"><name>m_newHessianTriplet</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a9faef285eb45188cb0bebc05b2b6a7f1" kind="variable"><name>m_newUpperTriangularHessianTriplets</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ad66b24af87c22b54b2fb50f242abc5ae" kind="variable"><name>m_oldLinearConstraintsTriplet</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a36f93bea19037f42b45cd2822feeb677" kind="variable"><name>m_newLinearConstraintsTriplet</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" kind="variable"><name>m_isSolverInitialized</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" kind="function"><name>evaluateNewValues</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a4655b76d4b4cfa5bd358a844392eeea2" kind="function"><name>selectUpperTriangularTriplets</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a92805fc8c51669c4bf44337e4f94f603" kind="function"><name>OSQPWorkspaceDeleter</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a4de5403060c8798d0e138aaff0158cf9" kind="function"><name>Solver</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" kind="function"><name>initSolver</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a05c8a18a9d9ed9a74fc0dc26af711348" kind="function"><name>isInitialized</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a34214395818d23bc1552fc9bbcf0f47b" kind="function"><name>clearSolver</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a11605685ef645c991b1f7935d1b854f4" kind="function"><name>clearSolverVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" kind="function"><name>solve</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" kind="function"><name>getSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a16e432494b4d53838186d80a7dc281b4" kind="function"><name>getDualSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" kind="function"><name>updateGradient</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" kind="function"><name>updateLowerBound</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" kind="function"><name>updateUpperBound</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" kind="function"><name>updateBounds</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a5ddf094f1eeff686fa8cec802a50f436" kind="function"><name>updateHessianMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ae9adb54d29b947222aa7ec788a7d2e30" kind="function"><name>updateLinearConstraintsMatrix</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a13f8e53aae03e483fa46066c7b93e066" kind="function"><name>setWarmStart</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a6665f91ac8c073b753cba4af1aad606e" kind="function"><name>setPrimalVariable</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a18059c9138e3ce633ea71ea7a7b3d1e2" kind="function"><name>setDualVariable</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" kind="function"><name>getPrimalVariable</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" kind="function"><name>getDualVariable</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" kind="function"><name>settings</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kind="function"><name>data</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a72a30e139c337f112157de93eaa6955a" kind="function"><name>workspace</name></member>
+  </compound>
+  <compound refid="namespace_osqp_eigen" kind="namespace"><name>OsqpEigen</name>
+    <member refid="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" kind="variable"><name>INFTY</name></member>
+    <member refid="namespace_osqp_eigen_1a2d1a6e4df5e04b47587fa046f96ba459" kind="function"><name>debugStream</name></member>
+  </compound>
+  <compound refid="namespace_osqp_eigen_1_1_sparse_matrix_helper" kind="namespace"><name>OsqpEigen::SparseMatrixHelper</name>
+    <member refid="namespace_osqp_eigen_1_1_sparse_matrix_helper_1a84479192d86e344f029d072a62c8217b" kind="function"><name>createOsqpSparseMatrix</name></member>
+    <member refid="namespace_osqp_eigen_1_1_sparse_matrix_helper_1aec1a2210ce843eda8e4000c81d886131" kind="function"><name>osqpSparseMatrixToEigenSparseMatrix</name></member>
+    <member refid="namespace_osqp_eigen_1_1_sparse_matrix_helper_1af45a1d77519f691542150e506b6dcdeb" kind="function"><name>osqpSparseMatrixToTriplets</name></member>
+    <member refid="namespace_osqp_eigen_1_1_sparse_matrix_helper_1ae2383e6a41df66d2c34f61a8866af3e8" kind="function"><name>eigenSparseMatrixToTriplets</name></member>
+  </compound>
+  <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="_constants_8hpp" kind="file"><name>Constants.hpp</name>
+  </compound>
+  <compound refid="_data_8hpp" kind="file"><name>Data.hpp</name>
+  </compound>
+  <compound refid="_data_8tpp" kind="file"><name>Data.tpp</name>
+  </compound>
+  <compound refid="_debug_8hpp" kind="file"><name>Debug.hpp</name>
+  </compound>
+  <compound refid="mpc_8md" kind="file"><name>mpc.md</name>
+  </compound>
+  <compound refid="_osqp_eigen_8h" kind="file"><name>OsqpEigen.h</name>
+  </compound>
+  <compound refid="_r_e_a_d_m_e_8md" kind="file"><name>README.md</name>
+  </compound>
+  <compound refid="_settings_8hpp" kind="file"><name>Settings.hpp</name>
+  </compound>
+  <compound refid="_solver_8hpp" kind="file"><name>Solver.hpp</name>
+  </compound>
+  <compound refid="_solver_8tpp" kind="file"><name>Solver.tpp</name>
+  </compound>
+  <compound refid="_sparse_matrix_helper_8hpp" kind="file"><name>SparseMatrixHelper.hpp</name>
+  </compound>
+  <compound refid="_sparse_matrix_helper_8tpp" kind="file"><name>SparseMatrixHelper.tpp</name>
+  </compound>
+  <compound refid="md_pages_mpc" kind="page"><name>md_pages_mpc</name>
+  </compound>
+  <compound refid="dir_d44c64559bbebec7f509842c48db8b23" kind="dir"><name>include</name>
+  </compound>
+  <compound refid="dir_72f51ea932838d944e375d424b974b5f" kind="dir"><name>OsqpEigen</name>
+  </compound>
+  <compound refid="dir_ef3b2545113449f8f25e623a543d64e3" kind="dir"><name>pages</name>
+  </compound>
+  <compound refid="indexpage" kind="page"><name>index</name>
+  </compound>
+</doxygenindex>

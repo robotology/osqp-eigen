@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OsqpEigen::Settings class | osqp-eigen</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i%7CSource+Code+Pro:400,400i,600" />
+  <link rel="stylesheet" href="m-dark+documentation.compiled.css" />
+  <link rel="icon" href="favicon-dark.png" type="image/png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#22272e" />
+</head>
+<body>
+<header><nav id="navigation">
+  <div class="m-container">
+    <div class="m-row">
+      <a href="index.html" id="m-navbar-brand" class="m-col-t-8 m-col-m-none m-left-m">osqp-eigen</a>
+      <div class="m-col-t-4 m-hide-m m-text-right m-nopadr">
+        <a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+          <path id="m-doc-search-icon-path" d="m6 0c-3.31 0-6 2.69-6 6 0 3.31 2.69 6 6 6 1.49 0 2.85-0.541 3.89-1.44-0.0164 0.338 0.147 0.759 0.5 1.15l3.22 3.79c0.552 0.614 1.45 0.665 2 0.115 0.55-0.55 0.499-1.45-0.115-2l-3.79-3.22c-0.392-0.353-0.812-0.515-1.15-0.5 0.895-1.05 1.44-2.41 1.44-3.89 0-3.31-2.69-6-6-6zm0 1.56a4.44 4.44 0 0 1 4.44 4.44 4.44 4.44 0 0 1-4.44 4.44 4.44 4.44 0 0 1-4.44-4.44 4.44 4.44 0 0 1 4.44-4.44z"/>
+        </svg></a>
+        <a id="m-navbar-show" href="#navigation" title="Show navigation"></a>
+        <a id="m-navbar-hide" href="#" title="Hide navigation"></a>
+      </div>
+      <div id="m-navbar-collapse" class="m-col-t-12 m-show-m m-col-m-none m-right-m">
+        <div class="m-row">
+          <ol class="m-col-t-6 m-col-m-none">
+            <li><a href="pages.html">Pages</a></li>
+            <li><a href="annotated.html">Classes</a></li>
+            <li><a href="files.html">Files</a></li>
+          </ol>
+          <ol class="m-col-t-6 m-col-m-none" start="4">
+            <li><a href="https://github.com/robotology/osqp-eigen">GitHub</a></li>
+            <li class="m-show-m"><a href="#search" class="m-doc-search-icon" title="Search" onclick="return showSearch()"><svg style="height: 0.9rem;" viewBox="0 0 16 16">
+              <use href="#m-doc-search-icon-path" />
+            </svg></a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav></header>
+<main><article>
+  <div class="m-container m-container-inflatable">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <h1>
+          <span class="m-breadcrumb"><a href="namespace_osqp_eigen.html">OsqpEigen</a>::<wbr/></span>Settings <span class="m-thin">class</span>
+        </h1>
+        <p>settings class is a wrapper of the OSQP OSQPSettings struct.</p>
+        <div class="m-block m-default">
+          <h3>Contents</h3>
+          <ul>
+            <li>
+              Reference
+              <ul>
+                <li><a href="#typeless-methods">Constructors, destructors, conversion operators</a></li>
+                <li><a href="#pub-methods">Public functions</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+<p>All the setter methods refer to this particular kind of optimizer. <a href="http://web.stanford.edu/~boyd/admm.html">Here</a> you can find further information.</p>
+        <section id="typeless-methods">
+          <h2><a href="#typeless-methods">Constructors, destructors, conversion operators</a></h2>
+          <dl class="m-doc">
+            <dt id="a0f16a3c4db592ce554ceacf2d5bff49d">
+              <span class="m-doc-wrap-bumper"><a href="#a0f16a3c4db592ce554ceacf2d5bff49d" class="m-doc-self">Settings</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Constructor.</dd>
+            <dt id="aa4dd86dacba75b83123d1933e944e0e8">
+              <span class="m-doc-wrap-bumper"><a href="#aa4dd86dacba75b83123d1933e944e0e8" class="m-doc-self">~Settings</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Deconstructor.</dd>
+          </dl>
+        </section>
+        <section id="pub-methods">
+          <h2><a href="#pub-methods">Public functions</a></h2>
+          <dl class="m-doc">
+            <dt id="a31f9fb782dc1bcdbe79981bc6464c8af">
+              <span class="m-doc-wrap-bumper">void <a href="#a31f9fb782dc1bcdbe79981bc6464c8af" class="m-doc-self">resetDefaultSettings</a>(</span><span class="m-doc-wrap">)</span>
+            </dt>
+            <dd>Reset the default settings for the optimization problem.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a7412ba8eb706c52d80673628c54d2a40" class="m-doc">setRho</a>(</span><span class="m-doc-wrap">const double rho)</span>
+            </dt>
+            <dd>Set the ADMM step rho.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a59dc6a98b52eece19846a77a00036b5a" class="m-doc">setSigma</a>(</span><span class="m-doc-wrap">const double sigma)</span>
+            </dt>
+            <dd>Set the ADMM step sigma.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a879a1fec8d21859d4cdcaafdb6df4554" class="m-doc">setScaling</a>(</span><span class="m-doc-wrap">const int scaling)</span>
+            </dt>
+            <dd>Set the heuristic data scaling iterations.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a9aa2c776ed96d6cc02fbbf29e3d70f2f" class="m-doc">setAdaptiveRho</a>(</span><span class="m-doc-wrap">const bool isRhoStepSizeAdactive)</span>
+            </dt>
+            <dd>Set if the rho step size adaptive feature is active.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a499bb35ff72b900bf0063f7f8be679de" class="m-doc">setAdaptiveRhoInterval</a>(</span><span class="m-doc-wrap">const int rhoInterval)</span>
+            </dt>
+            <dd>Set the number of iterations between rho adaptations rho.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#afb3740497a1c9ecef66bc1c142169604" class="m-doc">setAdaptiveRhoTolerance</a>(</span><span class="m-doc-wrap">const double adaptiveRhoTolerance)</span>
+            </dt>
+            <dd>Set the tolerance for adapting rho.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a82bb52fd369ecfc177fbccc1d5e510d8" class="m-doc">setAdaptiveRhoFraction</a>(</span><span class="m-doc-wrap">const double adaptiveRhoFraction)</span>
+            </dt>
+            <dd>Set the interval for adapting rho (fraction of the setup time).</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ac670100dbf41f46a99122b58795038da" class="m-doc">setMaxIteraction</a>(</span><span class="m-doc-wrap">const int maxIteration)</span>
+            </dt>
+            <dd>Set the max number of iterations.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a1894d86b67a4b343c0d5887ecb9c7bc2" class="m-doc">setMaxIteration</a>(</span><span class="m-doc-wrap">const int maxIteration)</span>
+            </dt>
+            <dd>Set the max number of iterations.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a4498f6973031eadb2ad94b60dc856651" class="m-doc">setAbsoluteTolerance</a>(</span><span class="m-doc-wrap">const double absoluteTolerance)</span>
+            </dt>
+            <dd>Set the absolute convergence tolerance.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#aabf457998cd2b4ba6c6e61036a04de1e" class="m-doc">setRelativeTolerance</a>(</span><span class="m-doc-wrap">const double relativeTolerance)</span>
+            </dt>
+            <dd>Set the relative convergence tolerance.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#aa56c63231442a3d6ebc2d78fccec2aab" class="m-doc">setPrimalInfeasibilityTollerance</a>(</span><span class="m-doc-wrap">const double primalInfeasibilityTollerance)</span>
+            </dt>
+            <dd>Set the primal infeasibility tolerance.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a466e7884ef5dfe331f4c1fdc3382d7bb" class="m-doc">setDualInfeasibilityTollerance</a>(</span><span class="m-doc-wrap">const double dualInfeasibilityTollerance)</span>
+            </dt>
+            <dd>Set the dual infeasibility tolerance.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a141f192237f68447ac898a222bb3c1c9" class="m-doc">setAlpha</a>(</span><span class="m-doc-wrap">const double alpha)</span>
+            </dt>
+            <dd>Set the relaxation parameter.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a42e2f3d0fcf93c0a22ba2bb30599c1d3" class="m-doc">setLinearSystemSolver</a>(</span><span class="m-doc-wrap">const int linsysSolver)</span>
+            </dt>
+            <dd>Set linear solver.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a7a3e8d416f71d7fc572482d24a9a8ba2" class="m-doc">setDelta</a>(</span><span class="m-doc-wrap">const double delta)</span>
+            </dt>
+            <dd>Set the relaxation parameter for polish.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a64c052c5f72065b5319e152095228859" class="m-doc">setPolish</a>(</span><span class="m-doc-wrap">const bool polish)</span>
+            </dt>
+            <dd>Set if the polish feature is active.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#aabae74571bfbb2b33ec23b255476fbec" class="m-doc">setPolishRefineIter</a>(</span><span class="m-doc-wrap">const int polishRefineIter)</span>
+            </dt>
+            <dd>Set the iterative refinement steps in polish.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ac44115458417ef2257bc5c49634b0749" class="m-doc">setVerbosity</a>(</span><span class="m-doc-wrap">const bool isVerbose)</span>
+            </dt>
+            <dd>Set the Verbose mode.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#ab7d836e9f75480452c7e353e64608a31" class="m-doc">setScaledTerimination</a>(</span><span class="m-doc-wrap">const bool scaledTermination)</span>
+            </dt>
+            <dd>Set the scaled termination criteria.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#aebc0ad14de70c7c68c09135929dd7a75" class="m-doc">setCheckTermination</a>(</span><span class="m-doc-wrap">const int checkTermination)</span>
+            </dt>
+            <dd>Set check termination interval.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a5a9e4b887938fd742f81067563d021a6" class="m-doc">setWarmStart</a>(</span><span class="m-doc-wrap">const bool warmStart)</span>
+            </dt>
+            <dd>Set warm start.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">void <a href="#a5c0f09d5cf848eee872d56245e01b1db" class="m-doc">setTimeLimit</a>(</span><span class="m-doc-wrap">const double timeLimit)</span>
+            </dt>
+            <dd>Set the maximum number of seconds allowed to solve the problem.</dd>
+            <dt>
+              <span class="m-doc-wrap-bumper">auto <a href="#a85e57a05a36c6caa63187dc18c77dbd8" class="m-doc">getSettings</a>(</span><span class="m-doc-wrap">) const -&gt; OSQPSettings*const &amp;</span>
+            </dt>
+            <dd>Get a pointer to <a href="class_osqp_eigen_1_1_settings.html" class="m-doc">Settings</a> struct.</dd>
+          </dl>
+        </section>
+        <section>
+          <h2>Function documentation</h2>
+          <section class="m-doc-details" id="a7412ba8eb706c52d80673628c54d2a40"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7412ba8eb706c52d80673628c54d2a40" class="m-doc-self">setRho</a>(</span><span class="m-doc-wrap">const double rho)</span></span>
+            </h3>
+            <p>Set the ADMM step rho.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rho</td>
+                  <td>a ADMM step constant.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a59dc6a98b52eece19846a77a00036b5a"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a59dc6a98b52eece19846a77a00036b5a" class="m-doc-self">setSigma</a>(</span><span class="m-doc-wrap">const double sigma)</span></span>
+            </h3>
+            <p>Set the ADMM step sigma.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">sigma</td>
+                  <td>a ADMM step constant.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a879a1fec8d21859d4cdcaafdb6df4554"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a879a1fec8d21859d4cdcaafdb6df4554" class="m-doc-self">setScaling</a>(</span><span class="m-doc-wrap">const int scaling)</span></span>
+            </h3>
+            <p>Set the heuristic data scaling iterations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">scaling</td>
+                  <td>is the heuristic data scaling iteration.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>If 0, scaling disabled.</p>
+          </div></section>
+          <section class="m-doc-details" id="a9aa2c776ed96d6cc02fbbf29e3d70f2f"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a9aa2c776ed96d6cc02fbbf29e3d70f2f" class="m-doc-self">setAdaptiveRho</a>(</span><span class="m-doc-wrap">const bool isRhoStepSizeAdactive)</span></span>
+            </h3>
+            <p>Set if the rho step size adaptive feature is active.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">isRhoStepSizeAdactive</td>
+                  <td>if True the feature is active.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a499bb35ff72b900bf0063f7f8be679de"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a499bb35ff72b900bf0063f7f8be679de" class="m-doc-self">setAdaptiveRhoInterval</a>(</span><span class="m-doc-wrap">const int rhoInterval)</span></span>
+            </h3>
+            <p>Set the number of iterations between rho adaptations rho.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">rhoInterval</td>
+                  <td>number of iterations.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>If 0, it is automatic.</p>
+          </div></section>
+          <section class="m-doc-details" id="afb3740497a1c9ecef66bc1c142169604"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#afb3740497a1c9ecef66bc1c142169604" class="m-doc-self">setAdaptiveRhoTolerance</a>(</span><span class="m-doc-wrap">const double adaptiveRhoTolerance)</span></span>
+            </h3>
+            <p>Set the tolerance for adapting rho.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">adaptiveRhoTolerance</td>
+                  <td>is the tolerance.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>The new rho has to be X times larger or 1/X times smaller than the current one to trigger a new factorization.</p>
+          </div></section>
+          <section class="m-doc-details" id="a82bb52fd369ecfc177fbccc1d5e510d8"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a82bb52fd369ecfc177fbccc1d5e510d8" class="m-doc-self">setAdaptiveRhoFraction</a>(</span><span class="m-doc-wrap">const double adaptiveRhoFraction)</span></span>
+            </h3>
+            <p>Set the interval for adapting rho (fraction of the setup time).</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">adaptiveRhoFraction</td>
+                  <td>interval of the adapting rho.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac670100dbf41f46a99122b58795038da"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac670100dbf41f46a99122b58795038da" class="m-doc-self">setMaxIteraction</a>(</span><span class="m-doc-wrap">const int maxIteration)</span></span>
+            </h3>
+            <p>Set the max number of iterations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">maxIteration</td>
+                  <td>max number of iteration</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a1894d86b67a4b343c0d5887ecb9c7bc2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a1894d86b67a4b343c0d5887ecb9c7bc2" class="m-doc-self">setMaxIteration</a>(</span><span class="m-doc-wrap">const int maxIteration)</span></span>
+            </h3>
+            <p>Set the max number of iterations.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">maxIteration</td>
+                  <td>max number of iteration</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a4498f6973031eadb2ad94b60dc856651"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a4498f6973031eadb2ad94b60dc856651" class="m-doc-self">setAbsoluteTolerance</a>(</span><span class="m-doc-wrap">const double absoluteTolerance)</span></span>
+            </h3>
+            <p>Set the absolute convergence tolerance.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">absoluteTolerance</td>
+                  <td>absoulte tolerance of the solver.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aabf457998cd2b4ba6c6e61036a04de1e"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aabf457998cd2b4ba6c6e61036a04de1e" class="m-doc-self">setRelativeTolerance</a>(</span><span class="m-doc-wrap">const double relativeTolerance)</span></span>
+            </h3>
+            <p>Set the relative convergence tolerance.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">relativeTolerance</td>
+                  <td>relative tolerance of the solver.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aa56c63231442a3d6ebc2d78fccec2aab"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aa56c63231442a3d6ebc2d78fccec2aab" class="m-doc-self">setPrimalInfeasibilityTollerance</a>(</span><span class="m-doc-wrap">const double primalInfeasibilityTollerance)</span></span>
+            </h3>
+            <p>Set the primal infeasibility tolerance.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">primalInfeasibilityTollerance</td>
+                  <td>tolerace of the primal variables.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a466e7884ef5dfe331f4c1fdc3382d7bb"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a466e7884ef5dfe331f4c1fdc3382d7bb" class="m-doc-self">setDualInfeasibilityTollerance</a>(</span><span class="m-doc-wrap">const double dualInfeasibilityTollerance)</span></span>
+            </h3>
+            <p>Set the dual infeasibility tolerance.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">dualInfeasibilityTollerance</td>
+                  <td>tolerace of the dual variables.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a141f192237f68447ac898a222bb3c1c9"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a141f192237f68447ac898a222bb3c1c9" class="m-doc-self">setAlpha</a>(</span><span class="m-doc-wrap">const double alpha)</span></span>
+            </h3>
+            <p>Set the relaxation parameter.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">alpha</td>
+                  <td>is the relaxation parameter.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a42e2f3d0fcf93c0a22ba2bb30599c1d3"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a42e2f3d0fcf93c0a22ba2bb30599c1d3" class="m-doc-self">setLinearSystemSolver</a>(</span><span class="m-doc-wrap">const int linsysSolver)</span></span>
+            </h3>
+            <p>Set linear solver.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">linsysSolver</td>
+                  <td>is the name of the solver</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a7a3e8d416f71d7fc572482d24a9a8ba2"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a7a3e8d416f71d7fc572482d24a9a8ba2" class="m-doc-self">setDelta</a>(</span><span class="m-doc-wrap">const double delta)</span></span>
+            </h3>
+            <p>Set the relaxation parameter for polish.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">delta</td>
+                  <td>is the relaxation parameter.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a64c052c5f72065b5319e152095228859"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a64c052c5f72065b5319e152095228859" class="m-doc-self">setPolish</a>(</span><span class="m-doc-wrap">const bool polish)</span></span>
+            </h3>
+            <p>Set if the polish feature is active.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">polish</td>
+                  <td>if True the feature is active.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aabae74571bfbb2b33ec23b255476fbec"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aabae74571bfbb2b33ec23b255476fbec" class="m-doc-self">setPolishRefineIter</a>(</span><span class="m-doc-wrap">const int polishRefineIter)</span></span>
+            </h3>
+            <p>Set the iterative refinement steps in polish.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">polishRefineIter</td>
+                  <td>iterative refinement step.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ac44115458417ef2257bc5c49634b0749"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ac44115458417ef2257bc5c49634b0749" class="m-doc-self">setVerbosity</a>(</span><span class="m-doc-wrap">const bool isVerbose)</span></span>
+            </h3>
+            <p>Set the Verbose mode.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">isVerbose</td>
+                  <td>if true the verbose mode is activate.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="ab7d836e9f75480452c7e353e64608a31"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#ab7d836e9f75480452c7e353e64608a31" class="m-doc-self">setScaledTerimination</a>(</span><span class="m-doc-wrap">const bool scaledTermination)</span></span>
+            </h3>
+            <p>Set the scaled termination criteria.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">scaledTermination</td>
+                  <td>if true the scaled termination criteria is used.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="aebc0ad14de70c7c68c09135929dd7a75"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#aebc0ad14de70c7c68c09135929dd7a75" class="m-doc-self">setCheckTermination</a>(</span><span class="m-doc-wrap">const int checkTermination)</span></span>
+            </h3>
+            <p>Set check termination interval.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">checkTermination</td>
+                  <td>if 0 the termination checking is disabled.</td>
+                </tr>
+              </tbody>
+            </table>
+<p>If 0, termination checking is disabled.</p>
+          </div></section>
+          <section class="m-doc-details" id="a5a9e4b887938fd742f81067563d021a6"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5a9e4b887938fd742f81067563d021a6" class="m-doc-self">setWarmStart</a>(</span><span class="m-doc-wrap">const bool warmStart)</span></span>
+            </h3>
+            <p>Set warm start.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">warmStart</td>
+                  <td>if true the warm start is set.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a5c0f09d5cf848eee872d56245e01b1db"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">void OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a5c0f09d5cf848eee872d56245e01b1db" class="m-doc-self">setTimeLimit</a>(</span><span class="m-doc-wrap">const double timeLimit)</span></span>
+            </h3>
+            <p>Set the maximum number of seconds allowed to solve the problem.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <thead>
+                <tr><th colspan="2">Parameters</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="width: 1%">timeLimit</td>
+                  <td>is the time limit in seconds. If 0, then disabled.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div></section>
+          <section class="m-doc-details" id="a85e57a05a36c6caa63187dc18c77dbd8"><div>
+            <h3>
+              <span class="m-doc-wrap-bumper">OSQPSettings*const &amp; OsqpEigen::<wbr />Settings::<wbr /></span><span class="m-doc-wrap"><span class="m-doc-wrap-bumper"><a href="#a85e57a05a36c6caa63187dc18c77dbd8" class="m-doc-self">getSettings</a>(</span><span class="m-doc-wrap">) const</span></span>
+            </h3>
+            <p>Get a pointer to <a href="class_osqp_eigen_1_1_settings.html" class="m-doc">Settings</a> struct.</p>
+            <table class="m-table m-fullwidth m-flat">
+              <tfoot>
+                <tr>
+                  <th style="width: 1%">Returns</th>
+                  <td>a const pointer to OSQPSettings struct.</td>
+                </tr>
+              </tfoot>
+            </table>
+          </div></section>
+        </section>
+      </div>
+    </div>
+  </div>
+</article></main>
+<div class="m-doc-search" id="search">
+  <a href="#!" onclick="return hideSearch()"></a>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-m-8 m-push-m-2">
+        <div class="m-doc-search-header m-text m-small">
+          <div><span class="m-label m-default">Tab</span> / <span class="m-label m-default">T</span> to search, <span class="m-label m-default">Esc</span> to close</div>
+          <div id="search-symbolcount">&hellip;</div>
+        </div>
+        <div class="m-doc-search-content">
+          <form>
+            <input type="search" name="q" id="search-input" placeholder="Loading &hellip;" disabled="disabled" autofocus="autofocus" autocomplete="off" spellcheck="false" />
+          </form>
+          <noscript class="m-text m-danger m-text-center">Unlike everything else in the docs, the search functionality <em>requires</em> JavaScript.</noscript>
+          <div id="search-help" class="m-text m-dim m-text-center">
+            <p class="m-noindent">Search for symbols, directories, files, pages or
+            modules. You can omit any prefix from the symbol or file path; adding a
+            <code>:</code> or <code>/</code> suffix lists all members of given symbol or
+            directory.</p>
+            <p class="m-noindent">Use <span class="m-label m-dim">&darr;</span>
+            / <span class="m-label m-dim">&uarr;</span> to navigate through the list,
+            <span class="m-label m-dim">Enter</span> to go.
+            <span class="m-label m-dim">Tab</span> autocompletes common prefix, you can
+            copy a link to the result using <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">L</span> while <span class="m-label m-dim">⌘</span>
+            <span class="m-label m-dim">M</span> produces a Markdown link.</p>
+          </div>
+          <div id="search-notfound" class="m-text m-warning m-text-center">Sorry, nothing was found.</div>
+          <ul id="search-results"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="search-v1.js"></script>
+<script src="searchdata-v1.js" async="async"></script>
+<footer><nav>
+  <div class="m-container">
+    <div class="m-row">
+      <div class="m-col-l-10 m-push-l-1">
+        <p>osqp-eigen. Created with <a href="https://doxygen.org/">Doxygen</a> 1.9.1 and <a href="https://mcss.mosra.cz/">m.css</a>.</p>
+      </div>
+    </div>
+  </div>
+</nav></footer>
+</body>
+</html>

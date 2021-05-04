@@ -1,0 +1,765 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="class_osqp_eigen_1_1_settings" kind="class" language="C++" prot="public">
+    <compoundname>OsqpEigen::Settings</compoundname>
+    <includes refid="_settings_8hpp" local="no">Settings.hpp</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_osqp_eigen_1_1_settings_1aaf0d55b6c98812ccc75dcc4beb133d53" prot="private" static="no" mutable="no">
+        <type>OSQPSettings *</type>
+        <definition>OSQPSettings* OsqpEigen::Settings::m_settings</definition>
+        <argsstring></argsstring>
+        <name>m_settings</name>
+        <briefdescription>
+<para>OSQPSettings struct. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="27" column="22" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a0f16a3c4db592ce554ceacf2d5bff49d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Settings::Settings</definition>
+        <argsstring>()</argsstring>
+        <name>Settings</name>
+        <briefdescription>
+<para>Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="33" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aa4dd86dacba75b83123d1933e944e0e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>OsqpEigen::Settings::~Settings</definition>
+        <argsstring>()</argsstring>
+        <name>~Settings</name>
+        <briefdescription>
+<para>Deconstructor. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="38" column="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a31f9fb782dc1bcdbe79981bc6464c8af" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::resetDefaultSettings</definition>
+        <argsstring>()</argsstring>
+        <name>resetDefaultSettings</name>
+        <briefdescription>
+<para>Reset the default settings for the optimization problem. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="43" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a7412ba8eb706c52d80673628c54d2a40" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setRho</definition>
+        <argsstring>(const double rho)</argsstring>
+        <name>setRho</name>
+        <param>
+          <type>const double</type>
+          <declname>rho</declname>
+        </param>
+        <briefdescription>
+<para>Set the ADMM step rho. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rho</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a ADMM step constant. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="49" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a59dc6a98b52eece19846a77a00036b5a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setSigma</definition>
+        <argsstring>(const double sigma)</argsstring>
+        <name>setSigma</name>
+        <param>
+          <type>const double</type>
+          <declname>sigma</declname>
+        </param>
+        <briefdescription>
+<para>Set the ADMM step sigma. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>sigma</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>a ADMM step constant. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="55" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a879a1fec8d21859d4cdcaafdb6df4554" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setScaling</definition>
+        <argsstring>(const int scaling)</argsstring>
+        <name>setScaling</name>
+        <param>
+          <type>const int</type>
+          <declname>scaling</declname>
+        </param>
+        <briefdescription>
+<para>Set the heuristic data scaling iterations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If 0, scaling disabled. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>scaling</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the heuristic data scaling iteration. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="61" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a9aa2c776ed96d6cc02fbbf29e3d70f2f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAdaptiveRho</definition>
+        <argsstring>(const bool isRhoStepSizeAdactive)</argsstring>
+        <name>setAdaptiveRho</name>
+        <param>
+          <type>const bool</type>
+          <declname>isRhoStepSizeAdactive</declname>
+        </param>
+        <briefdescription>
+<para>Set if the rho step size adaptive feature is active. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isRhoStepSizeAdactive</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if True the feature is active. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="67" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a499bb35ff72b900bf0063f7f8be679de" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAdaptiveRhoInterval</definition>
+        <argsstring>(const int rhoInterval)</argsstring>
+        <name>setAdaptiveRhoInterval</name>
+        <param>
+          <type>const int</type>
+          <declname>rhoInterval</declname>
+        </param>
+        <briefdescription>
+<para>Set the number of iterations between rho adaptations rho. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If 0, it is automatic. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>rhoInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>number of iterations. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="73" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1afb3740497a1c9ecef66bc1c142169604" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAdaptiveRhoTolerance</definition>
+        <argsstring>(const double adaptiveRhoTolerance)</argsstring>
+        <name>setAdaptiveRhoTolerance</name>
+        <param>
+          <type>const double</type>
+          <declname>adaptiveRhoTolerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the tolerance for adapting rho. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>The new rho has to be X times larger or 1/X times smaller than the current one to trigger a new factorization. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>adaptiveRhoTolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the tolerance. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="80" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a82bb52fd369ecfc177fbccc1d5e510d8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAdaptiveRhoFraction</definition>
+        <argsstring>(const double adaptiveRhoFraction)</argsstring>
+        <name>setAdaptiveRhoFraction</name>
+        <param>
+          <type>const double</type>
+          <declname>adaptiveRhoFraction</declname>
+        </param>
+        <briefdescription>
+<para>Set the interval for adapting rho (fraction of the setup time). </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>adaptiveRhoFraction</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>interval of the adapting rho. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="86" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1ac670100dbf41f46a99122b58795038da" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setMaxIteraction</definition>
+        <argsstring>(const int maxIteration)</argsstring>
+        <name>setMaxIteraction</name>
+        <param>
+          <type>const int</type>
+          <declname>maxIteration</declname>
+        </param>
+        <briefdescription>
+<para>Set the max number of iterations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>maxIteration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>max number of iteration </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="92" column="15"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a1894d86b67a4b343c0d5887ecb9c7bc2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setMaxIteration</definition>
+        <argsstring>(const int maxIteration)</argsstring>
+        <name>setMaxIteration</name>
+        <param>
+          <type>const int</type>
+          <declname>maxIteration</declname>
+        </param>
+        <briefdescription>
+<para>Set the max number of iterations. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>maxIteration</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>max number of iteration </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="98" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a4498f6973031eadb2ad94b60dc856651" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAbsoluteTolerance</definition>
+        <argsstring>(const double absoluteTolerance)</argsstring>
+        <name>setAbsoluteTolerance</name>
+        <param>
+          <type>const double</type>
+          <declname>absoluteTolerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the absolute convergence tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>absoluteTolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>absoulte tolerance of the solver. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="104" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aabf457998cd2b4ba6c6e61036a04de1e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setRelativeTolerance</definition>
+        <argsstring>(const double relativeTolerance)</argsstring>
+        <name>setRelativeTolerance</name>
+        <param>
+          <type>const double</type>
+          <declname>relativeTolerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the relative convergence tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>relativeTolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>relative tolerance of the solver. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="110" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setPrimalInfeasibilityTollerance</definition>
+        <argsstring>(const double primalInfeasibilityTollerance)</argsstring>
+        <name>setPrimalInfeasibilityTollerance</name>
+        <param>
+          <type>const double</type>
+          <declname>primalInfeasibilityTollerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the primal infeasibility tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>primalInfeasibilityTollerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tolerace of the primal variables. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="116" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setDualInfeasibilityTollerance</definition>
+        <argsstring>(const double dualInfeasibilityTollerance)</argsstring>
+        <name>setDualInfeasibilityTollerance</name>
+        <param>
+          <type>const double</type>
+          <declname>dualInfeasibilityTollerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the dual infeasibility tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dualInfeasibilityTollerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tolerace of the dual variables. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="122" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setAlpha</definition>
+        <argsstring>(const double alpha)</argsstring>
+        <name>setAlpha</name>
+        <param>
+          <type>const double</type>
+          <declname>alpha</declname>
+        </param>
+        <briefdescription>
+<para>Set the relaxation parameter. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>alpha</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the relaxation parameter. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="128" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setLinearSystemSolver</definition>
+        <argsstring>(const int linsysSolver)</argsstring>
+        <name>setLinearSystemSolver</name>
+        <param>
+          <type>const int</type>
+          <declname>linsysSolver</declname>
+        </param>
+        <briefdescription>
+<para>Set linear solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>linsysSolver</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the name of the solver </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="134" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setDelta</definition>
+        <argsstring>(const double delta)</argsstring>
+        <name>setDelta</name>
+        <param>
+          <type>const double</type>
+          <declname>delta</declname>
+        </param>
+        <briefdescription>
+<para>Set the relaxation parameter for polish. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>delta</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the relaxation parameter. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="140" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a64c052c5f72065b5319e152095228859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setPolish</definition>
+        <argsstring>(const bool polish)</argsstring>
+        <name>setPolish</name>
+        <param>
+          <type>const bool</type>
+          <declname>polish</declname>
+        </param>
+        <briefdescription>
+<para>Set if the polish feature is active. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>polish</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if True the feature is active. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="146" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aabae74571bfbb2b33ec23b255476fbec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setPolishRefineIter</definition>
+        <argsstring>(const int polishRefineIter)</argsstring>
+        <name>setPolishRefineIter</name>
+        <param>
+          <type>const int</type>
+          <declname>polishRefineIter</declname>
+        </param>
+        <briefdescription>
+<para>Set the iterative refinement steps in polish. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>polishRefineIter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>iterative refinement step. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="152" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1ac44115458417ef2257bc5c49634b0749" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setVerbosity</definition>
+        <argsstring>(const bool isVerbose)</argsstring>
+        <name>setVerbosity</name>
+        <param>
+          <type>const bool</type>
+          <declname>isVerbose</declname>
+        </param>
+        <briefdescription>
+<para>Set the Verbose mode. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>isVerbose</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true the verbose mode is activate. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="158" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1ab7d836e9f75480452c7e353e64608a31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setScaledTerimination</definition>
+        <argsstring>(const bool scaledTermination)</argsstring>
+        <name>setScaledTerimination</name>
+        <param>
+          <type>const bool</type>
+          <declname>scaledTermination</declname>
+        </param>
+        <briefdescription>
+<para>Set the scaled termination criteria. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>scaledTermination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true the scaled termination criteria is used. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="164" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aebc0ad14de70c7c68c09135929dd7a75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setCheckTermination</definition>
+        <argsstring>(const int checkTermination)</argsstring>
+        <name>setCheckTermination</name>
+        <param>
+          <type>const int</type>
+          <declname>checkTermination</declname>
+        </param>
+        <briefdescription>
+<para>Set check termination interval. </para>
+        </briefdescription>
+        <detaileddescription>
+<para>If 0, termination checking is disabled. <parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>checkTermination</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if 0 the termination checking is disabled. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="170" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a5a9e4b887938fd742f81067563d021a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setWarmStart</definition>
+        <argsstring>(const bool warmStart)</argsstring>
+        <name>setWarmStart</name>
+        <param>
+          <type>const bool</type>
+          <declname>warmStart</declname>
+        </param>
+        <briefdescription>
+<para>Set warm start. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>warmStart</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>if true the warm start is set. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="176" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a5c0f09d5cf848eee872d56245e01b1db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setTimeLimit</definition>
+        <argsstring>(const double timeLimit)</argsstring>
+        <name>setTimeLimit</name>
+        <param>
+          <type>const double</type>
+          <declname>timeLimit</declname>
+        </param>
+        <briefdescription>
+<para>Set the maximum number of seconds allowed to solve the problem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>timeLimit</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>is the time limit in seconds. If 0, then disabled. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="182" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>OSQPSettings *const  &amp;</type>
+        <definition>OSQPSettings* const&amp; OsqpEigen::Settings::getSettings</definition>
+        <argsstring>() const</argsstring>
+        <name>getSettings</name>
+        <briefdescription>
+<para>Get a pointer to <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">Settings</ref> struct. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>a const pointer to OSQPSettings struct. </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="188" column="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>settings class is a wrapper of the OSQP OSQPSettings struct. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>All the setter methods refer to this particular kind of optimizer. <ulink url="http://web.stanford.edu/~boyd/admm.html">Here</ulink> you can find further information. </para>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="25" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" bodystart="26" bodyend="189"/>
+    <listofallmembers>
+      <member refid="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>getSettings</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aaf0d55b6c98812ccc75dcc4beb133d53" prot="private" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>m_settings</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a31f9fb782dc1bcdbe79981bc6464c8af" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>resetDefaultSettings</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a4498f6973031eadb2ad94b60dc856651" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAbsoluteTolerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a9aa2c776ed96d6cc02fbbf29e3d70f2f" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAdaptiveRho</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a82bb52fd369ecfc177fbccc1d5e510d8" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAdaptiveRhoFraction</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a499bb35ff72b900bf0063f7f8be679de" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAdaptiveRhoInterval</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1afb3740497a1c9ecef66bc1c142169604" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAdaptiveRhoTolerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAlpha</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aebc0ad14de70c7c68c09135929dd7a75" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setCheckTermination</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDelta</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDualInfeasibilityTollerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setLinearSystemSolver</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1ac670100dbf41f46a99122b58795038da" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setMaxIteraction</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a1894d86b67a4b343c0d5887ecb9c7bc2" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setMaxIteration</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a64c052c5f72065b5319e152095228859" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPolish</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aabae74571bfbb2b33ec23b255476fbec" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPolishRefineIter</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPrimalInfeasibilityTollerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aabf457998cd2b4ba6c6e61036a04de1e" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setRelativeTolerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a7412ba8eb706c52d80673628c54d2a40" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setRho</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1ab7d836e9f75480452c7e353e64608a31" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setScaledTerimination</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a879a1fec8d21859d4cdcaafdb6df4554" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setScaling</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a59dc6a98b52eece19846a77a00036b5a" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setSigma</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a5c0f09d5cf848eee872d56245e01b1db" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setTimeLimit</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a0f16a3c4db592ce554ceacf2d5bff49d" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>Settings</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1ac44115458417ef2257bc5c49634b0749" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setVerbosity</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a5a9e4b887938fd742f81067563d021a6" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setWarmStart</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aa4dd86dacba75b83123d1933e944e0e8" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>~Settings</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

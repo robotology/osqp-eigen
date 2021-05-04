@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="indexpage" kind="page">
+    <compoundname>index</compoundname>
+    <title>osqp-eigen</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><anchor id="index_1md__home_runner_work_osqp_eigen_osqp_eigen_README"/> <table rows="2" cols="4"><row>
+<entry thead="yes" align='center'><para><ulink url="https://isocpp.org"><image type="html" name="https://img.shields.io/badge/standard-C++14-blue.svg?style=flat&amp;logo=c%2B%2B" alt="c++14" inline="yes"></image>
+</ulink>   </para>
+</entry><entry thead="yes" align='center'><para><ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE"><image type="html" name="https://img.shields.io/badge/license-LGPL-19c2d8.svg" alt="License" inline="yes"></image>
+</ulink>   </para>
+</entry><entry thead="yes" align='center'><para><ulink url="https://www.codacy.com/manual/GiulioRomualdi/osqp-eigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade"><image type="html" name="https://api.codacy.com/project/badge/Grade/a73c260e38d949eabeecc424410d859c" alt="Code quality" inline="yes"></image>
+</ulink>   </para>
+</entry><entry thead="yes" align='center'><para><ulink url="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg"><image type="html" name="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg" alt="CI" inline="yes"></image>
+</ulink>    </para>
+</entry></row>
+<row>
+<entry thead="no" align='center'><para></para>
+</entry><entry thead="no" align='center'><para></para>
+</entry><entry thead="no" align='center'><para></para>
+</entry><entry thead="no" align='center'><para></para>
+</entry></row>
+</table>
+</para>
+<para>Simple C++ wrapper for <ulink url="http://osqp.readthedocs.io/en/latest/index.html">osqp</ulink> library.</para>
+<sect1 id="index_1autotoc_md1">
+<title>Documentation</title>
+<para>The documentation is available online at the accompanying <ulink url="https://robotology.github.io/osqp-eigen">website</ulink>.</para>
+</sect1>
+<sect1 id="index_1autotoc_md2">
+<title>Dependeces</title>
+<para>The project depends only on <ulink url="http://osqp.readthedocs.io/en/latest/index.html"><computeroutput>osqp</computeroutput></ulink> and <ulink url="http://eigen.tuxfamily.org/index.php?title=Main_Page">Eigen3</ulink>. Please install <ulink url="https://github.com/catchorg/Catch2">Catch2</ulink> if you want to run the tests only for testing.</para>
+</sect1>
+<sect1 id="index_1autotoc_md3">
+<title>Usage</title>
+<para><orderedlist>
+<listitem><para>Clone the repository</para>
+</listitem></orderedlist>
+</para>
+<para><programlisting><codeline><highlight class="normal">git<sp/>clone<sp/>https://github.com/robotology/osqp-eigen.git</highlight></codeline>
+</programlisting><orderedlist>
+<listitem><para>Build it</para>
+</listitem></orderedlist>
+</para>
+<para><programlisting><codeline><highlight class="normal">cd<sp/>osqp-eigen</highlight></codeline>
+<codeline><highlight class="normal">mkdir<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>build</highlight></codeline>
+<codeline><highlight class="normal">cmake<sp/>-DCMAKE_INSTALL_PREFIX:PATH=&lt;custom-folder&gt;<sp/>../</highlight></codeline>
+<codeline><highlight class="normal">make</highlight></codeline>
+<codeline><highlight class="normal">make<sp/>install</highlight></codeline>
+</programlisting><orderedlist>
+<listitem><para>Add the following environmental variable <programlisting><codeline><highlight class="normal">OsqpEigen_DIR=/path/where/you/installed/</highlight></codeline>
+</programlisting></para>
+</listitem></orderedlist>
+</para>
+</sect1>
+<sect1 id="index_1autotoc_md4">
+<title>How to use the library</title>
+<para><bold>osqp-eigen</bold> provides native <computeroutput>CMake</computeroutput> support which allows the library to be easily used in <computeroutput>CMake</computeroutput> projects. <bold>osqp-eigen</bold> exports a CMake target called <computeroutput>OsqpEigen::OsqpEigen</computeroutput> which can be imported using the <computeroutput>find_package</computeroutput> CMake command and used by calling <computeroutput>target_link_libraries</computeroutput> as in the following example: <programlisting filename=".cmake"><codeline><highlight class="normal">cmake_minimum_required(VERSION<sp/>3.0)</highlight></codeline>
+<codeline><highlight class="normal">project(myproject)</highlight></codeline>
+<codeline><highlight class="normal">find_package(OsqpEigen<sp/>REQUIRED)</highlight></codeline>
+<codeline><highlight class="normal">add_executable(example<sp/>example.cpp)</highlight></codeline>
+<codeline><highlight class="normal">target_link_libraries(example<sp/>OsqpEigen::OsqpEigen)</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="index_1autotoc_md5">
+<title>Bug reports and support</title>
+<para>All types of <ulink url="https://github.com/robotology/osqp-eigen/issues/new">issues</ulink> are welcome.</para>
+</sect1>
+<sect1 id="index_1autotoc_md6">
+<title>License</title>
+<para>Materials in this repository are distributed under the following license:</para>
+<para><blockquote><para>All software is licensed under the LGPL3 License. See <ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE">LICENSE</ulink> file for details. </para>
+</blockquote></para>
+</sect1>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/README.md"/>
+  </compounddef>
+</doxygen>
