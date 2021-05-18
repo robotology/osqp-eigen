@@ -31,6 +31,7 @@ if (OSQPEIGEN_COMPILE_tests)
     configure_file(cmake/Catch2Main.cpp.in ${CMAKE_BINARY_DIR}/Testing/Catch2Main.cpp)
     add_library(CatchTestMain ${CMAKE_BINARY_DIR}/Testing/Catch2Main.cpp)
     target_link_libraries(CatchTestMain PUBLIC Catch2::Catch2)
+    add_simd(CatchTestMain)
 endif()
 
 
@@ -64,8 +65,11 @@ function(add_osqpeigen_test)
       add_test(NAME ${targetname} COMMAND ${targetname})
       target_compile_definitions(${targetname} PRIVATE ${${prefix}_COMPILE_DEFINITIONS})
 
+      add_simd(${targetname})
+
       if(OSQPEIGEN_RUN_Valgrind_tests)
         add_test(NAME memcheck_${targetname} COMMAND ${MEMCHECK_COMMAND_COMPLETE} $<TARGET_FILE:${targetname}>)
+        add_simd(memcheck_${targetname})
       endif()
 
     endif()

@@ -22,6 +22,23 @@ endif()
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 option(BUILD_SHARED_LIBS "Build libraries as shared as opposed to static" ON)
+option(ENABLE_SIMD "Build with all SIMD instructions on the current local machine" OFF)
+
+function(add_simd TARGET)
+  if(ENABLE_SIMD)
+    if(CMAKE_COMPILER_IS_GNUCXX)
+      execute_process(
+        COMMAND ${CMAKE_CXX_COMPILER} -dumpfullversion -dumpversion OUTPUT_VARIABLE GCC_VERSION)
+      set(CXX_COMPILER_VERSION ${GCC_VERSION})
+      target_compile_options(${TARGET} PUBLIC -march=native)
+      if(GCC_VERSION VERSION_GREATER 7.0)
+        target_compile_options(${TARGET} PUBLIC -faligned-new)
+      endif()
+    elseif("${CMAKE_CXX_COMPILER_ID}" MATCHES "Clang")
+      target_compile_options(${TARGET} PUBLIC -march=native -faligned-new)
+    endif()
+  endif()
+endfunction()
 
 # Disable C and C++ compiler extensions.
 # C/CXX_EXTENSIONS are ON by default to allow the compilers to use extended
@@ -100,6 +117,9 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
+
+# Add SIMD if enabled
+add_simd(${LIBRARY_TARGET_NAME})
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
