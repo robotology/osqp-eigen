@@ -5,7 +5,7 @@
 cmake_minimum_required(VERSION 3.8)
 
 project(OsqpEigen
-  VERSION 0.6.3)
+  VERSION 0.6.4)
 
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
