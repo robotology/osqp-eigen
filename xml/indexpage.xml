@@ -14,7 +14,7 @@
 </entry></row>
 <row>
 <entry thead="no" align='center'><para><bold>CI/CD</bold>   </para>
-</entry><entry thead="no" align='center'><para><ulink url="https://www.codacy.com/manual/GiulioRomualdi/osqp-eigen?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade"><image type="html" name="https://api.codacy.com/project/badge/Grade/a73c260e38d949eabeecc424410d859c" alt="Code quality" inline="yes"></image>
+</entry><entry thead="no" align='center'><para><ulink url="https://www.codacy.com/gh/robotology/osqp-eigen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade"><image type="html" name="https://app.codacy.com/project/badge/Grade/a18710c10f1c4df19bc2759fd50e9cf5" alt="Codacy Badge" inline="yes"></image>
 </ulink> <ulink url="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg"><image type="html" name="https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg" alt="CI" inline="yes"></image>
 </ulink> <ulink url="https://dev.azure.com/conda-forge/feedstock-builds/_build/results?buildId=341091&amp;view=results"><image type="html" name="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/osqp-eigen-feedstock?branchName=master" alt="Azure" inline="yes"></image>
 </ulink>    </para>
