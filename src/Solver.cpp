@@ -128,7 +128,7 @@ void OsqpEigen::Solver::clearSolver()
 bool OsqpEigen::Solver::solve()
 {
     if(!m_isSolverInitialized){
-        debugStream() << "[OsqpEigen::Solver::solve] The solve has hot been initialized yet. "
+        debugStream() << "[OsqpEigen::Solver::solve] The solve has not been initialized yet. "
                   << "Please call initSolver() method."
                   << std::endl;
         return false;
