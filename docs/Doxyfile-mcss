@@ -1,0 +1,13 @@
+@INCLUDE                = Doxyfile
+
+PROJECT_BRIEF           = ""
+
+USE_MDFILE_AS_MAINPAGE  = "../README.md"
+
+
+GENERATE_HTML           = NO
+GENERATE_XML            = YES
+XML_PROGRAMLISTING      = NO
+
+XML_OUTPUT              = "site/xml"
+HTML_OUTPUT             = "site"
