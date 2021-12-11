@@ -10,6 +10,7 @@
 
 // OsqpEigen
 #include <OsqpEigen/Data.hpp>
+#include <OsqpEigen/Debug.hpp>
 
 OsqpEigen::Data::Data()
     : m_isNumberOfVariablesSet(false),
@@ -86,19 +87,22 @@ OSQPData* const & OsqpEigen::Data::getData() const
 
 bool OsqpEigen::Data::isSet() const
 {
+    const bool areConstraintsOk = (m_data->m == 0) ||
+        m_isLinearConstraintsMatrixSet &&
+        m_isLowerBoundSet &&
+        m_isUpperBoundSet;
+
     return m_isNumberOfVariablesSet &&
         m_isNumberOfConstraintsSet &&
         m_isHessianMatrixSet &&
         m_isGradientSet &&
-        m_isLinearConstraintsMatrixSet &&
-        m_isLowerBoundSet &&
-        m_isUpperBoundSet;
+        areConstraintsOk;
 }
 
 bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradient)
 {
     if(gradient.rows() != m_data->n){
-        std::cerr << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -115,7 +119,7 @@ Eigen::Matrix<c_float, Eigen::Dynamic, 1> OsqpEigen::Data::getGradient()
 bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound)
 {
     if(lowerBound.rows() != m_data->m){
-        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
@@ -127,11 +131,22 @@ bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dyn
 bool OsqpEigen::Data::setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
 {
     if(upperBound.rows() != m_data->m){
-        std::cerr << "[OsqpEigen::Data::setLowerBound] The size of the upper bound must be equal to the number of the variables."
+        debugStream() << "[OsqpEigen::Data::setUpperBound] The size of the upper bound must be equal to the number of the variables."
                   << std::endl;
         return false;
     }
     m_isUpperBoundSet = true;
     m_data->u = upperBound.data();
     return true;
+}
+
+bool OsqpEigen::Data::setBounds(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound,
+                                Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
+{
+    bool ok = true;
+
+    ok = ok && this->setLowerBound(lowerBound);
+    ok = ok && this->setUpperBound(upperBound);
+
+    return ok;
 }

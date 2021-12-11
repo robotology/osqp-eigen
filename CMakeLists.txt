@@ -2,10 +2,10 @@
 # CopyPolicy: Released under the terms of the LGPLv2.1 or later
 
 # Set cmake mimimun version
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.8)
 
 project(OsqpEigen
-  VERSION 0.6.1)
+  VERSION 0.6.4)
 
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -59,6 +59,8 @@ endif()
 option(BUILD_TESTING "Create tests using CMake" OFF)
 include(CTest)
 
+option(OSQP_EIGEN_DEBUG_OUTPUT "Print debug error messages to cerr" ON)
+
 # Check OsqpEigen dependencies, find necessary libraries.
 include(OsqpEigenDependencies)
 
@@ -78,7 +80,8 @@ set(LIBRARY_TARGET_NAME OsqpEigen)
 set(${LIBRARY_TARGET_NAME}_SRC
   src/Data.cpp
   src/Settings.cpp
-  src/Solver.cpp)
+  src/Solver.cpp
+  src/Debug.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
   include/OsqpEigen/OsqpEigen.h
@@ -89,7 +92,8 @@ set(${LIBRARY_TARGET_NAME}_HDR
   include/OsqpEigen/Data.tpp
   include/OsqpEigen/Settings.hpp
   include/OsqpEigen/Solver.hpp
-  include/OsqpEigen/Solver.tpp)
+  include/OsqpEigen/Solver.tpp
+  include/OsqpEigen/Debug.hpp)
 
 add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
@@ -104,6 +108,10 @@ set_target_properties(${LIBRARY_TARGET_NAME} PROPERTIES
   PUBLIC_HEADER "${${LIBRARY_TARGET_NAME}_HDR}")
 
 target_compile_features(${LIBRARY_TARGET_NAME} PUBLIC cxx_std_14)
+
+if(OSQP_EIGEN_DEBUG_OUTPUT)
+    target_compile_definitions(${LIBRARY_TARGET_NAME} PRIVATE "OSQP_EIGEN_DEBUG_OUTPUT")
+endif()
 
 # List exported CMake package dependencies
 set(OSQP_EIGEN_EXPORTED_DEPENDENCIES "")
