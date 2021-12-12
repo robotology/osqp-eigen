@@ -7,7 +7,7 @@
 
   <license>LGPLv3</license>
 
-  <url type="website">https://github.com/Robotology/osqp-eigen</url>
+  <url type="website">https://github.com/robotology/osqp-eigen</url>
 
   <build_depend>git</build_depend>
   <!-- The following tags are recommended by REP-136 -->
