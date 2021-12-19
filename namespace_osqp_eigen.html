@@ -55,6 +55,7 @@
               <ul>
                 <li><a href="#namespaces">Namespaces</a></li>
                 <li><a href="#nested-classes">Classes</a></li>
+                <li><a href="#enum-members">Enums</a></li>
                 <li><a href="#func-members">Functions</a></li>
                 <li><a href="#var-members">Variables</a></li>
               </ul>
@@ -85,6 +86,35 @@
             <dd><a href="class_osqp_eigen_1_1_solver.html" class="m-doc">Solver</a> class is a wrapper of the OSQP OSQPWorkspace struct.</dd>
           </dl>
         </section>
+        <section id="enum-members">
+          <h2><a href="#enum-members">Enums</a></h2>
+          <dl class="m-doc">
+            <dt id="ac0ca4e76dc0319f9d34640f8253977ac">
+              <span class="m-doc-wrap-bumper">enum class <a href="#ac0ca4e76dc0319f9d34640f8253977ac" class="m-doc-self">Status</a>: int { </span><span class="m-doc-wrap"><a href="#ac0ca4e76dc0319f9d34640f8253977acab32d177903d96c81a1195511594a0af2" class="m-doc">DualInfeasibleInaccurate</a> = OSQP_DUAL_INFEASIBLE_INACCURATE,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977aca4613d4a69f8ac63bf728556adc3abeb4" class="m-doc">PrimalInfeasibleInaccurate</a> = OSQP_PRIMAL_INFEASIBLE_INACCURATE,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977acabccf319b52e27df9744a540a9487538f" class="m-doc">SolvedInaccurate</a> = OSQP_SOLVED_INACCURATE,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977aca2bed4ed6d6d4b10a818539fb0be36181" class="m-doc">Solved</a> = OSQP_SOLVED,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977acaee17e2bb1d5af2a4f502b19e55be5062" class="m-doc">MaxIterReached</a> = OSQP_MAX_ITER_REACHED,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977aca190b2e9507159faf8c6939d98220a75e" class="m-doc">PrimalInfeasible</a> = OSQP_PRIMAL_INFEASIBLE,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977acad5184b646ae0f0f1f1cde90d98b540e5" class="m-doc">DualInfeasible</a> = OSQP_DUAL_INFEASIBLE,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977acad8083a7075b3a92aa205bf3d8f6d4993" class="m-doc">Sigint</a> = OSQP_SIGINT,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977aca8a8d7790155ab0a0fd950e523761891b" class="m-doc">NonCvx</a> = OSQP_NON_CVX,
+              <a href="#ac0ca4e76dc0319f9d34640f8253977acaca44a1761a487e660f32c8b45af94278" class="m-doc">Unsolved</a> = OSQP_UNSOLVED }</span>
+            </dt>
+            <dd>Status of the solver.</dd>
+            <dt id="a3fdeafaa5232daef54e575f38354ba5d">
+              <span class="m-doc-wrap-bumper">enum class <a href="#a3fdeafaa5232daef54e575f38354ba5d" class="m-doc-self">ErrorExitFlag</a>: int { </span><span class="m-doc-wrap"><a href="#a3fdeafaa5232daef54e575f38354ba5da70a47cae4eb221930f2663fd244369ea" class="m-doc">NoError</a> = 0,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da333394883c392bd3ccad97dc9d7d3b95" class="m-doc">DataValidationError</a> = OSQP_DATA_VALIDATION_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da6c2683c1d58a9f4fcd7a730450d65ddc" class="m-doc">SettingsValidationError</a> = OSQP_SETTINGS_VALIDATION_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da014aed7cb210c69efd45c1e7a5be8e83" class="m-doc">LinsysSolverLoadError</a> = OSQP_LINSYS_SOLVER_LOAD_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da8f88d2f48dcbb16f24a1017f3b8f99df" class="m-doc">LinsysSolverInitError</a> = OSQP_LINSYS_SOLVER_INIT_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da885e267fde910d2deff9df23290e15de" class="m-doc">NonCvxError</a> = OSQP_NONCVX_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5da9cf3cc51ab340df89444cb78e6a99d50" class="m-doc">MemAllocError</a> = OSQP_MEM_ALLOC_ERROR,
+              <a href="#a3fdeafaa5232daef54e575f38354ba5daa7c5fd1199539c327c6317e92b74e34f" class="m-doc">WorkspaceNotInitError</a> = OSQP_WORKSPACE_NOT_INIT_ERROR }</span>
+            </dt>
+            <dd>Error status of the <a href="class_osqp_eigen_1_1_solver.html" class="m-doc">Solver</a>.</dd>
+          </dl>
+        </section>
         <section id="func-members">
           <h2><a href="#func-members">Functions</a></h2>
           <dl class="m-doc">
@@ -97,8 +127,8 @@
         <section id="var-members">
           <h2><a href="#var-members">Variables</a></h2>
           <dl class="m-doc">
-            <dt id="acfe9d2ea05e99677c0dc9e8f5646098d">
-              const c_float <a href="#acfe9d2ea05e99677c0dc9e8f5646098d" class="m-doc-self">INFTY</a>
+            <dt id="aaffcf5dd68b127022db7db8cea5c9051">
+              c_float <a href="#aaffcf5dd68b127022db7db8cea5c9051" class="m-doc-self">INFTY</a> <span class="m-label m-flat m-primary">constexpr</span>
             </dt>
             <dd>Infinity constant.</dd>
           </dl>

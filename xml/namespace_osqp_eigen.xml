@@ -6,10 +6,180 @@
     <innerclass refid="class_osqp_eigen_1_1_settings" prot="public">OsqpEigen::Settings</innerclass>
     <innerclass refid="class_osqp_eigen_1_1_solver" prot="public">OsqpEigen::Solver</innerclass>
     <innernamespace refid="namespace_osqp_eigen_1_1_sparse_matrix_helper">OsqpEigen::SparseMatrixHelper</innernamespace>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977ac" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>Status</name>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acab32d177903d96c81a1195511594a0af2" prot="public">
+          <name>DualInfeasibleInaccurate</name>
+          <initializer>= OSQP_DUAL_INFEASIBLE_INACCURATE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977aca4613d4a69f8ac63bf728556adc3abeb4" prot="public">
+          <name>PrimalInfeasibleInaccurate</name>
+          <initializer>= OSQP_PRIMAL_INFEASIBLE_INACCURATE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acabccf319b52e27df9744a540a9487538f" prot="public">
+          <name>SolvedInaccurate</name>
+          <initializer>= OSQP_SOLVED_INACCURATE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977aca2bed4ed6d6d4b10a818539fb0be36181" prot="public">
+          <name>Solved</name>
+          <initializer>= OSQP_SOLVED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acaee17e2bb1d5af2a4f502b19e55be5062" prot="public">
+          <name>MaxIterReached</name>
+          <initializer>= OSQP_MAX_ITER_REACHED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977aca190b2e9507159faf8c6939d98220a75e" prot="public">
+          <name>PrimalInfeasible</name>
+          <initializer>= OSQP_PRIMAL_INFEASIBLE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acad5184b646ae0f0f1f1cde90d98b540e5" prot="public">
+          <name>DualInfeasible</name>
+          <initializer>= OSQP_DUAL_INFEASIBLE</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acad8083a7075b3a92aa205bf3d8f6d4993" prot="public">
+          <name>Sigint</name>
+          <initializer>= OSQP_SIGINT</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977aca8a8d7790155ab0a0fd950e523761891b" prot="public">
+          <name>NonCvx</name>
+          <initializer>= OSQP_NON_CVX</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977acaca44a1761a487e660f32c8b45af94278" prot="public">
+          <name>Unsolved</name>
+          <initializer>= OSQP_UNSOLVED</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Status of the solver. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="24" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="25" bodyend="39"/>
+      </memberdef>
+      <memberdef kind="enum" id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5d" prot="public" static="no" strong="yes">
+        <type>int</type>
+        <name>ErrorExitFlag</name>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da70a47cae4eb221930f2663fd244369ea" prot="public">
+          <name>NoError</name>
+          <initializer>= 0</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da333394883c392bd3ccad97dc9d7d3b95" prot="public">
+          <name>DataValidationError</name>
+          <initializer>= OSQP_DATA_VALIDATION_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da6c2683c1d58a9f4fcd7a730450d65ddc" prot="public">
+          <name>SettingsValidationError</name>
+          <initializer>= OSQP_SETTINGS_VALIDATION_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da014aed7cb210c69efd45c1e7a5be8e83" prot="public">
+          <name>LinsysSolverLoadError</name>
+          <initializer>= OSQP_LINSYS_SOLVER_LOAD_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da8f88d2f48dcbb16f24a1017f3b8f99df" prot="public">
+          <name>LinsysSolverInitError</name>
+          <initializer>= OSQP_LINSYS_SOLVER_INIT_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da885e267fde910d2deff9df23290e15de" prot="public">
+          <name>NonCvxError</name>
+          <initializer>= OSQP_NONCVX_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da9cf3cc51ab340df89444cb78e6a99d50" prot="public">
+          <name>MemAllocError</name>
+          <initializer>= OSQP_MEM_ALLOC_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5daa7c5fd1199539c327c6317e92b74e34f" prot="public">
+          <name>WorkspaceNotInitError</name>
+          <initializer>= OSQP_WORKSPACE_NOT_INIT_ERROR</initializer>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+<para>Error status of the <ref refid="class_osqp_eigen_1_1_solver" kindref="compound">Solver</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="45" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="46" bodyend="55"/>
+      </memberdef>
+      </sectiondef>
       <sectiondef kind="var">
-      <memberdef kind="variable" id="namespace_osqp_eigen_1acfe9d2ea05e99677c0dc9e8f5646098d" prot="public" static="no" mutable="no">
-        <type>const c_float</type>
-        <definition>const c_float OsqpEigen::INFTY</definition>
+      <memberdef kind="variable" id="namespace_osqp_eigen_1aaffcf5dd68b127022db7db8cea5c9051" prot="public" static="no" constexpr="yes" mutable="no">
+        <type>constexpr c_float</type>
+        <definition>constexpr c_float OsqpEigen::INFTY</definition>
         <argsstring></argsstring>
         <name>INFTY</name>
         <initializer>= OSQP_INFTY</initializer>
@@ -20,7 +190,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="19" column="19" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="19" bodyend="-1"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="19" column="23" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="19" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
