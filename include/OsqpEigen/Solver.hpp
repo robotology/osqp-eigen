@@ -116,7 +116,20 @@ namespace OsqpEigen
          * Solve the QP optimization problem.
          * @return true/false in case of success/failure.
          */
+        [[deprecated("Use solveProblem() instead.")]]
         bool solve();
+
+        /**
+         * Solve the QP optimization problem.
+         * @return the error exit flag
+         */
+        OsqpEigen::ErrorExitFlag solveProblem();
+
+        /**
+         * Get the status of the solver
+         * @return The inner solver status
+         */
+        OsqpEigen::Status getStatus() const;
 
         /**
          * Get the optimization problem solution.
