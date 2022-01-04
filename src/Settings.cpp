@@ -107,9 +107,19 @@ void OsqpEigen::Settings::setRelativeTolerance(const double relativeTolerance)
     m_settings->eps_rel = (c_float)relativeTolerance;
 }
 
+void OsqpEigen::Settings::setPrimalInfeasibilityTollerance(const double primalInfeasibilityTolerance)
+{
+    this->setPrimalInfeasibilityTolerance(primalInfeasibilityTolerance);
+}
+
 void OsqpEigen::Settings::setPrimalInfeasibilityTolerance(const double primalInfeasibilityTolerance)
 {
     m_settings->eps_prim_inf = (c_float)primalInfeasibilityTolerance;
+}
+
+void OsqpEigen::Settings::setDualInfeasibilityTollerance(const double dualInfeasibilityTolerance)
+{
+    this->setDualInfeasibilityTolerance(dualInfeasibilityTolerance);
 }
 
 void OsqpEigen::Settings::setDualInfeasibilityTolerance(const double dualInfeasibilityTolerance)
