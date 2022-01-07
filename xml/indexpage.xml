@@ -9,7 +9,7 @@
 <para><anchor id="index_1md__home_runner_work_osqp_eigen_osqp_eigen_README"/> <table rows="3" cols="2"><row>
 <entry thead="yes" align='center'><para>General   </para>
 </entry><entry thead="yes" align='center'><para><ulink url="https://isocpp.org"><image type="html" name="https://img.shields.io/badge/standard-C++14-blue.svg?style=flat&amp;logo=c%2B%2B" alt="c++14" inline="yes"></image>
-</ulink> <ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE"><image type="html" name="https://img.shields.io/badge/license-LGPL-19c2d8.svg" alt="License" inline="yes"></image>
+</ulink> <ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE"><image type="html" name="https://img.shields.io/badge/License-BSD_3--Clause-orange.svg" alt="License" inline="yes"></image>
 </ulink>    </para>
 </entry></row>
 <row>
@@ -79,7 +79,7 @@
 <sect1 id="index_1autotoc_md8">
 <title>📝 License</title>
 <para>Materials in this repository are distributed under the following license:</para>
-<para><blockquote><para>All software is licensed under the LGPL3 License. See <ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE">LICENSE</ulink> file for details. </para>
+<para><blockquote><para>All software is licensed under the BSD 3-Clause License. See <ulink url="https://github.com/robotology/osqp-eigen/blob/master/LICENSE">LICENSE</ulink> file for details. </para>
 </blockquote></para>
 </sect1>
     </detaileddescription>

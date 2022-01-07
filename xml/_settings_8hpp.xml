@@ -43,7 +43,7 @@
     <detaileddescription>
 <para><simplesect kind="author"><para>Giulio Romualdi </para>
 </simplesect>
-<simplesect kind="copyright"><para>Released under the terms of the LGPLv2.1 or later, see LGPL.TXT </para>
+<simplesect kind="copyright"><para>Released under the terms of the BSD 3-Clause License </para>
 </simplesect>
 <simplesect kind="date"><para>2018 </para>
 </simplesect>

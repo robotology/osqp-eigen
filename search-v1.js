@@ -708,7 +708,6 @@ if(typeof document !== 'undefined') {
                     document.body.style.overflow = 'auto';
                     document.body.style.paddingRight = '0';
                 }
-
                 return false; /* so the form doesn't get sent */
 
             /* Copy (Markdown) link to keyboard */
@@ -739,9 +738,63 @@ if(typeof document !== 'undefined') {
                excluding Ctrl-key, which is usually not for text input. In the
                worst case the autocompletion won't be allowed ever, which is
                much more acceptable behavior than having no ability to disable
-               it and annoying the users. See also this WONTFIX Android bug:
-               https://bugs.chromium.org/p/chromium/issues/detail?id=118639 */
-            } else if(event.key != 'Backspace' && event.key != 'Delete' && !event.metaKey && (!event.ctrlKey || event.altKey)) {
+               it and annoying the users. */
+            } else if(event.key != 'Backspace' && event.key != 'Delete' && !event.metaKey && (!event.ctrlKey || event.altKey)
+                /* Don't ever attempt autocompletion with Android virtual
+                   keyboards, as those report all `event.key`s as
+                   `Unidentified` (on Chrome) or `Process` (on Firefox) with
+                   `event.code` 229 and thus we have no way to tell if a text
+                   is entered or deleted. See this WONTFIX bug for details:
+                    https://bugs.chromium.org/p/chromium/issues/detail?id=118639
+                   Couldn't find any similar bugreport for Firefox, but I
+                   assume the virtual keyboard is to blame.
+
+                   An alternative is to hook into inputEvent, which has the
+                   data, but ... there's more cursed issues right after that:
+
+                    - setSelectionRange() in Chrome on Android only renders
+                      stuff, but doesn't actually act as such. Pressing
+                      Backspace will only remove the highlight, but the text
+                      stays here. Only delay-calling it through a timeout will
+                      work as intended. Possibly related SO suggestion (back
+                      then not even the rendering worked properly):
+                       https://stackoverflow.com/a/13235951
+                      Possibly related Chrome bug:
+                       https://bugs.chromium.org/p/chromium/issues/detail?id=32865
+
+                    - On Firefox Mobile, programmatically changing an input
+                      value (for the autocompletion highlight) will trigger an
+                      input event, leading to search *and* autocompletion being
+                      triggered again. Ultimately that results in newly typed
+                      characters not replacing the autocompletion but rather
+                      inserting before it, corrupting the searched string. This
+                      event has to be explicitly ignored.
+
+                    - On Firefox Mobile, deleting a highlight with the
+                      backspace key will result in *three* input events instead
+                      of one:
+                        1. `deleteContentBackward` removing the selection (same
+                           as Chrome or desktop Firefox)
+                        2. `deleteContentBackward` removing *the whole word*
+                           that contained the selection (or the whole text if
+                           it's just one word)
+                        3. `insertCompositionText`, adding the word back in,
+                           resulting in the same state as (1).
+                      I have no idea WHY it has to do this (possibly some
+                      REALLY NASTY workaround to trigger correct font shaping?)
+                      but ultimately it results in the autocompletion being
+                      added again right after it got deleted, making this whole
+                      thing VERY annoying to use.
+
+                   I attempted to work around the above, but it resulted in a
+                   huge amount of browser-specific code that achieves only 90%
+                   of the goal, with certain corner cases still being rather
+                   broken (such as autocompletion randomly triggering when
+                   erasing the text, even though it shouldn't). So disabling
+                   autocompletion on this HELLISH BROKEN PLATFORM is the best
+                   option at the moment. */
+                && event.key != 'Unidentified' && event.key != 'Process'
+            ) {
                 Search.autocompleteNextInputEvent = true;
             /* Otherwise reset the flag, because when the user would press e.g.
                the 'a' key and then e.g. ArrowRight (which doesn't trigger
