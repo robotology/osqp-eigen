@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <package format="3">
   <name>osqp-eigen</name>
-  <version>0.6.2</version>
+  <version>0.6.4</version>
   <description>Simple Eigen-C++ wrapper for OSQP library </description>
   <maintainer email="tbd@tbd.tbd">tbd</maintainer>
 
-  <license>LGPLv3</license>
+  <license>BSD</license>
 
   <url type="website">https://github.com/robotology/osqp-eigen</url>
 
