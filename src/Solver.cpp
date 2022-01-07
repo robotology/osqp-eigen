@@ -1,7 +1,7 @@
 /**
  * @file Solver.cpp
  * @author Giulio Romualdi
- * @copyright Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+ * @copyright Released under the terms of the BSD 3-Clause License
  * @date 2018
  */
 
@@ -127,28 +127,37 @@ void OsqpEigen::Solver::clearSolver()
 
 bool OsqpEigen::Solver::solve()
 {
-    if(!m_isSolverInitialized){
-        debugStream() << "[OsqpEigen::Solver::solve] The solve has not been initialized yet. "
-                  << "Please call initSolver() method."
-                  << std::endl;
-        return false;
-    }
-
-    if(osqp_solve(m_workspace.get()) != 0){
+    if (this->solveProblem() != OsqpEigen::ErrorExitFlag::NoError) {
         debugStream() << "[OsqpEigen::Solver::solve] Unable to solve the problem."
-                  << std::endl;
+                      << std::endl;
         return false;
     }
 
     // check if the solution is feasible
-    if(m_workspace->info->status_val != OSQP_SOLVED)
-    {
-        debugStream() << "[OsqpEigen::Solver::solve] The solution is infeasible."
-                  << std::endl;
+    if(this->getStatus() != OsqpEigen::Status::Solved) {
+        debugStream() << "[OsqpEigen::Solver::solve] The solution is unfeasible."
+                      << std::endl;
         return false;
     }
 
     return true;
+}
+
+OsqpEigen::Status OsqpEigen::Solver::getStatus() const
+{
+    return static_cast<OsqpEigen::Status>(m_workspace->info->status_val);
+}
+
+OsqpEigen::ErrorExitFlag OsqpEigen::Solver::solveProblem()
+{
+    if(!m_isSolverInitialized){
+        debugStream() << "[OsqpEigen::Solver::solveProblem] The solve has not been initialized yet. "
+                  << "Please call initSolver() method."
+                  << std::endl;
+        return OsqpEigen::ErrorExitFlag::WorkspaceNotInitError;
+    }
+
+    return static_cast<OsqpEigen::ErrorExitFlag>(osqp_solve(m_workspace.get()));
 }
 
 const Eigen::VectorXd &OsqpEigen::Solver::getSolution()

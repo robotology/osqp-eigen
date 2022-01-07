@@ -1,7 +1,7 @@
 /**
  * @file Solver.hpp
  * @author Giulio Romualdi
- * @copyright  Released under the terms of the LGPLv2.1 or later, see LGPL.TXT
+ * @copyright  Released under the terms of the BSD 3-Clause License
  * @date 2018
  */
 #ifndef OSQPEIGEN_SOLVER_HPP
@@ -116,7 +116,20 @@ namespace OsqpEigen
          * Solve the QP optimization problem.
          * @return true/false in case of success/failure.
          */
+        [[deprecated("Use solveProblem() instead.")]]
         bool solve();
+
+        /**
+         * Solve the QP optimization problem.
+         * @return the error exit flag
+         */
+        OsqpEigen::ErrorExitFlag solveProblem();
+
+        /**
+         * Get the status of the solver
+         * @return The inner solver status
+         */
+        OsqpEigen::Status getStatus() const;
 
         /**
          * Get the optimization problem solution.
