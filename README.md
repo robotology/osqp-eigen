@@ -1,8 +1,8 @@
 # osqp-eigen
 
-|  General  | [![c++14](https://img.shields.io/badge/standard-C++14-blue.svg?style=flat&logo=c%2B%2B)](https://isocpp.org) [![License](https://img.shields.io/badge/license-LGPL-19c2d8.svg)](https://github.com/robotology/osqp-eigen/blob/master/LICENSE) |
+|  General  | [![c++14](https://img.shields.io/badge/standard-C++14-blue.svg?style=flat&logo=c%2B%2B)](https://isocpp.org) [![License](https://img.shields.io/badge/License-BSD_3--Clause-orange.svg)](https://github.com/robotology/osqp-eigen/blob/master/LICENSE) |
 | :-------: | :----------------------------------------------------------: |
-| **CI/CD** | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a18710c10f1c4df19bc2759fd50e9cf5)](https://www.codacy.com/gh/robotology/osqp-eigen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade) [![CI](https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg)](https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg) [![Azure](https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/osqp-eigen-feedstock?branchName=master)](https://dev.azure.com/conda-forge/feedstock-builds/_build/results?buildId=341091&view=results)|
+| **CI/CD** | [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a18710c10f1c4df19bc2759fd50e9cf5)](https://www.codacy.com/gh/robotology/osqp-eigen/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=robotology/osqp-eigen&amp;utm_campaign=Badge_Grade) [![CI](https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg)](https://github.com/robotology/osqp-eigen/workflows/C++%20CI%20Workflow/badge.svg) [![Azure](https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/osqp-eigen-feedstock?branchName=master)](https://dev.azure.com/conda-forge/feedstock-builds/_build/results?buildId=341091&view=results) |
 | **conda** | [![Conda Recipe](https://img.shields.io/badge/recipe-osqp--eigen-green.svg)](https://anaconda.org/conda-forge/osqp-eigen)  [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/osqp-eigen.svg)](https://anaconda.org/conda-forge/osqp-eigen)  [![Conda Version](https://img.shields.io/conda/vn/conda-forge/osqp-eigen.svg)](https://anaconda.org/conda-forge/osqp-eigen)  [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/osqp-eigen.svg)](https://anaconda.org/conda-forge/osqp-eigen) |
 
 
@@ -18,7 +18,7 @@ The project depends only on [`osqp`](http://osqp.readthedocs.io/en/latest/index.
 
 ## 🛠️ Usage
 
-### 📦 Install with conda (recommended) 
+### 📦 Install with conda (recommended)
 You can easily the library with [`conda`](https://github.com/conda-forge/osqp-eigen-feedstock) using the following command
 ```
 conda install -c conda-forge osqp-eigen
@@ -31,7 +31,7 @@ conda install -c conda-forge osqp-eigen
    ```
    git clone https://github.com/robotology/osqp-eigen.git
    ```
-2. Build it 
+2. Build it
    ```
    cd osqp-eigen
    mkdir build
@@ -62,4 +62,4 @@ All types of [issues](https://github.com/robotology/osqp-eigen/issues/new) are w
 ## 📝 License
 Materials in this repository are distributed under the following license:
 
-> All software is licensed under the LGPL3 License. See [LICENSE](https://github.com/robotology/osqp-eigen/blob/master/LICENSE) file for details.
+> All software is licensed under the BSD 3-Clause License. See [LICENSE](https://github.com/robotology/osqp-eigen/blob/master/LICENSE) file for details.
