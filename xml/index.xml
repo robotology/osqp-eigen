@@ -18,6 +18,7 @@
     <member refid="class_osqp_eigen_1_1_data_1aea746479660e90e46fbf185dca91d936" kind="function"><name>setNumberOfConstraints</name></member>
     <member refid="class_osqp_eigen_1_1_data_1a9daa8e7e8f02a77a2589323290be7e9a" kind="function"><name>setHessianMatrix</name></member>
     <member refid="class_osqp_eigen_1_1_data_1ab86ee5d803c64024e54c36f6788e0b60" kind="function"><name>setGradient</name></member>
+    <member refid="class_osqp_eigen_1_1_data_1a82080053764f59a3dc48d75e982de286" kind="function"><name>getGradient</name></member>
     <member refid="class_osqp_eigen_1_1_data_1a417bc1b26a3ed55015f7516e8c393e53" kind="function"><name>setLinearConstraintsMatrix</name></member>
     <member refid="class_osqp_eigen_1_1_data_1aaa6bdc5a9905c3719d5b198106ed4683" kind="function"><name>setLowerBound</name></member>
     <member refid="class_osqp_eigen_1_1_data_1a192ea4157ba225bcf83dfce4231ca06f" kind="function"><name>setUpperBound</name></member>
@@ -41,8 +42,10 @@
     <member refid="class_osqp_eigen_1_1_settings_1a1894d86b67a4b343c0d5887ecb9c7bc2" kind="function"><name>setMaxIteration</name></member>
     <member refid="class_osqp_eigen_1_1_settings_1a4498f6973031eadb2ad94b60dc856651" kind="function"><name>setAbsoluteTolerance</name></member>
     <member refid="class_osqp_eigen_1_1_settings_1aabf457998cd2b4ba6c6e61036a04de1e" kind="function"><name>setRelativeTolerance</name></member>
-    <member refid="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" kind="function"><name>setPrimalInfeasibilityTollerance</name></member>
-    <member refid="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" kind="function"><name>setDualInfeasibilityTollerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1afbf9d10ca5fe0d292e8826e4e4001cac" kind="function"><name>setPrimalInfeasibilityTollerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a98d6937d864b2093c2815cb1e0973e27" kind="function"><name>setPrimalInfeasibilityTolerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1aabd0f103cf4a2b7af888bab64479cd5f" kind="function"><name>setDualInfeasibilityTollerance</name></member>
+    <member refid="class_osqp_eigen_1_1_settings_1a461325f2fbb2a46afa5578ea01b1e39c" kind="function"><name>setDualInfeasibilityTolerance</name></member>
     <member refid="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" kind="function"><name>setAlpha</name></member>
     <member refid="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" kind="function"><name>setLinearSystemSolver</name></member>
     <member refid="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" kind="function"><name>setDelta</name></member>

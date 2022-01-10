@@ -1287,7 +1287,7 @@ $A_c$
 
     <span class="c1">// set the initial data of the QP solver</span>
     <span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setNumberOfVariables</span><span class="p">(</span><span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">mpcWindow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">mpcWindow</span><span class="p">);</span>
-    <span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setNumberOfConstraints</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">mpcWindow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span>  <span class="mi">4</span> <span class="o">*</span> <span class="n">mpcWindow</span><span class="p">);</span>
+    <span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setNumberOfConstraints</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">12</span> <span class="o">*</span> <span class="p">(</span><span class="n">mpcWindow</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">mpcWindow</span><span class="p">);</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setHessianMatrix</span><span class="p">(</span><span class="n">hessian</span><span class="p">))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setGradient</span><span class="p">(</span><span class="n">gradient</span><span class="p">))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
     <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">solver</span><span class="p">.</span><span class="n">data</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">setLinearConstraintsMatrix</span><span class="p">(</span><span class="n">linearMatrix</span><span class="p">))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
@@ -1363,8 +1363,8 @@ $A_c$
     </div>
   </div>
 </div>
-<script src="search-v1.js"></script>
-<script src="searchdata-v1.js" async="async"></script>
+<script src="search-v2.js"></script>
+<script src="searchdata-v2.js" async="async"></script>
 <footer><nav>
   <div class="m-container">
     <div class="m-row">

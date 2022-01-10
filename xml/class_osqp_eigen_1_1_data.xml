@@ -337,6 +337,19 @@
         </inbodydescription>
         <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="96" column="14"/>
       </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a82080053764f59a3dc48d75e982de286" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>Eigen::Matrix&lt; c_float, Eigen::Dynamic, 1 &gt;</type>
+        <definition>Eigen::Matrix&lt;c_float, Eigen::Dynamic, 1&gt; OsqpEigen::Data::getGradient</definition>
+        <argsstring>()</argsstring>
+        <name>getGradient</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="98" column="23"/>
+      </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a417bc1b26a3ed55015f7516e8c393e53" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
           <param>
@@ -370,7 +383,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="104" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.tpp" bodystart="49" bodyend="87"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="106" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.tpp" bodystart="49" bodyend="87"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1aaa6bdc5a9905c3719d5b198106ed4683" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -402,7 +415,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="114" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="116" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a192ea4157ba225bcf83dfce4231ca06f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -434,7 +447,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="124" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="126" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1afab7a091ed33ef7334037ecf0014f8aa" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -478,7 +491,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="135" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="137" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1a64b604ab9972dd3e8d3fcc0a18ad5644" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>OSQPData *const  &amp;</type>
@@ -495,7 +508,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="142" column="25"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="144" column="25"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_data_1aac543c780466b0db451ca60f0a5753eb" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -512,7 +525,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="148" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="150" column="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -520,13 +533,14 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="28" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="29" bodyend="149"/>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" line="28" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Data.hpp" bodystart="29" bodyend="151"/>
     <listofallmembers>
       <member refid="class_osqp_eigen_1_1_data_1ab66614fe057c238c53b3efcd546c96c0" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>clearHessianMatrix</name></member>
       <member refid="class_osqp_eigen_1_1_data_1a93b0b00a90c6fafd4fb8a23cb8553a0f" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>clearLinearConstraintsMatrix</name></member>
       <member refid="class_osqp_eigen_1_1_data_1a3273d3a0bc715ebf8ec761de53b8c609" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>Data</name></member>
       <member refid="class_osqp_eigen_1_1_data_1abc922eb476cd94d8cff33b41aa540132" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>Data</name></member>
       <member refid="class_osqp_eigen_1_1_data_1a64b604ab9972dd3e8d3fcc0a18ad5644" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>getData</name></member>
+      <member refid="class_osqp_eigen_1_1_data_1a82080053764f59a3dc48d75e982de286" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>getGradient</name></member>
       <member refid="class_osqp_eigen_1_1_data_1aac543c780466b0db451ca60f0a5753eb" prot="public" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>isSet</name></member>
       <member refid="class_osqp_eigen_1_1_data_1a579a5688c6f5ada099d79a3b38a4a1bb" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_data</name></member>
       <member refid="class_osqp_eigen_1_1_data_1afdc7dab2e9b7c589969a2debc930a40a" prot="private" virt="non-virtual"><scope>OsqpEigen::Data</scope><name>m_isGradientSet</name></member>

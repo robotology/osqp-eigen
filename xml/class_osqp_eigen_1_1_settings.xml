@@ -370,14 +370,14 @@
         </inbodydescription>
         <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="110" column="14"/>
       </memberdef>
-      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1afbf9d10ca5fe0d292e8826e4e4001cac" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void OsqpEigen::Settings::setPrimalInfeasibilityTollerance</definition>
-        <argsstring>(const double primalInfeasibilityTollerance)</argsstring>
+        <argsstring>(const double primalInfeasibilityTolerance)</argsstring>
         <name>setPrimalInfeasibilityTollerance</name>
         <param>
           <type>const double</type>
-          <declname>primalInfeasibilityTollerance</declname>
+          <declname>primalInfeasibilityTolerance</declname>
         </param>
         <briefdescription>
 <para>Set the primal infeasibility tolerance. </para>
@@ -385,10 +385,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>primalInfeasibilityTollerance</parametername>
+<parametername>primalInfeasibilityTolerance</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>tolerace of the primal variables. </para>
+<para>tolerance of the primal variables. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -396,16 +396,44 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="116" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="117" column="14"/>
       </memberdef>
-      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a98d6937d864b2093c2815cb1e0973e27" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setPrimalInfeasibilityTolerance</definition>
+        <argsstring>(const double primalInfeasibilityTolerance)</argsstring>
+        <name>setPrimalInfeasibilityTolerance</name>
+        <param>
+          <type>const double</type>
+          <declname>primalInfeasibilityTolerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the primal infeasibility tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>primalInfeasibilityTolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tolerance of the primal variables. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="123" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aabd0f103cf4a2b7af888bab64479cd5f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
         <definition>void OsqpEigen::Settings::setDualInfeasibilityTollerance</definition>
-        <argsstring>(const double dualInfeasibilityTollerance)</argsstring>
+        <argsstring>(const double dualInfeasibilityTolerance)</argsstring>
         <name>setDualInfeasibilityTollerance</name>
         <param>
           <type>const double</type>
-          <declname>dualInfeasibilityTollerance</declname>
+          <declname>dualInfeasibilityTolerance</declname>
         </param>
         <briefdescription>
 <para>Set the dual infeasibility tolerance. </para>
@@ -413,10 +441,10 @@
         <detaileddescription>
 <para><parameterlist kind="param"><parameteritem>
 <parameternamelist>
-<parametername>dualInfeasibilityTollerance</parametername>
+<parametername>dualInfeasibilityTolerance</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>tolerace of the dual variables. </para>
+<para>tolerance of the dual variables. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>
@@ -424,7 +452,35 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="122" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="130" column="14"/>
+      </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a461325f2fbb2a46afa5578ea01b1e39c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::Settings::setDualInfeasibilityTolerance</definition>
+        <argsstring>(const double dualInfeasibilityTolerance)</argsstring>
+        <name>setDualInfeasibilityTolerance</name>
+        <param>
+          <type>const double</type>
+          <declname>dualInfeasibilityTolerance</declname>
+        </param>
+        <briefdescription>
+<para>Set the dual infeasibility tolerance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>dualInfeasibilityTolerance</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>tolerance of the dual variables. </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="136" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -452,7 +508,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="128" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="142" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -480,7 +536,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="134" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="148" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -508,7 +564,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="140" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="154" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a64c052c5f72065b5319e152095228859" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -536,7 +592,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="146" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="160" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aabae74571bfbb2b33ec23b255476fbec" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -564,7 +620,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="152" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="166" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1ac44115458417ef2257bc5c49634b0749" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -592,7 +648,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="158" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="172" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1ab7d836e9f75480452c7e353e64608a31" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -620,7 +676,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="164" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="178" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1aebc0ad14de70c7c68c09135929dd7a75" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -648,7 +704,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="170" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="184" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a5a9e4b887938fd742f81067563d021a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -676,7 +732,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="176" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="190" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a5c0f09d5cf848eee872d56245e01b1db" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>void</type>
@@ -704,7 +760,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="182" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="196" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>OSQPSettings *const  &amp;</type>
@@ -721,7 +777,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="188" column="29"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="202" column="29"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -730,7 +786,7 @@
     <detaileddescription>
 <para>All the setter methods refer to this particular kind of optimizer. <ulink url="http://web.stanford.edu/~boyd/admm.html">Here</ulink> you can find further information. </para>
     </detaileddescription>
-    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="25" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" bodystart="26" bodyend="189"/>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" line="25" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Settings.hpp" bodystart="26" bodyend="203"/>
     <listofallmembers>
       <member refid="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>getSettings</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1aaf0d55b6c98812ccc75dcc4beb133d53" prot="private" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>m_settings</name></member>
@@ -743,13 +799,15 @@
       <member refid="class_osqp_eigen_1_1_settings_1a141f192237f68447ac898a222bb3c1c9" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setAlpha</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1aebc0ad14de70c7c68c09135929dd7a75" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setCheckTermination</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1a7a3e8d416f71d7fc572482d24a9a8ba2" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDelta</name></member>
-      <member refid="class_osqp_eigen_1_1_settings_1a466e7884ef5dfe331f4c1fdc3382d7bb" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDualInfeasibilityTollerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a461325f2fbb2a46afa5578ea01b1e39c" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDualInfeasibilityTolerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1aabd0f103cf4a2b7af888bab64479cd5f" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setDualInfeasibilityTollerance</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1a42e2f3d0fcf93c0a22ba2bb30599c1d3" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setLinearSystemSolver</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1ac670100dbf41f46a99122b58795038da" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setMaxIteraction</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1a1894d86b67a4b343c0d5887ecb9c7bc2" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setMaxIteration</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1a64c052c5f72065b5319e152095228859" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPolish</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1aabae74571bfbb2b33ec23b255476fbec" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPolishRefineIter</name></member>
-      <member refid="class_osqp_eigen_1_1_settings_1aa56c63231442a3d6ebc2d78fccec2aab" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPrimalInfeasibilityTollerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1a98d6937d864b2093c2815cb1e0973e27" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPrimalInfeasibilityTolerance</name></member>
+      <member refid="class_osqp_eigen_1_1_settings_1afbf9d10ca5fe0d292e8826e4e4001cac" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setPrimalInfeasibilityTollerance</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1aabf457998cd2b4ba6c6e61036a04de1e" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setRelativeTolerance</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1a7412ba8eb706c52d80673628c54d2a40" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setRho</name></member>
       <member refid="class_osqp_eigen_1_1_settings_1ab7d836e9f75480452c7e353e64608a31" prot="public" virt="non-virtual"><scope>OsqpEigen::Settings</scope><name>setScaledTerimination</name></member>
