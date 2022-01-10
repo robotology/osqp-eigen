@@ -297,7 +297,7 @@ TEST_CASE("MPCTest")
         startTime = clock();
 
         // solve the QP problem
-        REQUIRE(solver.solve());
+        REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
 
         // get the controller input
         QPSolution = solver.getSolution();

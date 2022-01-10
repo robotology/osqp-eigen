@@ -59,7 +59,7 @@ TEST_CASE("QPProblem - FirstRun")
     REQUIRE(solver.data()->setUpperBound(upperBound));
 
     REQUIRE(solver.initSolver());
-    REQUIRE(solver.solve());
+    REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
@@ -80,7 +80,7 @@ TEST_CASE("QPProblem - SparsityConstant")
 
     REQUIRE(solver.updateHessianMatrix(H_s));
     REQUIRE(solver.updateLinearConstraintsMatrix(A_s));
-    REQUIRE(solver.solve());
+    REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
@@ -101,7 +101,7 @@ TEST_CASE("QPProblem - SparsityChange")
 
     REQUIRE(solver.updateHessianMatrix(H_s));
     REQUIRE(solver.updateLinearConstraintsMatrix(A_s));
-    REQUIRE(solver.solve());
+    REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
 
     auto solution = solver.getSolution();
     std::cout << COUT_GTEST_MGT << "Solution [" << solution(0) << " "
