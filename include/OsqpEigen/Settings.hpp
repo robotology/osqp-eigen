@@ -111,15 +111,29 @@ namespace OsqpEigen
 
         /**
          * Set the primal infeasibility tolerance.
-         * @param primalInfeasibilityTollerance tolerace of the primal variables.
+         * @param primalInfeasibilityTolerance tolerance of the primal variables.
          */
-        void setPrimalInfeasibilityTollerance(const double primalInfeasibilityTollerance);
+        [[deprecated("Use setPrimalInfeasibilityTolerance() instead.")]]
+        void setPrimalInfeasibilityTollerance(const double primalInfeasibilityTolerance);
+
+        /**
+         * Set the primal infeasibility tolerance.
+         * @param primalInfeasibilityTolerance tolerance of the primal variables.
+         */
+        void setPrimalInfeasibilityTolerance(const double primalInfeasibilityTolerance);
 
         /**
          * Set the dual infeasibility tolerance.
-         * @param dualInfeasibilityTollerance tolerace of the dual variables.
+         * @param dualInfeasibilityTolerance tolerance of the dual variables.
          */
-        void setDualInfeasibilityTollerance(const double dualInfeasibilityTollerance);
+        [[deprecated("Use setDualInfeasibilityTolerance() instead.")]]
+        void setDualInfeasibilityTollerance(const double dualInfeasibilityTolerance);
+
+        /**
+         * Set the dual infeasibility tolerance.
+         * @param dualInfeasibilityTolerance tolerance of the dual variables.
+         */
+        void setDualInfeasibilityTolerance(const double dualInfeasibilityTolerance);
 
         /**
          * Set the relaxation parameter.

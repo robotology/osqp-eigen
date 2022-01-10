@@ -1,11 +1,21 @@
 # Authors: Giulio Romualdi
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later
+# CopyPolicy: Released under the terms of the BSD 3-clause license
 
-# Set cmake mimimun version
+# Set cmake minimum version
 cmake_minimum_required(VERSION 3.8)
 
-project(OsqpEigen
-  VERSION 0.6.4.100)
+# Extract version numbers from package.xml
+# Based on code by DART (BSD-2-license)
+# Cf. https://github.com/dartsim/dart/blob/f07186fbdb4e89e5340abb9718d02715bb315922/CMakeLists.txt#L62-L68
+file(READ package.xml PACKAGE_XML)
+string(REGEX MATCH "<version>[0-9]+\\.[0-9]+\\.[0-9]+</version>" DIRTY_VERSION_STRING ${PACKAGE_XML})
+string(REGEX REPLACE "^<version>([0-9]+)\\.([0-9]+)\\.([0-9]+)</version>$" "\\1" OsqpEigen_MAJOR_VERSION "${DIRTY_VERSION_STRING}")
+string(REGEX REPLACE "^<version>([0-9]+)\\.([0-9]+)\\.([0-9]+)</version>$" "\\2" OsqpEigen_MINOR_VERSION "${DIRTY_VERSION_STRING}")
+string(REGEX REPLACE "^<version>([0-9]+)\\.([0-9]+)\\.([0-9]+)</version>$" "\\3" OsqpEigen_PATCH_VERSION "${DIRTY_VERSION_STRING}")
+set(OsqpEigen_VERSION "${OsqpEigen_MAJOR_VERSION}.${OsqpEigen_MINOR_VERSION}.${OsqpEigen_PATCH_VERSION}")
+
+# Set project version
+project(OsqpEigen VERSION ${OsqpEigen_VERSION})
 
 # ouptut paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
@@ -133,6 +143,9 @@ install_basic_package_files(${PROJECT_NAME}
   VARS_PREFIX ${PROJECT_NAME}
   NO_CHECK_REQUIRED_COMPONENTS_MACRO
   DEPENDENCIES ${OSQP_EIGEN_EXPORTED_DEPENDENCIES})
+
+# Install package.xml to share
+install(FILES package.xml DESTINATION share/cmake/osqp-eigen)
 
 ## Testing
 include(AddOsqpEigenUnitTest)
