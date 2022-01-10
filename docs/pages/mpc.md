@@ -142,7 +142,7 @@ if(!solver.initSolver()) return 1;
 
  The optimization problem can be solved calling the following method
 \code{.cpp}
-if(!solver.solve()) return 1;
+if(solver.solveProblem() != OsqpEigen::ErrorExitFlag::NoError) return 1;
 \endcode
  and the solution can be easily got by calling the following method
 \code{.cpp}
