@@ -34,7 +34,7 @@ TEST_CASE("QPProblem - Unconstrained")
     REQUIRE(solver.data()->setGradient(gradient));
 
     REQUIRE(solver.initSolver());
-    REQUIRE(solver.solve());
+    REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
 
     // expected solution
     Eigen::Vector2d expectedSolution;
@@ -85,7 +85,7 @@ TEST_CASE("QPProblem")
 
     REQUIRE(solver.initSolver());
 
-    REQUIRE(solver.solve());
+    REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
     Eigen::Vector2d expectedSolution;
     expectedSolution << 0.3,  0.7;
 
