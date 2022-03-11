@@ -88,24 +88,24 @@ set(LIBRARY_TARGET_NAME OsqpEigen)
 
 # List of CPP (source) library files.
 set(${LIBRARY_TARGET_NAME}_SRC
-  src/Data.cpp
-  src/Settings.cpp
-  src/Solver.cpp
-  src/Debug.cpp)
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Data.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Settings.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Solver.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/src/Debug.cpp)
 
 set(${LIBRARY_TARGET_NAME}_HDR
-  include/OsqpEigen/OsqpEigen.h
-  include/OsqpEigen/Constants.hpp
-  include/OsqpEigen/SparseMatrixHelper.hpp
-  include/OsqpEigen/SparseMatrixHelper.tpp
-  include/OsqpEigen/Data.hpp
-  include/OsqpEigen/Data.tpp
-  include/OsqpEigen/Settings.hpp
-  include/OsqpEigen/Solver.hpp
-  include/OsqpEigen/Solver.tpp
-  include/OsqpEigen/Debug.hpp)
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/OsqpEigen.h
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Constants.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/SparseMatrixHelper.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/SparseMatrixHelper.tpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Data.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Data.tpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Settings.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Solver.hpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Solver.tpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/OsqpEigen/Debug.hpp)
 
-add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
+add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC})
 target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
