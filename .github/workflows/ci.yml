@@ -9,7 +9,7 @@ on:
   - cron:  '0 2 * * *'
 
 env:
-  osqp_TAG: v0.6.0
+  osqp_TAG: v0.6.2
   vcpkg_robotology_TAG: v0.0.3
   Catch2_TAG: v2.12.1
   # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
@@ -66,7 +66,7 @@ jobs:
     - name: Dependencies [macOS]
       if: matrix.os == 'macOS-latest'
       run: |
-        brew install eigen catch2
+        brew install eigen
 
     - name: Dependencies [Ubuntu]
       if: matrix.os == 'ubuntu-latest'
@@ -109,19 +109,15 @@ jobs:
         cmake -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps ..
         cmake --build . --config ${{ matrix.build_type }} --target install
 
-
-    - name: Source-based Dependencies [Ubuntu]
-      if: steps.cache-source-deps.outputs.cache-hit != 'true' && matrix.os == 'ubuntu-latest'
-      shell: bash
-      run: |
-         git clone -b ${Catch2_TAG} https://github.com/catchorg/Catch2.git
-         cd Catch2
-         mkdir -p build
-         cd build
-         cmake  -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
-                -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps \
-                -DBUILD_TESTING=OFF ..
-         cmake --build . --config ${{ matrix.build_type }} --target install
+        # catch 2
+        git clone -b ${Catch2_TAG} https://github.com/catchorg/Catch2.git
+        cd Catch2
+        mkdir -p build
+        cd build
+        cmake  -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
+               -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps \
+               -DBUILD_TESTING=OFF ..
+        cmake --build . --config ${{ matrix.build_type }} --target install
 
     # ===================
     # CMAKE-BASED PROJECT
