@@ -3,6 +3,9 @@ on:
   push:
     branches: master
 
+env:
+  mcss_TAG: 374ec55a6610c1856e7374aea7dc1535ed8b64f8
+
 jobs:
   build:
     runs-on: ubuntu-20.04
@@ -24,7 +27,9 @@ jobs:
       - name: Fetch m.css
         run: |
           cd ${GITHUB_WORKSPACE}
-          git clone git://github.com/mosra/m.css
+          git clone https://github.com/mosra/m.css.git
+          cd m.css
+          git checkout ${mcss_TAG}
 
       - name: Build docs
         run: |
