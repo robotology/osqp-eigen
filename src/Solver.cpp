@@ -160,20 +160,20 @@ OsqpEigen::ErrorExitFlag OsqpEigen::Solver::solveProblem()
     return static_cast<OsqpEigen::ErrorExitFlag>(osqp_solve(m_workspace.get()));
 }
 
-const Eigen::VectorXd &OsqpEigen::Solver::getSolution()
+const Eigen::Matrix<c_float, -1, 1> &OsqpEigen::Solver::getSolution()
 {
     // copy data from an array to Eigen vector
     c_float* solution = m_workspace->solution->x;
-    m_solution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->n, 1);
+    m_solution = Eigen::Map<Eigen::Matrix<c_float, -1, 1>>(solution, m_workspace->data->n, 1);
 
     return m_solution;
 }
 
-const Eigen::VectorXd &OsqpEigen::Solver::getDualSolution()
+const Eigen::Matrix<c_float, -1, 1> &OsqpEigen::Solver::getDualSolution()
 {
     // copy data from an array to Eigen vector
     c_float* solution = m_workspace->solution->y;
-    m_dualSolution = Eigen::Map<Eigen::VectorXd>(solution, m_workspace->data->m, 1);
+    m_dualSolution = Eigen::Map< Eigen::Matrix<c_float, -1, 1>>(solution, m_workspace->data->m, 1);
 
     return m_dualSolution;
 }
