@@ -18,12 +18,13 @@ env:
 # Test with different operating systems
 jobs:
   build:
-    name: '[${{ matrix.os }}@${{ matrix.build_type }}]'
+    name: '[${{ matrix.os }}@${{ matrix.build_type }}] [float:${{ matrix.float }}]'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         build_type: [Debug, Release]
         os: [ubuntu-latest, macOS-latest, windows-latest]
+        float: [ON, OFF]
       fail-fast: false
 
     # operating system dependences
@@ -79,7 +80,7 @@ jobs:
       uses: actions/cache@v1
       with:
         path: ${{ github.workspace }}/install/deps
-        key: source-deps-${{ runner.os }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ env.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
+        key: source-deps-${{ runner.os }}-${{ matrix.build_type }}-use-float-${{ matrix.float }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ env.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
 
     - name: Source-based Dependencies [Windows]
       if: steps.cache-source-deps.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
@@ -92,6 +93,7 @@ jobs:
         mkdir -p build
         cd build
         cmake -A x64 -DCMAKE_TOOLCHAIN_FILE=${VCPKG_INSTALLATION_ROOT}/scripts/buildsystems/vcpkg.cmake \
+                     -DDFLOAT=${{ matrix.float }} \
                      -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps ..
 
         cmake --build . --config ${{ matrix.build_type }} --target INSTALL
@@ -106,7 +108,8 @@ jobs:
         cd osqp
         mkdir -p build
         cd build
-        cmake -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps ..
+        cmake -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install/deps \
+              -DDFLOAT=${{ matrix.float }} ..
         cmake --build . --config ${{ matrix.build_type }} --target install
 
         # catch 2
