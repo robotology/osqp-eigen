@@ -28,8 +28,8 @@
 
 #define T 0.1
 
-void setDynamicsMatrices(Eigen::Matrix<double, 2, 2> &a, Eigen::Matrix<double, 2, 1> &b,
-                         Eigen::Matrix<double, 1, 2> &c,
+void setDynamicsMatrices(Eigen::Matrix<c_float, 2, 2> &a, Eigen::Matrix<c_float, 2, 1> &b,
+                         Eigen::Matrix<c_float, 1, 2> &c,
                          double t)
 {
 
@@ -46,19 +46,19 @@ void setDynamicsMatrices(Eigen::Matrix<double, 2, 2> &a, Eigen::Matrix<double, 2
     c << beta, 0;
 }
 
-void setWeightMatrices(Eigen::DiagonalMatrix<double, 1> &Q, Eigen::DiagonalMatrix<double, 1> &R)
+void setWeightMatrices(Eigen::DiagonalMatrix<c_float, 1> &Q, Eigen::DiagonalMatrix<c_float, 1> &R)
 {
     Q.diagonal() << 10;
     R.diagonal() << 1;
 }
 
-void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen::DiagonalMatrix<double, 1> &R, int mpcWindow,
-                        int k, Eigen::SparseMatrix<double> &hessianMatrix)
+void castMPCToQPHessian(const Eigen::DiagonalMatrix<c_float, 1> &Q, const Eigen::DiagonalMatrix<c_float, 1> &R, int mpcWindow,
+                        int k, Eigen::SparseMatrix<c_float> &hessianMatrix)
 {
 
-    Eigen::Matrix<double, 2, 2> a;
-    Eigen::Matrix<double, 2, 1> b;
-    Eigen::Matrix<double, 1, 2> c;
+    Eigen::Matrix<c_float, 2, 2> a;
+    Eigen::Matrix<c_float, 2, 1> b;
+    Eigen::Matrix<c_float, 1, 2> c;
 
     hessianMatrix.resize(2*(mpcWindow+1) + 1 * mpcWindow, 2*(mpcWindow+1) + 1 * mpcWindow);
 
@@ -81,19 +81,19 @@ void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen::
     }
 }
 
-void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen::Matrix<double, 1, 1> &yRef, int mpcWindow,
-                         int k, Eigen::VectorXd &gradient)
+void castMPCToQPGradient(const Eigen::DiagonalMatrix<c_float, 1> &Q, const Eigen::Matrix<c_float, 1, 1> &yRef, int mpcWindow,
+                         int k, Eigen::Matrix<c_float, -1, 1> &gradient)
 {
 
-    Eigen::Matrix<double, 2, 2> a;
-    Eigen::Matrix<double, 2, 1> b;
-    Eigen::Matrix<double, 1, 2> c;
+    Eigen::Matrix<c_float, 2, 2> a;
+    Eigen::Matrix<c_float, 2, 1> b;
+    Eigen::Matrix<c_float, 1, 2> c;
 
-    Eigen::Matrix<double,1,1> Qy_ref;
+    Eigen::Matrix<c_float,1,1> Qy_ref;
     Qy_ref = Q * (-yRef);
 
     // populate the gradient vector
-    gradient = Eigen::VectorXd::Zero(2*(mpcWindow+1) + 1 *mpcWindow, 1);
+    gradient = Eigen::Matrix<c_float, -1, 1>::Zero(2*(mpcWindow+1) + 1 *mpcWindow, 1);
     for(int i = 0; i<2*(mpcWindow+1); i++){
         double t = (k + i) * T;
         setDynamicsMatrices(a, b, c, t);
@@ -104,7 +104,7 @@ void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen:
     }
 }
 
-void castMPCToQPConstraintMatrix(int mpcWindow, int k, Eigen::SparseMatrix<double> &constraintMatrix)
+void castMPCToQPConstraintMatrix(int mpcWindow, int k, Eigen::SparseMatrix<c_float> &constraintMatrix)
 {
     constraintMatrix.resize(2*(mpcWindow+1), 2*(mpcWindow+1) + 1 * mpcWindow);
 
@@ -113,9 +113,9 @@ void castMPCToQPConstraintMatrix(int mpcWindow, int k, Eigen::SparseMatrix<doubl
         constraintMatrix.insert(i,i) = -1;
     }
 
-    Eigen::Matrix<double, 2, 2> a;
-    Eigen::Matrix<double, 2, 1> b;
-    Eigen::Matrix<double, 1, 2> c;
+    Eigen::Matrix<c_float, 2, 2> a;
+    Eigen::Matrix<c_float, 2, 1> b;
+    Eigen::Matrix<c_float, 1, 2> c;
 
 
     for(int i = 0; i < mpcWindow; i++){
@@ -141,21 +141,21 @@ void castMPCToQPConstraintMatrix(int mpcWindow, int k, Eigen::SparseMatrix<doubl
             }
 }
 
-void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 2, 1> &x0,
+void castMPCToQPConstraintVectors(const Eigen::Matrix<c_float, 2, 1> &x0,
                                   int mpcWindow,
-                                  Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
+                                  Eigen::Matrix<c_float, -1, 1> &lowerBound, Eigen::Matrix<c_float, -1, 1> &upperBound)
 {
     // evaluate the lower and the upper equality vectors
-    lowerBound = Eigen::MatrixXd::Zero(2*(mpcWindow+1),1 );
+    lowerBound = Eigen::Matrix<c_float, -1, -1>::Zero(2*(mpcWindow+1),1 );
     lowerBound.block(0,0,2,1) = -x0;
     upperBound = lowerBound;
 }
 
 bool updateHessianMatrix(OsqpEigen::Solver &solver,
-                         const Eigen::DiagonalMatrix<double, 1> &Q, const Eigen::DiagonalMatrix<double, 1> &R,
+                         const Eigen::DiagonalMatrix<c_float, 1> &Q, const Eigen::DiagonalMatrix<c_float, 1> &R,
                          int mpcWindow, int k)
 {
-    Eigen::SparseMatrix<double> hessianMatrix;
+    Eigen::SparseMatrix<c_float> hessianMatrix;
     castMPCToQPHessian(Q, R, mpcWindow, k, hessianMatrix);
 
     if(!solver.updateHessianMatrix(hessianMatrix))
@@ -167,7 +167,7 @@ bool updateHessianMatrix(OsqpEigen::Solver &solver,
 bool updateLinearConstraintsMatrix(OsqpEigen::Solver &solver,
                                    int mpcWindow, int k)
 {
-    Eigen::SparseMatrix<double> constraintMatrix;
+    Eigen::SparseMatrix<c_float> constraintMatrix;
     castMPCToQPConstraintMatrix(mpcWindow, k, constraintMatrix);
 
     if(!solver.updateLinearConstraintsMatrix(constraintMatrix))
@@ -177,8 +177,8 @@ bool updateLinearConstraintsMatrix(OsqpEigen::Solver &solver,
 }
 
 
-void updateConstraintVectors(const Eigen::Matrix<double, 2, 1> &x0,
-                             Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
+void updateConstraintVectors(const Eigen::Matrix<c_float, 2, 1> &x0,
+                             Eigen::Matrix<c_float, -1, 1> &lowerBound, Eigen::Matrix<c_float, -1, 1> &upperBound)
 {
     lowerBound.block(0,0,2,1) = -x0;
     upperBound.block(0,0,2,1) = -x0;
@@ -194,25 +194,25 @@ TEST_CASE("MPCTest Update matrices")
     int mpcWindow = 100;
 
     // allocate the dynamics matrices
-    Eigen::Matrix<double, 2, 2> a;
-    Eigen::Matrix<double, 2, 1> b;
-    Eigen::Matrix<double, 1, 2> c;
+    Eigen::Matrix<c_float, 2, 2> a;
+    Eigen::Matrix<c_float, 2, 1> b;
+    Eigen::Matrix<c_float, 1, 2> c;
 
     // allocate the weight matrices
-    Eigen::DiagonalMatrix<double, 1> Q;
-    Eigen::DiagonalMatrix<double, 1> R;
+    Eigen::DiagonalMatrix<c_float, 1> Q;
+    Eigen::DiagonalMatrix<c_float, 1> R;
 
     // allocate the initial and the reference state space
-    Eigen::Matrix<double, 2, 1> x0;
-    Eigen::Matrix<double, 1, 1> yRef;
-    Eigen::Matrix<double, 1, 1> y;
+    Eigen::Matrix<c_float, 2, 1> x0;
+    Eigen::Matrix<c_float, 1, 1> yRef;
+    Eigen::Matrix<c_float, 1, 1> y;
 
     // allocate QP problem matrices and vectores
-    Eigen::SparseMatrix<double> hessian;
-    Eigen::VectorXd gradient;
-    Eigen::SparseMatrix<double> linearMatrix;
-    Eigen::VectorXd lowerBound;
-    Eigen::VectorXd upperBound;
+    Eigen::SparseMatrix<c_float> hessian;
+    Eigen::Matrix<c_float, -1, 1> gradient;
+    Eigen::SparseMatrix<c_float> linearMatrix;
+    Eigen::Matrix<c_float, -1, 1> lowerBound;
+    Eigen::Matrix<c_float, -1, 1> upperBound;
 
     // set the initial and the desired states
     x0 << 0, 0;
@@ -247,8 +247,8 @@ TEST_CASE("MPCTest Update matrices")
     REQUIRE(solver.initSolver());
 
     // controller input and QPSolution vector
-    Eigen::VectorXd ctr;
-    Eigen::VectorXd QPSolution;
+    Eigen::Matrix<c_float, -1, 1> ctr;
+    Eigen::Matrix<c_float, -1, 1> QPSolution;
 
     // number of iteration steps
     int numberOfSteps = 50;

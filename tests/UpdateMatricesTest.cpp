@@ -19,13 +19,13 @@
 #define COUT_GTEST ANSI_TXT_GRN << GTEST_BOX //You could add the Default
 #define COUT_GTEST_MGT COUT_GTEST << ANSI_TXT_MGT
 
-Eigen::Matrix2d H;
-Eigen::SparseMatrix<double> H_s;
-Eigen::Matrix<double,3,2> A;
-Eigen::SparseMatrix<double> A_s;
-Eigen::Vector2d gradient;
-Eigen::Vector3d lowerBound;
-Eigen::Vector3d upperBound;
+Eigen::Matrix<c_float, 2, 2> H;
+Eigen::SparseMatrix<c_float> H_s;
+Eigen::Matrix<c_float,3,2> A;
+Eigen::SparseMatrix<c_float> A_s;
+Eigen::Matrix<c_float, 2,1> gradient;
+Eigen::Matrix<c_float, 3,1> lowerBound;
+Eigen::Matrix<c_float, 3,1> upperBound;
 
 OsqpEigen::Solver solver;
 

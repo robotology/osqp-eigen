@@ -51,7 +51,8 @@ bool computeTest(const Eigen::Matrix<T, n, m> &mEigen)
     for(const auto& a: tripletListEigen)
         std::cout << a.row() << " " <<a.col() << " " <<a.value() << std::endl;
 
-    bool outcome = matrix.isApprox(newMatrix);
+    constexpr double tolerance = 1e-4;
+    bool outcome = matrix.isApprox(newMatrix, tolerance);
 
     csc_spfree(osqpSparseMatrix);
     csc_spfree(otherOsqpSparseMatrix);
