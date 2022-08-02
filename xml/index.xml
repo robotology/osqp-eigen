@@ -64,8 +64,8 @@
     <member refid="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" kind="variable"><name>m_data</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1aabc061c3eb02c25f15beb3d5ad279380" kind="variable"><name>m_primalVariables</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ab604903d64b7595c73aa3712adeb2016" kind="variable"><name>m_dualVariables</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a9514252b4db1fc220c9f1d15298d051c" kind="variable"><name>m_solution</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a3a246aa7571877509811a3cb34209177" kind="variable"><name>m_dualSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a7a9cc3a06a9fadc9d72bc7638dba46d2" kind="variable"><name>m_solution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ab163b1b6fe77e012b9e3d0cd402d23bb" kind="variable"><name>m_dualSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ae048ac05eeaafb9b5e2d8aa9b175fb71" kind="variable"><name>m_hessianNewIndices</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ab917aa389ee35c1d45210f928aa44b91" kind="variable"><name>m_hessianNewValues</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ac3d081b1d184113fe63c0fd2ee50fdb2" kind="variable"><name>m_constraintsNewIndices</name></member>
@@ -87,8 +87,8 @@
     <member refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" kind="function"><name>solve</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a3764df29209744f98418d02e4c6b1e60" kind="function"><name>solveProblem</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a81614e47e60ae1c71dbe76596e1c8512" kind="function"><name>getStatus</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a830ba429c884bb4cefc424e7c33a8d40" kind="function"><name>getSolution</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a16e432494b4d53838186d80a7dc281b4" kind="function"><name>getDualSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" kind="function"><name>getSolution</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1aa6c318874ded4be6a07c6b1bf6e05f92" kind="function"><name>getDualSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" kind="function"><name>updateGradient</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" kind="function"><name>updateLowerBound</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" kind="function"><name>updateUpperBound</name></member>
