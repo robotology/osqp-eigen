@@ -31,6 +31,7 @@ namespace OsqpEigen
      */
     class Solver
     {
+        bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
         std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>> m_workspace;  /**< Pointer to OSQPWorkspace struct. */
         std::unique_ptr<OsqpEigen::Settings> m_settings; /**< Pointer to Settings class. */
         std::unique_ptr<OsqpEigen::Data> m_data; /**< Pointer to Data class. */
@@ -47,10 +48,6 @@ namespace OsqpEigen
 
         std::vector<Eigen::Triplet<c_float>> m_oldHessianTriplet, m_newHessianTriplet, m_newUpperTriangularHessianTriplets;
         std::vector<Eigen::Triplet<c_float>> m_oldLinearConstraintsTriplet, m_newLinearConstraintsTriplet;
-
-
-
-        bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
 
         /**
          * Evaluate the position and the values of the new elements of a sparse matrix.
