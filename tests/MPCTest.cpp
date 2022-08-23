@@ -26,7 +26,7 @@
 #define COUT_GTEST ANSI_TXT_GRN << GTEST_BOX //You could add the Default
 #define COUT_GTEST_MGT COUT_GTEST << ANSI_TXT_MGT
 
-void setDynamicsMatrices(Eigen::Matrix<double, 12, 12> &a, Eigen::Matrix<double, 12, 4> &b)
+void setDynamicsMatrices(Eigen::Matrix<c_float, 12, 12> &a, Eigen::Matrix<c_float, 12, 4> &b)
 {
     a << 1.,      0.,     0., 0., 0., 0., 0.1,     0.,     0.,  0.,     0.,     0.    ,
         0.,      1.,     0., 0., 0., 0., 0.,      0.1,    0.,  0.,     0.,     0.    ,
@@ -56,10 +56,10 @@ void setDynamicsMatrices(Eigen::Matrix<double, 12, 12> &a, Eigen::Matrix<double,
 }
 
 
-void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<double, 12, 1> &xMin,
-                              Eigen::Matrix<double, 4, 1> &uMax, Eigen::Matrix<double, 4, 1> &uMin)
+void setInequalityConstraints(Eigen::Matrix<c_float, 12, 1> &xMax, Eigen::Matrix<c_float, 12, 1> &xMin,
+                              Eigen::Matrix<c_float, 4, 1> &uMax, Eigen::Matrix<c_float, 4, 1> &uMin)
 {
-    double u0 = 10.5916;
+    c_float u0 = 10.5916;
 
     // input inequality constraints
     uMin << 9.6 - u0,
@@ -82,14 +82,14 @@ void setInequalityConstraints(Eigen::Matrix<double, 12, 1> &xMax, Eigen::Matrix<
         OsqpEigen::INFTY,OsqpEigen::INFTY,OsqpEigen::INFTY;
 }
 
-void setWeightMatrices(Eigen::DiagonalMatrix<double, 12> &Q, Eigen::DiagonalMatrix<double, 4> &R)
+void setWeightMatrices(Eigen::DiagonalMatrix<c_float, 12> &Q, Eigen::DiagonalMatrix<c_float, 4> &R)
 {
     Q.diagonal() << 0, 0, 10., 10., 10., 10., 0, 0, 0, 5., 5., 5.;
     R.diagonal() << 0.1, 0.1, 0.1, 0.1;
 }
 
-void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::DiagonalMatrix<double, 4> &R, int mpcWindow,
-                        Eigen::SparseMatrix<double> &hessianMatrix)
+void castMPCToQPHessian(const Eigen::DiagonalMatrix<c_float, 12> &Q, const Eigen::DiagonalMatrix<c_float, 4> &R, int mpcWindow,
+                        Eigen::SparseMatrix<c_float> &hessianMatrix)
 {
 
     hessianMatrix.resize(12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
@@ -111,15 +111,15 @@ void castMPCToQPHessian(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen:
     }
 }
 
-void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen::Matrix<double, 12, 1> &xRef, int mpcWindow,
-                         Eigen::VectorXd &gradient)
+void castMPCToQPGradient(const Eigen::DiagonalMatrix<c_float, 12> &Q, const Eigen::Matrix<c_float, 12, 1> &xRef, int mpcWindow,
+                         Eigen::Matrix<c_float, -1, 1> &gradient)
 {
 
-    Eigen::Matrix<double,12,1> Qx_ref;
+    Eigen::Matrix<c_float,12,1> Qx_ref;
     Qx_ref = Q * (-xRef);
 
     // populate the gradient vector
-    gradient = Eigen::VectorXd::Zero(12*(mpcWindow+1) +  4*mpcWindow, 1);
+    gradient = Eigen::Matrix<c_float, -1, 1>::Zero(12*(mpcWindow+1) +  4*mpcWindow, 1);
     for(int i = 0; i<12*(mpcWindow+1); i++){
         int posQ=i%12;
         float value = Qx_ref(posQ,0);
@@ -127,8 +127,8 @@ void castMPCToQPGradient(const Eigen::DiagonalMatrix<double, 12> &Q, const Eigen
     }
 }
 
-void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMatrix, const Eigen::Matrix<double, 12, 4> &controlMatrix,
-                                 int mpcWindow, Eigen::SparseMatrix<double> &constraintMatrix)
+void castMPCToQPConstraintMatrix(const Eigen::Matrix<c_float, 12, 12> &dynamicMatrix, const Eigen::Matrix<c_float, 12, 4> &controlMatrix,
+                                 int mpcWindow, Eigen::SparseMatrix<c_float> &constraintMatrix)
 {
     constraintMatrix.resize(12*(mpcWindow+1)  + 12*(mpcWindow+1) + 4 * mpcWindow, 12*(mpcWindow+1) + 4 * mpcWindow);
 
@@ -160,14 +160,14 @@ void castMPCToQPConstraintMatrix(const Eigen::Matrix<double, 12, 12> &dynamicMat
     }
 }
 
-void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 12, 1> &xMax, const Eigen::Matrix<double, 12, 1> &xMin,
-                                   const Eigen::Matrix<double, 4, 1> &uMax, const Eigen::Matrix<double, 4, 1> &uMin,
-                                   const Eigen::Matrix<double, 12, 1> &x0,
-                                   int mpcWindow, Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
+void castMPCToQPConstraintVectors(const Eigen::Matrix<c_float, 12, 1> &xMax, const Eigen::Matrix<c_float, 12, 1> &xMin,
+                                   const Eigen::Matrix<c_float, 4, 1> &uMax, const Eigen::Matrix<c_float, 4, 1> &uMin,
+                                   const Eigen::Matrix<c_float, 12, 1> &x0,
+                                   int mpcWindow, Eigen::Matrix<c_float, -1, 1> &lowerBound, Eigen::Matrix<c_float, -1, 1> &upperBound)
 {
     // evaluate the lower and the upper inequality vectors
-    Eigen::VectorXd lowerInequality = Eigen::MatrixXd::Zero(12*(mpcWindow+1) +  4 * mpcWindow, 1);
-    Eigen::VectorXd upperInequality = Eigen::MatrixXd::Zero(12*(mpcWindow+1) +  4 * mpcWindow, 1);
+    Eigen::Matrix<c_float, -1, 1> lowerInequality = Eigen::Matrix<c_float, -1, -1>::Zero(12*(mpcWindow+1) +  4 * mpcWindow, 1);
+    Eigen::Matrix<c_float, -1, 1> upperInequality = Eigen::Matrix<c_float, -1, -1>::Zero(12*(mpcWindow+1) +  4 * mpcWindow, 1);
     for(int i=0; i<mpcWindow+1; i++){
         lowerInequality.block(12*i,0,12,1) = xMin;
         upperInequality.block(12*i,0,12,1) = xMax;
@@ -178,36 +178,36 @@ void castMPCToQPConstraintVectors(const Eigen::Matrix<double, 12, 1> &xMax, cons
     }
 
     // evaluate the lower and the upper equality vectors
-    Eigen::VectorXd lowerEquality = Eigen::MatrixXd::Zero(12*(mpcWindow+1),1 );
-    Eigen::VectorXd upperEquality;
+    Eigen::Matrix<c_float, -1, 1> lowerEquality = Eigen::Matrix<c_float, -1, -1>::Zero(12*(mpcWindow+1),1 );
+    Eigen::Matrix<c_float, -1, 1> upperEquality;
     lowerEquality.block(0,0,12,1) = -x0;
     upperEquality = lowerEquality;
     lowerEquality = lowerEquality;
 
     // merge inequality and equality vectors
-    lowerBound = Eigen::MatrixXd::Zero(2*12*(mpcWindow+1) +  4*mpcWindow,1 );
+    lowerBound = Eigen::Matrix<c_float, -1, -1>::Zero(2*12*(mpcWindow+1) +  4*mpcWindow,1 );
     lowerBound << lowerEquality,
         lowerInequality;
 
-    upperBound = Eigen::MatrixXd::Zero(2*12*(mpcWindow+1) +  4*mpcWindow,1 );
+    upperBound = Eigen::Matrix<c_float, -1, -1>::Zero(2*12*(mpcWindow+1) +  4*mpcWindow,1 );
     upperBound << upperEquality,
         upperInequality;
 }
 
 
-void updateConstraintVectors(const Eigen::Matrix<double, 12, 1> &x0,
-                             Eigen::VectorXd &lowerBound, Eigen::VectorXd &upperBound)
+void updateConstraintVectors(const Eigen::Matrix<c_float, 12, 1> &x0,
+                             Eigen::Matrix<c_float, -1, 1> &lowerBound, Eigen::Matrix<c_float, -1, 1> &upperBound)
 {
     lowerBound.block(0,0,12,1) = -x0;
     upperBound.block(0,0,12,1) = -x0;
 }
 
 
-double getErrorNorm(const Eigen::Matrix<double, 12, 1> &x,
-                    const Eigen::Matrix<double, 12, 1> &xRef)
+c_float getErrorNorm(const Eigen::Matrix<c_float, 12, 1> &x,
+                    const Eigen::Matrix<c_float, 12, 1> &xRef)
 {
     // evaluate the error
-    Eigen::Matrix<double, 12, 1> error = x - xRef;
+    Eigen::Matrix<c_float, 12, 1> error = x - xRef;
 
     // return the norm
     return error.norm();
@@ -224,29 +224,29 @@ TEST_CASE("MPCTest")
     int mpcWindow = 20;
 
     // allocate the dynamics matrices
-    Eigen::Matrix<double, 12, 12> a;
-    Eigen::Matrix<double, 12, 4> b;
+    Eigen::Matrix<c_float, 12, 12> a;
+    Eigen::Matrix<c_float, 12, 4> b;
 
     // allocate the constraints vector
-    Eigen::Matrix<double, 12, 1> xMax;
-    Eigen::Matrix<double, 12, 1> xMin;
-    Eigen::Matrix<double, 4, 1> uMax;
-    Eigen::Matrix<double, 4, 1> uMin;
+    Eigen::Matrix<c_float, 12, 1> xMax;
+    Eigen::Matrix<c_float, 12, 1> xMin;
+    Eigen::Matrix<c_float, 4, 1> uMax;
+    Eigen::Matrix<c_float, 4, 1> uMin;
 
     // allocate the weight matrices
-    Eigen::DiagonalMatrix<double, 12> Q;
-    Eigen::DiagonalMatrix<double, 4> R;
+    Eigen::DiagonalMatrix<c_float, 12> Q;
+    Eigen::DiagonalMatrix<c_float, 4> R;
 
     // allocate the initial and the reference state space
-    Eigen::Matrix<double, 12, 1> x0;
-    Eigen::Matrix<double, 12, 1> xRef;
+    Eigen::Matrix<c_float, 12, 1> x0;
+    Eigen::Matrix<c_float, 12, 1> xRef;
 
     // allocate QP problem matrices and vectores
-    Eigen::SparseMatrix<double> hessian;
-    Eigen::VectorXd gradient;
-    Eigen::SparseMatrix<double> linearMatrix;
-    Eigen::VectorXd lowerBound;
-    Eigen::VectorXd upperBound;
+    Eigen::SparseMatrix<c_float> hessian;
+    Eigen::Matrix<c_float, -1, 1> gradient;
+    Eigen::SparseMatrix<c_float> linearMatrix;
+    Eigen::Matrix<c_float, -1, 1> lowerBound;
+    Eigen::Matrix<c_float, -1, 1> upperBound;
 
     // set the initial and the desired states
     x0 << 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ;
@@ -283,15 +283,15 @@ TEST_CASE("MPCTest")
     REQUIRE(solver.initSolver());
 
     // controller input and QPSolution vector
-    Eigen::Vector4d ctr;
-    Eigen::VectorXd QPSolution;
+    Eigen::Matrix<c_float, 4, 1> ctr;
+    Eigen::Matrix<c_float, -1, 1> QPSolution;
 
     // number of iteration steps
     int numberOfSteps = 50;
 
     // profiling quantities
     clock_t startTime, endTime;
-    double avarageTime = 0;
+    c_float avarageTime = 0;
 
     for (int i = 0; i < numberOfSteps; i++){
         startTime = clock();
@@ -327,5 +327,6 @@ TEST_CASE("MPCTest")
     std::cout << COUT_GTEST_MGT << "Avarage time = " << avarageTime / numberOfSteps
               << " seconds." << ANSI_TXT_DFT << std::endl;
 
-    REQUIRE(getErrorNorm(x0, xRef) <=  0.001);
+    constexpr double tolerance = 1e-2;
+    REQUIRE(getErrorNorm(x0, xRef) <=  tolerance);
 }
