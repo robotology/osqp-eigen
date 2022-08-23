@@ -88,9 +88,9 @@ OSQPData* const & OsqpEigen::Data::getData() const
 bool OsqpEigen::Data::isSet() const
 {
     const bool areConstraintsOk = (m_data->m == 0) ||
-        m_isLinearConstraintsMatrixSet &&
+        (m_isLinearConstraintsMatrixSet &&
         m_isLowerBoundSet &&
-        m_isUpperBoundSet;
+        m_isUpperBoundSet);
 
     return m_isNumberOfVariablesSet &&
         m_isNumberOfConstraintsSet &&
