@@ -59,6 +59,7 @@
     <member refid="class_osqp_eigen_1_1_settings_1a85e57a05a36c6caa63187dc18c77dbd8" kind="function"><name>getSettings</name></member>
   </compound>
   <compound refid="class_osqp_eigen_1_1_solver" kind="class"><name>OsqpEigen::Solver</name>
+    <member refid="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" kind="variable"><name>m_isSolverInitialized</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ad7d4c0cde783ce72fac5427bde512ddd" kind="variable"><name>m_workspace</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a17903ad4bb4f168dc3785d825f0dbd7d" kind="variable"><name>m_settings</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" kind="variable"><name>m_data</name></member>
@@ -75,7 +76,6 @@
     <member refid="class_osqp_eigen_1_1_solver_1a9faef285eb45188cb0bebc05b2b6a7f1" kind="variable"><name>m_newUpperTriangularHessianTriplets</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ad66b24af87c22b54b2fb50f242abc5ae" kind="variable"><name>m_oldLinearConstraintsTriplet</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a36f93bea19037f42b45cd2822feeb677" kind="variable"><name>m_newLinearConstraintsTriplet</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" kind="variable"><name>m_isSolverInitialized</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" kind="function"><name>evaluateNewValues</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a4655b76d4b4cfa5bd358a844392eeea2" kind="function"><name>selectUpperTriangularTriplets</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a92805fc8c51669c4bf44337e4f94f603" kind="function"><name>OSQPWorkspaceDeleter</name></member>
