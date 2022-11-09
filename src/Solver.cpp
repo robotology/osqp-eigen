@@ -148,6 +148,11 @@ OsqpEigen::Status OsqpEigen::Solver::getStatus() const
     return static_cast<OsqpEigen::Status>(m_workspace->info->status_val);
 }
 
+const c_float OsqpEigen::Solver::getObjValue() const
+{
+    return m_workspace->info->obj_val;
+}
+
 OsqpEigen::ErrorExitFlag OsqpEigen::Solver::solveProblem()
 {
     if(!m_isSolverInitialized){
