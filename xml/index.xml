@@ -87,6 +87,7 @@
     <member refid="class_osqp_eigen_1_1_solver_1aade83b0e68b85d47d41a054f04d413aa" kind="function"><name>solve</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a3764df29209744f98418d02e4c6b1e60" kind="function"><name>solveProblem</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a81614e47e60ae1c71dbe76596e1c8512" kind="function"><name>getStatus</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a86ec458d23ef35f70d5fe2d2f7ccac89" kind="function"><name>getObjValue</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" kind="function"><name>getSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1aa6c318874ded4be6a07c6b1bf6e05f92" kind="function"><name>getDualSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" kind="function"><name>updateGradient</name></member>

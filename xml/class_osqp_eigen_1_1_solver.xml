@@ -509,6 +509,23 @@
         </inbodydescription>
         <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="129" column="27"/>
       </memberdef>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a86ec458d23ef35f70d5fe2d2f7ccac89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const c_float</type>
+        <definition>const c_float OsqpEigen::Solver::getObjValue</definition>
+        <argsstring>() const</argsstring>
+        <name>getObjValue</name>
+        <briefdescription>
+<para>Get the primal objective value. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>The primal objective value </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="135" column="23"/>
+      </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const Eigen::Matrix&lt; c_float, -1, 1 &gt; &amp;</type>
         <definition>const Eigen::Matrix&lt;c_float, -1, 1&gt;&amp; OsqpEigen::Solver::getSolution</definition>
@@ -524,7 +541,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="135" column="29"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="141" column="29"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1aa6c318874ded4be6a07c6b1bf6e05f92" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const Eigen::Matrix&lt; c_float, -1, 1 &gt; &amp;</type>
@@ -541,7 +558,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="141" column="29"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="147" column="29"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a41efbcc32ccdcf2219b9fe9330faf8ea" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -573,7 +590,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="151" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="157" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a443938e6942b79cbcbac7a5fe69a062e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -605,7 +622,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="161" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="167" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1aa944cadb9be917eb74c1d25bac65bc29" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -637,7 +654,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="171" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="177" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a3b1b976e9c432624abc614c8d7d0e20c" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>bool</type>
@@ -681,7 +698,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="182" column="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="188" column="14"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a5ddf094f1eeff686fa8cec802a50f436" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -718,7 +735,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="197" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="15" bodyend="114"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="203" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="15" bodyend="114"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1ae9adb54d29b947222aa7ec788a7d2e30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -755,7 +772,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="210" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="117" bodyend="213"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="216" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="117" bodyend="213"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a13f8e53aae03e483fa46066c7b93e066" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -804,7 +821,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="218" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="216" bodyend="244"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="224" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="216" bodyend="244"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a6665f91ac8c073b753cba4af1aad606e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -831,7 +848,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="222" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="247" bodyend="265"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="228" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="247" bodyend="265"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a18059c9138e3ce633ea71ea7a7b3d1e2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -858,7 +875,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="225" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="269" bodyend="281"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="231" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="269" bodyend="281"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -885,7 +902,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="228" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="284" bodyend="307"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="234" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="284" bodyend="307"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -912,7 +929,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="231" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="310" bodyend="334"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="237" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.tpp" bodystart="310" bodyend="334"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_settings" kindref="compound">OsqpEigen::Settings</ref> &gt; &amp;</type>
@@ -929,7 +946,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="237" column="31"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="243" column="31"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::unique_ptr&lt; <ref refid="class_osqp_eigen_1_1_data" kindref="compound">OsqpEigen::Data</ref> &gt; &amp;</type>
@@ -946,7 +963,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="243" column="31"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="249" column="31"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a72a30e139c337f112157de93eaa6955a" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
         <type>const std::unique_ptr&lt; OSQPWorkspace, std::function&lt; void(OSQPWorkspace *)&gt; &gt; &amp;</type>
@@ -963,7 +980,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="249" column="31"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="255" column="31"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -971,7 +988,7 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="32" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="33" bodyend="250"/>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="32" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" bodystart="33" bodyend="256"/>
     <listofallmembers>
       <member refid="class_osqp_eigen_1_1_solver_1a34214395818d23bc1552fc9bbcf0f47b" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>clearSolver</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a11605685ef645c991b1f7935d1b854f4" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>clearSolverVariables</name></member>
@@ -979,6 +996,7 @@
       <member refid="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>evaluateNewValues</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1aa6c318874ded4be6a07c6b1bf6e05f92" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualSolution</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualVariable</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1a86ec458d23ef35f70d5fe2d2f7ccac89" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getObjValue</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getPrimalVariable</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getSolution</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a81614e47e60ae1c71dbe76596e1c8512" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getStatus</name></member>
