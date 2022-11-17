@@ -129,6 +129,12 @@ namespace OsqpEigen
         OsqpEigen::Status getStatus() const;
 
         /**
+         * Get the primal objective value
+         * @return The primal objective value
+         */
+        const c_float getObjValue() const;
+
+        /**
          * Get the optimization problem solution.
          * @return an Eigen::Vector contating the optimization result.
          */
