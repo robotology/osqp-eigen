@@ -11,6 +11,7 @@ include(OsqpEigenFindOptionalDependencies)
 ## Required Dependencies
 find_package(Eigen3 3.2.92 REQUIRED)
 find_package(osqp REQUIRED)
+try_compile(OSQP_IS_V1 ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/try-osqp.cpp LINK_LIBRARIES osqp::osqp)
 
 #---------------------------------------------
 ## Optional Dependencies

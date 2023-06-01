@@ -8,8 +8,7 @@
 #ifndef OSQPEIGEN_CONSTANTS_HPP
 #define OSQPEIGEN_CONSTANTS_HPP
 
-// osqp
-#include <osqp.h>
+#include <OsqpEigen/Compat.hpp>
 
 /**
  * OsqpEigen namespace.
@@ -47,7 +46,11 @@ namespace OsqpEigen
         NoError = 0,
         DataValidationError = OSQP_DATA_VALIDATION_ERROR,
         SettingsValidationError = OSQP_SETTINGS_VALIDATION_ERROR,
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+        LinsysSolverLoadError = OSQP_ALGEBRA_LOAD_ERROR,
+#else
         LinsysSolverLoadError = OSQP_LINSYS_SOLVER_LOAD_ERROR,
+#endif
         LinsysSolverInitError = OSQP_LINSYS_SOLVER_INIT_ERROR,
         NonCvxError = OSQP_NONCVX_ERROR,
         MemAllocError = OSQP_MEM_ALLOC_ERROR,

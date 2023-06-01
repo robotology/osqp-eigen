@@ -80,7 +80,7 @@ void OsqpEigen::Data::setNumberOfConstraints(int m)
     m_data->m = m;
 }
 
-OSQPData* const & OsqpEigen::Data::getData() const
+OsqpEigen::OSQPData* const & OsqpEigen::Data::getData() const
 {
     return m_data;
 }

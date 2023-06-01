@@ -5,8 +5,9 @@
  * @date 2018
  */
 
-#include <OsqpEigen/Settings.hpp>
+#include <OsqpEigen/Compat.hpp>
 #include <OsqpEigen/Debug.hpp>
+#include <OsqpEigen/Settings.hpp>
 #include <iostream>
 
 template <typename... Args> inline void unused(Args&&...) {}
@@ -134,7 +135,11 @@ void OsqpEigen::Settings::setAlpha(const double alpha)
 
 void OsqpEigen::Settings::setLinearSystemSolver(const int linsysSolver)
 {
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+    m_settings->linsys_solver = (osqp_linsys_solver_type)linsysSolver;
+#else
     m_settings->linsys_solver = (linsys_solver_type)linsysSolver;
+#endif
 }
 
 void OsqpEigen::Settings::setDelta(const double delta)
@@ -149,12 +154,16 @@ void OsqpEigen::Settings::setDelta(const double delta)
 
 void OsqpEigen::Settings::setPolish(const bool polish)
 {
-# ifndef EMBEDDED
+#ifndef EMBEDDED
+#  ifdef OSQP_EIGEN_OSQP_IS_V1
+    m_settings->polishing = (c_int)polish;
+#  else
     m_settings->polish = (c_int)polish;
-# else
-    debugStream()<< "[OsqpEigen::Settings::setPolish] OSPQ has been set to EMBEDDED, hence this setting is disabled." << std::endl;
+#  endif
+#else
+  debugStream() << "[OsqpEigen::Settings::setPolish] OSPQ has been set to EMBEDDED, hence this setting is disabled."  << std::endl;
     unused(polish);
-# endif
+#endif
 }
 
 void OsqpEigen::Settings::setPolishRefineIter(const int polishRefineIter)
@@ -189,7 +198,11 @@ void OsqpEigen::Settings::setCheckTermination(const int checkTermination)
 
 void OsqpEigen::Settings::setWarmStart(const bool warmStart)
 {
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+    m_settings->warm_starting = (c_int)warmStart;
+#else
     m_settings->warm_start = (c_int)warmStart;
+#endif
 }
 
 void OsqpEigen::Settings::setTimeLimit(const double timeLimit)

@@ -17,6 +17,7 @@
 #include <osqp.h>
 
 // OsqpEigen
+#include <OsqpEigen/Compat.hpp>
 #include <OsqpEigen/Data.hpp>
 #include <OsqpEigen/Settings.hpp>
 #include <OsqpEigen/Constants.hpp>
@@ -32,7 +33,11 @@ namespace OsqpEigen
     class Solver
     {
         bool m_isSolverInitialized; /**< Boolean true if solver is initialized. */
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+        std::unique_ptr<OSQPSolver, std::function<void(OSQPSolver *)>> m_solver;  /**< Pointer to OSQPSolver struct. */
+#else
         std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>> m_workspace;  /**< Pointer to OSQPWorkspace struct. */
+#endif
         std::unique_ptr<OsqpEigen::Settings> m_settings; /**< Pointer to Settings class. */
         std::unique_ptr<OsqpEigen::Data> m_data; /**< Pointer to Data class. */
         Eigen::Matrix<c_float, Eigen::Dynamic ,1> m_primalVariables;
@@ -73,11 +78,43 @@ namespace OsqpEigen
         void selectUpperTriangularTriplets(const std::vector<Eigen::Triplet<T>> &fullMatrixTriplets,
                                            std::vector<Eigen::Triplet<T>> &upperTriangularMatrixTriplets) const;
 
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+        /**
+         * Custom Deleter for the OSQPSolver. It is required to free the @ref m_workspace unique_ptr
+         * @param ptr raw pointer to the workspace
+         */
+        static void OSQPSolverDeleter(OSQPSolver* ptr) noexcept;
+#else
         /**
          * Custom Deleter for the OSQPWorkspace. It is required to free the @ref m_workspace unique_ptr
          * @param ptr raw pointer to the workspace
          */
         static void OSQPWorkspaceDeleter(OSQPWorkspace* ptr) noexcept;
+#endif
+
+        inline const OSQPData * getData() const noexcept {
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+          return m_data->getData();
+#else
+          return m_workspace->data;
+#endif
+        }
+
+        inline const OSQPInfo * getInfo() const noexcept {
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+          return m_solver->info;
+#else
+          return m_workspace->Info;
+#endif
+        }
+
+        inline const OSQPSolution * getOSQPSolution() const noexcept {
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+          return m_solver->solution;
+#else
+          return m_workspace->solution;
+#endif
+        }
 
     public:
 
@@ -248,11 +285,19 @@ namespace OsqpEigen
          */
         const std::unique_ptr<OsqpEigen::Data>& data() const;
 
+#ifdef OSQP_EIGEN_OSQP_IS_V1
+        /**
+         * Get the pointer to the OSQP solver.
+         * @return the pointer to Solver object.
+         */
+        const std::unique_ptr<OSQPSolver, std::function<void(OSQPSolver *)>>& solver() const;
+#else
         /**
          * Get the pointer to the OSQP workspace.
          * @return the pointer to Workspace object.
          */
         const std::unique_ptr<OSQPWorkspace, std::function<void(OSQPWorkspace *)>>& workspace() const;
+#endif
     };
 
     #include <OsqpEigen/Solver.tpp>
