@@ -104,7 +104,7 @@ namespace OsqpEigen
 #ifdef OSQP_EIGEN_OSQP_IS_V1
           return m_solver->info;
 #else
-          return m_workspace->Info;
+          return m_workspace->info;
 #endif
         }
 
