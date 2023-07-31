@@ -5,6 +5,8 @@
  * @date 2018
  */
 
+#include <cassert>
+
 #include <OsqpEigen/Debug.hpp>
 
 template<typename Derived>
