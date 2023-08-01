@@ -103,6 +103,7 @@ set(${LIBRARY_TARGET_NAME}_HDR
   include/OsqpEigen/Settings.hpp
   include/OsqpEigen/Solver.hpp
   include/OsqpEigen/Solver.tpp
+  include/OsqpEigen/Compat.hpp
   include/OsqpEigen/Debug.hpp)
 
 add_library(${LIBRARY_TARGET_NAME} ${${LIBRARY_TARGET_NAME}_SRC} ${${LIBRARY_TARGET_NAME}_HDR})
@@ -110,6 +111,9 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
   "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
+if(OSQP_IS_V1)
+  target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1)
+endif()
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
