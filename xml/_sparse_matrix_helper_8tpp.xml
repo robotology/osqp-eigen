@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_sparse_matrix_helper_8tpp" kind="file" language="C++">
     <compoundname>SparseMatrixHelper.tpp</compoundname>
+    <includes local="no">cassert</includes>
     <includes refid="_debug_8hpp" local="no">OsqpEigen/Debug.hpp</includes>
     <includedby refid="_sparse_matrix_helper_8hpp" local="no">SparseMatrixHelper.hpp</includedby>
     <incdepgraph>
@@ -10,14 +11,19 @@
         <link refid="_sparse_matrix_helper_8tpp"/>
         <childnode refid="2" relation="include">
         </childnode>
-      </node>
-      <node id="2">
-        <label>OsqpEigen/Debug.hpp</label>
-        <link refid="_debug_8hpp_source"/>
         <childnode refid="3" relation="include">
         </childnode>
       </node>
+      <node id="2">
+        <label>cassert</label>
+      </node>
       <node id="3">
+        <label>OsqpEigen/Debug.hpp</label>
+        <link refid="_debug_8hpp_source"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
         <label>iostream</label>
       </node>
     </incdepgraph>

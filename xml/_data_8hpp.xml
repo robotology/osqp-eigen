@@ -14,9 +14,14 @@
         <link refid="_sparse_matrix_helper_8tpp"/>
         <childnode refid="8" relation="include">
         </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
       <node id="3">
         <label>osqp.h</label>
+      </node>
+      <node id="8">
+        <label>cassert</label>
       </node>
       <node id="6">
         <label>Eigen/Sparse</label>
@@ -24,12 +29,12 @@
       <node id="2">
         <label>Eigen/Dense</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>OsqpEigen/Data.tpp</label>
         <link refid="_data_8tpp"/>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="8" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
       <node id="1">
@@ -41,10 +46,10 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="9" relation="include">
+        <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>OsqpEigen/Debug.hpp</label>
         <link refid="_debug_8hpp_source"/>
         <childnode refid="5" relation="include">

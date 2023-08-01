@@ -16,21 +16,26 @@
         <link refid="_sparse_matrix_helper_8tpp"/>
         <childnode refid="10" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>osqp.h</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>OsqpEigen/Solver.tpp</label>
         <link refid="_solver_8tpp"/>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="15" relation="include">
-        </childnode>
         <childnode refid="16" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="17" relation="include">
         </childnode>
+        <childnode refid="11" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>cassert</label>
       </node>
       <node id="1">
         <label>Solver.hpp</label>
@@ -43,14 +48,14 @@
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="12" relation="include">
-        </childnode>
         <childnode refid="13" relation="include">
         </childnode>
         <childnode refid="14" relation="include">
         </childnode>
+        <childnode refid="15" relation="include">
+        </childnode>
       </node>
-      <node id="15">
+      <node id="16">
         <label>auxil.h</label>
       </node>
       <node id="8">
@@ -59,18 +64,18 @@
       <node id="3">
         <label>Eigen/Dense</label>
       </node>
-      <node id="13">
+      <node id="14">
         <label>OsqpEigen/Constants.hpp</label>
         <link refid="_constants_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="12">
         <label>OsqpEigen/Data.tpp</label>
         <link refid="_data_8tpp"/>
         <childnode refid="7" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
       <node id="5">
@@ -82,10 +87,10 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="11" relation="include">
+        <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="10">
+      <node id="11">
         <label>OsqpEigen/Debug.hpp</label>
         <link refid="_debug_8hpp_source"/>
         <childnode refid="7" relation="include">
@@ -94,13 +99,13 @@
       <node id="7">
         <label>iostream</label>
       </node>
-      <node id="12">
+      <node id="13">
         <label>OsqpEigen/Settings.hpp</label>
         <link refid="_settings_8hpp"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
-      <node id="16">
+      <node id="17">
         <label>scaling.h</label>
       </node>
       <node id="2">
