@@ -27,6 +27,11 @@ bool OsqpEigen::Solver::updateHessianMatrix(const Eigen::SparseCompressedBase<De
         return false;
     }
 
+    if(hessianMatrix.IsRowMajor){
+        std::cerr << "[OsqpEigen::Solver::updateHessianMatrix] The hessian matrix has to be ColMajor"
+                  << std::endl;
+        return false;
+    }
 
     // evaluate the triplets from old and new hessian sparse matrices
     if(!OsqpEigen::SparseMatrixHelper::osqpSparseMatrixToTriplets(m_workspace->data->P,
@@ -125,6 +130,12 @@ bool OsqpEigen::Solver::updateLinearConstraintsMatrix(const Eigen::SparseCompres
     if(((c_int)linearConstraintsMatrix.rows() != m_workspace->data->m)||
        ((c_int)linearConstraintsMatrix.cols() != m_workspace->data->n)){
         debugStream() << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] The constraints matrix has to be a mxn matrix"
+                  << std::endl;
+        return false;
+    }
+
+    if(linearConstraintsMatrix.IsRowMajor){
+        std::cerr << "[OsqpEigen::Solver::updateLinearConstraintsMatrix] The constraints matrix has to be ColMajor"
                   << std::endl;
         return false;
     }
