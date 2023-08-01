@@ -26,13 +26,13 @@
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="7">
+      <node id="8">
         <label>cassert</label>
       </node>
       <node id="3">
         <label>Eigen/Sparse</label>
       </node>
-      <node id="8">
+      <node id="7">
         <label>OsqpEigen/Debug.hpp</label>
         <link refid="_debug_8hpp_source"/>
         <childnode refid="2" relation="include">

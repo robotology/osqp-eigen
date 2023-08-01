@@ -97,7 +97,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="23" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="24" bodyend="38"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="23" column="1" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="24" bodyend="38"/>
       </memberdef>
       <memberdef kind="enum" id="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5d" prot="public" static="no" strong="yes">
         <type>int</type>
@@ -173,7 +173,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="44" column="5" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="45" bodyend="58"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="43" column="1" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="44" bodyend="57"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="var">
@@ -190,7 +190,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="18" column="23" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="18" bodyend="-1"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="18" column="19" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" bodystart="18" bodyend="-1"/>
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
@@ -205,7 +205,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" line="7" column="18" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" declline="7" declcolumn="18"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" line="8" column="14" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Debug.hpp" declline="8" declcolumn="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>

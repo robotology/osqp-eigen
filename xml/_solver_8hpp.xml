@@ -6,18 +6,18 @@
     <includes local="no">Eigen/Dense</includes>
     <includes local="no">osqp.h</includes>
     <includes refid="_compat_8hpp" local="no">OsqpEigen/Compat.hpp</includes>
+    <includes refid="_constants_8hpp" local="no">OsqpEigen/Constants.hpp</includes>
     <includes refid="_data_8hpp" local="no">OsqpEigen/Data.hpp</includes>
     <includes refid="_settings_8hpp" local="no">OsqpEigen/Settings.hpp</includes>
-    <includes refid="_constants_8hpp" local="no">OsqpEigen/Constants.hpp</includes>
     <includes refid="_solver_8tpp" local="no">OsqpEigen/Solver.tpp</includes>
     <includedby refid="_osqp_eigen_8h" local="no">OsqpEigen.h</includedby>
     <incdepgraph>
-      <node id="10">
+      <node id="11">
         <label>OsqpEigen/SparseMatrixHelper.tpp</label>
         <link refid="_sparse_matrix_helper_8tpp"/>
-        <childnode refid="11" relation="include">
-        </childnode>
         <childnode refid="12" relation="include">
+        </childnode>
+        <childnode refid="13" relation="include">
         </childnode>
       </node>
       <node id="4">
@@ -32,7 +32,7 @@
       <node id="16">
         <label>OsqpEigen/Solver.tpp</label>
         <link refid="_solver_8tpp"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="17" relation="include">
         </childnode>
@@ -41,7 +41,7 @@
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="11">
+      <node id="13">
         <label>cassert</label>
       </node>
       <node id="1">
@@ -57,7 +57,7 @@
         </childnode>
         <childnode refid="6" relation="include">
         </childnode>
-        <childnode refid="14" relation="include">
+        <childnode refid="7" relation="include">
         </childnode>
         <childnode refid="15" relation="include">
         </childnode>
@@ -67,48 +67,48 @@
       <node id="17">
         <label>auxil.h</label>
       </node>
-      <node id="9">
+      <node id="10">
         <label>Eigen/Sparse</label>
       </node>
       <node id="3">
         <label>Eigen/Dense</label>
       </node>
-      <node id="15">
+      <node id="6">
         <label>OsqpEigen/Constants.hpp</label>
         <link refid="_constants_8hpp"/>
         <childnode refid="5" relation="include">
         </childnode>
       </node>
-      <node id="13">
+      <node id="14">
         <label>OsqpEigen/Data.tpp</label>
         <link refid="_data_8tpp"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
         <childnode refid="12" relation="include">
         </childnode>
       </node>
-      <node id="6">
+      <node id="7">
         <label>OsqpEigen/Data.hpp</label>
         <link refid="_data_8hpp"/>
         <childnode refid="3" relation="include">
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="7" relation="include">
+        <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="13" relation="include">
+        <childnode refid="14" relation="include">
         </childnode>
       </node>
       <node id="12">
         <label>OsqpEigen/Debug.hpp</label>
         <link refid="_debug_8hpp_source"/>
-        <childnode refid="8" relation="include">
+        <childnode refid="9" relation="include">
         </childnode>
       </node>
-      <node id="8">
+      <node id="9">
         <label>iostream</label>
       </node>
-      <node id="14">
+      <node id="15">
         <label>OsqpEigen/Settings.hpp</label>
         <link refid="_settings_8hpp"/>
         <childnode refid="4" relation="include">
@@ -120,16 +120,16 @@
       <node id="2">
         <label>memory</label>
       </node>
-      <node id="7">
+      <node id="8">
         <label>OsqpEigen/SparseMatrixHelper.hpp</label>
         <link refid="_sparse_matrix_helper_8hpp"/>
-        <childnode refid="8" relation="include">
-        </childnode>
         <childnode refid="9" relation="include">
+        </childnode>
+        <childnode refid="10" relation="include">
         </childnode>
         <childnode refid="5" relation="include">
         </childnode>
-        <childnode refid="10" relation="include">
+        <childnode refid="11" relation="include">
         </childnode>
       </node>
     </incdepgraph>

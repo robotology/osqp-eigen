@@ -60,11 +60,11 @@
   </compound>
   <compound refid="class_osqp_eigen_1_1_solver" kind="class"><name>OsqpEigen::Solver</name>
     <member refid="class_osqp_eigen_1_1_solver_1a68422ef102c1ee67fca8abc76172f79a" kind="variable"><name>m_isSolverInitialized</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1ad7d4c0cde783ce72fac5427bde512ddd" kind="variable"><name>m_workspace</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a7438a898ba644817aaf690dd64c94b7e" kind="variable"><name>m_workspace</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a17903ad4bb4f168dc3785d825f0dbd7d" kind="variable"><name>m_settings</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a9ea7f42f19d82a3724b84558e827a016" kind="variable"><name>m_data</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1aabc061c3eb02c25f15beb3d5ad279380" kind="variable"><name>m_primalVariables</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1ab604903d64b7595c73aa3712adeb2016" kind="variable"><name>m_dualVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a8f85fda2c31f0ca04245cffd9dbd4fa9" kind="variable"><name>m_primalVariables</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1ad882fc4d6a2fa76b0c9ab9a7889e797f" kind="variable"><name>m_dualVariables</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a7a9cc3a06a9fadc9d72bc7638dba46d2" kind="variable"><name>m_solution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ab163b1b6fe77e012b9e3d0cd402d23bb" kind="variable"><name>m_dualSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1ae048ac05eeaafb9b5e2d8aa9b175fb71" kind="variable"><name>m_hessianNewIndices</name></member>
@@ -106,7 +106,7 @@
     <member refid="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" kind="function"><name>getDualVariable</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a0bc25c56c847b7b3a6fd42c8accb0b1d" kind="function"><name>settings</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a597f9a82e9cea5d5efe25e1f779dfb21" kind="function"><name>data</name></member>
-    <member refid="class_osqp_eigen_1_1_solver_1a72a30e139c337f112157de93eaa6955a" kind="function"><name>workspace</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a3b8f7aff3dcb38e02abc1b5b5a3642df" kind="function"><name>workspace</name></member>
   </compound>
   <compound refid="namespace_osqp_eigen" kind="namespace"><name>OsqpEigen</name>
     <member refid="namespace_osqp_eigen_1ac0ca4e76dc0319f9d34640f8253977ac" kind="enum"><name>Status</name></member>
