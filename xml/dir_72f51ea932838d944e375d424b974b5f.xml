@@ -2,6 +2,7 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="dir_72f51ea932838d944e375d424b974b5f" kind="dir">
     <compoundname>OsqpEigen</compoundname>
+    <innerfile refid="_compat_8hpp">Compat.hpp</innerfile>
     <innerfile refid="_constants_8hpp">Constants.hpp</innerfile>
     <innerfile refid="_data_8hpp">Data.hpp</innerfile>
     <innerfile refid="_data_8tpp">Data.tpp</innerfile>

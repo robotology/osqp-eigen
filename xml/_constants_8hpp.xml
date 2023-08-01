@@ -2,12 +2,18 @@
 <doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
   <compounddef id="_constants_8hpp" kind="file" language="C++">
     <compoundname>Constants.hpp</compoundname>
-    <includes local="no">osqp.h</includes>
+    <includes refid="_compat_8hpp" local="no">OsqpEigen/Compat.hpp</includes>
     <includedby refid="_osqp_eigen_8h" local="no">OsqpEigen.h</includedby>
     <includedby refid="_solver_8hpp" local="no">Solver.hpp</includedby>
     <incdepgraph>
-      <node id="2">
+      <node id="3">
         <label>osqp.h</label>
+      </node>
+      <node id="2">
+        <label>OsqpEigen/Compat.hpp</label>
+        <link refid="_compat_8hpp_source"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
       <node id="1">
         <label>Constants.hpp</label>

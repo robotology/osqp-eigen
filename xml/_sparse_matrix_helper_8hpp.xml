@@ -4,29 +4,35 @@
     <compoundname>SparseMatrixHelper.hpp</compoundname>
     <includes local="no">iostream</includes>
     <includes local="no">Eigen/Sparse</includes>
-    <includes local="no">osqp.h</includes>
+    <includes refid="_compat_8hpp" local="no">OsqpEigen/Compat.hpp</includes>
     <includes refid="_sparse_matrix_helper_8tpp" local="no">OsqpEigen/SparseMatrixHelper.tpp</includes>
     <includedby refid="_data_8hpp" local="no">Data.hpp</includedby>
     <includedby refid="_osqp_eigen_8h" local="no">OsqpEigen.h</includedby>
     <incdepgraph>
-      <node id="5">
+      <node id="6">
         <label>OsqpEigen/SparseMatrixHelper.tpp</label>
         <link refid="_sparse_matrix_helper_8tpp"/>
-        <childnode refid="6" relation="include">
-        </childnode>
         <childnode refid="7" relation="include">
         </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
       </node>
-      <node id="4">
+      <node id="5">
         <label>osqp.h</label>
       </node>
-      <node id="6">
+      <node id="4">
+        <label>OsqpEigen/Compat.hpp</label>
+        <link refid="_compat_8hpp_source"/>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="7">
         <label>cassert</label>
       </node>
       <node id="3">
         <label>Eigen/Sparse</label>
       </node>
-      <node id="7">
+      <node id="8">
         <label>OsqpEigen/Debug.hpp</label>
         <link refid="_debug_8hpp_source"/>
         <childnode refid="2" relation="include">
@@ -44,7 +50,7 @@
         </childnode>
         <childnode refid="4" relation="include">
         </childnode>
-        <childnode refid="5" relation="include">
+        <childnode refid="6" relation="include">
         </childnode>
       </node>
     </incdepgraph>
@@ -81,7 +87,13 @@
     <briefdescription>
     </briefdescription>
     <detaileddescription>
-<para><simplesect kind="author"><para>Giulio Romualdi </para>
+<para><simplesect kind="author"><para>Pierre Gergondet </para>
+</simplesect>
+<simplesect kind="copyright"><para>Released under the terms of the BSD 3-Clause License </para>
+</simplesect>
+<simplesect kind="date"><para>2023</para>
+</simplesect>
+<simplesect kind="author"><para>Giulio Romualdi </para>
 </simplesect>
 <simplesect kind="copyright"><para>Released under the terms of the BSD 3-Clause License </para>
 </simplesect>

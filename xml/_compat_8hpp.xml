@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="_compat_8hpp" kind="file" language="C++">
+    <compoundname>Compat.hpp</compoundname>
+    <includes local="no">osqp.h</includes>
+    <includedby refid="_constants_8hpp" local="no">Constants.hpp</includedby>
+    <includedby refid="_solver_8hpp" local="no">Solver.hpp</includedby>
+    <includedby refid="_sparse_matrix_helper_8hpp" local="no">SparseMatrixHelper.hpp</includedby>
+    <incdepgraph>
+      <node id="2">
+        <label>osqp.h</label>
+      </node>
+      <node id="1">
+        <label>Compat.hpp</label>
+        <link refid="_compat_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1">
+        <label>Compat.hpp</label>
+        <link refid="_compat_8hpp"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+      </node>
+      <node id="4">
+        <label>Solver.hpp</label>
+        <link refid="_solver_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>OsqpEigen.h</label>
+        <link refid="_osqp_eigen_8h"/>
+      </node>
+      <node id="2">
+        <label>Constants.hpp</label>
+        <link refid="_constants_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>Data.hpp</label>
+        <link refid="_data_8hpp"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>SparseMatrixHelper.hpp</label>
+        <link refid="_sparse_matrix_helper_8hpp"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp"/>
+  </compounddef>
+</doxygen>

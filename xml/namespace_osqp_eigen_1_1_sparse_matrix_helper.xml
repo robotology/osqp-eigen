@@ -31,7 +31,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="41" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="12" bodyend="59" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="41" declcolumn="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="40" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="12" bodyend="59" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="40" declcolumn="14"/>
       </memberdef>
       <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1aec1a2210ce843eda8e4000c81d886131" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -78,7 +78,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="51" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="102" bodyend="127" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="51" declcolumn="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="50" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="102" bodyend="127" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="50" declcolumn="14"/>
       </memberdef>
       <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1af45a1d77519f691542150e506b6dcdeb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -125,7 +125,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="61" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="62" bodyend="99" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="61" declcolumn="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="60" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="62" bodyend="99" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="60" declcolumn="14"/>
       </memberdef>
       <memberdef kind="function" id="namespace_osqp_eigen_1_1_sparse_matrix_helper_1ae2383e6a41df66d2c34f61a8866af3e8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <templateparamlist>
@@ -175,7 +175,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="71" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="130" bodyend="151" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="71" declcolumn="14"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="70" column="14" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.tpp" bodystart="130" bodyend="151" declfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" declline="70" declcolumn="14"/>
       </memberdef>
       </sectiondef>
     <briefdescription>
@@ -184,6 +184,6 @@
     <detaileddescription>
 <para>Use it to create ot update or manage an osqp sparse matrix. osqp sparse matrix in <ulink url="https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html">compressed-column</ulink> or triplet form. </para>
     </detaileddescription>
-    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="31" column="5"/>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/SparseMatrixHelper.hpp" line="30" column="5"/>
   </compounddef>
 </doxygen>

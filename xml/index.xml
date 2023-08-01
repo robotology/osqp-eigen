@@ -78,6 +78,9 @@
     <member refid="class_osqp_eigen_1_1_solver_1a36f93bea19037f42b45cd2822feeb677" kind="variable"><name>m_newLinearConstraintsTriplet</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1aad951a74d6caae4d83e9c47db9afd705" kind="function"><name>evaluateNewValues</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a4655b76d4b4cfa5bd358a844392eeea2" kind="function"><name>selectUpperTriangularTriplets</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a6170969bc625f5652412e1c5152ee87d" kind="function"><name>getData</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a59811002bac4d2f5babab5bde4fbb491" kind="function"><name>getInfo</name></member>
+    <member refid="class_osqp_eigen_1_1_solver_1a945de5811f60cf5b7889b5f161efa22d" kind="function"><name>getOSQPSolution</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a92805fc8c51669c4bf44337e4f94f603" kind="function"><name>OSQPWorkspaceDeleter</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a4de5403060c8798d0e138aaff0158cf9" kind="function"><name>Solver</name></member>
     <member refid="class_osqp_eigen_1_1_solver_1a8487090a685d7653ea4011971c2f21f7" kind="function"><name>initSolver</name></member>
@@ -136,6 +139,8 @@
     <member refid="namespace_osqp_eigen_1_1_sparse_matrix_helper_1ae2383e6a41df66d2c34f61a8866af3e8" kind="function"><name>eigenSparseMatrixToTriplets</name></member>
   </compound>
   <compound refid="namespacestd" kind="namespace"><name>std</name>
+  </compound>
+  <compound refid="_compat_8hpp" kind="file"><name>Compat.hpp</name>
   </compound>
   <compound refid="_constants_8hpp" kind="file"><name>Constants.hpp</name>
   </compound>
