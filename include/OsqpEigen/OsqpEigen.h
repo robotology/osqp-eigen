@@ -13,4 +13,4 @@
 #include <OsqpEigen/Solver.hpp>
 #include <OsqpEigen/SparseMatrixHelper.hpp>
 
-#endif //OSQPEIGEN_OSQPEIGEN_H
+#endif // OSQPEIGEN_OSQPEIGEN_H

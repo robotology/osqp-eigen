@@ -45,7 +45,8 @@ OsqpEigen::Data::Data(int n, int m)
 
 void OsqpEigen::Data::clearHessianMatrix()
 {
-    if(m_isHessianMatrixSet){
+    if (m_isHessianMatrixSet)
+    {
         m_isHessianMatrixSet = false;
         csc_spfree(m_data->P);
         m_data->P = nullptr;
@@ -54,7 +55,8 @@ void OsqpEigen::Data::clearHessianMatrix()
 
 void OsqpEigen::Data::clearLinearConstraintsMatrix()
 {
-    if(m_isLinearConstraintsMatrixSet){
+    if (m_isLinearConstraintsMatrixSet)
+    {
         m_isLinearConstraintsMatrixSet = false;
         csc_spfree(m_data->A);
         m_data->A = nullptr;
@@ -80,7 +82,7 @@ void OsqpEigen::Data::setNumberOfConstraints(int m)
     m_data->m = m;
 }
 
-auto OsqpEigen::Data::getData() const -> OSQPData*const &
+auto OsqpEigen::Data::getData() const -> OSQPData *const &
 {
     return m_data;
 }
@@ -88,22 +90,23 @@ auto OsqpEigen::Data::getData() const -> OSQPData*const &
 bool OsqpEigen::Data::isSet() const
 {
     const bool areConstraintsOk = (m_data->m == 0) ||
-        (m_isLinearConstraintsMatrixSet &&
-        m_isLowerBoundSet &&
-        m_isUpperBoundSet);
+                                  (m_isLinearConstraintsMatrixSet &&
+                                   m_isLowerBoundSet &&
+                                   m_isUpperBoundSet);
 
     return m_isNumberOfVariablesSet &&
-        m_isNumberOfConstraintsSet &&
-        m_isHessianMatrixSet &&
-        m_isGradientSet &&
-        areConstraintsOk;
+           m_isNumberOfConstraintsSet &&
+           m_isHessianMatrixSet &&
+           m_isGradientSet &&
+           areConstraintsOk;
 }
 
 bool OsqpEigen::Data::setGradient(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> gradient)
 {
-    if(gradient.rows() != m_data->n){
+    if (gradient.rows() != m_data->n)
+    {
         debugStream() << "[OsqpEigen::Data::setGradient] The size of the gradient must be equal to the number of the variables."
-                  << std::endl;
+                      << std::endl;
         return false;
     }
     m_isGradientSet = true;
@@ -118,9 +121,10 @@ Eigen::Matrix<c_float, Eigen::Dynamic, 1> OsqpEigen::Data::getGradient()
 
 bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> lowerBound)
 {
-    if(lowerBound.rows() != m_data->m){
+    if (lowerBound.rows() != m_data->m)
+    {
         debugStream() << "[OsqpEigen::Data::setLowerBound] The size of the lower bound must be equal to the number of the variables."
-                  << std::endl;
+                      << std::endl;
         return false;
     }
     m_isLowerBoundSet = true;
@@ -130,9 +134,10 @@ bool OsqpEigen::Data::setLowerBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dyn
 
 bool OsqpEigen::Data::setUpperBound(Eigen::Ref<Eigen::Matrix<c_float, Eigen::Dynamic, 1>> upperBound)
 {
-    if(upperBound.rows() != m_data->m){
+    if (upperBound.rows() != m_data->m)
+    {
         debugStream() << "[OsqpEigen::Data::setUpperBound] The size of the upper bound must be equal to the number of the variables."
-                  << std::endl;
+                      << std::endl;
         return false;
     }
     m_isUpperBoundSet = true;

@@ -19,33 +19,31 @@ using c_float = OSQPFloat;
 using csc = OSQPCscMatrix;
 
 // Those symbols are available in the library but hidden from the public API
-extern "C"
-{
-  extern OSQPCscMatrix * csc_spalloc(c_int m, c_int n, c_int nzmax, c_int values, c_int triplet);
-  extern void csc_spfree(OSQPCscMatrix * A);
+extern "C" {
+extern OSQPCscMatrix* csc_spalloc(c_int m, c_int n, c_int nzmax, c_int values, c_int triplet);
+extern void csc_spfree(OSQPCscMatrix* A);
 }
 
-#  ifndef OSQP_CUSTOM_MEMORY
-#    define c_malloc malloc
-#    define c_free free
-#  endif
+#ifndef OSQP_CUSTOM_MEMORY
+#define c_malloc malloc
+#define c_free free
+#endif
 
 namespace OsqpEigen
 {
 
 struct OSQPData
 {
-  OSQPInt n; ///< number of variables n
-  OSQPInt m; ///< number of constraints m
-  OSQPCscMatrix * P; ///< the upper triangular part of the quadratic objective matrix P (size n x n).
-  OSQPCscMatrix * A; ///< linear constraints matrix A (size m x n)
-  OSQPFloat * q; ///< dense array for linear part of objective function (size n)
-  OSQPFloat * l; ///< dense array for lower bound (size m)
-  OSQPFloat * u; ///< dense array for upper bound (size m)
+    OSQPInt n; ///< number of variables n
+    OSQPInt m; ///< number of constraints m
+    OSQPCscMatrix* P; ///< the upper triangular part of the quadratic objective matrix P (size n x n).
+    OSQPCscMatrix* A; ///< linear constraints matrix A (size m x n)
+    OSQPFloat* q; ///< dense array for linear part of objective function (size n)
+    OSQPFloat* l; ///< dense array for lower bound (size m)
+    OSQPFloat* u; ///< dense array for upper bound (size m)
 };
 
 } // namespace OsqpEigen
 
-#endif
-
-#endif
+#endif // OSQP_EIGEN_OSQP_IS_V1
+#endif // OSQP_EIGEN_COMPAT_HPP
