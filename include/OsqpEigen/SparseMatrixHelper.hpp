@@ -21,56 +21,56 @@
  */
 namespace OsqpEigen
 {
-    /**
-     * SparseMatrixHelper namespace is a namspace that contains helper function to handle osqp matrix.
-     * Use it to create ot update or manage an osqp sparse matrix.
-     * osqp sparse matrix in [compressed-column](https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html)
-     * or triplet form.
-     */
-    namespace SparseMatrixHelper
-    {
+/**
+ * SparseMatrixHelper namespace is a namspace that contains helper function to handle osqp matrix.
+ * Use it to create ot update or manage an osqp sparse matrix.
+ * osqp sparse matrix in [compressed-column](https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html)
+ * or triplet form.
+ */
+namespace SparseMatrixHelper
+{
 
-        /**
-         * Allocate an osqpSparseMatrix struct.
-         * NOTE: <code>c_malloc</code> function is used to allocate memory please call
-         * <code>c_free</code> to deallcate memory.
-         * @return a const point to the csc struct.
-         */
-        template <typename Derived>
-        bool createOsqpSparseMatrix(const Eigen::SparseCompressedBase<Derived>& eigenSparseMatrix,
-                                    csc*& osqpSparseMatrix);
+/**
+ * Allocate an osqpSparseMatrix struct.
+ * NOTE: <code>c_malloc</code> function is used to allocate memory please call
+ * <code>c_free</code> to deallcate memory.
+ * @return a const point to the csc struct.
+ */
+template <typename Derived>
+bool createOsqpSparseMatrix(const Eigen::SparseCompressedBase<Derived>& eigenSparseMatrix,
+                            csc*& osqpSparseMatrix);
 
-        /**
-         * Convert an osqp sparse matrix into an eigen sparse matrix.
-         * @param osqpSparseMatrix is  a constant pointer to a constant csc struct;
-         * @param eigenSparseMatrix is the eigen sparse matrix object.
-         * @return a const point to the csc struct.
-         */
-        template <typename T>
-        bool osqpSparseMatrixToEigenSparseMatrix(const csc* const & osqpSparseMatrix,
-                                                 Eigen::SparseMatrix<T> &eigenSparseMatrix);
+/**
+ * Convert an osqp sparse matrix into an eigen sparse matrix.
+ * @param osqpSparseMatrix is  a constant pointer to a constant csc struct;
+ * @param eigenSparseMatrix is the eigen sparse matrix object.
+ * @return a const point to the csc struct.
+ */
+template <typename T>
+bool osqpSparseMatrixToEigenSparseMatrix(const csc* const& osqpSparseMatrix,
+                                         Eigen::SparseMatrix<T>& eigenSparseMatrix);
 
-        /**
-         * Convert an osqp sparse matrix into a eigen triplet list.
-         * @param osqpSparseMatrix is reference to a constant pointer to a constant csc struct;
-         * @param tripletList is a std::vector containing the triplet.
-         * @return a const point to the csc struct.
-         */
-        template <typename T>
-        bool osqpSparseMatrixToTriplets(const csc* const & osqpSparseMatrix,
-                                        std::vector<Eigen::Triplet<T>> &tripletList);
+/**
+ * Convert an osqp sparse matrix into a eigen triplet list.
+ * @param osqpSparseMatrix is reference to a constant pointer to a constant csc struct;
+ * @param tripletList is a std::vector containing the triplet.
+ * @return a const point to the csc struct.
+ */
+template <typename T>
+bool osqpSparseMatrixToTriplets(const csc* const& osqpSparseMatrix,
+                                std::vector<Eigen::Triplet<T>>& tripletList);
 
-        /**
-         * Convert an eigen sparse matrix into a eigen triplet list.
-         * @param eigenSparseMatrix is the eigen sparse matrix object;
-         * @param tripletList is a std::vector containing the triplet.
-         * @return a const point to the csc struct.
-         */
-        template<typename Derived, typename T>
-        bool eigenSparseMatrixToTriplets(const Eigen::SparseCompressedBase<Derived> &eigenSparseMatrix,
-                                         std::vector<Eigen::Triplet<T>> &tripletList);
-    };
-}
+/**
+ * Convert an eigen sparse matrix into a eigen triplet list.
+ * @param eigenSparseMatrix is the eigen sparse matrix object;
+ * @param tripletList is a std::vector containing the triplet.
+ * @return a const point to the csc struct.
+ */
+template <typename Derived, typename T>
+bool eigenSparseMatrixToTriplets(const Eigen::SparseCompressedBase<Derived>& eigenSparseMatrix,
+                                 std::vector<Eigen::Triplet<T>>& tripletList);
+}; // namespace SparseMatrixHelper
+} // namespace OsqpEigen
 
 #include <OsqpEigen/SparseMatrixHelper.tpp>
 

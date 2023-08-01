@@ -14,11 +14,11 @@ TEST_CASE("QPProblem - Unconstrained")
 {
     constexpr double tolerance = 1e-4;
 
-    Eigen::SparseMatrix<c_float> H_s(2,2);
-    H_s.insert(0,0) = 3;
-    H_s.insert(0,1) = 2;
-    H_s.insert(1,0) = 2;
-    H_s.insert(1,1) = 4;
+    Eigen::SparseMatrix<c_float> H_s(2, 2);
+    H_s.insert(0, 0) = 3;
+    H_s.insert(0, 1) = 2;
+    H_s.insert(1, 0) = 2;
+    H_s.insert(1, 1) = 4;
 
     Eigen::Matrix<c_float, 2, 1> gradient;
     gradient << 3, 1;
@@ -38,27 +38,26 @@ TEST_CASE("QPProblem - Unconstrained")
 
     // expected solution
     Eigen::Matrix<c_float, 2, 1> expectedSolution;
-    expectedSolution << -1.2500,  0.3750;
+    expectedSolution << -1.2500, 0.3750;
 
     REQUIRE(solver.getSolution().isApprox(expectedSolution, tolerance));
 }
-
 
 TEST_CASE("QPProblem")
 {
     constexpr double tolerance = 1e-4;
 
-    Eigen::SparseMatrix<c_float> H_s(2,2);
-    H_s.insert(0,0) = 4;
-    H_s.insert(0,1) = 1;
-    H_s.insert(1,0) = 1;
-    H_s.insert(1,1) = 2;
+    Eigen::SparseMatrix<c_float> H_s(2, 2);
+    H_s.insert(0, 0) = 4;
+    H_s.insert(0, 1) = 1;
+    H_s.insert(1, 0) = 1;
+    H_s.insert(1, 1) = 2;
 
-    Eigen::SparseMatrix<c_float> A_s(3,2);
-    A_s.insert(0,0) = 1;
-    A_s.insert(0,1) = 1;
-    A_s.insert(1,0) = 1;
-    A_s.insert(2,1) = 1;
+    Eigen::SparseMatrix<c_float> A_s(3, 2);
+    A_s.insert(0, 0) = 1;
+    A_s.insert(0, 1) = 1;
+    A_s.insert(1, 0) = 1;
+    A_s.insert(2, 1) = 1;
 
     Eigen::Matrix<c_float, 2, 1> gradient;
     gradient << 1, 1;
@@ -87,7 +86,7 @@ TEST_CASE("QPProblem")
 
     REQUIRE(solver.solveProblem() == OsqpEigen::ErrorExitFlag::NoError);
     Eigen::Matrix<c_float, 2, 1> expectedSolution;
-    expectedSolution << 0.3,  0.7;
+    expectedSolution << 0.3, 0.7;
 
     REQUIRE(solver.getSolution().isApprox(expectedSolution, tolerance));
 }
