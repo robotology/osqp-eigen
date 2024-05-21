@@ -4,36 +4,40 @@
 The problem is to develop a controller that allows a linear system to track a constant reference state \f$x_r\f$. This kind of problem can be solved using a lot of different controller architectures, however in order to write a tutorial for osqp-eigen library the [**MPC**](https://en.wikipedia.org/wiki/Model_predictive_control) approach will be chosen.
  Thus we have to find a controller low $u_0^*$ such that:
 
-$$\begin{split}\begin{array}{ll}
+```math
+\begin{split}\begin{array}{ll}
   u_0 ^* = \argmin{}_{x_k, u_k}   & (x_N-x_r)^T Q_N (x_N-x_r) + \sum_{k=0}^{N-1} (x_k-x_r)^T Q (x_k-x_r) + u_k^T R u_k \\
   \text{s.t} & x_{k+1} = A x_k + B u_k \\
   & x_{\rm min} \le x_k  \le x_{\rm max} \\
   & u_{\rm min} \le u_k  \le u_{\rm max} \\
   & x_0 = \bar{x}
-\end{array}\end{split}$$
+\end{array}\end{split}
+```
 
  where $Q$, $Q_N$ and $R$ are symmetric positive definite matrices;
  the states $x_k$ and the inputs $u_k$ have to be constrained between some  lower and upper bounds and the reference state $x_r$ is
  
- $$x_r = \begin{bmatrix} 0 & 0 & 1 & 0 & \cdots & & 0 \end{bmatrix} ^\top$$
+ ```math
+ x_r = \begin{bmatrix} 0 & 0 & 1 & 0 & \cdots & & 0 \end{bmatrix} ^\top
+ ```
  
 
  ## Convert MPC into a QP
  First of all the MPC problem has to be casted to a standard QP problem.
 
-$$
+```math
 \begin{split}\begin{array}{ll}
   \min & \frac{1}{2} x^T P x + q^T x \\
   \text{s.t} & l \leq A_c x \leq u
 \end{array}\end{split}
- $$
+ ```
 
 where the hessian matrix $P$ is equal to
-$$
+```math
 P  = \text{diag}(Q, Q, ..., Q_N, R, ..., R)
-$$
+```
 while the gradient vector is
-$$
+```math
 q  = \begin{bmatrix}
 -Q x_r \\
 -Q x_r \\
@@ -43,10 +47,10 @@ q  = \begin{bmatrix}
 \vdots\\
 0
 \end{bmatrix}
-$$
+```
 
  The linear constraint matrix $A_c$ is
-$$
+```math
 A_c  =
 \left[
 \begin{array}{ccccc|cccc}
@@ -67,9 +71,9 @@ I & 0 & 0 & \cdots & 0 & 0 & 0 & \cdots & 0\\
 0 & 0 & 0 & \cdots & 0 & 0 & 0 & \cdots & I
 \end{array}
 \right]
-$$
+```
  while the upper and the lower bound are
-$$
+```math
 l  = \begin{bmatrix}
 -x_0 \\
 0 \\
@@ -94,7 +98,7 @@ u_{max}\\
 \vdots\\
 u_{max}\\
 \end{bmatrix}
-$$
+```
 
 Since the osqp-eigen handles only QP problem this operation shall be done by the user.
  You can find the implementation of the following functions [**here**](https://github.com/GiulioRomualdi/osqp-eigen/blob/master/example/src/MPCExample.cpp#L71-L182).
