@@ -55,7 +55,7 @@ A_c  =
 \left[
 \begin{array}{ccccc|cccc}
 -I & 0 & 0 & \cdots & 0 & 0 & 0 & \cdots & 0\\
-A & -I & 0 & \cdots & 0 & B & 0 & \cdots & 0 \\
+A & -I & 0 & \cdots & 0 & B & 0 & \cdots & 0\\
 0 & A & -I & \cdots & 0 & 0 & B & \cdots &  0\\
 \vdots & \vdots & \vdots  & \ddots & \vdots & \vdots & \vdots & \ddots & \vdots \\
 0 & 0 & 0  & \cdots & -I & 0 & 0 & \cdots & B\\
