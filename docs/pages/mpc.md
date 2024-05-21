@@ -7,7 +7,7 @@ The problem is to develop a controller that allows a linear system to track a co
 ```math
 \begin{split}
   u_0 ^* = \arg\min{}_{x_k, u_k}   & (x_N-x_r)^T Q_N (x_N-x_r) + \sum_{k=0}^{N-1} (x_k-x_r)^T Q (x_k-x_r) + u_k^T R u_k \\
-  \text{s.t} & x_{k+1} = A x_k + B u_k \\
+  \text{s.t} \; & x_{k+1} = A x_k + B u_k \\
   & x_{\rm min} \le x_k  \le x_{\rm max} \\
   & u_{\rm min} \le u_k  \le u_{\rm max} \\
   & x_0 = \bar{x}
