@@ -1,17 +1,17 @@
 # Using osqp-eigen in MPC fashion
 
 
-The problem is to develop a controller that allows a linear system to track a constant reference state \f$x_r\f$. This kind of problem can be solved using a lot of different controller architectures, however in order to write a tutorial for osqp-eigen library the [**MPC**](https://en.wikipedia.org/wiki/Model_predictive_control) approach will be chosen.
+The problem is to develop a controller that allows a linear system to track a constant reference state $x_r$. This kind of problem can be solved using a lot of different controller architectures, however in order to write a tutorial for osqp-eigen library the [**MPC**](https://en.wikipedia.org/wiki/Model_predictive_control) approach will be chosen.
  Thus we have to find a controller low $u_0^*$ such that:
 
 ```math
-\begin{split}\begin{array}{ll}
+\begin{split}
   u_0 ^* = \arg\min{}_{x_k, u_k}   & (x_N-x_r)^T Q_N (x_N-x_r) + \sum_{k=0}^{N-1} (x_k-x_r)^T Q (x_k-x_r) + u_k^T R u_k \\
   \text{s.t} & x_{k+1} = A x_k + B u_k \\
   & x_{\rm min} \le x_k  \le x_{\rm max} \\
   & u_{\rm min} \le u_k  \le u_{\rm max} \\
   & x_0 = \bar{x}
-\end{array}\end{split}
+\end{split}
 ```
 
  where $Q$, $Q_N$ and $R$ are symmetric positive definite matrices;
