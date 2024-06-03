@@ -56,8 +56,8 @@ template <typename T, int n, int m> bool computeTest(const Eigen::Matrix<T, n, m
     constexpr double tolerance = 1e-4;
     bool outcome = matrix.isApprox(newMatrix, tolerance);
 
-    csc_spfree(osqpSparseMatrix);
-    csc_spfree(otherOsqpSparseMatrix);
+    OsqpEigen::spfree(osqpSparseMatrix);
+    OsqpEigen::spfree(otherOsqpSparseMatrix);
 
     return outcome;
 }

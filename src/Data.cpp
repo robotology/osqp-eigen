@@ -48,7 +48,7 @@ void OsqpEigen::Data::clearHessianMatrix()
     if (m_isHessianMatrixSet)
     {
         m_isHessianMatrixSet = false;
-        csc_spfree(m_data->P);
+        OsqpEigen::spfree(m_data->P);
         m_data->P = nullptr;
     }
 }
@@ -58,7 +58,7 @@ void OsqpEigen::Data::clearLinearConstraintsMatrix()
     if (m_isLinearConstraintsMatrixSet)
     {
         m_isLinearConstraintsMatrixSet = false;
-        csc_spfree(m_data->A);
+        OsqpEigen::spfree(m_data->A);
         m_data->A = nullptr;
     }
 }

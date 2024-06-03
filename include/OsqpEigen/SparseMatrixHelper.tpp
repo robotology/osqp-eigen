@@ -39,7 +39,7 @@ bool OsqpEigen::SparseMatrixHelper::createOsqpSparseMatrix(
         return false;
     }
 
-    osqpSparseMatrix = csc_spalloc(rows, cols, numberOfNonZeroCoeff, 1, 0);
+    osqpSparseMatrix = OsqpEigen::spalloc(rows, cols, numberOfNonZeroCoeff);
 
     int innerOsqpPosition = 0;
     for (int k = 0; k < cols; k++)
