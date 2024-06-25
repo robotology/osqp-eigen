@@ -3,6 +3,7 @@
   <compounddef id="_compat_8hpp" kind="file" language="C++">
     <compoundname>Compat.hpp</compoundname>
     <includes local="no">osqp.h</includes>
+    <includes local="no">cstdlib</includes>
     <includedby refid="_constants_8hpp" local="no">Constants.hpp</includedby>
     <includedby refid="_solver_8hpp" local="no">Solver.hpp</includedby>
     <includedby refid="_sparse_matrix_helper_8hpp" local="no">SparseMatrixHelper.hpp</includedby>
@@ -15,6 +16,11 @@
         <link refid="_compat_8hpp"/>
         <childnode refid="2" relation="include">
         </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>cstdlib</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
@@ -63,6 +69,7 @@
         </childnode>
       </node>
     </invincdepgraph>
+    <innernamespace refid="namespace_osqp_eigen">OsqpEigen</innernamespace>
     <briefdescription>
     </briefdescription>
     <detaileddescription>

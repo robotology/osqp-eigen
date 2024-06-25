@@ -130,6 +130,8 @@
     <member refid="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5da9cf3cc51ab340df89444cb78e6a99d50" kind="enumvalue"><name>MemAllocError</name></member>
     <member refid="namespace_osqp_eigen_1a3fdeafaa5232daef54e575f38354ba5daa7c5fd1199539c327c6317e92b74e34f" kind="enumvalue"><name>WorkspaceNotInitError</name></member>
     <member refid="namespace_osqp_eigen_1aaffcf5dd68b127022db7db8cea5c9051" kind="variable"><name>INFTY</name></member>
+    <member refid="namespace_osqp_eigen_1aaebce9849a4c88446505ba3db3d2c048" kind="function"><name>spalloc</name></member>
+    <member refid="namespace_osqp_eigen_1a08997b6d103d473752cd3e2fa652aedb" kind="function"><name>spfree</name></member>
     <member refid="namespace_osqp_eigen_1a2d1a6e4df5e04b47587fa046f96ba459" kind="function"><name>debugStream</name></member>
   </compound>
   <compound refid="namespace_osqp_eigen_1_1_sparse_matrix_helper" kind="namespace"><name>OsqpEigen::SparseMatrixHelper</name>

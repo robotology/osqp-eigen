@@ -194,6 +194,48 @@
       </memberdef>
       </sectiondef>
       <sectiondef kind="func">
+      <memberdef kind="function" id="namespace_osqp_eigen_1aaebce9849a4c88446505ba3db3d2c048" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>csc *</type>
+        <definition>csc* OsqpEigen::spalloc</definition>
+        <argsstring>(c_int m, c_int n, c_int nzmax)</argsstring>
+        <name>spalloc</name>
+        <param>
+          <type>c_int</type>
+          <declname>m</declname>
+        </param>
+        <param>
+          <type>c_int</type>
+          <declname>n</declname>
+        </param>
+        <param>
+          <type>c_int</type>
+          <declname>nzmax</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp" line="111" column="12" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp" bodystart="111" bodyend="114"/>
+      </memberdef>
+      <memberdef kind="function" id="namespace_osqp_eigen_1a08997b6d103d473752cd3e2fa652aedb" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void OsqpEigen::spfree</definition>
+        <argsstring>(csc *M)</argsstring>
+        <name>spfree</name>
+        <param>
+          <type>csc *</type>
+          <declname>M</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp" line="116" column="13" bodyfile="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp" bodystart="116" bodyend="119"/>
+      </memberdef>
       <memberdef kind="function" id="namespace_osqp_eigen_1a2d1a6e4df5e04b47587fa046f96ba459" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>std::ostream &amp;</type>
         <definition>std::ostream&amp; OsqpEigen::debugStream</definition>
@@ -213,6 +255,6 @@
     </briefdescription>
     <detaileddescription>
     </detaileddescription>
-    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Constants.hpp" line="16" column="1"/>
+    <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Compat.hpp" line="108" column="1"/>
   </compounddef>
 </doxygen>
