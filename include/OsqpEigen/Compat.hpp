@@ -11,6 +11,8 @@
 // OSQP
 #include <osqp.h>
 
+#include <cstdlib>
+
 #ifdef OSQP_EIGEN_OSQP_IS_V1
 
 // Re-use the same name in the global namespace as the old versions of OSQP
@@ -43,7 +45,81 @@ struct OSQPData
     OSQPFloat* u; ///< dense array for upper bound (size m)
 };
 
+inline OSQPCscMatrix* spalloc(OSQPInt m,
+                              OSQPInt n,
+                              OSQPInt nzmax)
+{
+    OSQPCscMatrix* M = static_cast<OSQPCscMatrix*>(calloc(1, sizeof(OSQPCscMatrix))); /* allocate the OSQPCscMatrix struct */
+    if (!M)
+    {
+        return static_cast<OSQPCscMatrix*>(OSQP_NULL);
+    }
+
+    OSQPInt* M_p = static_cast<OSQPInt*>(calloc(n + 1, sizeof(OSQPInt)));
+    if (!M_p)
+    {
+        free(M);
+        return static_cast<OSQPCscMatrix*>(OSQP_NULL);
+    }
+
+    OSQPInt* M_i = static_cast<OSQPInt*>(calloc(nzmax,  sizeof(OSQPInt)));
+    if (!M_i)
+    {
+        free(M);
+        free(M_p);
+        return static_cast<OSQPCscMatrix*>(OSQP_NULL);
+    }
+
+    OSQPFloat* M_x = static_cast<OSQPFloat*>(calloc(nzmax,  sizeof(OSQPFloat)));
+    if (!M_x)
+    {
+        free(M);
+        free(M_p);
+        free(M_i);
+        return static_cast<OSQPCscMatrix*>(OSQP_NULL);
+    }
+
+    OSQPInt M_nnz = 0;
+
+    if (nzmax >= 0)
+    {
+        M_nnz = nzmax;
+    }
+
+    csc_set_data(M, m, n, M_nnz, M_x, M_i, M_p);
+
+    return M;
+}
+
+inline void spfree(OSQPCscMatrix* M)
+{
+    if (M){
+        if (M->p) free(M->p);
+        if (M->i) free(M->i);
+        if (M->x) free(M->x);
+        free(M);
+    }
+}
+
 } // namespace OsqpEigen
+
+#else
+
+namespace OsqpEigen
+{
+
+inline csc* spalloc(c_int m, c_int n, c_int nzmax)
+{
+    return csc_spalloc(m, n, nzmax, 1, 0);
+}
+
+inline void spfree(csc* M)
+{
+    return csc_spfree(M);
+}
+
+} // namespace OsqpEigen
+
 
 #endif // OSQP_EIGEN_OSQP_IS_V1
 #endif // OSQP_EIGEN_COMPAT_HPP
