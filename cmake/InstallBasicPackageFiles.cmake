@@ -44,7 +44,7 @@ function generates 3 files:
 If neither ``UPPERCASE_FILENAMES`` nor ``LOWERCASE_FILENAMES`` is
 set, a file ``<Name>Config.cmake.in`` or
 ``<name>-config.cmake.in`` is searched, and the convention
-is chosed according to the file found. If no file was found, the
+is chosen according to the file found. If no file was found, the
 uppercase convention is used.
 
 The ``DEPENDENCIES`` argument can be used to set a list of dependencies
@@ -585,7 +585,7 @@ ${_compatibility_vars}
   endforeach()
 
 
-  # <Name>ConfigVersion.cmake file (same for build tree and intall)
+  # <Name>ConfigVersion.cmake file (same for build tree and install)
   write_basic_package_version_file("${_IBPF_EXPORT_DESTINATION}/${_version_filename}"
                                    VERSION ${_IBPF_VERSION}
                                    COMPATIBILITY ${_IBPF_COMPATIBILITY}

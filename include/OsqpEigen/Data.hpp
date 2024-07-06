@@ -78,7 +78,7 @@ public:
 
     /**
      * Set the quadratic part of the cost function (Hessian).
-     * It is assumed to be a simmetric matrix.
+     * It is assumed to be a symmetric matrix.
      * @param hessianMatrix is the Hessian matrix.
      * @return true/false in case of success/failure.
      */

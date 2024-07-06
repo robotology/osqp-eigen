@@ -227,7 +227,7 @@ int main()
     Eigen::Matrix<double, 12, 1> x0;
     Eigen::Matrix<double, 12, 1> xRef;
 
-    // allocate QP problem matrices and vectores
+    // allocate QP problem matrices and vectors
     Eigen::SparseMatrix<double> hessian;
     Eigen::VectorXd gradient;
     Eigen::SparseMatrix<double> linearMatrix;

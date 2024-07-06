@@ -99,7 +99,7 @@ public:
 
     /**
      * Set the absolute convergence tolerance.
-     * @param absoluteTolerance absoulte tolerance of the solver.
+     * @param absoluteTolerance absolute tolerance of the solver.
      */
     void setAbsoluteTolerance(const double absoluteTolerance);
 

@@ -22,8 +22,8 @@
 namespace OsqpEigen
 {
 /**
- * SparseMatrixHelper namespace is a namspace that contains helper function to handle osqp matrix.
- * Use it to create ot update or manage an osqp sparse matrix.
+ * SparseMatrixHelper namespace is a namespace that contains helper function to handle osqp matrix.
+ * Use it to create to update or manage an osqp sparse matrix.
  * osqp sparse matrix in [compressed-column](https://people.sc.fsu.edu/~jburkardt/data/cc/cc.html)
  * or triplet form.
  */
