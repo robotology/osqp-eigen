@@ -288,7 +288,7 @@
 <para>Set the quadratic part of the cost function (Hessian). </para>
         </briefdescription>
         <detaileddescription>
-<para>It is assumed to be a simmetric matrix. <parameterlist kind="param"><parameteritem>
+<para>It is assumed to be a symmetric matrix. <parameterlist kind="param"><parameteritem>
 <parameternamelist>
 <parametername>hessianMatrix</parametername>
 </parameternamelist>

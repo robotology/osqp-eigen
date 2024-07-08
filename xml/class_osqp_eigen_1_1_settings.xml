@@ -332,7 +332,7 @@
 <parametername>absoluteTolerance</parametername>
 </parameternamelist>
 <parameterdescription>
-<para>absoulte tolerance of the solver. </para>
+<para>absolute tolerance of the solver. </para>
 </parameterdescription>
 </parameteritem>
 </parameterlist>

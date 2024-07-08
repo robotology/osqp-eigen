@@ -14,7 +14,7 @@
 <para>Since the osqp-eigen handles only QP problem this operation shall be done by the user. You can find the implementation of the following functions <ulink url="https://github.com/GiulioRomualdi/osqp-eigen/blob/master/example/src/MPCExample.cpp#L71-L182"><bold>here</bold></ulink>. <programlisting filename=".cpp"><codeline><highlight class="normal">castMPCToQPHessian(Q,<sp/>R,<sp/>mpcWindow,<sp/>hessian);</highlight></codeline>
 <codeline><highlight class="normal">castMPCToQPGradient(Q,<sp/>xRef,<sp/>mpcWindow,<sp/>gradient);</highlight></codeline>
 <codeline><highlight class="normal">castMPCToQPConstraintMatrix(a,<sp/>b,<sp/>mpcWindow,<sp/>linearMatrix);</highlight></codeline>
-<codeline><highlight class="normal">castMPCToQPConstraintVectores(xMax,<sp/>xMin,<sp/>uMax,<sp/>uMin,<sp/>x0,<sp/>mpcWindow,<sp/>lowerBound,<sp/>upperBound);</highlight></codeline>
+<codeline><highlight class="normal">castMPCToQPConstraintVectors(xMax,<sp/>xMin,<sp/>uMax,<sp/>uMin,<sp/>x0,<sp/>mpcWindow,<sp/>lowerBound,<sp/>upperBound);</highlight></codeline>
 </programlisting></para>
 <sect2 id="md_pages_mpc_1OSQP_init">
 <title>Solver initialization</title>
@@ -269,7 +269,7 @@
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>x0;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::Matrix&lt;double,<sp/>12,<sp/>1&gt;<sp/>xRef;</highlight></codeline>
 <codeline><highlight class="normal"></highlight></codeline>
-<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>QP<sp/>problem<sp/>matrices<sp/>and<sp/>vectores</highlight><highlight class="normal"></highlight></codeline>
+<codeline><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>allocate<sp/>QP<sp/>problem<sp/>matrices<sp/>and<sp/>vectors</highlight><highlight class="normal"></highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>hessian;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::VectorXd<sp/>gradient;</highlight></codeline>
 <codeline><highlight class="normal"><sp/><sp/><sp/><sp/>Eigen::SparseMatrix&lt;double&gt;<sp/>linearMatrix;</highlight></codeline>
