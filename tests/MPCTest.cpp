@@ -246,7 +246,7 @@ TEST_CASE("MPCTest")
     Eigen::Matrix<c_float, 12, 1> x0;
     Eigen::Matrix<c_float, 12, 1> xRef;
 
-    // allocate QP problem matrices and vectores
+    // allocate QP problem matrices and vectors
     Eigen::SparseMatrix<c_float> hessian;
     Eigen::Matrix<c_float, -1, 1> gradient;
     Eigen::SparseMatrix<c_float> linearMatrix;
@@ -296,7 +296,7 @@ TEST_CASE("MPCTest")
 
     // profiling quantities
     clock_t startTime, endTime;
-    c_float avarageTime = 0;
+    c_float averageTime = 0;
 
     for (int i = 0; i < numberOfSteps; i++)
     {
@@ -324,13 +324,13 @@ TEST_CASE("MPCTest")
 
         endTime = clock();
 
-        avarageTime += static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
+        averageTime += static_cast<double>(endTime - startTime) / CLOCKS_PER_SEC;
     }
 
     // close the stream
     dataStream.close();
 
-    std::cout << COUT_GTEST_MGT << "Avarage time = " << avarageTime / numberOfSteps << " seconds."
+    std::cout << COUT_GTEST_MGT << "Average time = " << averageTime / numberOfSteps << " seconds."
               << ANSI_TXT_DFT << std::endl;
 
     constexpr double tolerance = 1e-2;

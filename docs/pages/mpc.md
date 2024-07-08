@@ -100,7 +100,7 @@ Since the osqp-eigen handles only QP problem this operation shall be done by the
 castMPCToQPHessian(Q, R, mpcWindow, hessian);
 castMPCToQPGradient(Q, xRef, mpcWindow, gradient);
 castMPCToQPConstraintMatrix(a, b, mpcWindow, linearMatrix);
-castMPCToQPConstraintVectores(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
+castMPCToQPConstraintVectors(xMax, xMin, uMax, uMin, x0, mpcWindow, lowerBound, upperBound);
 \endcode
 
  \subsection OSQP_init Solver initialization

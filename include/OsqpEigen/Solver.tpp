@@ -460,7 +460,7 @@ bool OsqpEigen::Solver::evaluateNewValues(const std::vector<Eigen::Triplet<T>>& 
                                           std::vector<c_int>& newIndices,
                                           std::vector<c_float>& newValues) const
 {
-    // When updating the matrices for osqp, we need to provide the indeces to modify of the value
+    // When updating the matrices for osqp, we need to provide the indices to modify of the value
     // vector. The following can work since, when extracting triplets from osqp sparse matrices, the
     // order of the triplets follows the same order of the value vector.
     //  check if the sparsity pattern is changed

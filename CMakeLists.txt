@@ -17,7 +17,7 @@ set(OsqpEigen_VERSION "${OsqpEigen_MAJOR_VERSION}.${OsqpEigen_MINOR_VERSION}.${O
 # Set project version
 project(OsqpEigen VERSION ${OsqpEigen_VERSION})
 
-# ouptut paths
+# output paths
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_BINDIR}")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/${CMAKE_INSTALL_LIBDIR}")
@@ -78,7 +78,7 @@ include(OsqpEigenDependencies)
 if(NOT CMAKE_CONFIGURATION_TYPES)
     if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING
-        "Choose the type of build, recommanded options are: Debug or Release" FORCE)
+        "Choose the type of build, recommended options are: Debug or Release" FORCE)
     endif()
     set(OSQPEIGEN_BUILD_TYPES "Debug" "Release" "MinSizeRel" "RelWithDebInfo")
     set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS ${OSQPEIGEN_BUILD_TYPES})

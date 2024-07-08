@@ -66,7 +66,7 @@ class Solver
      * @param newIndices vector of the index mapping new elements
      * to position in the sparse matrix;
      * @param newValues vector of new elements in the sparse matrix.
-     * @return true if the sparsity patern is not changed false otherwise.
+     * @return true if the sparsity pattern is not changed false otherwise.
      */
     template <typename T>
     bool evaluateNewValues(const std::vector<Eigen::Triplet<T>>& oldMatrixTriplet,
@@ -144,7 +144,7 @@ public:
     bool isInitialized();
 
     /**
-     * Dealocate memory.
+     * Deallocate memory.
      */
     void clearSolver();
 
@@ -180,13 +180,13 @@ public:
 
     /**
      * Get the optimization problem solution.
-     * @return an Eigen::Vector contating the optimization result.
+     * @return an Eigen::Vector containing the optimization result.
      */
     const Eigen::Matrix<c_float, -1, 1>& getSolution();
 
     /**
      * Get the dual optimization problem solution.
-     * @return an Eigen::Vector contating the optimization result.
+     * @return an Eigen::Vector containing the optimization result.
      */
     const Eigen::Matrix<c_float, -1, 1>& getDualSolution();
 
@@ -238,7 +238,7 @@ public:
 
     /**
      * Update the quadratic part of the cost function (Hessian).
-     * It is assumed to be a simmetric matrix.
+     * It is assumed to be a symmetric matrix.
      * \note
      * If the sparsity pattern is preserved the matrix is simply update
      * otherwise the entire solver will be reinitialized. In this case
