@@ -27,13 +27,6 @@ if (OSQPEIGEN_RUN_Valgrind_tests)
     separate_arguments(MEMCHECK_COMMAND_COMPLETE)
 endif()
 
-if (OSQPEIGEN_COMPILE_tests)
-    configure_file(cmake/Catch2Main.cpp.in ${CMAKE_BINARY_DIR}/Testing/Catch2Main.cpp)
-    add_library(CatchTestMain ${CMAKE_BINARY_DIR}/Testing/Catch2Main.cpp)
-    target_link_libraries(CatchTestMain PUBLIC Catch2::Catch2)
-endif()
-
-
 function(add_osqpeigen_test)
 
     if(OSQPEIGEN_COMPILE_tests)
@@ -57,7 +50,7 @@ function(add_osqpeigen_test)
       add_executable(${targetname}
           "${unit_test_files}")
 
-      target_link_libraries(${targetname} PRIVATE CatchTestMain ${${prefix}_LINKS})
+      target_link_libraries(${targetname} PRIVATE Catch2::Catch2WithMain ${${prefix}_LINKS})
       target_compile_definitions(${targetname} PRIVATE CATCH_CONFIG_FAST_COMPILE CATCH_CONFIG_DISABLE_MATCHERS)
       target_compile_features(${targetname} PUBLIC cxx_std_14)
 

@@ -11,7 +11,7 @@ on:
 env:
   osqp_TAG: v0.6.3
   vcpkg_robotology_TAG: v0.0.3
-  Catch2_TAG: v2.13.9
+  Catch2_TAG: v3.0.1
   # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
   VCPKG_INSTALLATION_ROOT: C:\robotology\vcpkg
 
