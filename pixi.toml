@@ -9,17 +9,23 @@ description = "Simple Eigen-C++ wrapper for OSQP library."
 channels = ["conda-forge"]
 platforms = ["linux-64", "linux-aarch64", "win-64", "osx-64", "osx-arm64"]
 
+
 [target.win.activation.env]
 CMAKE_INSTALL_PREFIX = "%CONDA_PREFIX%\\Library"
+OSQPEIGEN_RUN_Valgrind_tests = "OFF"
 
 [target.unix.activation.env]
 CMAKE_INSTALL_PREFIX = "$CONDA_PREFIX"
+OSQPEIGEN_RUN_Valgrind_tests = "OFF"
+
+[target.linux.activation.env]
+OSQPEIGEN_RUN_Valgrind_tests = "ON"
 
 [tasks]
 configure = { cmd = [
     "cmake",
     "-DCMAKE_BUILD_TYPE=Release",
-    "-DCMAKE_INSTALL_PREFIX=$CMAKE_INSTALL_PREFIX",
+    "-DOSQPEIGEN_RUN_Valgrind_tests=$OSQPEIGEN_RUN_Valgrind_tests",
     "-DBUILD_TESTING:BOOL=ON",
     # Use the cross-platform Ninja generator
     "-G",
@@ -33,7 +39,7 @@ configure = { cmd = [
 ]}
 
 build = { cmd = "cmake --build .build --config Release", depends_on = ["configure"] }
-test = { cmd = "ctest --test-dir .build --build-config Release", depends_on = ["build"] }
+test = { cmd = "ctest --test-dir .build --build-config Release --output-on-failure", depends_on = ["build"] }
 install = { cmd = ["cmake", "--install", ".build", "--config", "Release"], depends_on = ["build"] }
 uninstall = { cmd = ["cmake", "--build", ".build", "--target", "uninstall"]}
 
@@ -48,3 +54,6 @@ libosqp = "*"
 eigen = "*"
 ycm-cmake-modules = "*"
 catch2 = "*"
+
+[target.linux.dependencies]
+valgrind = "*"
