@@ -11,3 +11,5 @@ tramp
 #build
 /build/
 *.user
+.build
+.pixi

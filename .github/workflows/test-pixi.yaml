@@ -1,0 +1,46 @@
+name: Run tests with pixi
+
+on:
+  # on demand
+  workflow_dispatch:
+    inputs:
+      delete_pixi_lock:
+        description: 'If true, delete pixi.lock, to test against the latest version of dependencies.'
+        required: true
+        default: 'false'
+  pull_request:
+  schedule:
+  # * is a special character in YAML so you have to quote this string
+  # Execute a "nightly" build twice a week 2 AM UTC
+  - cron:  '0 2 * * 2,5'
+
+jobs:
+  pixi-test:
+    name: '[pixi:${{ matrix.os }}]'
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [
+          ubuntu-22.04,
+          macos-latest,
+          windows-2019
+        ]
+    steps:
+    - uses: actions/checkout@v4
+
+    # On periodic jobs and when delete_pixi_lock option is true, delete the pixi.lock to check that the project compiles with latest version of dependencies
+    - name: Delete pixi.lock on scheduled jobs or if delete_pixi_lock is true
+      if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.delete_pixi_lock == 'true')
+      shell: bash
+      run: |
+        rm pixi.lock
+
+    - name: Set up pixi
+      uses: prefix-dev/setup-pixi@v0.8.1
+
+    - name: Print pixi info
+      run: pixi info
+
+    - name: Build and test the project
+      run: pixi run test
