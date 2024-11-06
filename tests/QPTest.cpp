@@ -71,6 +71,8 @@ TEST_CASE("QPProblem")
     OsqpEigen::Solver solver;
     solver.settings()->setVerbosity(true);
     solver.settings()->setAlpha(1.0);
+    // This is required to avoid non-deterministic non-accurate solutions
+    solver.settings()->setPolish(true);
 
     REQUIRE_FALSE(solver.data()->setHessianMatrix(H_s));
     solver.data()->setNumberOfVariables(2);
