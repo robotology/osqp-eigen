@@ -11,7 +11,7 @@ on:
 env:
   osqp_TAG: v0.6.3
   vcpkg_robotology_TAG: v0.0.3
-  Catch2_TAG: v2.13.9
+  Catch2_TAG: v3.0.1
   # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
   VCPKG_INSTALLATION_ROOT: C:\robotology\vcpkg
 
@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         build_type: [Debug, Release]
-        os: [ubuntu-latest, macOS-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
         float: [ON, OFF]
       fail-fast: false
 
@@ -64,11 +64,6 @@ jobs:
         cd C:/robotology/vcpkg
         ./vcpkg.exe install --triplet x64-windows catch2
 
-    - name: Dependencies [macOS]
-      if: matrix.os == 'macOS-latest'
-      run: |
-        brew install eigen
-
     - name: Dependencies [Ubuntu]
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -98,8 +93,8 @@ jobs:
 
         cmake --build . --config ${{ matrix.build_type }} --target INSTALL
 
-    - name: Source-based Dependencies [Ubuntu/macOS]
-      if: steps.cache-source-deps.outputs.cache-hit != 'true' && (matrix.os == 'ubuntu-latest' || matrix.os == 'macOS-latest')
+    - name: Source-based Dependencies [Ubuntu]
+      if: steps.cache-source-deps.outputs.cache-hit != 'true' && (matrix.os == 'ubuntu-latest')
       shell: bash
       run: |
         # osqp
