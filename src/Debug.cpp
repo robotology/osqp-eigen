@@ -22,7 +22,7 @@ public:
     }
 };
 
-template <class T> const NullStream& operator<<(NullStream&& os, const T& value)
+template <class T> const NullStream& operator<<(NullStream&& os, const T&)
 {
     return os;
 }
