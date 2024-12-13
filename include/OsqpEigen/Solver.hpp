@@ -176,7 +176,7 @@ public:
      * Get the primal objective value
      * @return The primal objective value
      */
-    const c_float getObjValue() const;
+    c_float getObjValue() const;
 
     /**
      * Get the optimization problem solution.
