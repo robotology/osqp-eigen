@@ -17,7 +17,7 @@ endif()
 
 #---------------------------------------------
 ## Optional Dependencies
-find_package(Catch2 QUIET)
+find_package(Catch2 3.0.1 QUIET)
 checkandset_optional_dependency(Catch2)
 
 find_package(VALGRIND QUIET)
