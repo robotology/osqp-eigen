@@ -193,7 +193,7 @@ OsqpEigen::Status OsqpEigen::Solver::getStatus() const
     return static_cast<OsqpEigen::Status>(getInfo()->status_val);
 }
 
-const c_float OsqpEigen::Solver::getObjValue() const
+c_float OsqpEigen::Solver::getObjValue() const
 {
     return getInfo()->obj_val;
 }
