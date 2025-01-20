@@ -72,7 +72,7 @@ jobs:
 
     - name: Cache Source-based Dependencies
       id: cache-source-deps
-      uses: actions/cache@v1
+      uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/install/deps
         key: source-deps-${{ runner.os }}-${{ matrix.build_type }}-use-float-${{ matrix.float }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ env.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
