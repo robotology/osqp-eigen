@@ -548,9 +548,9 @@
         </inbodydescription>
         <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="173" column="23"/>
       </memberdef>
-      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a86ec458d23ef35f70d5fe2d2f7ccac89" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
-        <type>const c_float</type>
-        <definition>const c_float OsqpEigen::Solver::getObjValue</definition>
+      <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1abeae8c58c6e2ab11c76c606d2af34aea" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>c_float</type>
+        <definition>c_float OsqpEigen::Solver::getObjValue</definition>
         <argsstring>() const</argsstring>
         <name>getObjValue</name>
         <briefdescription>
@@ -563,7 +563,7 @@
         </detaileddescription>
         <inbodydescription>
         </inbodydescription>
-        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="179" column="19"/>
+        <location file="/home/runner/work/osqp-eigen/osqp-eigen/include/OsqpEigen/Solver.hpp" line="179" column="13"/>
       </memberdef>
       <memberdef kind="function" id="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
         <type>const Eigen::Matrix&lt; c_float, -1, 1 &gt; &amp;</type>
@@ -1037,7 +1037,7 @@
       <member refid="class_osqp_eigen_1_1_solver_1aa6c318874ded4be6a07c6b1bf6e05f92" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualSolution</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a0a7310947551c696e433819a9a11e503" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getDualVariable</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a59811002bac4d2f5babab5bde4fbb491" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getInfo</name></member>
-      <member refid="class_osqp_eigen_1_1_solver_1a86ec458d23ef35f70d5fe2d2f7ccac89" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getObjValue</name></member>
+      <member refid="class_osqp_eigen_1_1_solver_1abeae8c58c6e2ab11c76c606d2af34aea" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getObjValue</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a945de5811f60cf5b7889b5f161efa22d" prot="private" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getOSQPSolution</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a46445009598183b2887f81b4e9bb861f" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getPrimalVariable</name></member>
       <member refid="class_osqp_eigen_1_1_solver_1a0e07451462fe10226b6068607e28d336" prot="public" virt="non-virtual"><scope>OsqpEigen::Solver</scope><name>getSolution</name></member>
