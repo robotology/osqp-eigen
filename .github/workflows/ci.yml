@@ -9,7 +9,7 @@ on:
   - cron:  '0 2 * * *'
 
 env:
-  osqp_TAG: v0.6.3
+  osqp_TAG: ${{ matrix.osqp_TAG }}
   vcpkg_robotology_TAG: v0.0.3
   Catch2_TAG: v3.8.0
   # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
@@ -24,6 +24,7 @@ jobs:
       matrix:
         build_type: [Debug, Release]
         os: [ubuntu-latest, windows-latest]
+        osqp_TAG: ["v0.6.3", "v1.0.0.beta1", "v1.0.0"]
         float: [ON, OFF]
       fail-fast: false
 
