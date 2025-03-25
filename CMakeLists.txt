@@ -2,7 +2,7 @@
 # CopyPolicy: Released under the terms of the BSD 3-clause license
 
 # Set cmake minimum version
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.8...3.30)
 
 # Extract version numbers from package.xml
 # Based on code by DART (BSD-2-license)
