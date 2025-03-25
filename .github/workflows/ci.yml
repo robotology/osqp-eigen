@@ -9,7 +9,6 @@ on:
   - cron:  '0 2 * * *'
 
 env:
-  osqp_TAG: v0.6.3
   vcpkg_robotology_TAG: v0.0.3
   Catch2_TAG: v3.8.0
   # Overwrite the VCPKG_INSTALLATION_ROOT env variable defined by GitHub Actions to point to our vcpkg  
@@ -18,12 +17,13 @@ env:
 # Test with different operating systems
 jobs:
   build:
-    name: '[${{ matrix.os }}@${{ matrix.build_type }}] [float:${{ matrix.float }}]'
+    name: '[${{ matrix.os }}@${{ matrix.build_type }}@${{ matrix.osqp_TAG }}] [float:${{ matrix.float }}]'
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         build_type: [Debug, Release]
         os: [ubuntu-latest, windows-latest]
+        osqp_TAG: ["v0.6.3", "v1.0.0.beta1", "v1.0.0"]
         float: [ON, OFF]
       fail-fast: false
 
@@ -75,7 +75,7 @@ jobs:
       uses: actions/cache@v4
       with:
         path: ${{ github.workspace }}/install/deps
-        key: source-deps-${{ runner.os }}-${{ matrix.build_type }}-use-float-${{ matrix.float }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ env.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
+        key: source-deps-${{ runner.os }}-${{ matrix.build_type }}-use-float-${{ matrix.float }}-vcpkg-robotology-${{ env.vcpkg_robotology_TAG }}-osqp-${{ matrix.osqp_TAG }}-catch2-${{ env.Catch2_TAG }}
 
     - name: Source-based Dependencies [Windows]
       if: steps.cache-source-deps.outputs.cache-hit != 'true' && matrix.os == 'windows-latest'
@@ -83,7 +83,7 @@ jobs:
       run: |
         # osqp
         cd ${GITHUB_WORKSPACE}
-        git clone --recursive -b ${osqp_TAG} https://github.com/oxfordcontrol/osqp
+        git clone --recursive -b ${{ matrix.osqp_TAG }} https://github.com/oxfordcontrol/osqp
         cd osqp
         mkdir -p build
         cd build
@@ -99,7 +99,7 @@ jobs:
       run: |
         # osqp
         cd ${GITHUB_WORKSPACE}
-        git clone --recursive -b ${osqp_TAG} https://github.com/oxfordcontrol/osqp
+        git clone --recursive -b ${{ matrix.osqp_TAG }} https://github.com/oxfordcontrol/osqp
         cd osqp
         mkdir -p build
         cd build
@@ -143,17 +143,6 @@ jobs:
               -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
               -DBUILD_TESTING:BOOL=ON \
               -DOSQPEIGEN_RUN_Valgrind_tests:BOOL=ON ..
-
-    - name: Configure [macOS]
-      if: matrix.os == 'macOS-latest'
-      shell: bash
-      run: |
-        mkdir -p build
-        cd build
-        cmake -DCMAKE_PREFIX_PATH=${GITHUB_WORKSPACE}/install/deps \
-              -DCMAKE_INSTALL_PREFIX=${GITHUB_WORKSPACE}/install \
-              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
-              -DBUILD_TESTING:BOOL=ON ..
 
     - name: Build
       shell: bash

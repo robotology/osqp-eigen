@@ -11,9 +11,17 @@ include(OsqpEigenFindOptionalDependencies)
 ## Required Dependencies
 find_package(Eigen3 3.2.92 REQUIRED)
 find_package(osqp REQUIRED)
+
+# OSQP_IS_V1 (and OSQP_EIGEN_OSQP_IS_V1) is defined for v1.0.0.beta1 and v1.0.0 (and later)
 if(NOT DEFINED OSQP_IS_V1)
-  try_compile(OSQP_IS_V1 ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/try-osqp.cpp LINK_LIBRARIES osqp::osqp)
+  try_compile(OSQP_IS_V1 ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/try-osqp-v1.cpp LINK_LIBRARIES osqp::osqp)
 endif()
+
+# OSQP_IS_V1 (and OSQP_EIGEN_OSQP_IS_V1) is defined only for v1.0.0 (and later)
+if(NOT DEFINED OSQP_IS_V1_FINAL)
+  try_compile(OSQP_IS_V1_FINAL ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_LIST_DIR}/try-osqp-v1-final.cpp LINK_LIBRARIES osqp::osqp)
+endif()
+
 
 #---------------------------------------------
 ## Optional Dependencies

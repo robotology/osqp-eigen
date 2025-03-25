@@ -2,7 +2,7 @@
 # CopyPolicy: Released under the terms of the BSD 3-clause license
 
 # Set cmake minimum version
-cmake_minimum_required(VERSION 3.8)
+cmake_minimum_required(VERSION 3.8...3.30)
 
 # Extract version numbers from package.xml
 # Based on code by DART (BSD-2-license)
@@ -115,6 +115,9 @@ ADD_WARNINGS_CONFIGURATION_TO_TARGETS(PRIVATE TARGETS ${LIBRARY_TARGET_NAME})
 target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
 if(OSQP_IS_V1)
   target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1)
+endif()
+if(OSQP_IS_V1_FINAL)
+  target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1_FINAL)
 endif()
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)

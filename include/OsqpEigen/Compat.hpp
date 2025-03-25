@@ -86,7 +86,13 @@ inline OSQPCscMatrix* spalloc(OSQPInt m,
         M_nnz = nzmax;
     }
 
-    csc_set_data(M, m, n, M_nnz, M_x, M_i, M_p);
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+#define OSQPEigen_OSQPCscMatrix_set_data OSQPCscMatrix_set_data
+#else
+#define OSQPEigen_OSQPCscMatrix_set_data csc_set_data
+#endif
+
+    OSQPEigen_OSQPCscMatrix_set_data(M, m, n, M_nnz, M_x, M_i, M_p);
 
     return M;
 }
