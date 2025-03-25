@@ -116,6 +116,9 @@ target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
 if(OSQP_IS_V1)
   target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1)
 endif()
+if(OSQP_IS_V1_FINAL)
+  target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1_FINAL)
+endif()
 
 add_library(OsqpEigen::OsqpEigen ALIAS OsqpEigen)
 
