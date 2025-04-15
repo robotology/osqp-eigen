@@ -32,6 +32,11 @@ jobs:
           test-bazel,
           test-bazel-ext-deps
         ]
+        exclude:
+          # https://github.com/ami-iit/bazel-cmake-deps-override does not support Windows at the moment
+          - os: windows-2019
+            pixi_task: test-bazel-ext-deps
+
     steps:
     - uses: actions/checkout@v4
 
