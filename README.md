@@ -46,6 +46,7 @@ conda install -c conda-forge osqp-eigen
    ```
 
 ## 🖥️ How to use the library
+
 **osqp-eigen** provides native `CMake` support which allows the library to be easily used in `CMake` projects.
 **osqp-eigen** exports a CMake target called `OsqpEigen::OsqpEigen` which can be imported using the `find_package` CMake command and used by calling `target_link_libraries` as in the following example:
 ```cmake
@@ -55,6 +56,9 @@ find_package(OsqpEigen REQUIRED)
 add_executable(example example.cpp)
 target_link_libraries(example OsqpEigen::OsqpEigen)
 ```
+
+
+If you prefer to use the [`bazel`](https://bazel.build/) build system, **osqp-eigen** is available in the Bazel Central Registry, so you can use it following the docs available at [`https://registry.bazel.build/modules/osqp-eigen`](https://registry.bazel.build/modules/osqp-eigen).
 
 ##  🐛 Bug reports and support
 All types of [issues](https://github.com/robotology/osqp-eigen/issues/new) are welcome.
