@@ -62,4 +62,4 @@ jobs:
     - name: Shutdown bazel
       if: contains(matrix.pixi_task, 'bazel')
       run: |
-        pixi run -e bazel bazel shutdown
+        pixi run -e bazel bazel clean --expunge
