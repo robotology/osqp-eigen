@@ -13,3 +13,11 @@ tramp
 *.user
 .build
 .pixi
+
+# Ignore all bazel-* symlinks. There is no full list since this can change
+# based on the name of the directory bazel is cloned into.
+/bazel-*
+
+# For now, we do not commit the MODULE.bazel.lock, as bazel is not the main build system
+# used by the developers of the library
+*.bazel.lock

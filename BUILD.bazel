@@ -1,0 +1,23 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "osqp-eigen",
+    srcs = glob(["src/**/*.cpp"]),
+    hdrs = glob(
+        [
+            "include/**/*.hpp",
+            "include/**/*.h",
+            "include/**/*.tpp",
+        ],
+    ),
+    defines = [
+        "OSQP_EIGEN_OSQP_IS_V1",
+        "OSQP_EIGEN_OSQP_IS_V1_FINAL",
+    ],
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "@eigen",
+        "@osqp",
+    ],
+)

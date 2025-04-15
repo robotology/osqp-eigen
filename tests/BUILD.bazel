@@ -1,0 +1,24 @@
+_TESTS = [
+    "SparseMatrix",
+    "QP",
+    "UpdateMatrices",
+    "MPC",
+    "MPCUpdateMatrices",
+]
+
+[
+    cc_test(
+        name = test,
+        size = "small",
+        srcs = ["{}Test.cpp".format(test)],
+        deps = [
+            "@catch2//:catch2_main",
+            "@osqp-eigen",
+        ],
+        defines = select({
+            "@platforms//os:windows": ["_USE_MATH_DEFINES",],
+            "//conditions:default": [],
+        }),
+    )
+    for test in _TESTS
+]
