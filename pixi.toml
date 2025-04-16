@@ -38,11 +38,10 @@ configure = { cmd = [
     ".build",
 ]}
 
-build = { cmd = "cmake --build .build --config Release", depends_on = ["configure"] }
-test = { cmd = "ctest --test-dir .build --build-config Release --output-on-failure", depends_on = ["build"] }
-install = { cmd = ["cmake", "--install", ".build", "--config", "Release"], depends_on = ["build"] }
+build = { cmd = "cmake --build .build --config Release", depends-on = ["configure"] }
+test = { cmd = "ctest --test-dir .build --build-config Release --output-on-failure", depends-on = ["build"] }
+install = { cmd = ["cmake", "--install", ".build", "--config", "Release"], depends-on = ["build"] }
 uninstall = { cmd = ["cmake", "--build", ".build", "--target", "uninstall"]}
-
 
 [dependencies]
 cmake = "*"
@@ -57,3 +56,27 @@ catch2 = "*"
 
 [target.linux.dependencies]
 valgrind = "*"
+
+[feature.bazel.dependencies]
+bazel = "*"
+# Transitive dependencies of bazel-cmake-deps-override
+toml = "*"
+
+[feature.bazel.pypi-dependencies]
+bazel-cmake-deps-override = { git ="https://github.com/ami-iit/bazel-cmake-deps-override.git", rev = "8b8b9c9c22a67f76b8fe819e88c8f27899247007" }
+
+[feature.bazel.tasks]
+clean-bazel = "bazel clean"
+
+# Task to test and build osqp-eigen with bazel with bazel-provided dependencies
+test-bazel = "bazel test //..."
+
+# Tasks to test and build osqp-eigen with bazel with bazel-provided dependencies
+bazel-ext-deps-generate-metadata = "bazel-cmake-deps-override osqp eigen catch2"
+test-bazel-ext-deps = { cmd = "bazel --bazelrc=./bazel-cmake-deps-overrides/bazelrc test -s //...", depends-on = "bazel-ext-deps-generate-metadata" }
+
+[environments]
+# solve-group is meant to be sure that for common
+# dependencies the version used by the two envs are the same
+default = {solve-group = "common"}
+bazel = { features = ["bazel"], solve-group = "common"}

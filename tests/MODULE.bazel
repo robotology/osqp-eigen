@@ -1,0 +1,9 @@
+bazel_dep(name = "catch2", version = "3.8.0")
+bazel_dep(name = "osqp-eigen")
+local_path_override(
+    module_name = "osqp-eigen",
+    path = "..",
+)
+
+bazel_dep(name = "platforms", version = "0.0.11")
+bazel_dep(name = "rules_cc", version = "0.1.1")
