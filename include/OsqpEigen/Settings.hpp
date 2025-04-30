@@ -184,6 +184,12 @@ public:
     void setCheckTermination(const int checkTermination);
 
     /**
+     * Set check duality gap termination criteria.
+     * @param checkDualGap If true, duality gap checking is enabled.
+     */
+    void setCheckDualGap(const bool checkDualGap);
+
+    /**
      * Set warm start.
      * @param warmStart if true the warm start is set.
      */
