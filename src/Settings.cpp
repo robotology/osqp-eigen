@@ -197,10 +197,12 @@ void OsqpEigen::Settings::setCheckTermination(const int checkTermination)
     m_settings->check_termination = (c_int)checkTermination;
 }
 
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
 void OsqpEigen::Settings::setCheckDualGap(const bool checkDualGap)
 {
     m_settings->check_dualgap = (c_int)checkDualGap;
 }
+#endif
 
 void OsqpEigen::Settings::setWarmStart(const bool warmStart)
 {

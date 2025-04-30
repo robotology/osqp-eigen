@@ -183,11 +183,13 @@ public:
      */
     void setCheckTermination(const int checkTermination);
 
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
     /**
      * Set check duality gap termination criteria.
      * @param checkDualGap If true, duality gap checking is enabled.
      */
     void setCheckDualGap(const bool checkDualGap);
+#endif
 
     /**
      * Set warm start.
