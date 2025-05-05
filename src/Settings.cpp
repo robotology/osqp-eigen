@@ -197,6 +197,16 @@ void OsqpEigen::Settings::setCheckTermination(const int checkTermination)
     m_settings->check_termination = (c_int)checkTermination;
 }
 
+void OsqpEigen::Settings::setCheckDualGap(const bool checkDualGap)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->check_dualgap = (c_int)checkDualGap;
+#else
+    debugStream() << "[OsqpEigen::Settings::setCheckDualGap] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(checkDualGap);
+#endif
+}
+
 void OsqpEigen::Settings::setWarmStart(const bool warmStart)
 {
 #ifdef OSQP_EIGEN_OSQP_IS_V1
