@@ -9,6 +9,6 @@ module(
 bazel_dep(name = "rules_cc", version = "0.1.1")
 
 # These depenencies can be overriden using conda ones
-bazel_dep(name = "eigen", version = "3.4.0.bcr.2")
+bazel_dep(name = "eigen", version = "3.4.0.bcr.3")
 bazel_dep(name = "osqp", version = "1.0.0")
 bazel_dep(name = "catch2", version = "3.8.0")
