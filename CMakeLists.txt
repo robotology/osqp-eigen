@@ -71,6 +71,8 @@ include(CTest)
 
 option(OSQP_EIGEN_DEBUG_OUTPUT "Print debug error messages to cerr" ON)
 
+option(OSQP_EIGEN_LINK_OSQP_SHARED "Link OSQP as a shared library as opposed to a static library" ${BUILD_SHARED_LIBS})
+
 # Check OsqpEigen dependencies, find necessary libraries.
 include(OsqpEigenDependencies)
 
@@ -112,7 +114,8 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
 
 ADD_WARNINGS_CONFIGURATION_TO_TARGETS(PRIVATE TARGETS ${LIBRARY_TARGET_NAME})
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
+target_link_libraries(${LIBRARY_TARGET_NAME}
+  PUBLIC $<IF:$<BOOL:${OSQP_EIGEN_LINK_OSQP_SHARED}>,osqp::osqp,osqp::osqpstatic> Eigen3::Eigen)
 if(OSQP_IS_V1)
   target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1)
 endif()
