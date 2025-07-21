@@ -52,6 +52,7 @@ jobs:
     - name: Install libc6-dbg
       if: contains(matrix.os, 'ubuntu')
       run: |
+        sudo apt-get update
         sudo apt-get install libc6-dbg
 
     - name: Set up pixi
