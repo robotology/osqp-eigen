@@ -17,7 +17,7 @@ find_package(osqp REQUIRED)
 # OSQP_EIGEN_OSQP_TARGET_TO_LINK variable to explicitly select the osqp cmake imported target to link
 if(NOT DEFINED OSQP_EIGEN_OSQP_TARGET_TO_LINK)
   # In case BUILD_SHARED_LIBS is OFF and osqp::osqpstatic is defined, let's link osqp::osqpstatic
-  if((NOT BUILD_SHARED_LIBS AND TARGET osqp::osqpstatic)
+  if(NOT BUILD_SHARED_LIBS AND TARGET osqp::osqpstatic)
     set(OSQP_EIGEN_OSQP_TARGET_TO_LINK osqp::osqpstatic)
   # Otherwise (i.e. BUILD_SHARED_LIBS is ON) if osqp::osqpstatic is defined and osqp::osqp is not, we link
   # osqp::osqpstatic
