@@ -112,7 +112,7 @@ target_include_directories(${LIBRARY_TARGET_NAME} PUBLIC "$<BUILD_INTERFACE:${CM
 
 ADD_WARNINGS_CONFIGURATION_TO_TARGETS(PRIVATE TARGETS ${LIBRARY_TARGET_NAME})
 
-target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC osqp::osqp Eigen3::Eigen)
+target_link_libraries(${LIBRARY_TARGET_NAME} PUBLIC ${OSQP_EIGEN_OSQP_TARGET_TO_LINK} Eigen3::Eigen)
 if(OSQP_IS_V1)
   target_compile_definitions(${LIBRARY_TARGET_NAME} PUBLIC OSQP_EIGEN_OSQP_IS_V1)
 endif()
