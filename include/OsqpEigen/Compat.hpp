@@ -49,6 +49,7 @@ inline OSQPCscMatrix* spalloc(OSQPInt m,
                               OSQPInt n,
                               OSQPInt nzmax)
 {
+    // NOLINTBEGIN(clang-analyzer-unix.Malloc): no leak, ownership is with the callee via M
     OSQPCscMatrix* M = static_cast<OSQPCscMatrix*>(calloc(1, sizeof(OSQPCscMatrix))); /* allocate the OSQPCscMatrix struct */
     if (!M)
     {
@@ -95,6 +96,7 @@ inline OSQPCscMatrix* spalloc(OSQPInt m,
     OSQPEigen_OSQPCscMatrix_set_data(M, m, n, M_nnz, M_x, M_i, M_p);
 
     return M;
+    // NOLINTEND(clang-analyzer-unix.Malloc)
 }
 
 inline void spfree(OSQPCscMatrix* M)
