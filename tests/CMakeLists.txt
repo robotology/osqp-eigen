@@ -1,5 +1,5 @@
 # Authors: Giulio Romualdi
-# CopyPolicy: Released under the terms of the LGPLv2.1 or later
+# CopyPolicy: Released under the terms of the BSD 3-clause license
 
 add_osqpeigen_test(
   NAME SparseMatrix
