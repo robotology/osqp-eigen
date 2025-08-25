@@ -56,10 +56,13 @@ jobs:
         sudo apt-get install libc6-dbg
 
     - name: Set up pixi
-      uses: prefix-dev/setup-pixi@v0.8.1
+      uses: prefix-dev/setup-pixi@v0.9.0
 
-    - name: Print pixi info
-      run: pixi info
+    - name: Print pixi-related info
+      run: |
+        pixi info
+        pixi list -e default
+        pixi list -e bazel
 
     - name: Build and test the project
       run: pixi run ${{ matrix.pixi_task }}
