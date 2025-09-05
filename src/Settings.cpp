@@ -289,12 +289,7 @@ void OsqpEigen::Settings::setDevice(const int device)
 void OsqpEigen::Settings::setProfilerLevel(const int level)
 {
 #ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
-#ifdef PROFILING
     m_settings->profiler_level = static_cast<decltype(m_settings->profiler_level)>(level);
-#else
-    debugStream() << "[OsqpEigen::Settings::setProfilerLevel] OSPQ has been set without PROFILING, hence this setting is disabled." << std::endl;
-    unused(level);
-#endif
 #else
     debugStream() << "[OsqpEigen::Settings::setProfilerLevel] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
     unused(level);
