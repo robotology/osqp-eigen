@@ -226,6 +226,86 @@ void OsqpEigen::Settings::setTimeLimit(const double timeLimit)
 #endif
 }
 
+void OsqpEigen::Settings::setAllocateSolution(const bool allocateSolution)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->allocate_solution = static_cast<decltype(m_settings->allocate_solution)>(allocateSolution);
+#else
+    debugStream() << "[OsqpEigen::Settings::setAllocateSolution] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(allocateSolution);
+#endif
+}
+
+void OsqpEigen::Settings::setCgMaxIter(const int cgMaxIter)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->cg_max_iter = static_cast<decltype(m_settings->cg_max_iter)>(cgMaxIter);
+#else
+    debugStream() << "[OsqpEigen::Settings::setCgMaxIter] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(cgMaxIter);
+#endif
+}
+
+void OsqpEigen::Settings::setCgPrecond(const int cgPrecond)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->cg_precond = static_cast<decltype(m_settings->cg_precond)>(cgPrecond);
+#else
+    debugStream() << "[OsqpEigen::Settings::setCgPrecond] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(cgPrecond);
+#endif
+}
+
+void OsqpEigen::Settings::setCgTolFraction(const double cgTolFraction)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->cg_tol_fraction = static_cast<decltype(m_settings->cg_tol_fraction)>(cgTolFraction);
+#else
+    debugStream() << "[OsqpEigen::Settings::setCgTolFraction] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(cgTolFraction);
+#endif
+}
+
+void OsqpEigen::Settings::setCgTolReduction(const double cgTolReduction)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->cg_tol_reduction = static_cast<decltype(m_settings->cg_tol_reduction)>(cgTolReduction);
+#else
+    debugStream() << "[OsqpEigen::Settings::setCgTolReduction] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(cgTolReduction);
+#endif
+}
+
+void OsqpEigen::Settings::setDevice(const int device)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->device = static_cast<decltype(m_settings->device)>(device);
+#else
+    debugStream() << "[OsqpEigen::Settings::setDevice] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(device);
+#endif
+}
+
+void OsqpEigen::Settings::setProfilerLevel(const int level)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->profiler_level = static_cast<decltype(m_settings->profiler_level)>(level);
+#else
+    debugStream() << "[OsqpEigen::Settings::setProfilerLevel] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(level);
+#endif
+}
+
+void OsqpEigen::Settings::setRhoIsVec(const bool rhoIsVec)
+{
+#ifdef OSQP_EIGEN_OSQP_IS_V1_FINAL
+    m_settings->rho_is_vec = static_cast<decltype(m_settings->rho_is_vec)>(rhoIsVec);
+#else
+    debugStream() << "[OsqpEigen::Settings::setRhoIsVec] OSQP version is lower than v1.0.0, this setting is not available." << std::endl;
+    unused(rhoIsVec);
+#endif
+}
+
 OSQPSettings *const &OsqpEigen::Settings::getSettings() const
 {
     return m_settings;
