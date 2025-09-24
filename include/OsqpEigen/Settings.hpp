@@ -202,6 +202,54 @@ public:
     void setTimeLimit(const double timeLimit);
 
     /**
+     * Enable allocation of OSQP solution arrays during setup.
+     * @param allocateSolution if true allocate solution, otherwise allocate on first solve.
+     */
+    void setAllocateSolution(const bool allocateSolution);
+
+    /**
+     * Set maximum iterations for the CG solver (indirect linsys solver).
+     * @param cgMaxIter max number of CG iterations.
+     */
+    void setCgMaxIter(const int cgMaxIter);
+
+    /**
+     * Set the CG preconditioner type.
+     * @param cgPrecond preconditioner type.
+     */
+    void setCgPrecond(const int cgPrecond);
+
+    /**
+     * Set the CG tolerance fraction.
+     * @param cgTolFraction tolerance fraction.
+     */
+    void setCgTolFraction(const double cgTolFraction);
+
+    /**
+     * Set the CG tolerance reduction factor.
+     * @param cgTolReduction tolerance reduction factor.
+     */
+    void setCgTolReduction(const double cgTolReduction);
+
+    /**
+     * Select computation device.
+     * @param device device id/type.
+     */
+    void setDevice(const int device);
+
+    /**
+     * Set profiler verbosity level.
+     * @param level profiler level.
+     */
+    void setProfilerLevel(const int level);
+
+    /**
+     * Configure whether rho is a vector.
+     * @param rhoIsVec if true use vector rho.
+     */
+    void setRhoIsVec(const bool rhoIsVec);
+
+    /**
      * Get a pointer to Settings struct.
      * @return a const pointer to OSQPSettings struct.
      */
