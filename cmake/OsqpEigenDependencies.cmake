@@ -11,7 +11,7 @@ include(OsqpEigenFindOptionalDependencies)
 ## but we support manually calling FetchContent for Eigen3 or osqp before FetchContent
 ## is called for OsqpEigen, see https://github.com/robotology/osqp-eigen/issues/210
 if(NOT TARGET Eigen3::Eigen)
-  find_package(Eigen3 3.2.92 REQUIRED)
+  find_package(Eigen3 REQUIRED)
 endif()
 if(NOT TARGET osqp::osqp AND NOT TARGET osqp::osqpstatic)
   find_package(osqp REQUIRED)
