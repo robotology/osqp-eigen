@@ -63,6 +63,11 @@ If you prefer to use the [`bazel`](https://bazel.build/) build system, **osqp-ei
 ##  🐛 Bug reports and support
 All types of [issues](https://github.com/robotology/osqp-eigen/issues/new) are welcome.
 
+
+## 🧩 Compatibility Policy
+
+This project tries to avoid removing functionalities in minor releases, while functionalities are only removed in major version. However, this is only done in a best-effort way, and it may be possible that backward incompatibly changes occur in minor releases (see [EffVer](https://jacobtomlinson.dev/effver/) for more details). Furthermore, the policy is that patch releases does not modify at all the public headers (i.e. the installed `.h` and `.hpp`) files of the project. This is done to ensure that no ABI change will occur in patch releases, without having to manually track ABI changes.
+
 ## 📝 License
 Materials in this repository are distributed under the following license:
 
