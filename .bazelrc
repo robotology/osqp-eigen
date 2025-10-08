@@ -1,2 +1,2 @@
 # Until https://github.com/bazelbuild/bazel/issues/26384 is fixed
-common --repo_contents_cache=''
+common --repository_cache=
