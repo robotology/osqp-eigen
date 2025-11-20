@@ -30,7 +30,7 @@ enum class Status : int
     PrimalInfeasible = OSQP_PRIMAL_INFEASIBLE,
     DualInfeasible = OSQP_DUAL_INFEASIBLE,
     Sigint = OSQP_SIGINT,
-#if defined(PROFILING) || defined(OSQP_EIGEN_OSQP_IS_V1)
+#if defined(PROFILING)|| defined(OSQP_ENABLE_PROFILING) || defined(OSQP_EIGEN_OSQP_IS_V1)
     TimeLimitReached = OSQP_TIME_LIMIT_REACHED,
 #endif // ifdef PROFILING
     NonCvx = OSQP_NON_CVX,
